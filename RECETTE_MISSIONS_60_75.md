@@ -23,3 +23,18 @@ Date : 25 octobre 2026.
 
 ## Verdict
 **16/16 intégrées et contrôlées numériquement à trois valeurs, 0/16 réceptionnées globalement S/G/P/F/A.** Les tests navigateur et l'inspection visuelle sont des critères bloquants de réception finale.
+
+
+## Cycle correctif complémentaire du 25 octobre 2026 — audit V2.2
+
+**Défauts corrigés :**
+
+- **Blocage du graphique de la mission `gear-ratio-02` :** l'échantillonnage de la courbe utilisait des nombres de dents fractionnaires alors que le modèle exige des entiers. Domaine discrétisé en dents entières, curseur forcé au pas 1, comme pour `gear-mesh-01`. Ce correctif a été contrôlé par analyse de source et calculs sur des valeurs entières, mais pas par un essai navigateur.
+- **Seize légendes SVG incomplètes :** remplacées par symboles physiques explicites, valeurs et unités d'entrée/sortie issues du noyau scientifique. Affichage numérique passé à sept chiffres significatifs au maximum pour éviter, par exemple, de transformer 0,075 K/W en 0,08 K/W sans indication.
+- **Vecteur du levier oblique :** orientation rectifiée pour que l'angle indiqué corresponde effectivement à la direction de la force dans le repère du dessin.
+- **Flexion :** remplacement d'une flèche de force trompeuse par une représentation schématique de couples fléchissants ; ne constitue pas un calcul de déformée.
+- **Diagnostic pédagogique :** messages spécifiques lorsqu'un signe inversé, un facteur décimal ou un arrondi semble expliquer l'écart, avec formulation prudente et sans donner la réponse.
+
+**Tests réellement exécutés :** 16 configurations HTML lues depuis GitHub ; **48 calculs et rendus SVG** aux trois valeurs `min`, `initial`, `max` ; contrôle des unités d'entrée et de sortie et des résultats initiaux : **48/48 sans échec**. **20 contrôles de propriétés physiques, valeurs de référence et domaines** exécutés en V8 : **20/20 réussis**. Quatre cas de diagnostic pédagogique vérifiés. Le test Node persistant `tests/quality-gate-40-75.test.cjs` a été ajouté, mais **aucune exécution `node --test` vérifiable** n'est disponible pour ce cycle.
+
+**Réserves :** les corrections graphiques ont passé les contrôles de structure SVG et de cohérence numérique, mais aucune inspection visuelle en navigateur réel ni essai sur appareil ou lecteur d'écran n'a été effectué. Les critères S/G/P/F/A non démontrés demeurent ouverts. **16/16 missions corrigées et contrôlées numériquement ; 0/16 reçues globalement.**
