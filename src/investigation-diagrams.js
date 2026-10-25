@@ -9,7 +9,7 @@ const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url
 const titles=Object.freeze({
 "moment-arm-02":"Levier, bras de levier et force inclinée",
 "kinetic-friction-01":"Patin en glissement et effort de frottement",
-"spring-stiffness-01":"Ressort comprimé et force axiale",
+"spring-stiffness-01":"Ressort sollicité axialement",
 "beam-stress-02":"Poutre en flexion et moment appliqué",
 "gear-ratio-02":"Engrenages extérieurs, sens opposés",
 "screw-lead-01":"Vis à deux filets et avance par tour",
@@ -75,6 +75,86 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+ "circular-02": [
+  "v",
+  "aₙ"
+ ],
+ "angular-accel-01": [
+  "Δt",
+  "α"
+ ],
+ "brake-torque-01": [
+  "|α|",
+  "|C|"
+ ],
+ "incline-force-01": [
+  "θ",
+  "F∥"
+ ],
+ "resultant-01": [
+  "Fᵧ",
+  "R"
+ ],
+ "torsion-01": [
+  "T",
+  "τₘₐₓ"
+ ],
+ "axial-strain-01": [
+  "ΔL",
+  "ε"
+ ],
+ "gear-mesh-01": [
+  "z₂",
+  "a"
+ ],
+ "belt-speed-01": [
+  "n",
+  "v"
+ ],
+ "hydro-power-01": [
+  "p",
+  "Pₕ"
+ ],
+ "hydro-volume-01": [
+  "L",
+  "V"
+ ],
+ "pneumatic-force-01": [
+  "p",
+  "F"
+ ],
+ "electric-power-02": [
+  "I",
+  "P"
+ ],
+ "joule-heat-01": [
+  "I",
+  "Pⱼ"
+ ],
+ "rc-time-01": [
+  "R",
+  "τ"
+ ],
+ "sampling-01": [
+  "Tₑ",
+  "fₑ"
+ ],
+ "efficiency-chain-01": [
+  "η₂",
+  "ηₜₒₜ"
+ ],
+ "rolling-load-01": [
+  "fᵣ",
+  "Fᵣ"
+ ],
+ "heat-transfer-01": [
+  "ΔT",
+  "Φ"
+ ],
+ "measurement-relative-01": [
+  "x",
+  "δᵣ"
+ ],
  "moment-arm-02": [
   "θ",
   "|M|"
@@ -140,11 +220,12 @@ const scientificLabels=Object.freeze({
   "uᵣ"
  ]
 });
-function valueLabel(id,x,result){
+function valueLabel(id,x,result,y=215){
  const model=root.SIInvestigations, symbols=scientificLabels[id];
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
- return text(32,215,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
+ return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
+const legacyFooterIds=new Set(["circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
@@ -297,7 +378,9 @@ case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,1
   break;
  }
  }
- return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 235" role="img" aria-labelledby="schema-titre schema-description" class="machine"><title id="schema-titre">'+titles[id]+'</title><desc id="schema-description">Schéma technique bidimensionnel ; représentation indicative et non à l’échelle. Les grandeurs numériques sont également indiquées sous le schéma.</desc><defs><marker id="pointe" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#ffca7d" stroke-width="1.5"/></marker></defs><rect x="1" y="1" width="598" height="232" rx="12" fill="#092236" stroke="#507895"/>'+s+'</svg>';
+ if(legacyFooterIds.has(id))s+=line(20,232,580,232,'#507895',1)+valueLabel(id,x,result,255);
+ const viewHeight=legacyFooterIds.has(id)?272:235;
+ return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 '+viewHeight+'" role="img" aria-labelledby="schema-titre schema-description" class="machine"><title id="schema-titre">'+titles[id]+'</title><desc id="schema-description">Schéma technique bidimensionnel ; représentation indicative et non à l’échelle. Les grandeurs numériques sont également indiquées sous le schéma.</desc><defs><marker id="pointe" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#ffca7d" stroke-width="1.5"/></marker></defs><rect x="1" y="1" width="598" height="'+(viewHeight-3)+'" rx="12" fill="#092236" stroke="#507895"/>'+s+'</svg>';
 }
 const api=Object.freeze({render,titles});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
