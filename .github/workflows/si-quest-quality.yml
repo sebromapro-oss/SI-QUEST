@@ -1,0 +1,32 @@
+name: Contrôles scientifiques SI QUEST
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  scientific-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Vérifier la syntaxe des scripts
+        run: |
+          for f in src/*.js; do node --check "$f"; done
+      - name: Exécuter les tests indépendants
+        run: node --test tests/*.test.cjs
+      - name: Vérifier les pages du catalogue
+        run: |
+          node - <<'JS'
+          const fs=require('fs'), assert=require('node:assert/strict');
+          const catalog=require('./src/catalog.js');
+          assert.equal(new Set(catalog.levels.map(x=>x.id)).size,catalog.levels.length);
+          for(const level of catalog.levels){
+            assert.ok(fs.existsSync(level.url), 'Page absente : '+level.url);
+            const html=fs.readFileSync(level.url,'utf8');
+            assert.match(html, /lang="fr"/, level.id);
+          }
+          console.log(catalog.levels.length+' pages présentes');
+          JS
