@@ -32,7 +32,8 @@
     Object.freeze({id:"strain-01",world:"SI-04",title:"Allongement élastique",url:'missions/strain-01.html'}),
     Object.freeze({id:"density-01",world:"SI-14",title:"Masse volumique",url:'missions/density-01.html'}),
     Object.freeze({id:"accuracy-01",world:"SI-13",title:"Erreur de mesure",url:'missions/accuracy-01.html'}),
-    Object.freeze({id:"frequency-01",world:"SI-09",title:"Fréquence de rotation",url:'missions/frequency-01.html'})
+    Object.freeze({id:"frequency-01",world:"SI-09",title:"Fréquence de rotation",url:'missions/frequency-01.html'}),
+    Object.freeze({id:"kinetic-01",world:"SI-02",title:"Énergie cinétique d’un engin",url:'missions/kinetic-01.html'})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
