@@ -17,7 +17,22 @@
     Object.freeze({id:'rolling-01',world:'SI-11',title:'Étude du roulement — Résistance au roulement',url:'missions/rolling-01.html'}),
     Object.freeze({id:'spring-01',world:'SI-04',title:'Contrôle du ressort — Compression',url:'missions/spring-01.html'}),
     Object.freeze({id:'lever-01',world:'SI-03',title:'Équilibre du levier — Moments',url:'missions/lever-01.html'}),
-    Object.freeze({id:'cooling-01',world:'SI-12',title:'Refroidissement thermique — Loi exponentielle',url:'missions/cooling-01.html'})
+    Object.freeze({id:'cooling-01',world:'SI-12',title:'Refroidissement thermique — Loi exponentielle',url:'missions/cooling-01.html'}),
+    Object.freeze({id:"motion-01",world:"SI-01",title:"Translation uniforme",url:'missions/motion-01.html'}),
+    Object.freeze({id:"accel-01",world:"SI-01",title:"Accélération constante",url:'missions/accel-01.html'}),
+    Object.freeze({id:"rotation-01",world:"SI-01",title:"Vitesse angulaire",url:'missions/rotation-01.html'}),
+    Object.freeze({id:"torque-01",world:"SI-03",title:"Moment d'une force",url:'missions/torque-01.html'}),
+    Object.freeze({id:"pressure-01",world:"SI-06",title:"Pression hydraulique",url:'missions/pressure-01.html'}),
+    Object.freeze({id:"flow-01",world:"SI-06",title:"Débit volumique",url:'missions/flow-01.html'}),
+    Object.freeze({id:"power-01",world:"SI-10",title:"Puissance mécanique",url:'missions/power-01.html'}),
+    Object.freeze({id:"ohm-01",world:"SI-08",title:"Loi d'Ohm",url:'missions/ohm-01.html'}),
+    Object.freeze({id:"energy-01",world:"SI-10",title:"Énergie électrique",url:'missions/energy-01.html'}),
+    Object.freeze({id:"heat-01",world:"SI-12",title:"Énergie thermique",url:'missions/heat-01.html'}),
+    Object.freeze({id:"stress-01",world:"SI-04",title:"Contrainte normale",url:'missions/stress-01.html'}),
+    Object.freeze({id:"strain-01",world:"SI-04",title:"Allongement élastique",url:'missions/strain-01.html'}),
+    Object.freeze({id:"density-01",world:"SI-14",title:"Masse volumique",url:'missions/density-01.html'}),
+    Object.freeze({id:"accuracy-01",world:"SI-13",title:"Erreur de mesure",url:'missions/accuracy-01.html'}),
+    Object.freeze({id:"frequency-01",world:"SI-09",title:"Fréquence de rotation",url:'missions/frequency-01.html'})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
