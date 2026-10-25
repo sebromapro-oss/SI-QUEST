@@ -4,3 +4,5 @@ test('30 degree independent reference',()=>{const x=solve({massKg:1000,slopeDeg:
 test('insufficient friction rolls backwards',()=>{const x=solve({massKg:1000,slopeDeg:30,muStatic:0.1,tractionN:0});assert.equal(x.holds,false)});
 test('mass proportionality',()=>{const a=solve({massKg:100,slopeDeg:12,muStatic:0.3,tractionN:0});const b=solve({massKg:200,slopeDeg:12,muStatic:0.3,tractionN:0});assert.ok(Math.abs(b.downslopeN-2*a.downslopeN)<1e-9)});
 test('invalid inputs rejected',()=>{for(const slopeDeg of [-1,90,NaN])assert.throws(()=>solve({massKg:100,slopeDeg,muStatic:0.3,tractionN:0}));assert.throws(()=>solve({massKg:0,slopeDeg:5,muStatic:0.3,tractionN:0}))});
+
+test('excess uphill traction cannot be balanced by static friction',()=>{const x=solve({massKg:1000,slopeDeg:30,muStatic:0.1,tractionN:9000});assert.equal(x.holds,false);assert.equal(x.climbs,true)});
