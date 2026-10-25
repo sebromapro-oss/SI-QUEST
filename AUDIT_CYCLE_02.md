@@ -24,7 +24,7 @@ Piston D = 50 mm ; tige d = 28 mm ; course = 250 mm ; charge = 12 000 N ; η mé
 
 Première intégration du cycle 02 : exécution GitHub Actions `40202364543`, **28 tests réussis, 0 échec**, analyse syntaxique réussie.
 
-Les correctifs complémentaires de cohérence de décision (essai sûr puis dangereux, interruption) ajoutent deux tests ; leur réussite doit être constatée dans l'exécution CI du commit final. **Ne pas déduire leur réussite du précédent rapport.**
+Après correctifs de cohérence de décision (essai sûr puis dangereux, interruption), exécution GitHub Actions `40202500614` sur le commit `f7fdc4f45daadb1d8eaaa8fd6fbec3c9e4589d6f` : **30 tests réussis, 0 échec**, analyse syntaxique réussie. Preuve consultable dans l'historique Actions privé. Les éventuelles modifications ultérieures nécessitent une nouvelle exécution.
 
 ## Limites de réception
 

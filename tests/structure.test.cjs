@@ -28,3 +28,10 @@ test('accueil ne promet pas 996 niveaux disponibles',()=>{
   assert.match(page,/niveaux visés/);
   assert.match(page,/missions disponibles/);
 });
+
+test('repli textuel du schéma et en-tête adaptable au mobile',()=>{
+  const page=fs.readFileSync(path.join(root,'missions/hydro-01.html'),'utf8');
+  const style=fs.readFileSync(path.join(root,'src/style.css'),'utf8');
+  assert.match(page,/Lecture du schéma : chambre fond/);
+  assert.match(style,/header\{[^}]*flex-wrap:wrap/);
+});
