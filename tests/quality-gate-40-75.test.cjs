@@ -77,3 +77,12 @@ test('représentation du levier : force dans le quadrant attendu à 30 degrés',
  assert.ok(Number(m[1])>430,'composante horizontale incorrecte');
  assert.ok(Number(m[2])<168,'composante verticale incorrecte');
 });
+
+test('diagnostic pédagogique : signe, facteur décimal, arrondi, sans révéler le résultat',()=>{
+ const cases=[[-63,63,.5,'N·m','signe'],[630,63,.5,'N·m','facteur'],[63.7,63,.1,'N·m','arrondis'],[10,63,.5,'N·m','formule']];
+ for(const [value,expected,tol,unit,keyword] of cases){
+  const message=engine.diagnoseAnswer(value,expected,tol,unit);
+  assert.ok(message.toLowerCase().includes(keyword));
+  assert.ok(!message.includes('63 N·m'),'ne pas révéler la valeur de référence');
+ }
+});
