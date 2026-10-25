@@ -15,10 +15,14 @@
 
 ## Traçabilité de recette
 
-- **S (scientifique)** : contre-calculs indépendants, 3 points par mission, conversion d'unités, seuils et valeurs négatives couverts par `tests/batch82-83.test.cjs`. Exécution Node et workflows : à confirmer après commit.
+- **S (scientifique)** : contre-calculs indépendants, 3 points par mission, conversion d'unités, seuils et valeurs négatives couverts par `tests/batch82-83.test.cjs`. Exécution confirmée sur le commit `58d0989a2e180475926b201712af8d8b04ac4b2d` : les trois workflows GitHub Actions (Contrôles scientifiques SI QUEST, Recette automatisée SI QUEST, SI QUEST scientific quality) ont terminé avec la conclusion `success`. Ce succès ne démontre pas les essais visuels et matériels.
 - **G (graphique)** : SVG 2D, unités, schémas dépendant du paramètre et graphique synchronisé via moteur partagé ; rendu sur navigateur réel non vérifié, scènes 3D non livrées.
 - **P (pédagogique)** : situations professionnelles, objectifs, prérequis, décisions et corrigés rédigés ; réception avec élèves non réalisée.
 - **F (fonctionnel)** : 83 entrées attendues, intégration au moteur de missions et tests de structure ; tests réels navigateur non effectués.
 - **A (accessibilité)** : structure HTML avec titres, labels, aria-live et descriptions SVG ; tests NVDA, TalkBack, VoiceOver, clavier et zoom réels non effectués.
 
 Aucune publication GitHub Pages, aucun changement d'accueil, carte, visibilité ou branche d'archive. **Ne pas déclarer la recette finale acquise sans tests réels.**
+
+## Livraison et preuves d'exécution
+
+Commit initial du lot 82–83 : `58d0989a2e180475926b201712af8d8b04ac4b2d` ; les trois workflows GitHub Actions associés ont conclu `success`. La suite Node s'est exécutée dans la CI, mais le nombre détaillé de tests n'est pas avancé ici faute de décompte extrait des journaux. La validation scientifique demeure limitée aux invariants et cas explicitement testés.
