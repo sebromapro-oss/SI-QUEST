@@ -1,5 +1,5 @@
 # SI QUEST — Cahier des charges maître
-**Version 2.1 — 25 octobre 2026 — Référence contractuelle permanente jusqu'à la mission 996**
+**Version 2.2 — 25 octobre 2026 — Référence contractuelle permanente jusqu'à la mission 996**
 
 > Statut : exigences cibles. Une exigence écrite ne vaut pas preuve d'implémentation. Ce document complète `EXIGENCES.md`, `PRODUCTION.md` et `RECETTE_PEDAGOGIQUE_39.md`. En cas de contradiction, les règles scientifiques et de sécurité priment.
 
