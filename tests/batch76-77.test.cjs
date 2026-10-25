@@ -28,7 +28,7 @@ test('faisceau : bilan des tensions et résistance aller-retour',()=>{
  const dU=engine.calculate('dc-voltage-drop-01',15);
  assert.ok(Math.abs(12-dU-10.32)<1e-12);
 });
-test('catalogue : 77 missions distinctes',()=>{
- assert.equal(catalog.levels.length,77);
- assert.equal(new Set(catalog.levels.map(x=>x.id)).size,77);
+test('catalogue : missions 76–77 toujours distinctes',()=>{
+ assert.ok(catalog.levels.length>=77);
+ assert.equal(new Set(catalog.levels.map(x=>x.id)).size,catalog.levels.length);
 });
