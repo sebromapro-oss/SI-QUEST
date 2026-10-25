@@ -104,3 +104,44 @@ Chaque modification indique : exigence liée, fichiers, raison, risque de régre
 Chaque nouveau lot doit : (1) partir du HEAD GitHub réel ; (2) vérifier les régressions et les défauts ouverts ; (3) créer des missions scientifiquement indépendantes ; (4) satisfaire les mêmes exigences de tolérance, trois essais, trois aides, corrigé conditionnel, animation, étoiles, 2D/3D selon pertinence, accessibilité ; (5) exécuter les contrôles disponibles ; (6) consigner le nombre **créé**, **testé** et **validé** séparément ; (7) publier uniquement sur le dépôt privé et conserver l'historique.
 
 Aucune cadence, même horaire, n'autorise à déclarer une mission validée sans les preuves exigées. Les améliorations du cahier des charges s'appliquent rétroactivement aux missions déjà créées et sont versionnées. **L'achèvement du projet exige 996 missions indépendantes reçues**, pas 996 liens au catalogue.
+
+
+## 14. Amendement V2.2 — intégrité scientifique, graphique et pédagogique (obligatoire)
+
+**Date d'adoption : 25 octobre 2026. Applicabilité rétroactive : missions 1 à 996, moteurs communs, interfaces et futures évolutions.** Le présent chapitre complète et renforce les exigences précédentes ; en cas d'ambiguïté, appliquer le contrôle le plus strict. Objectif de qualité : **zéro erreur scientifique, physique, mathématique, de calcul, de graphique, de notation ou d'unité écrite**. Cet objectif ne constitue jamais une affirmation de conformité sans preuves.
+
+### 14.1 Source scientifique unique et traçable par mission
+
+Chaque mission doit définir une **fiche de référence scientifique versionnée** constituant la source de vérité : grandeurs et symboles normalisés, données avec unités, repère, conventions de signe, hypothèses et limites du modèle, équations, domaine de définition, conversions, résultats de référence, tolérances justifiées et précision d'affichage. Les énoncés, aides, corrigés, courbes, graphiques, animations et états de simulation doivent dériver de cette fiche et ne pas réimplémenter séparément des constantes ou équations divergentes. Les paramètres pédagogiques doivent être explicitement distingués des valeurs constructeur et limites réglementaires.
+
+### 14.2 Contre-calcul indépendant obligatoire
+
+Pour chaque mission : calcul contradictoire à partir d'une méthode ou implémentation **indépendante du moteur du jeu** ; homogénéité dimensionnelle de chaque équation ; vérification des unités SI, unités dérivées et conversions ; vérification des valeurs intermédiaires, signes, arrondis et chiffres significatifs ; essais aux bornes, au voisinage des singularités et sur valeurs représentatives ; tests métamorphiques (monotonie, linéarité, invariance, conservation ou symétrie lorsque pertinents). Un test qui appelle la même formule que le jeu pour produire sa référence **ne constitue pas un contre-calcul indépendant**.
+
+### 14.3 Exactitude des schémas, vecteurs et représentations
+
+Contrôler individuellement les points d'application, directions, sens, normes, repères, orientations, conventions algébriques, échelles, dimensions, axes, graduations, unités, légendes et symboles. Les dessins de principe doivent être identifiés comme tels ; **aucun schéma trompeur ni approximation géométrique ne peut être présenté comme une représentation physiquement exacte**. Les animations 3D doivent correspondre à une géométrie et une cinématique démontrables ; une simple projection SVG de coordonnées 3D ne doit pas être qualifiée de CAO ou de simulation 3D réaliste. Toute incohérence physique ou géométrique est bloquante.
+
+### 14.4 Synchronisation du modèle et de l'interface
+
+À chaque changement de paramètre et à chaque essai, garantir que l'énoncé, les valeurs, la réponse attendue, le schéma, les vecteurs, les courbes, les chronogrammes, les animations et les unités affichées décrivent **le même état physique**. Les valeurs erronées proposées par l'élève doivent produire une rétroaction correcte sans altérer la référence scientifique ni créer une animation fausse. Le modèle physique commande les mouvements et les graphiques, jamais l'inverse.
+
+### 14.5 Diagnostic pédagogique des erreurs et aides progressives
+
+Distinguer, lorsque détectable de manière fiable, erreur de formule, de signe, de conversion, d'unité, de calcul, d'arrondi, de saisie ou de raisonnement. Ne pas attribuer arbitrairement une cause à une réponse incorrecte. Conserver **trois essais et trois aides progressives**, sans révélation prématurée du résultat ; fournir une correction explicite, numériquement juste et dimensionnellement complète selon la politique de déblocage prévue. Les récompenses et étoiles reflètent les tentatives et aides réellement utilisées. Les exemples, les données et les corrigés restent cohérents même lorsque le paramètre varie.
+
+### 14.6 Recette visuelle, fonctionnelle et inclusive par mission
+
+Vérifier les pages et états de chaque mission sur plusieurs tailles d'écran et, quand les moyens sont disponibles, dans de vrais navigateurs sur Android, iPhone, Windows et Mac. Vérifier clavier, souris, tactile, zoom 200 %, contraste, lisibilité DYS, ordre de focus, messages d'erreur, aides, corrigé, étoiles, persistance et navigation. Contrôler l'affichage réel de **tous les textes, symboles, indices, exposants, unités, axes, légendes et valeurs** : aucun chevauchement, disparition, troncature ou discordance ne peut être accepté. Tester NVDA, TalkBack et VoiceOver lorsque l'environnement matériel le permet ; ne jamais présenter un contrôle de code comme un test de lecteur d'écran réel.
+
+### 14.7 Audit, correction autonome obligatoire et non-régression
+
+**Cycle impératif : AUDIT → IDENTIFICATION DES ÉCARTS → CORRECTION EFFECTIVE DANS LE CODE → TESTS ET CONTRE-TESTS → CONTRE-AUDIT → COMMIT → PREUVES.** Toute anomalie techniquement corrigeable est corrigée **sans nouvelle autorisation de l'utilisateur** dans le périmètre du dépôt privé ; recommencer les contrôles jusqu'à résolution. Après **chaque** correction, même uniquement graphique ou textuelle, exécuter les tests de non-régression concernés et vérifier les dépendances partagées. Si une correction ou une preuve est impossible, documenter précisément la limitation, conserver le statut **NON VALIDÉ** et traiter l'écart prioritairement au cycle suivant. Aucun rapport d'audit ne se substitue à une correction réalisable.
+
+### 14.8 Réception individuelle et preuves opposables
+
+Pour chaque mission, conserver cinq statuts séparés : **S** (scientifique), **G** (graphique), **P** (pédagogique), **F** (fonctionnel), **A** (accessibilité). Chaque statut comporte : exigence, méthode, cas et données testés, résultat obtenu, fichier ou capture de preuve, date et version/commit. Les mentions **intégrée**, **testée**, **corrigée** et **reçue définitivement** sont distinctes. **Une seule erreur bloquante ou une preuve obligatoire manquante interdit la réception globale de la mission.** Aucun taux de réussite global, moyenne ou indicateur vert ne peut masquer un défaut individuel. La validation d'une mission ne vaut pas validation des autres.
+
+### 14.9 Conditions de production et périmètre d'autorisation
+
+Ces exigences s'appliquent à toutes les missions existantes et nouvelles jusqu'à 996. Ne pas lancer un nouveau lot lorsque des anomalies bloquantes connues sur le lot précédent restent corrigeables. La qualité scientifique prime sur le volume ou la cadence. Les corrections et commits sur `main` dans le dépôt **privé** sont autorisés sans validation intermédiaire ; toute publication publique, modification de visibilité, suppression d'archive ou action extérieure au périmètre autorisé nécessite un accord explicite. Conserver la gratuité, les 17 univers, les 249 sous-savoirs, les contraintes d'inclusion et de compatibilité multiplateforme.
