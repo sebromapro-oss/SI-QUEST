@@ -61,7 +61,7 @@ $('trial').addEventListener('click',()=>{
  const x=60+12*obstacleM;
  $('obstacleLine').setAttribute('x1',String(x));$('obstacleLine').setAttribute('x2',String(x));
  $('obstacleLabel').setAttribute('x',String(Math.min(465,Math.max(65,x))));
- $('obstacleLabel').textContent='Obstacle : '+fmt(obstacleM)+' m';
+ $('obstacleLabel').textContent='dₒ = '+fmt(obstacleM)+' m';
  frame(0);
  $('decision').textContent=current.stopsBeforeObstacle?
  'Arrêt théorique avant l’obstacle : distance '+fmt(current.stoppingDistanceM)+' m ; marge '+fmt(current.marginM)+' m. Décision : ne pas autoriser un essai réel sans procédure, marge de sécurité et contrôle des conditions.' :
@@ -95,7 +95,7 @@ $('reset').addEventListener('click',()=>{
  $('hintText').hidden=true;$('solutionText').hidden=true;
  $('time').disabled=true;$('time').value='0';$('play').disabled=true;
  $('obstacle').value='12';$('obstacleLine').setAttribute('x1','204');$('obstacleLine').setAttribute('x2','204');
- $('obstacleLabel').setAttribute('x','204');$('obstacleLabel').textContent='Obstacle : 12 m';
+ $('obstacleLabel').setAttribute('x','204');$('obstacleLabel').textContent='dₒ = 12 m';
  $('vehicle').setAttribute('transform','translate(28 0)');
  $('frameText').textContent='Temps : 0,00 s ; position : 0,00 m ; vitesse : 5,00 m/s.';
  render();
