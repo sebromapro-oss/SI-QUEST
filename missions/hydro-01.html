@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10253d">
+  <title>Hydro Lift — Dimensionnement d'un vérin | SI QUEST</title>
+  <link rel="stylesheet" href="../src/style.css">
+  <link rel="stylesheet" href="../src/mission.css">
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+  <header><a href="../index.html">← SI QUEST</a><strong>Cycle 02 · Hydro Lift</strong></header>
+  <main id="main" class="mission">
+    <p class="eyebrow">SI-06 · HYDRAULIQUE · MISSION 02</p>
+    <h1>Hydro Lift : sécuriser le levage</h1>
+    <p class="intro">Tu es technicien de maintenance. Après le remplacement d'un vérin sur un équipement de manutention, tu dois vérifier les calculs et régler le débit avant la remise en service.</p>
+
+    <section class="panel" aria-labelledby="goal">
+      <h2 id="goal">Objectifs et critères de réussite</h2>
+      <p>Calculer la surface utile, la pression minimale et les vitesses. Ensuite, choisir une pression et un débit assurant <strong>la sortie ET la rentrée</strong> sans dépasser les limites.</p>
+      <p><strong>Réussite :</strong> calculs acceptés avec marges annoncées, réserve d'effort ≥ 10 %, pression ≤ 110 bar, vitesse dans chaque sens ≤ 120 mm/s.</p>
+      <details><summary>Réactivation mémoire · 3 questions flash</summary>
+        <ol><li>Combien de pascals dans 1 bar ? <strong>100 000 Pa.</strong></li>
+          <li>Combien de m³/s dans 1 L/min ? <strong>1/60 000 m³/s.</strong></li>
+          <li>Quelle surface utiliser en rentrée ? <strong>La surface annulaire du piston, diminuée de celle de la tige.</strong></li></ol>
+      </details>
+    </section>
+
+    <section class="panel" aria-labelledby="data-title">
+      <h2 id="data-title">Dossier technique</h2>
+      <div class="facts">
+        <div><span>Diamètre piston</span><strong>50 mm</strong></div>
+        <div><span>Diamètre tige</span><strong>28 mm</strong></div>
+        <div><span>Course</span><strong>250 mm</strong></div>
+        <div><span>Charge à lever</span><strong>12 000 N</strong></div>
+        <div><span>Rendement mécanique</span><strong>0,90</strong></div>
+        <div><span>Rendement volumétrique</span><strong>0,95</strong></div>
+        <div><span>Débit de calcul</span><strong>12 L/min</strong></div>
+        <div><span>Pression limite</span><strong>110 bar</strong></div>
+      </div>
+      <p class="small">Hypothèses : fluide incompressible, débit constant, régime quasi stationnaire, pas de perte de charge de conduite ni d'inertie. La charge de 12 kN agit en sortie de tige. En rentrée, on contrôle la vitesse, pas une charge résistante supplémentaire. Les rendements sont supposés constants. Ce modèle ne remplace pas une étude de sécurité machine.</p>
+      <svg class="machine" viewBox="0 0 760 270" role="img" aria-labelledby="svg-title svg-desc">
+        <title id="svg-title">Coupe schématique du vérin double effet</title>
+        <desc id="svg-desc">Corps fixe, piston et tige mobiles. L'animation de sortie puis de rentrée suit les vitesses et durées calculées. Les déplacements sont schématiques à l'échelle de la course, pas des diamètres.</desc>
+        <rect x="90" y="72" width="365" height="128" rx="8" fill="#193b55" stroke="#9db7c9" stroke-width="4"/>
+        <rect x="108" y="88" width="325" height="96" fill="#0a263c" stroke="#4d8ca8" stroke-width="2"/>
+        <path d="M130 72V43H95" stroke="#5fc9ed" stroke-width="8" fill="none"/>
+        <path d="M409 72V43H468" stroke="#f2ba74" stroke-width="8" fill="none"/>
+        <text x="85" y="30" fill="#d9f4ff" font-size="17">Chambre fond</text>
+        <text x="470" y="30" fill="#ffe4bb" font-size="17">Chambre tige</text>
+        <g id="moving" transform="translate(0 0)">
+          <rect x="150" y="91" width="29" height="90" rx="3" fill="#ffd17d" stroke="#fff0c7" stroke-width="3"/>
+          <rect x="180" y="125" width="370" height="22" rx="4" fill="#b5d9e8" stroke="#d9f5ff" stroke-width="2"/>
+        </g>
+        <rect x="435" y="72" width="20" height="128" fill="#3c6c88" stroke="#9db7c9" stroke-width="3"/>
+        <text x="105" y="242" fill="white" font-size="18">Sortie →</text>
+        <text x="335" y="242" fill="white" font-size="18">← Rentrée</text>
+      </svg>
+      <p id="motion-status" class="small" role="status" aria-live="polite">Vérin au repos. Aucun essai lancé.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="calc-title">
+      <h2 id="calc-title">Étape 1 — Mes calculs</h2>
+      <p>Avec le débit de référence de <strong>12 L/min</strong>, calcule les quatre grandeurs. Saisis les valeurs numériques, avec un point ou une virgule.</p>
+      <form id="calculations" novalidate>
+        <div class="field-grid">
+          <label for="area">Surface du piston (cm²) <span>tolérance ± 0,10 cm²</span>
+            <input id="area" name="area" type="text" inputmode="decimal" autocomplete="off" required></label>
+          <label for="pmin">Pression minimale théorique (bar) <span>tolérance ± 0,30 bar</span>
+            <input id="pmin" name="pmin" type="text" inputmode="decimal" autocomplete="off" required></label>
+          <label for="vout">Vitesse de sortie (mm/s) <span>tolérance ± 2 mm/s</span>
+            <input id="vout" name="vout" type="text" inputmode="decimal" autocomplete="off" required></label>
+          <label for="vin">Vitesse de rentrée (mm/s) <span>tolérance ± 2 mm/s</span>
+            <input id="vin" name="vin" type="text" inputmode="decimal" autocomplete="off" required></label>
+        </div>
+        <div class="controls">
+          <button type="submit">Vérifier les calculs</button>
+          <button id="hint" type="button" class="secondary">Obtenir un indice</button>
+          <button id="solution" type="button" class="secondary" disabled>Afficher le corrigé (après 3 essais et 3 indices)</button>
+        </div>
+      </form>
+      <p id="calculation-feedback" class="feedback" role="status" aria-live="polite">Tes calculs n'ont pas encore été vérifiés.</p>
+      <p id="hint-text" class="hint" hidden></p>
+      <div id="solution-text" class="hint" hidden></div>
+    </section>
+
+    <section class="panel" aria-labelledby="trial-title">
+      <h2 id="trial-title">Étape 2 — Essai de mise en service</h2>
+      <p>Choisis les réglages. Le contrôle de sécurité est indépendant de la validation des calculs. Le vérin ne s'anime que si <strong>toutes</strong> les limites sont respectées.</p>
+      <form id="settings" novalidate>
+        <div class="field-grid">
+          <label for="pressure">Pression réglée (bar) <span>0 à 140 bar</span>
+            <input id="pressure" type="text" inputmode="decimal" value="80" autocomplete="off"></label>
+          <label for="flow">Débit pompe réglé (L/min) <span>0 à 18 L/min</span>
+            <input id="flow" type="text" inputmode="decimal" value="12" autocomplete="off"></label>
+        </div>
+        <div class="controls">
+          <button id="trial" type="submit" disabled>Lancer le cycle sortie / rentrée</button>
+          <button id="stop" type="button" class="secondary" disabled>Arrêter l'animation</button>
+        </div>
+      </form>
+      <p id="trial-feedback" class="feedback" role="status" aria-live="polite">Valide tes calculs pour débloquer l'essai.</p>
+      <p id="decision" class="decision">Décision métier : en attente des calculs et de l'essai.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="log-title">
+      <h2 id="log-title">Carnet d'essais</h2>
+      <ol id="log"></ol>
+      <button id="reset" type="button" class="secondary">Réinitialiser cette mission</button>
+    </section>
+  </main>
+  <script src="../src/hydraulic-cylinder.js"></script>
+  <script src="../src/numeric.js"></script>
+  <script src="../src/hydro-mission.js"></script>
+</body>
+</html>
