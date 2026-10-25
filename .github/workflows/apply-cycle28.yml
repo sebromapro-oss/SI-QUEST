@@ -1,0 +1,55 @@
+name: Apply SI QUEST cycle 28
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-cycle28.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply-cycle28:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Verify source delta and apply safely
+        run: |
+          cat patches/cycle28/core.part{1,2,3,4} > /tmp/cycle28.patch.gz.b64
+          echo '194f77279cae13510891260dcdb4f803c8d8f2fdf296cecd8061c4b396dc40a1  /tmp/cycle28.patch.gz.b64' | sha256sum -c -
+          base64 -d /tmp/cycle28.patch.gz.b64 > /tmp/cycle28.patch.gz
+          echo 'ac5804b2a16a7842527c39b124a599f433347407542c08c9384daf6867a05b06  /tmp/cycle28.patch.gz' | sha256sum -c -
+          gunzip -c /tmp/cycle28.patch.gz > /tmp/cycle28.patch
+          echo 'b44db2af7ec8f14f14d4beb81e4d34d9f1ab12e5df858845f835f4131a75f69a  /tmp/cycle28.patch' | sha256sum -c -
+          git apply --check /tmp/cycle28.patch
+          git apply /tmp/cycle28.patch
+      - name: Scientific and syntax checks
+        run: |
+          for f in src/catalog.js src/physics.js src/coaching.js src/game.js src/home.js src/storage.js; do node --check "$f"; done
+          node - <<'JS'
+          const assert=require('node:assert/strict');
+          const C=require('./src/catalog.js'),P=require('./src/physics.js'),Coach=require('./src/coaching.js');
+          assert.equal(C.levels.length,12);
+          assert.equal(new Set(C.levels.map(x=>x.id)).size,12);
+          assert.equal(new Set(C.levels.map(x=>x.type)).size,12);
+          assert.equal(C.worlds.length,17);
+          for(const level of C.levels) {
+            const s=Coach.solve(level,P);
+            assert.ok(s.steps.length>=3 && s.value>=level.input.min && s.value<=level.input.max);
+          }
+          const h=C.byId('hose-01'),t=C.byId('torsion-01');
+          const r1=P.hoseLoss({...h.config,diameterMm:16});
+          const r2=P.solidShaftTorsion({...t.config,diameterMm:35});
+          assert.ok(r1.velocityMps<5&&r1.pressureDropBar<6);
+          assert.ok(r2.maxShearStressMPa<70&&r2.twistDeg<2&&r2.massKg<10);
+          console.log('12 missions, 2 new scientific models, 17 universes: OK');
+          JS
+      - name: Commit verified code to private main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src sw.js
+          git diff --cached --quiet || git commit -m 'feat: cycle 28 hose losses and shaft torsion missions'
+          git push
