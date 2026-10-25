@@ -7,7 +7,7 @@ function solve({massKg,slopeDeg,muStatic,tractionN}) {
  const maxStaticFrictionN=muStatic*normalN;
  const requiredTractionN=downslopeN;
  const marginN=tractionN-requiredTractionN;
- const holds=tractionN+maxStaticFrictionN>=downslopeN;
+ const holds=Math.abs(tractionN-downslopeN)<=maxStaticFrictionN;
  const climbs=tractionN>downslopeN+maxStaticFrictionN;
  return {weightN,normalN,downslopeN,maxStaticFrictionN,requiredTractionN,marginN,holds,climbs};
 }
