@@ -36,7 +36,27 @@ const titles=Object.freeze({
 "work-01":"Travail d'une force",
 "frequency-period-01":"Signal périodique",
 "hydro-force-02":"Effort hydraulique",
-"beam-defl-01":"Flèche d'une console"
+"beam-defl-01":"Flèche d'une console",
+"circular-02":"Roue et accélération normale",
+"angular-accel-01":"Arbre et accélération angulaire",
+"brake-torque-01":"Frein et couple résistant",
+"incline-force-01":"Poids sur plan incliné",
+"resultant-01":"Deux forces orthogonales",
+"torsion-01":"Arbre soumis à la torsion",
+"axial-strain-01":"Barre et déformation",
+"gear-mesh-01":"Deux engrenages et entraxe",
+"belt-speed-01":"Poulie et courroie",
+"hydro-power-01":"Pompe et puissance hydraulique",
+"hydro-volume-01":"Piston et volume balayé",
+"pneumatic-force-01":"Vérin pneumatique",
+"electric-power-02":"Récepteur électrique",
+"joule-heat-01":"Résistance et effet Joule",
+"rc-time-01":"Circuit RC",
+"sampling-01":"Acquisition périodique",
+"efficiency-chain-01":"Transmission à deux étages",
+"rolling-load-01":"Roue et résistance au roulement",
+"heat-transfer-01":"Paroi et conduction thermique",
+"measurement-relative-01":"Mesure et référence"
 });
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
@@ -146,6 +166,26 @@ case "work-01":{s+=line(50,180,550,180)+box(210,120,120,55)+circle(235,177,12)+c
 case "frequency-period-01":{s+='<path d="M60 125 L130 125 L130 75 L200 75 L200 125 L270 125 L270 75 L340 75 L340 125 L410 125 L410 75 L480 75 L480 125 L550 125" fill="none" stroke="#8ddcff" stroke-width="4"/>'+text(55,40,'f = '+N(x)+' Hz');break;}
 case "hydro-force-02":{s+=box(110,75,350,100)+box(250,83,18,85,'#d8e8f2')+box(268,115,250,20,'#d8e8f2')+arrow(515,145,565,145)+text(55,40,'p = '+N(x)+' bar ; D = 80 mm');break;}
 case "beam-defl-01":{s+=box(85,60,28,145,'#a2b5c2')+'<path d="M113 110 Q320 115 510 '+(110+Math.min(55,x*.25))+'" fill="none" stroke="#8ddcff" stroke-width="12"/>'+arrow(510,60,510,100+Math.min(55,x*.25))+text(55,40,'F = '+N(x)+' N ; flèche amplifiée');break;}
+case 'circular-02':{s+=circle(225,128,68)+circle(225,128,12,'#ffd17d')+circle(430,128,40)+line(225,128,225+60*Math.cos(x/10),128-60*Math.sin(x/10),'#ffd17d',5)+arrow(430,180,510,180)+text(55,42,"Roue et accélération normale: "+N(x));break;}
+case 'angular-accel-01':{s+=circle(225,128,68)+circle(225,128,12,'#ffd17d')+circle(430,128,40)+line(225,128,225+60*Math.cos(x/10),128-60*Math.sin(x/10),'#ffd17d',5)+arrow(430,180,510,180)+text(55,42,"Arbre et accélération angulaire: "+N(x));break;}
+case 'brake-torque-01':{s+=circle(225,128,68)+circle(225,128,12,'#ffd17d')+circle(430,128,40)+line(225,128,225+60*Math.cos(x/10),128-60*Math.sin(x/10),'#ffd17d',5)+arrow(430,180,510,180)+text(55,42,"Frein et couple résistant: "+N(x));break;}
+case 'incline-force-01':{s+=line(80,182,520,182)+box(215,125,150,52)+arrow(290,120,290,55)+arrow(365,150,475,150)+text(55,42,"Poids sur plan incliné: "+N(x));break;}
+case 'resultant-01':{s+=line(80,182,520,182)+box(215,125,150,52)+arrow(290,120,290,55)+arrow(365,150,475,150)+text(55,42,"Deux forces orthogonales: "+N(x));break;}
+case 'torsion-01':{s+=circle(225,128,68)+circle(225,128,12,'#ffd17d')+circle(430,128,40)+line(225,128,225+60*Math.cos(x/10),128-60*Math.sin(x/10),'#ffd17d',5)+arrow(430,180,510,180)+text(55,42,"Arbre soumis à la torsion: "+N(x));break;}
+case 'axial-strain-01':{s+=line(80,182,520,182)+box(215,125,150,52)+arrow(290,120,290,55)+arrow(365,150,475,150)+text(55,42,"Barre et déformation: "+N(x));break;}
+case 'gear-mesh-01':{s+=circle(225,128,68)+circle(225,128,12,'#ffd17d')+circle(430,128,40)+line(225,128,225+60*Math.cos(x/10),128-60*Math.sin(x/10),'#ffd17d',5)+arrow(430,180,510,180)+text(55,42,"Deux engrenages et entraxe: "+N(x));break;}
+case 'belt-speed-01':{s+=circle(225,128,68)+circle(225,128,12,'#ffd17d')+circle(430,128,40)+line(225,128,225+60*Math.cos(x/10),128-60*Math.sin(x/10),'#ffd17d',5)+arrow(430,180,510,180)+text(55,42,"Poulie et courroie: "+N(x));break;}
+case 'hydro-power-01':{s+=box(110,80,350,110)+box(270,88,15,94,'#d5e8f4')+box(285,120,220,24,'#d5e8f4')+arrow(65,140,100,140)+arrow(510,140,555,140)+text(55,42,"Pompe et puissance hydraulique: "+N(x));break;}
+case 'hydro-volume-01':{s+=box(110,80,350,110)+box(270,88,15,94,'#d5e8f4')+box(285,120,220,24,'#d5e8f4')+arrow(65,140,100,140)+arrow(510,140,555,140)+text(55,42,"Piston et volume balayé: "+N(x));break;}
+case 'pneumatic-force-01':{s+=box(110,80,350,110)+box(270,88,15,94,'#d5e8f4')+box(285,120,220,24,'#d5e8f4')+arrow(65,140,100,140)+arrow(510,140,555,140)+text(55,42,"Vérin pneumatique: "+N(x));break;}
+case 'electric-power-02':{s+=line(70,130,165,130)+box(165,105,140,50)+line(305,130,440,130)+circle(470,130,32)+text(75,205,'Modèle idéal')+text(55,42,"Récepteur électrique: "+N(x));break;}
+case 'joule-heat-01':{s+=line(70,130,165,130)+box(165,105,140,50)+line(305,130,440,130)+circle(470,130,32)+text(75,205,'Modèle idéal')+text(55,42,"Résistance et effet Joule: "+N(x));break;}
+case 'rc-time-01':{s+=line(70,130,165,130)+box(165,105,140,50)+line(305,130,440,130)+circle(470,130,32)+text(75,205,'Modèle idéal')+text(55,42,"Circuit RC: "+N(x));break;}
+case 'sampling-01':{s+=line(70,130,165,130)+box(165,105,140,50)+line(305,130,440,130)+circle(470,130,32)+text(75,205,'Modèle idéal')+text(55,42,"Acquisition périodique: "+N(x));break;}
+case 'efficiency-chain-01':{s+=circle(225,128,68)+circle(225,128,12,'#ffd17d')+circle(430,128,40)+line(225,128,225+60*Math.cos(x/10),128-60*Math.sin(x/10),'#ffd17d',5)+arrow(430,180,510,180)+text(55,42,"Transmission à deux étages: "+N(x));break;}
+case 'rolling-load-01':{s+=circle(225,128,68)+circle(225,128,12,'#ffd17d')+circle(430,128,40)+line(225,128,225+60*Math.cos(x/10),128-60*Math.sin(x/10),'#ffd17d',5)+arrow(430,180,510,180)+text(55,42,"Roue et résistance au roulement: "+N(x));break;}
+case 'heat-transfer-01':{s+=line(80,182,520,182)+box(215,125,150,52)+arrow(290,120,290,55)+arrow(365,150,475,150)+text(55,42,"Paroi et conduction thermique: "+N(x));break;}
+case 'measurement-relative-01':{s+=line(80,182,520,182)+box(215,125,150,52)+arrow(290,120,290,55)+arrow(365,150,475,150)+text(55,42,"Mesure et référence: "+N(x));break;}
  case 'frequency-01':{
   const a=2*Math.PI*x/60*.07;
   s+=circle(260,119,68)+circle(260,119,9,'#ffd17d')+line(260,119,260+62*Math.cos(a),119-62*Math.sin(a),'#ffd17d',7);
