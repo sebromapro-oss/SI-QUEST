@@ -233,7 +233,7 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(["circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(["hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
@@ -242,16 +242,16 @@ function render(id,x,result){
   s+=box(115,90,355,80,'#173f59')+box(275,96,16,68,'#c8d8e2')+line(291,130,530,130,'#c8d8e2',14);
   s+=line(123,100,123,160,'#8ddcff',6)+line(462,100,462,160,'#7ce8ae',6);
   s+=arrow(180,130,256,130,'#8ddcff',5)+arrow(438,130,322,130,'#ffca7d',5);
-  s+=text(62,42,'pA = 120 bar ; pB = '+N(x)+' bar')+text(82,202,'D = 80 mm ; d = 40 mm')+valueLabel(id,x,result);
+  s+=text(62,42,'pA = 120 bar ; pB = '+N(x)+' bar')+text(82,202,'D = 80 mm ; d = 40 mm');
   break;
  }
  case 'euler-buckling-01':{
   const yTop=65,yBottom=190;
   s+=line(300,yTop,300,yBottom,'#d5e8f4',7)+circle(300,yTop,8,'#ffd17d')+circle(300,yBottom,8,'#ffd17d');
   s+='<path d="M280 57L320 57L300 43Z M280 198L320 198L300 212Z" fill="#315c76" stroke="#9bc9e5" stroke-width="2"/>';
-  s+=arrow(300,20,300,47,'#ffca7d',5)+arrow(300,235,300,212,'#7ce8ae',5);
+  s+=arrow(300,20,300,47,'#ffca7d',5)+arrow(300,225,300,201,'#7ce8ae',5);
   s+=line(360,yTop,360,yBottom,'#7ce8ae',2,'stroke-dasharray="4 4"')+text(370,135,'L = '+N(x)+' m');
-  s+=text(42,42,'E = 210 GPa ; d = 20 mm')+valueLabel(id,x,result);
+  s+=text(42,42,'E = 210 GPa ; d = 20 mm');
   break;
  }
 
