@@ -1,5 +1,5 @@
 'use strict';
-const CACHE = 'siquest-cycle27-20261025';
+const CACHE = 'siquest-cycle28-20261025';
 const FILES = [
   './', './index.html', './play.html', './manifest.webmanifest',
   './assets/hub-si-quest.png', './assets/icon.svg', './assets/icon-192.png', './assets/icon-512.png',

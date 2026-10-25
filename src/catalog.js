@@ -22,6 +22,32 @@
     ['SI-17', 'Analyse des systèmes et diagnostic']
   ].map(([id, title]) => Object.freeze({ id, title }));
   const levels = [
+    {
+      id: 'hose-01', world: 'SI-06', skill: 'Pertes de charge réparties et singulières dans un flexible hydraulique',
+      title: 'Flow Line', subtitle: 'Choisir le flexible de retour du banc', icon: '🛠', color: 'blue',
+      type: 'hose', mechanic: 'Choisir le diamètre intérieur du flexible ; visualiser vitesse, pertes de charge et énergie dissipée.',
+      context: 'Un banc hydraulique doit transférer 35 L/min d’huile sur 8 m de flexible. La masse volumique est de 860 kg/m³, la viscosité dynamique à température de service de 0,030 Pa·s. Les raccords totalisent K = 4. Le budget est de 180 €.',
+      goal: 'Choisis un diamètre intérieur parmi 8, 10, 12, 16, 20 et 25 mm. Calcule la vitesse moyenne v = Q/S et la perte de charge Δp. La mise en service exige v ≤ 5 m/s, Δp ≤ 6 bar et coût ≤ 180 €. Observe l’effet du diamètre sur la circulation de l’huile.',
+      formula: 'Q = 35/60 000 m³/s ; v = 4Q/(πD²) ; Re = ρvD/μ ; Δp = (f L/D + K)ρv²/2 ; P_perdue = Δp Q. En régime laminaire f = 64/Re ; en transition 2 300–4 000 interpolation ; turbulent : Swamee–Jain. Fluide newtonien incompressible, conduites lisses à rugosité ε = 0,05 mm.',
+      hints: ['Convertis le débit en m³/s et le diamètre en m avant de calculer la section.', 'Le diamètre agit au carré sur la vitesse ; la perte de charge dépend aussi de f et des singularités.', 'À 16 mm, v ≈ 2,90 m/s ; le coût est de 150 €. Vérifie Re et Δp avec la formule fournie.'],
+      config: { flowLpm: 35, lengthM: 8, densityKgM3: 860, dynamicViscosityPaS: 0.03, roughnessMm: 0.05,
+        minorLossCoefficient: 4, maxVelocityMps: 5, maxPressureDropBar: 6, maxBudgetEuro: 180,
+        options: [{ diameterMm: 8, costEuro: 50 }, { diameterMm: 10, costEuro: 70 }, { diameterMm: 12, costEuro: 95 },
+          { diameterMm: 16, costEuro: 150 }, { diameterMm: 20, costEuro: 220 }, { diameterMm: 25, costEuro: 300 }] },
+      input: { label: 'Diamètre intérieur', unit: 'mm', min: 8, max: 25, step: 1, value: 12 }
+    },
+    {
+      id: 'torsion-01', world: 'SI-11', skill: 'Contrainte tangentielle, moment quadratique polaire et angle de torsion',
+      title: 'Torque Shaft', subtitle: 'Valider l’arbre de transmission', icon: '🔩', color: 'purple',
+      type: 'torsion', mechanic: 'Sélectionner le diamètre d’un arbre plein et observer la torsion sous couple transmis.',
+      context: 'Un arbre plein en acier de longueur 1,0 m transmet un couple constant de 350 N·m. Le module de cisaillement est G = 80 GPa ; la masse volumique est de 7 850 kg/m³. Le montage tolère au plus 70 MPa de contrainte, 2° de torsion et 10 kg de masse.',
+      goal: 'Choisis un diamètre normalisé parmi 20, 25, 30, 35, 40 et 45 mm. Calcule J = πd⁴/32, τ_max = 16T/(πd³) et θ = TL/(GJ). Valide l’arbre si les trois limites sont respectées. Observe la déformation angulaire, amplifiée visuellement et sans valeur géométrique de mesure.',
+      formula: 'J = πd⁴/32 [m⁴] ; τ_max = Td/(2J) [Pa] ; θ = TL/(GJ) [rad] ; m = ρπd²L/4 [kg]. Hypothèses : arbre circulaire plein, torsion pure élastique, petites déformations, aucune concentration de contrainte.',
+      hints: ['Le diamètre doit être converti en mètres ; J dépend de la puissance quatrième.', 'Compare la contrainte en MPa, l’angle en degrés et la masse en kg : trois critères distincts.', 'Pour 35 mm, la torsion vaut environ 1,70° ; vérifie les deux autres critères.'],
+      config: { torqueNm: 350, lengthM: 1, shearModulusPa: 80000000000, densityKgM3: 7850,
+        maxStressMPa: 70, maxTwistDeg: 2, maxMassKg: 10, standardDiametersMm: [20, 25, 30, 35, 40, 45] },
+      input: { label: 'Diamètre de l’arbre', unit: 'mm', min: 20, max: 45, step: 1, value: 30 }
+    },
 
     {
       id: 'pneumatic-01', world: 'SI-07', skill: 'Effort pneumatique, ressort de rappel et course utile',

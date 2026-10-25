@@ -15,6 +15,33 @@
     const c = level.config;
     let value, steps, decision;
     switch (level.type) {
+      case 'hose': {
+        const choices = c.options.map(o => ({ ...o, r: P.hoseLoss({ ...c, diameterMm: o.diameterMm }) }));
+        const valid = choices.filter(o => o.r.velocityMps <= c.maxVelocityMps &&
+          o.r.pressureDropBar <= c.maxPressureDropBar && o.costEuro <= c.maxBudgetEuro);
+        if (!valid.length) throw new Error('Aucun flexible conforme');
+        valid.sort((a,b) => a.costEuro-b.costEuro);
+        const chosen=valid[0],r=chosen.r;value=chosen.diameterMm;
+        steps=[`Q = ${n(c.flowLpm)} L/min = ${n(r.flowM3PerS,7)} m³/s ; D = ${n(value)} mm = ${n(r.diameterM,4)} m.`,
+          `S = πD²/4 = ${n(r.areaM2,7)} m² ; v = Q/S = ${n(r.velocityMps)} m/s.`,
+          `Re = ρvD/μ = ${n(r.reynolds)} ; facteur de Darcy f = ${n(r.frictionFactor,5)}.`,
+          `Δp = (fL/D + K)ρv²/2 = ${n(r.pressureDropBar)} bar ; P_perdue = ΔpQ = ${n(r.dissipatedPowerW)} W.`,
+          `Coût = ${n(chosen.costEuro)} € ; limites : v ≤ ${n(c.maxVelocityMps)} m/s, Δp ≤ ${n(c.maxPressureDropBar)} bar, budget ≤ ${n(c.maxBudgetEuro)} €.`];
+        decision='Flexible retenu : vitesse, pertes de charge et budget conformes dans le modèle.';
+        break;
+      }
+      case 'torsion': {
+        const choices=c.standardDiametersMm.map(d => ({d,r:P.solidShaftTorsion({...c,diameterMm:d})}));
+        const valid=choices.filter(o=>o.r.maxShearStressMPa<=c.maxStressMPa && o.r.twistDeg<=c.maxTwistDeg && o.r.massKg<=c.maxMassKg);
+        if(!valid.length)throw new Error('Aucun diamètre conforme');
+        const chosen=valid[0],r=chosen.r;value=chosen.d;
+        steps=[`D = ${n(value)} mm = ${n(r.diameterM,4)} m ; J = πD⁴/32 = ${n(r.polarSecondMomentM4,10)} m⁴.`,
+          `τ_max = TD/(2J) = ${n(r.maxShearStressMPa)} MPa ≤ ${n(c.maxStressMPa)} MPa : vérification de résistance.`,
+          `θ = TL/(GJ) = ${n(r.twistRad,5)} rad = ${n(r.twistDeg)}° ≤ ${n(c.maxTwistDeg)}° : rigidité angulaire.`,
+          `m = ρπD²L/4 = ${n(r.massKg)} kg ≤ ${n(c.maxMassKg)} kg : contrainte de masse.`];
+        decision='Diamètre normalisé de masse minimale satisfaisant contrainte, rigidité et masse.';
+        break;
+      }
       case 'pneumatic': {
         const areaM2 = Math.PI * (c.diameterMm / 1000) ** 2 / 4;
         const threshold = (c.loadN + c.preloadN + c.stiffnessNPerM * c.strokeM) / (c.efficiency * areaM2 * 1e5);

@@ -85,3 +85,5 @@ body.access-contrast .small-note,body.access-contrast .control-panel p{color:#ff
 body.access-quiet .celebration-play{animation:none}
 @media(prefers-reduced-motion:reduce){.celebration-play{animation:none!important}}
 @media(max-width:480px){.celebration{padding:12px;gap:12px}.celebration-icon{font-size:2.3rem}.celebration-stars{font-size:1.7rem!important}.help-actions{display:grid;grid-template-columns:1fr}.help-actions .button{width:100%}.access-actions{display:grid;grid-template-columns:1fr}.access-actions button{text-align:left}}
+/* Cycle28: prevent 320px overflow in the scientific-universe index; no home redesign. */
+@media(max-width:380px){.universe-row{flex-wrap:wrap}.universe-row>span:first-child{max-width:100%;width:100%}.universe-row>span:last-child{min-width:0;max-width:100%;overflow-wrap:anywhere}.universe-row a{white-space:normal}}

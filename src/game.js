@@ -33,6 +33,8 @@
     pneumatic: ['Calcule la pression de fin de course en tenant compte de la charge et du ressort. Règle le détendeur et lance le vérin.', 'Pression du détendeur', 'La pression doit assurer 80 mm de course sans dépasser 4,0 bar en service.'],
     thermal: ['Établis le bilan thermique et le bilan de puissance de pompe. Règle le débit puis lance le banc.', 'Débit du liquide de refroidissement', 'Le régime permanent impose ΔT ≤ 8 K et P_pompe ≤ 230 W.'],
     metrology: ['Combine la répétabilité et la résolution. Choisis un instrument proposé puis décide de la conformité.', 'Résolution de l’instrument', 'Résolutions disponibles : 0,01 ; 0,02 ; 0,05 ; 0,10 mm. Vérifie aussi le budget de 350 €.'],
+    hose: ['Calcule le nombre de Reynolds, le facteur de frottement et la perte de charge du flexible. Choisis son diamètre puis vérifie le coût.', 'Diamètre intérieur du flexible', 'Les diamètres proposés sont 8, 10, 12, 16, 20, 25 mm ; les autres sont essayables mais non validés.'],
+    torsion: ['Calcule le moment polaire J, la contrainte et l’angle de torsion ; sélectionne un diamètre normalisé.', 'Diamètre de l’arbre', 'Les diamètres proposés sont 20, 25, 30, 35, 40, 45 mm ; un diamètre intermédiaire peut être essayé sans être accepté.'],
     hydro: ['Calcule d’abord la surface du piston et la pression minimale. Choisis ensuite une pression de service en bar et lance le vérin. Le débit détermine la vitesse de sortie de tige.', 'Pression de service à appliquer', 'Le calcul de p_min est accepté à ±' + fr(activeConfig.pressureCalculationToleranceBar, 2) + ' bar. La pression de service doit néanmoins être suffisante et respecter les limites de sécurité.']
   }[level.type];
   $('calculation-intro').textContent = missionText[0];
@@ -51,7 +53,9 @@
     pneumatic: [['Piston', '50 mm'], ['Charge', '300 N'], ['Ressort initial', '80 N'], ['Raideur', '2 000 N/m'], ['Course', '80 mm'], ['Rendement', '85 %'], ['Débit', '15 L/min'], ['Pression de service max', '4,0 bar']],
     thermal: [['Puissance à évacuer', '25 kW'], ['Température d’entrée', '75 °C'], ['ρ', '1 000 kg/m³'], ['cₚ', '4 180 J/(kg·K)'], ['Perte de charge', '1,5 bar'], ['Rendement pompe', '60 %'], ['ΔT max', '8 K'], ['Puissance pompe max', '230 W']],
     metrology: [['Mesure', '49,94 mm'], ['Tolérance', '49,90 à 50,10 mm'], ['Écart-type répétabilité', '0,008 mm'], ['Facteur k', '2'], ['Budget', '350 €'], ['Coûts 0,01 / 0,02 / 0,05 / 0,10 mm', '620 / 290 / 140 / 50 €']],
-    hydro: [['Diamètre du piston', '40 mm'], ['Charge', '12 000 N'], ['Rendement mécanique', '90 %'], ['Débit pompe', '2 L/min'], ['Rendement volumétrique', '90 %'], ['Course du vérin', '80 mm'], ['Pression maximale', '160 bar']]
+    hose: [['Débit d’huile', '35 L/min'], ['Longueur de flexible', '8 m'], ['Masse volumique', '860 kg/m³'], ['Viscosité dynamique', '0,030 Pa·s'], ['Rugosité', '0,05 mm'], ['Coefficient K raccords', '4'], ['Vitesse max', '5 m/s'], ['Δp max', '6 bar'], ['Budget', '180 €']],
+    torsion: [['Couple', '350 N·m'], ['Longueur', '1,0 m'], ['Module G', '80 GPa'], ['Masse volumique', '7 850 kg/m³'], ['Contrainte max', '70 MPa'], ['Torsion max', '2°'], ['Masse max', '10 kg']],
+    hydro: [['Diamètre du piston' , '40 mm'], ['Charge', '12 000 N'], ['Rendement mécanique', '90 %'], ['Débit pompe', '2 L/min'], ['Rendement volumétrique', '90 %'], ['Course du vérin', '80 mm'], ['Pression maximale', '160 bar']]
   };
   function fillMetrics(el, values) {
     el.replaceChildren();
@@ -74,12 +78,14 @@
     $('input-help').hidden = true;
     $('prediction').value = '';
   }
-  const hasModelArithmetic = ['pneumatic','thermal','metrology'].includes(level.type);
+  const hasModelArithmetic = ['pneumatic','thermal','metrology','hose','torsion'].includes(level.type);
   if (hasModelArithmetic) {
     const cfg = {
       pneumatic: ['Pression minimale calculée p_min (bar)', 'Tolérance de calcul : ± 0,05 bar. Calcule à partir des forces en fin de course.'],
       thermal: ['Élévation de température ΔT calculée (K)', 'Tolérance de calcul : ± 0,15 K. Recalcule avec le débit que tu as choisi.'],
-      metrology: ['Incertitude élargie U calculée (mm)', 'Tolérance de calcul : ± 0,002 mm. Recalcule avec la résolution choisie.']
+      metrology: ['Incertitude élargie U calculée (mm)', 'Tolérance de calcul : ± 0,002 mm. Recalcule avec la résolution choisie.'],
+      hose: ['Perte de charge totale Δp calculée (bar)', 'Tolérance de calcul : ± 0,05 bar. Recalcule pour le diamètre choisi.'],
+      torsion: ['Angle de torsion θ calculé (°)', 'Tolérance de calcul : ± 0,05°. Recalcule pour le diamètre choisi.']
     }[level.type];
     $('model-calculations').hidden = false;
     $('model-answer-label').textContent = cfg[0];
@@ -120,6 +126,8 @@
     const proposed = field.value.trim() ? parseInput(field) : NaN;
     const spec = level.type === 'pneumatic' ? { expected: result.requiredPressureBar, tolerance: 0.05, unit: 'bar' } :
       level.type === 'thermal' ? { expected: result.temperatureRiseK, tolerance: 0.15, unit: 'K' } :
+      level.type === 'hose' ? { expected: result.pressureDropBar, tolerance: 0.05, unit: 'bar' } :
+      level.type === 'torsion' ? { expected: result.twistDeg, tolerance: 0.05, unit: '°' } :
       { expected: result.expandedUncertaintyMm, tolerance: 0.002, unit: 'mm' };
     return { ...spec, proposed, passed: Number.isFinite(proposed) &&
       Math.abs(proposed - spec.expected) <= spec.tolerance + 1e-10 };
@@ -221,6 +229,41 @@
   }
   function compute(value) {
     const c = activeConfig;
+    if (level.type === 'hose') {
+      const r = P.hoseLoss({ ...c, diameterMm: value });
+      const option = c.options.find(o => o.diameterMm === value);
+      const velocityOK = r.velocityMps <= c.maxVelocityMps + 1e-9;
+      const lossOK = r.pressureDropBar <= c.maxPressureDropBar + 1e-9;
+      const budgetOK = !!option && option.costEuro <= c.maxBudgetEuro;
+      return { ...r, option, velocityOK, lossOK, budgetOK, passed: velocityOK && lossOK && budgetOK,
+        values: [['Vitesse moyenne', fr(r.velocityMps, 3) + ' m/s'], ['Nombre de Reynolds', fr(r.reynolds, 0)],
+          ['Facteur Darcy', fr(r.frictionFactor, 5)], ['Perte répartie', fr(r.distributedLossPa / 1e5, 3) + ' bar'],
+          ['Perte singulière', fr(r.minorLossPa / 1e5, 3) + ' bar'], ['Perte totale', fr(r.pressureDropBar, 3) + ' bar'],
+          ['Puissance dissipée', fr(r.dissipatedPowerW, 1) + ' W'], ['Coût', option ? option.costEuro + ' €' : 'hors catalogue']],
+        explain: 'S = π(' + fr(value / 1000, 4) + ' m)²/4 = ' + fr(r.areaM2, 7) + ' m² ; Q = ' + fr(r.flowM3PerS, 7) +
+          ' m³/s ; v = Q/S = ' + fr(r.velocityMps, 3) + ' m/s ; Re = ' + fr(r.reynolds, 0) +
+          ' ; f = ' + fr(r.frictionFactor, 5) + ' ; Δp = (fL/D + K)ρv²/2 = ' + fr(r.pressureDropBar, 3) +
+          ' bar ; P_perdue = ΔpQ = ' + fr(r.dissipatedPowerW, 2) + ' W. ' +
+          (!velocityOK ? 'Vitesse excessive : risque de pertes et de nuisances.' : !lossOK ? 'Perte de charge excessive.' :
+            !budgetOK ? 'Coût ou diamètre non conforme au catalogue.' : 'Choix compatible avec les trois critères.') };
+    }
+    if (level.type === 'torsion') {
+      const r = P.solidShaftTorsion({ ...c, diameterMm: value });
+      const standard = c.standardDiametersMm.includes(value);
+      const stressOK = r.maxShearStressMPa <= c.maxStressMPa + 1e-9;
+      const twistOK = r.twistDeg <= c.maxTwistDeg + 1e-9;
+      const massOK = r.massKg <= c.maxMassKg + 1e-9;
+      return { ...r, standard, stressOK, twistOK, massOK, passed: standard && stressOK && twistOK && massOK,
+        values: [['Moment polaire J', fr(r.polarSecondMomentM4 * 1e8, 4) + ' × 10⁻⁸ m⁴'],
+          ['Contrainte tangentielle max', fr(r.maxShearStressMPa, 3) + ' MPa'],
+          ['Angle de torsion', fr(r.twistDeg, 3) + ' °'], ['Masse de l’arbre', fr(r.massKg, 3) + ' kg'],
+          ['Diamètre normalisé', standard ? 'oui' : 'non']],
+        explain: 'J = π(' + fr(value / 1000, 4) + ' m)⁴/32 = ' + fr(r.polarSecondMomentM4 * 1e8, 4) +
+          ' × 10⁻⁸ m⁴ ; τ = Td/(2J) = ' + fr(r.maxShearStressMPa, 3) +
+          ' MPa ; θ = TL/(GJ) = ' + fr(r.twistDeg, 3) + '° ; masse = ' + fr(r.massKg, 3) +
+          ' kg. ' + (!stressOK ? 'Contrainte excessive.' : !twistOK ? 'Rotation relative excessive.' :
+            !massOK ? 'Masse excessive.' : !standard ? 'Diamètre non normalisé.' : 'Arbre conforme aux trois critères.') };
+    }
     if (level.type === 'pneumatic') {
       const r = P.pneumaticCylinder({ ...c, pressureBar: value, timeS: c.trialDurationS });
       const passed = r.fullStroke && !r.safetyLocked && value <= c.maxOperatingPressureBar;
@@ -555,7 +598,10 @@
     }
     if (reduceMotion) { testAnimating = false; draw(1, value, r); }
     else rafId = requestAnimationFrame(frame);
-    $('simulation-status').textContent = level.type === 'pneumatic' ?
+    $('simulation-status').textContent = level.type === 'hose' ?
+      'Flexible : v = ' + fr(r.velocityMps, 2) + ' m/s ; Δp = ' + fr(r.pressureDropBar, 3) + ' bar ; pertes ' + fr(r.dissipatedPowerW, 1) + ' W. ' + (r.passed ? 'Flexible accepté.' : 'Choix non conforme.') :
+      level.type === 'torsion' ? 'Arbre : τ = ' + fr(r.maxShearStressMPa, 2) + ' MPa ; θ = ' + fr(r.twistDeg, 3) + '° ; masse ' + fr(r.massKg, 2) + ' kg. ' + (r.passed ? 'Arbre validé.' : 'Choix non conforme.') :
+      level.type === 'pneumatic' ?
       'Vérin : ' + fr(r.equilibriumM * 1000, 2) + ' mm sur 80 mm. Pression : ' + fr(value, 2) + ' bar. ' + (r.passed ? 'Verrou engagé, mise en service autorisée.' : r.physicalPassed ? 'Course conforme, calcul à revoir.' : 'Mise en service refusée.') :
       level.type === 'thermal' ? 'Bilan thermique établi : ΔT = ' + fr(r.temperatureRiseK, 3) + ' K ; P_pompe = ' + fr(r.pumpPowerW, 2) + ' W. ' + (r.passed ? 'Essai prolongé autorisé.' : r.physicalPassed ? 'Bilan physique conforme, calcul à revoir.' : 'Essai prolongé refusé.') :
       level.type === 'metrology' ? 'Intervalle mesuré élargi : [' + fr(r.intervalLowerMm, 4) + ' ; ' + fr(r.intervalUpperMm, 4) + '] mm. ' + (r.passed ? 'Axe accepté pour remontage.' : r.physicalPassed ? 'Intervalle conforme, calcul à revoir.' : 'Axe non libéré pour remontage.') :
@@ -573,7 +619,9 @@
       'Roue menée : ' + fr(Math.abs(r.n2Rpm), 2) + ' tr/min, sens inverse. Couple : ' + fr(r.outputTorqueNm, 2) + ' N·m.';
   }
   function successMessage(r) {
-    if (level.type === 'pneumatic') return 'Course : ' + fr(r.equilibriumM * 1000, 2) + ' mm ; pression : ' + fr(activeTrial.value, 2) + ' bar. Verrou déployé.';
+    if (level.type === 'hose') return 'Flexible de ' + fr(activeTrial.value, 0) + ' mm : Δp = ' + fr(r.pressureDropBar, 3) + ' bar, v = ' + fr(r.velocityMps, 3) + ' m/s. Circuit autorisé.';
+    if (level.type === 'torsion') return 'Arbre de ' + fr(activeTrial.value, 0) + ' mm : τ = ' + fr(r.maxShearStressMPa, 2) + ' MPa, θ = ' + fr(r.twistDeg, 3) + '°. Montage validé.';
+    if (level.type === 'pneumatic') return 'Course : '  + fr(r.equilibriumM * 1000, 2) + ' mm ; pression : ' + fr(activeTrial.value, 2) + ' bar. Verrou déployé.';
     if (level.type === 'thermal') return 'ΔT = ' + fr(r.temperatureRiseK, 2) + ' K ; P_pompe = ' + fr(r.pumpPowerW, 1) + ' W. Banc autorisé.';
     if (level.type === 'metrology') return 'U = ' + fr(r.expandedUncertaintyMm, 4) + ' mm ; intervalle dans la tolérance, instrument dans le budget.';
     if (level.type === 'gear') return 'Vitesse : ' + fr(Math.abs(r.n2Rpm), 0) + ' tr/min (sens inverse) ; couple : ' + fr(r.outputTorqueNm, 2) + ' N·m.';
@@ -588,7 +636,9 @@
     if (hasModelArithmetic && r.physicalPassed && r.arithmetic && !r.arithmetic.passed)
       return 'réglage physiquement conforme, mais calcul intermédiaire manquant ou hors tolérance ±' +
         fr(r.arithmetic.tolerance, 3) + ' ' + r.arithmetic.unit + '. Aucun badge avant validation du calcul.';
-    if (level.type === 'pneumatic') return 'course ' + fr(r.equilibriumM * 1000, 2) + ' mm ; p_min ' + fr(r.requiredPressureBar, 3) + ' bar. ' + (r.safetyLocked ? 'Sécurité amont verrouillée.' : !r.fullStroke ? 'Verrou non engagé.' : 'Pression de service supérieure à 4 bar.');
+    if (level.type === 'hose') return 'v = ' + fr(r.velocityMps, 2) + ' m/s ; Δp = ' + fr(r.pressureDropBar, 3) + ' bar ; coût ' + (r.option ? r.option.costEuro + ' €' : 'hors catalogue') + '. ' + (!r.velocityOK ? 'Vitesse excessive.' : !r.lossOK ? 'Pertes excessives.' : 'Budget ou catalogue non respecté.');
+    if (level.type === 'torsion') return 'τ = ' + fr(r.maxShearStressMPa, 2) + ' MPa ; θ = ' + fr(r.twistDeg, 3) + '° ; masse = ' + fr(r.massKg, 2) + ' kg. ' + (!r.stressOK ? 'Contrainte excessive.' : !r.twistOK ? 'Torsion excessive.' : !r.massOK ? 'Masse excessive.' : 'Diamètre non normalisé.');
+    if (level.type === 'pneumatic') return 'course '  + fr(r.equilibriumM * 1000, 2) + ' mm ; p_min ' + fr(r.requiredPressureBar, 3) + ' bar. ' + (r.safetyLocked ? 'Sécurité amont verrouillée.' : !r.fullStroke ? 'Verrou non engagé.' : 'Pression de service supérieure à 4 bar.');
     if (level.type === 'thermal') return 'ΔT = ' + fr(r.temperatureRiseK, 2) + ' K (max 8 K) ; pompe = ' + fr(r.pumpPowerW, 1) + ' W (max 230 W). ' + (!r.temperatureOK ? 'Refroidissement insuffisant.' : 'Puissance de pompe excessive.');
     if (level.type === 'metrology') return 'intervalle [' + fr(r.intervalLowerMm, 4) + ' ; ' + fr(r.intervalUpperMm, 4) + '] mm. ' + (!r.accepted ? 'Conformité non démontrée.' : !r.option ? 'Instrument non proposé.' : 'Coût supérieur au budget.');
     if (level.type === 'gear') return 'la vitesse vaut ' + fr(Math.abs(r.n2Rpm), 1) + ' tr/min (sens inverse) et le couple ' + fr(r.outputTorqueNm, 1) + ' N·m.';
@@ -963,9 +1013,52 @@
       r.passed ? '#b4f8d4' : '#ffb49b', 21);
     if (window.__SIQUEST_TEST__) window.__si_metrology_frame = { lowerMm: r.intervalLowerMm, upperMm: r.intervalUpperMm, accepted: r.accepted };
   }
+  function drawHose(value, r, progress) {
+    const radius = 10 + value * 1.7;
+    label('FLEXIBLE HYDRAULIQUE · COUPE SCHÉMATIQUE', 60, 70, '#e7f8ff', 25);
+    ctx.fillStyle = '#173d58'; ctx.fillRect(110, 210-radius, 680, radius*2);
+    ctx.strokeStyle = '#b9d6e7'; ctx.lineWidth = 12; ctx.strokeRect(110, 210-radius, 680, radius*2);
+    ctx.save();ctx.beginPath();ctx.rect(115,210-radius+5,670,radius*2-10);ctx.clip();
+    const dots = Math.round(4 + r.velocityMps*2);
+    for(let i=0;i<dots;i++) {
+      const xx = 115 + ((i/dots + progress*r.velocityMps/12) % 1)*670;
+      ctx.fillStyle = '#67d8f5';ctx.beginPath();ctx.arc(xx,210 + Math.sin(i*3)*radius*.5,4.5,0,Math.PI*2);ctx.fill();
+    }ctx.restore();
+    arrow(135,320,690,320,'#a4e9ff',5);
+    label('Q = 35 L/min', 85, 120, '#a8f3ff', 24);
+    label('D = '+fr(value,0)+' mm   ·   v = '+fr(r.velocityMps,2)+' m/s', 85, 370, '#f3faff', 24);
+    label('Re = '+fr(r.reynolds,0)+'   ·   f = '+fr(r.frictionFactor,4), 85, 408, '#f3faff', 21);
+    label('Δp = '+fr(r.pressureDropBar,3)+' bar   ·   P_perdue = '+fr(r.dissipatedPowerW,1)+' W', 85, 449, '#ffd6a3', 21);
+    label(r.passed ? 'FLEXIBLE ACCEPTÉ' : 'CHOIX NON CONFORME', 85, 505, r.passed ? '#a8ffd4' : '#ffb49b', 23);
+    if(window.__SIQUEST_TEST__)window.__si_hose_frame={diameterMm:value,velocityMps:r.velocityMps,pressureDropBar:r.pressureDropBar,progress};
+  }
+  function drawTorsion(value, r, progress) {
+    label('ARBRE PLEIN · TORSION ÉLASTIQUE', 62, 70, '#e9f7ff', 25);
+    const y=255, x0=130, x1=760, h=16+value*1.2;
+    ctx.fillStyle='#1d607e';ctx.fillRect(x0,y-h/2,x1-x0,h);
+    ctx.strokeStyle='#b2dcef';ctx.lineWidth=5;ctx.strokeRect(x0,y-h/2,x1-x0,h);
+    const angle=Math.min(r.twistRad*progress*4,1.5); // Déformation angulaire volontairement amplifiée ×4.
+    for(let i=0;i<=12;i++){
+      const x=x0+(x1-x0)*i/12;
+      const phase=angle*i/12;
+      const yy=y+Math.sin(phase)*h*.38;
+      ctx.strokeStyle='#ffc878';ctx.lineWidth=3;
+      ctx.beginPath();ctx.moveTo(x,yy-9);ctx.lineTo(x,yy+9);ctx.stroke();
+    }
+    ctx.fillStyle='#7da2b9';ctx.fillRect(x0-20,y-h/2-18,20,h+36);
+    arrow(x1-25,y-110,x1+5,y-80,'#ffca71',5);
+    label('T = '+fr(activeConfig.torqueNm,0)+' N·m', 75, 135, '#ffd7a6', 25);
+    label('D = '+fr(value,0)+' mm   ·   J = '+fr(r.polarSecondMomentM4*1e8,3)+' × 10⁻⁸ m⁴', 65, 360, '#e3f8ff', 22);
+    label('τ_max = '+fr(r.maxShearStressMPa,2)+' MPa', 65, 408, '#e3f8ff', 22);
+    label('θ = '+fr(r.twistDeg,3)+'°   ·   m = '+fr(r.massKg,2)+' kg', 65, 452, '#ffd6a3', 22);
+    label(r.passed ? 'ARBRE VALIDÉ' : 'CHOIX NON CONFORME', 65, 506, r.passed ? '#b5f9d4' : '#ffb49b', 23);
+    if(window.__SIQUEST_TEST__)window.__si_torsion_frame={diameterMm:value,twistDeg:r.twistDeg,visualAmplification:4,progress};
+  }
   function draw(progress, value, r) {
     if (!ctx) return; background();
-    if (level.type === 'pneumatic') drawPneumatic(value, r, progress);
+    if (level.type === 'hose') drawHose(value, r, progress);
+    else if (level.type === 'torsion') drawTorsion(value, r, progress);
+    else if (level.type === 'pneumatic') drawPneumatic(value, r, progress);
     else if (level.type === 'thermal') drawThermal(value, r, progress);
     else if (level.type === 'metrology') drawMetrology(value, r, progress);
     else if (level.type === 'gear') drawGear(value, r);

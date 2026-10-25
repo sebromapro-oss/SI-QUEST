@@ -242,7 +242,42 @@
     return { resolutionStdMm, combinedStdMm, expandedUncertaintyMm,
       intervalLowerMm, intervalUpperMm, accepted };
   }
-  const api = Object.freeze({ gear, rover, moments, hydraulic, hydraulicTrial, beamTrial, starterCable, springStop, braking, brakingAtTime, pneumaticCylinder, coolingLoop, guardedMeasurement });
+  // Steady single-phase Darcy–Weisbach model. The transition interpolation is
+  // an educational approximation, not a guarantee of friction factor accuracy.
+  function hoseLoss({ flowLpm, diameterMm, lengthM, densityKgM3, dynamicViscosityPaS,
+    roughnessMm, minorLossCoefficient }) {
+    const named = { flowLpm, diameterMm, lengthM, densityKgM3, dynamicViscosityPaS };
+    for (const [key, value] of Object.entries(named)) finitePositive(value, key);
+    if (!Number.isFinite(roughnessMm) || roughnessMm < 0 ||
+      !Number.isFinite(minorLossCoefficient) || minorLossCoefficient < 0)
+      throw new RangeError('Invalid hose parameters');
+    const diameterM = diameterMm / 1000, areaM2 = Math.PI * diameterM ** 2 / 4;
+    const flowM3PerS = flowLpm / 60000, velocityMps = flowM3PerS / areaM2;
+    const reynolds = densityKgM3 * velocityMps * diameterM / dynamicViscosityPaS;
+    const laminar = 64 / reynolds;
+    const turbulent = 0.25 / Math.log10(roughnessMm / 1000 / (3.7 * diameterM) + 5.74 / reynolds ** 0.9) ** 2;
+    const frictionFactor = reynolds <= 2300 ? laminar : reynolds >= 4000 ? turbulent :
+      laminar * (4000 - reynolds) / 1700 + turbulent * (reynolds - 2300) / 1700;
+    const distributedLossPa = frictionFactor * lengthM / diameterM * densityKgM3 * velocityMps ** 2 / 2;
+    const minorLossPa = minorLossCoefficient * densityKgM3 * velocityMps ** 2 / 2;
+    const totalPressureDropPa = distributedLossPa + minorLossPa;
+    return { diameterM, areaM2, flowM3PerS, velocityMps, reynolds, frictionFactor,
+      distributedLossPa, minorLossPa, totalPressureDropPa,
+      pressureDropBar: totalPressureDropPa / 100000, dissipatedPowerW: totalPressureDropPa * flowM3PerS };
+  }
+  // Saint-Venant torsion for an isotropic solid circular shaft, elastic regime.
+  function solidShaftTorsion({ torqueNm, diameterMm, lengthM, shearModulusPa, densityKgM3 }) {
+    const named = { torqueNm, diameterMm, lengthM, shearModulusPa, densityKgM3 };
+    for (const [key, value] of Object.entries(named)) finitePositive(value, key);
+    const diameterM = diameterMm / 1000;
+    const polarSecondMomentM4 = Math.PI * diameterM ** 4 / 32;
+    const maxShearStressPa = torqueNm * diameterM / (2 * polarSecondMomentM4);
+    const twistRad = torqueNm * lengthM / (shearModulusPa * polarSecondMomentM4);
+    const massKg = densityKgM3 * Math.PI * diameterM ** 2 / 4 * lengthM;
+    return { diameterM, polarSecondMomentM4, maxShearStressPa, maxShearStressMPa: maxShearStressPa / 1e6,
+      twistRad, twistDeg: twistRad * 180 / Math.PI, massKg };
+  }
+  const api = Object.freeze({ gear, rover, moments, hydraulic, hydraulicTrial, beamTrial, starterCable, springStop, braking, brakingAtTime, pneumaticCylinder, coolingLoop, guardedMeasurement, hoseLoss, solidShaftTorsion });
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.SIPhysics = api;
 })(typeof window === 'undefined' ? globalThis : window);
