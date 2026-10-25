@@ -247,7 +247,7 @@ function render(id,x,result){
   s+=box(130,80,360,112,'#254d69')+box(136,86,Math.max(0,width-6),100,'#315e81');
   s+=line(interfaceX,86,interfaceX,186,'#ffd17d',7)+line(highX,75,highX,195,'#7ce8ae',2,'stroke-dasharray="5 5"');
   s+=line(490,137,545,137,'#8ddcff',8)+arrow(505,137,558,137,'#ffca7d',4);
-  s+=text(45,42,'p₀ = 80 bar abs ; V₀ = 10,0 L')+text(152,122,'Gaz')+text(395,122,'Huile');
+  s+=text(45,42,'p₀ = 80 bar abs ; V₀ = 10,0 L')+text(152,122,'Gaz')+text(445,122,'Huile');
   s+=text(38,219,'Trait vert : interface à 200 bar abs');break;
  }
  case 'wheatstone-bridge-01':{
@@ -256,7 +256,7 @@ function render(id,x,result){
   s+=line(405,54,405,72)+box(383,72,44,40,'#315c76')+line(405,112,405,150)+box(383,150,44,40,'#315c76')+line(405,190,405,205);
   s+=circle(185,131,5,'#ffd17d')+circle(405,131,5,'#ffd17d')+arrow(220,131,367,131,'#7ce8ae',3);
   s+=text(105,45,'+5 V')+text(460,213,'0 V')+text(113,101,'R₁')+text(112,181,'R₂')+text(443,101,'R₃')+text(443,181,'R₄');
-  s+=text(232,112,'Uout : droite − gauche')+text(245,187,'R₄ = '+N(x)+' Ω');break;
+  s+=text(245,110,'Uout = Ud − Ug')+text(245,187,'R₄ = '+N(x)+' Ω');break;
  }
  case 'hydro-backpressure-01':{
   s+=box(115,90,355,80,'#173f59')+box(275,96,16,68,'#c8d8e2')+line(291,130,530,130,'#c8d8e2',14);
