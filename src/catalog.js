@@ -89,7 +89,9 @@
     Object.freeze({id:'hydro-backpressure-01',world:'SI-06',title:'Vérin double effet — Influence de la contre-pression',url:'missions/hydro-backpressure-01.html'}),
     Object.freeze({id:'euler-buckling-01',world:'SI-04',title:'Flambement élastique — Charge critique d’une tige',url:'missions/euler-buckling-01.html'}),
     Object.freeze({id:'accumulator-isothermal-01',world:'SI-06',title:'Accumulateur hydraulique — Volume restitué isotherme',url:'missions/accumulator-isothermal-01.html'}),
-    Object.freeze({id:'wheatstone-bridge-01',world:'SI-08',title:'Pont de Wheatstone — Tension différentielle',url:'missions/wheatstone-bridge-01.html'})
+    Object.freeze({id:'wheatstone-bridge-01',world:'SI-08',title:'Pont de Wheatstone — Tension différentielle',url:'missions/wheatstone-bridge-01.html'}),
+    Object.freeze({"id":"torsion-angle-01","world":"SI-04","title":"Angle de torsion — Arbre de transmission","url":"missions/torsion-angle-01.html"}),
+    Object.freeze({"id":"hydro-motor-torque-01","world":"SI-06","title":"Couple d’un moteur hydraulique","url":"missions/hydro-motor-torque-01.html"})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});

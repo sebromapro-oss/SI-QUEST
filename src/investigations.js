@@ -1,6 +1,9 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'torsion-angle-01':x=>180/Math.PI*x*1.2/(80e9*(Math.PI*.04**4/32)),
+'hydro-motor-torque-01':x=>x*1e5*80e-6*.9/(2*Math.PI),
+
 'accumulator-isothermal-01':x=>800*(1/x-1/200),
 'wheatstone-bridge-01':x=>5000*(x/(1000+x)-.5),
 'hydro-backpressure-01':x=>(120e5*Math.PI*.08**2/4-x*1e5*Math.PI*(.08**2-.04**2)/4)/1000,
@@ -75,6 +78,9 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'torsion-angle-01':{min:0,max:1,unit:'°'},
+'hydro-motor-torque-01':{min:160,max:Infinity,unit:'N·m'},
+
 'accumulator-isothermal-01':{min:2,max:Infinity,unit:'L'},
 'wheatstone-bridge-01':{min:-100,max:100,unit:'mV'},
 'hydro-backpressure-01':{min:35,max:Infinity,unit:'kN'},
@@ -149,6 +155,9 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'torsion-angle-01':Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Arbre circulaire homogène, torsion uniforme, petites déformations élastiques, G constant, couple pur, encastrement idéal ; effets de clavette, fatigue et concentration de contraintes exclus. Seuil de 1,00° uniquement pédagogique.","solution":"d = 40 mm = 0,040 m ; Jp = π(0,040 m)⁴/32 = 2,51327×10⁻⁷ m⁴. G = 80×10⁹ Pa = 80×10⁹ N/m². À T = 250 N·m, θ = (250 N·m × 1,20 m)/(80×10⁹ N/m² × 2,51327×10⁻⁷ m⁴) = 0,0149208 rad = 0,85479°. L'unité radian est sans dimension. Le seuil pédagogique de 1,00° est respecté ; la résistance et les concentrations de contraintes restent à vérifier."}),
+'hydro-motor-torque-01':Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Moteur hydraulique volumétrique idéal à cylindrée constante, rendement mécanique constant 0,90 ; pression différentielle réelle aux orifices, régime établi, inertie et pertes transitoires négligées. Le rendement volumétrique influe sur la vitesse et le débit, pas directement sur cette relation couple/Δp. Seuil de 160 N·m fictif.","solution":"Δp = 150 bar = 15,0×10⁶ Pa ; Vg = 80 cm³/tr = 80×10⁻⁶ m³/tr ; ηm = 0,90. Cth = (15,0×10⁶ Pa × 80×10⁻⁶ m³)/(2π) = 190,99 N·m. Cu = 0,90 × 190,99 = 171,89 N·m. Contrôle : Pa × m³ = N·m ; 2π rad/tr est sans dimension. Le seuil pédagogique de 160 N·m est atteint ; confirmer la pression différentielle et les limites constructeur."}),
+
 'accumulator-isothermal-01':Object.freeze({absoluteTolerance:0.01,relativeTolerance:0,precision:3,assumptions:"Accumulateur à vessie : gaz parfait isotherme, précharge p₀ = 80 bar absolus et V₀ = 10,0 L ; pression haute pH = 200 bar absolus ; pression basse pB variable de 100 à 180 bar absolus. Huile incompressible, pertes et fuites négligées. Utiliser des pressions ABSOLUES, pB > p₀ et pB < pH.",solution:"Constante p₀V₀ = 80 bar abs × 10,0 L = 800 bar·L. À 200 bar abs : VH = 800/200 = 4,000 L. À 120 bar abs : VB = 800/120 = 6,667 L. Volume d'huile restitué ΔV = VB − VH = 2,667 L. Une décharge rapide peut nécessiter une loi polytropique et les données constructeur."}),
 'wheatstone-bridge-01':Object.freeze({absoluteTolerance:0.1,relativeTolerance:0,precision:2,assumptions:"Pont de Wheatstone alimenté sous Ue = 5,00 V stabilisés ; R₁ = R₂ = R₃ = 1 000 Ω, capteur R₄ de 900 à 1 100 Ω ; voltmètre d'impédance infinie, échauffement et résistances de liaison négligés. Uout = potentiel milieu droit MOINS potentiel milieu gauche.",solution:"Diviseur gauche : Ug = 5,00 V × 1 000/(1 000 + 1 000) = 2,500 V. Diviseur droit : Ud = 5,00 V × 1 100/(1 000 + 1 100) = 2,61905 V. Uout = Ud − Ug = +0,119048 V = +119,05 mV. À R₄ = 1 000 Ω, Uout = 0 mV. Pour R₄ < 1 000 Ω, le signe est négatif. Vérifier polarité et seuil constructeur."}),
 'hydro-backpressure-01':Object.freeze({absoluteTolerance:0.05,relativeTolerance:0,precision:3,assumptions:"Vérin double effet à l'extension ; D = 80 mm, tige d = 40 mm, pression chambre pleine pA = 120 bar relatifs au réservoir, contre-pression chambre annulaire pB variable de 0 à 80 bar relatifs au même réservoir ; écoulement quasi-statique, frottements et inertie négligés.",solution:"Surface pleine Aₚ = πD²/4 = 0,00502655 m² ; surface annulaire Aₐ = π(D²−d²)/4 = 0,00376991 m². À pB = 20 bar : F = pA Aₚ − pB Aₐ = 120×10⁵ Pa × 0,00502655 m² − 20×10⁵ Pa × 0,00376991 m² = 52 778,76 N = 52,779 kN. La contre-pression réduit l'effort disponible à l'extension. Il s'agit de l'effort hydraulique théorique, sans frottement ni charge extérieure."}),
@@ -228,6 +237,9 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'torsion-angle-01':"N·m",
+'hydro-motor-torque-01':"bar",
+
 'accumulator-isothermal-01':'bar abs',
 'wheatstone-bridge-01':'Ω',
 'hydro-backpressure-01':'bar',

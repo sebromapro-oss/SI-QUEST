@@ -7,6 +7,9 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'torsion-angle-01':"Arbre en torsion et angle élastique",
+'hydro-motor-torque-01':"Moteur hydraulique et couple de sortie",
+
 'accumulator-isothermal-01':'Accumulateur : détente du gaz et huile restituée',
 'wheatstone-bridge-01':'Pont de Wheatstone : deux diviseurs de tension',
 'hydro-backpressure-01':'Vérin double effet, pressions opposées',
@@ -81,6 +84,9 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+'torsion-angle-01':["T","θ"],
+'hydro-motor-torque-01':["Δp","Cu"],
+
 'accumulator-isothermal-01':['pB','ΔV'],
 'wheatstone-bridge-01':['R₄','Uout'],
 'hydro-backpressure-01':['pB','Fₕ'],
@@ -237,11 +243,23 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(["accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(["torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'torsion-angle-01':{
+  const a=result*Math.PI/180*20;
+  s+=box(140,103,310,46,'#315c76')+line(140,126,450,126,'#d5e8f4',3,'stroke-dasharray="8 5"')+circle(450,126,30,'#315c76');
+  s+=line(450,126,450+26*Math.cos(a),126-26*Math.sin(a),'#ffd17d',5);
+  s+=arrow(70,126,125,126,'#ffca7d',4)+text(45,42,'G = 80 GPa ; d = 40 mm ; L = 1,20 m');
+  s+=text(44,197,'Angle de section amplifié ×20, non à l’échelle');break;
+ }
+ case 'hydro-motor-torque-01':{
+  s+=circle(280,128,64,'#315c76')+circle(280,128,8,'#ffd17d')+line(344,128,480,128,'#d5e8f4',13);
+  s+=line(240,65,240,40,'#8ddcff',7)+line(320,65,320,40,'#ffca7d',7)+arrow(180,40,238,40,'#8ddcff',4)+arrow(320,40,390,40,'#ffca7d',4);
+  s+=text(45,82,'Δp = '+N(x)+' bar')+text(65,200,'Vg = 80 cm³/tr ; ηm = 0,90');break;
+ }
  case 'accumulator-isothermal-01':{
   const width=360*80/x,interfaceX=130+width,highX=130+360*80/200;
   s+=box(130,80,360,112,'#254d69')+box(136,86,Math.max(0,width-6),100,'#315e81');
@@ -286,7 +304,7 @@ function render(id,x,result){
  }
  case 'moment-arm-02':{s+=line(150,168,430,168,'#9bc9e5',9)+circle(150,168,11,'#ffd17d')+arrow(430,168,430+95*Math.cos(x*Math.PI/180),168-95*Math.sin(x*Math.PI/180));s+=text(145,195,'Pivot')+text(255,150,'L = 0,45 m')+text(405,60,'θ = '+N(x)+'°');s+=text(32,40,"Levier, bras de levier et force inclinée")+valueLabel(id,x,result);break;}
 case 'kinetic-friction-01':{s+=box(145,95,300,72)+arrow(320,74,470,74)+arrow(300,187,170,187);s+=text(32,40,"Patin en glissement et effort de frottement")+valueLabel(id,x,result);break;}
-case 'spring-stiffness-01':{s+=line(80,125,160,125)+Array.from({length:8},(_,k)=>line(160+k*32,125+(k%2?28:-28),192+k*32,125+(k%2?-28:28),'#9bc9e5',4)).join('')+arrow(500,125,550,125);s+=text(32,40,"Ressort comprimé et force axiale")+valueLabel(id,x,result);break;}
+case 'spring-stiffness-01':{s+=line(80,125,160,125)+Array.from({length:8},(_,k)=>line(160+k*32,125+(k%2?28:-28),192+k*32,125+(k%2?-28:28),'#9bc9e5',4)).join('')+arrow(500,125,550,125);s+=text(32,40,"Ressort sollicité axialement")+valueLabel(id,x,result);break;}
 case 'beam-stress-02':{s+=line(110,135,500,135,'#9bc9e5',10)+'<path d="M145 103 A42 42 0 1 1 145 167" fill="none" stroke="#ffca7d" stroke-width="5" marker-end="url(#pointe)"/>'+'<path d="M465 167 A42 42 0 1 1 465 103" fill="none" stroke="#ffca7d" stroke-width="5" marker-end="url(#pointe)"/>'+text(55,65,'Couple de flexion : M = '+N(x)+' N·m')+text(350,192,'Section : b = 40 mm ; h = 80 mm');s+=text(32,40,"Poutre en flexion et moment appliqué")+valueLabel(id,x,result);break;}
 case 'gear-ratio-02':{const r1=45,r2=45*x/18,scale=Math.min(1,80/r2),a=r1*scale,b=r2*scale,c1=300-(a+b)/2,c2=c1+a+b;s+=circle(c1,132,a)+circle(c2,132,b)+circle(c1,132,6,'#ffd17d')+circle(c2,132,6,'#ffd17d')+text(55,85,'z₁ = 18 dents')+text(370,85,'z₂ = '+N(x)+' dents')+text(55,180,'Sens de rotation opposés');s+=text(32,40,"Engrenages extérieurs, sens opposés")+valueLabel(id,x,result);break;}
 case 'screw-lead-01':{s+=box(100,96,400,56,'#315c76');for(let k=0;k<8;k++)s+=line(125+k*48,96,155+k*48,152,'#ffca7d',4);s+=arrow(150,177,450,177)+text(70,74,'2 filets ; p = '+N(x)+' mm')+text(80,205,'Avance = '+N(result)+' mm/tr');s+=text(32,40,"Vis à deux filets et avance par tour")+valueLabel(id,x,result);break;}
