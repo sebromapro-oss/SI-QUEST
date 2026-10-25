@@ -26,3 +26,9 @@ button:focus-visible,summary:focus-visible{outline:3px solid #fff;outline-offset
 summary{cursor:pointer;font-weight:750;padding:.65rem}
 @media(max-width:420px){.panel{padding:1rem}.controls button{width:100%}}
 @media(prefers-reduced-motion:reduce){.machine *{animation:none!important;transition:none!important}}
+
+/* Keyboard focus must remain visible on every mission field, including range sliders. */
+input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #ffd17d;outline-offset:3px}
+input[type="range"]{width:100%;max-width:760px;min-height:44px;accent-color:#ffd17d;cursor:pointer}
+input[type="range"]:disabled{cursor:not-allowed}
+@media(forced-colors:active){.panel,.feedback,.decision{border:2px solid CanvasText}button:focus-visible,input:focus-visible{outline:3px solid Highlight}}
