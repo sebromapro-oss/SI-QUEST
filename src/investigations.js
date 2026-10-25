@@ -198,7 +198,25 @@ function assess(id,x){
  return Object.freeze({value,acceptable:value>=criterion.min-1e-9&&value<=criterion.max+1e-9,
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
-const api=Object.freeze({calculate,assess,criteria,answerPolicy,parseAnswer,validateAnswer});
+const inputUnits=Object.freeze({
+ "moment-arm-02": "°",
+ "kinetic-friction-01": "sans unité",
+ "spring-stiffness-01": "N",
+ "beam-stress-02": "N·m",
+ "gear-ratio-02": "dents",
+ "screw-lead-01": "mm",
+ "hydro-cylinder-speed-02": "L/min",
+ "hydro-annular-force-01": "bar",
+ "pneumatic-consumption-01": "mm",
+ "electrical-series-01": "Ω",
+ "electrical-parallel-01": "Ω",
+ "inductor-energy-01": "A",
+ "mechanical-efficiency-02": "sans unité",
+ "rolling-torque-01": "N",
+ "thermal-resistance-01": "W/(m·K)",
+ "measurement-uncertainty-01": "mm"
+});
+const api=Object.freeze({calculate,assess,criteria,answerPolicy,inputUnits,parseAnswer,validateAnswer});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 root.SIInvestigations=api;
 })(typeof window==='undefined'?globalThis:window);
