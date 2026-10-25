@@ -67,7 +67,23 @@
     Object.freeze({id:"efficiency-chain-01",world:"SI-10",title:"Rendement global",url:'missions/efficiency-chain-01.html'}),
     Object.freeze({id:"rolling-load-01",world:"SI-11",title:"Effort de roulement",url:'missions/rolling-load-01.html'}),
     Object.freeze({id:"heat-transfer-01",world:"SI-12",title:"Flux thermique par conduction",url:'missions/heat-transfer-01.html'}),
-    Object.freeze({id:"measurement-relative-01",world:"SI-13",title:"Erreur relative de mesure",url:'missions/measurement-relative-01.html'})
+    Object.freeze({id:"measurement-relative-01",world:"SI-13",title:"Erreur relative de mesure",url:'missions/measurement-relative-01.html'}),
+    Object.freeze({id:"moment-arm-02",world:"SI-02",title:"Moment d’une force oblique",url:'missions/moment-arm-02.html'}),
+    Object.freeze({id:"kinetic-friction-01",world:"SI-03",title:"Force de frottement cinétique",url:'missions/kinetic-friction-01.html'}),
+    Object.freeze({id:"spring-stiffness-01",world:"SI-04",title:"Raideur d’un ressort",url:'missions/spring-stiffness-01.html'}),
+    Object.freeze({id:"beam-stress-02",world:"SI-04",title:"Contrainte normale de flexion",url:'missions/beam-stress-02.html'}),
+    Object.freeze({id:"gear-ratio-02",world:"SI-05",title:"Rapport de vitesses d’engrenages",url:'missions/gear-ratio-02.html'}),
+    Object.freeze({id:"screw-lead-01",world:"SI-05",title:"Avance d’une vis",url:'missions/screw-lead-01.html'}),
+    Object.freeze({id:"hydro-cylinder-speed-02",world:"SI-06",title:"Vitesse d’avance hydraulique",url:'missions/hydro-cylinder-speed-02.html'}),
+    Object.freeze({id:"hydro-annular-force-01",world:"SI-06",title:"Effort côté tige d’un vérin",url:'missions/hydro-annular-force-01.html'}),
+    Object.freeze({id:"pneumatic-consumption-01",world:"SI-07",title:"Volume d’air d’un vérin",url:'missions/pneumatic-consumption-01.html'}),
+    Object.freeze({id:"electrical-series-01",world:"SI-08",title:"Résistance équivalente série",url:'missions/electrical-series-01.html'}),
+    Object.freeze({id:"electrical-parallel-01",world:"SI-08",title:"Résistance équivalente parallèle",url:'missions/electrical-parallel-01.html'}),
+    Object.freeze({id:"inductor-energy-01",world:"SI-09",title:"Énergie stockée dans une inductance",url:'missions/inductor-energy-01.html'}),
+    Object.freeze({id:"mechanical-efficiency-02",world:"SI-10",title:"Puissance utile d’une transmission",url:'missions/mechanical-efficiency-02.html'}),
+    Object.freeze({id:"rolling-torque-01",world:"SI-11",title:"Couple résistant au roulement",url:'missions/rolling-torque-01.html'}),
+    Object.freeze({id:"thermal-resistance-01",world:"SI-12",title:"Résistance thermique plane",url:'missions/thermal-resistance-01.html'}),
+    Object.freeze({id:"measurement-uncertainty-01",world:"SI-13",title:"Incertitude relative",url:'missions/measurement-uncertainty-01.html'})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
