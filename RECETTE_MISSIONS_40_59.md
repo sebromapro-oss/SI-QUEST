@@ -47,3 +47,9 @@ Exécuter `node --test tests/*.test.cjs` et le workflow GitHub Actions, corriger
 - Les 20 schémas SVG disposent désormais de géométries différenciées par phénomène. Ils restent des **schémas 2D non recettés**, et certains paramètres ne gouvernent pas encore une animation physique complète.
 - **Aucune scène 3D manipulable créée dans ce correctif** ; ne pas annoncer de 3D validée.
 - Tests exécutés en environnement Node, contrôles visuels navigateur, tests appareils et lecteurs d'écran : **non démontrés** à la date de cette note. Le statut reste **non validé**.
+
+## Mise à jour — scènes 3D interactives
+
+Le module `src/scene3d.js` projette des géométries définies par des coordonnées **3D** et permet de modifier les angles de caméra dans **7 missions** : circular-02, angular-accel-01, brake-torque-01, torsion-01, gear-mesh-01, belt-speed-01, rolling-load-01. Le rendu SVG projeté ne constitue pas une preuve de géométrie CAO fidèle ou de cinématique complète. Les 13 autres missions conservent une représentation 2D, ce qui peut être suffisant selon le savoir étudié.
+
+Le fichier `tests/scene3d.test.cjs` vérifie par code les projections et le changement de caméra. **Aucun résultat d'exécution ni test matériel n'a encore été recueilli** ; les 20 missions restent non validées.
