@@ -15,7 +15,8 @@ const models=Object.freeze({
 'strain-01':x=>x*1000/(200000*100),
 'density-01':x=>x/0.001,
 'accuracy-01':x=>Math.abs(x-50),
-'frequency-01':x=>x/60
+'frequency-01':x=>x/60,
+'kinetic-01':x=>0.5*1200*x*x/1000
 });
 const criteria=Object.freeze({
 'motion-01':{min:0,max:35,unit:'m'},
@@ -32,7 +33,8 @@ const criteria=Object.freeze({
 'strain-01':{min:0,max:0.8,unit:'mm'},
 'density-01':{min:7500,max:8000,unit:'kg/m³'},
 'accuracy-01':{min:0,max:0.2,unit:'mm'},
-'frequency-01':{min:0,max:40,unit:'Hz'}
+'frequency-01':{min:0,max:40,unit:'Hz'},
+'kinetic-01':{min:0,max:120,unit:'kJ'}
 });
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
