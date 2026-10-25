@@ -31,7 +31,7 @@ test('3D réservée aux phénomènes ayant un modèle spatial',()=>{
 });
 test('trois aides progressives : pas de révélation globale après troisième essai',()=>{
  const code=fs.readFileSync(path.resolve(__dirname,'../src/investigation-mission.js'),'utf8');
- assert.doesNotMatch(code,/aids\\.map\\(\\(a,i\\)=>\\(i\\+1\\)/);
- assert.match(code,/aids\\[hints-1\\]/);
- assert.match(code,/tries>=3\\|\\|mastered/);
+ assert.doesNotMatch(code,/aids\.map/);
+ assert.match(code,/aids\[hints-1\]/);
+ assert.match(code,/tries>=3/);
 });

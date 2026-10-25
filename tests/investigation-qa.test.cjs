@@ -17,7 +17,7 @@ const cases=[
 ['frequency-01',1800,30,3600],['kinetic-01',12,86.4,20]
 ];
 function mockPage(c){
- function el(tag=''){return {tag,style:{},attrs:{},events:{},children:[],value:'',textContent:'',hidden:false,disabled:false,
+ function el(tag=''){return {tag,style:{},attrs:{},events:{},children:[],classList:{toggle(){}},value:'',textContent:'',hidden:false,disabled:false,
   setAttribute(k,v){this.attrs[k]=v},removeAttribute(k){delete this.attrs[k]},
   append(...xs){this.children.push(...xs)},replaceChildren(...xs){this.children=xs},
   insertBefore(){},insertAdjacentElement(){},addEventListener(name,fn){this.events[name]=fn},
@@ -28,7 +28,7 @@ function mockPage(c){
  nodes.curve.closest=sel=>sel==='svg'?graph:model;
  nodes.main.querySelector=()=>el('section');
  nodes.trialValue.value=String(c.initial);
- const document={getElementById:id=>nodes[id],createElement:tag=>el(tag),createElementNS:(ns,tag)=>el(tag),createTextNode:s=>({textContent:s})};
+ const document={head:el('head'),getElementById:id=>nodes[id],createElement:tag=>el(tag),createElementNS:(ns,tag)=>el(tag),createTextNode:s=>({textContent:s})};
  const store={};const localStorage={getItem:k=>store[k]||null,setItem:(k,v)=>{store[k]=v},removeItem:k=>{delete store[k]}};
  const window={SI_MISSION:c,SIInvestigations:physics,SIInvestigationDiagrams:diagrams};
  new Function('window','document','localStorage','SIInvestigations','SIInvestigationDiagrams',ui)(window,document,localStorage,physics,diagrams);
