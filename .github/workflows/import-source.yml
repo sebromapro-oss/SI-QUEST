@@ -1,0 +1,64 @@
+name: Import SI QUEST source archive
+on:
+  push:
+    paths:
+      - '.github/workflows/import-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Validate and extract private source archive
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path, PurePosixPath
+          from zipfile import ZipFile
+          import shutil, stat
+          source=Path('SI_QUEST_CYCLE_27_GITHUB_SOURCES.zip')
+          if not source.is_file():
+              raise SystemExit('Source ZIP missing: abort without commit')
+          with ZipFile(source) as z:
+              members=z.infolist()
+              if len(members)>1000:
+                  raise SystemExit('Too many ZIP entries')
+              total=0
+              for info in members:
+                  p=PurePosixPath(info.filename)
+                  if p.is_absolute() or '..' in p.parts or not p.parts or p.parts[0]!='SI_QUEST':
+                      raise SystemExit('Unsafe ZIP path: '+info.filename)
+                  if (info.external_attr >> 16) & 0o170000 == stat.S_IFLNK:
+                      raise SystemExit('Symlink ZIP entry refused: '+info.filename)
+                  total+=info.file_size
+                  if info.file_size>12_000_000 or total>40_000_000:
+                      raise SystemExit('ZIP expanded size exceeds limit')
+              z.extractall('/tmp/siquest-import')
+          src=Path('/tmp/siquest-import/SI_QUEST')
+          for name in ('index.html','play.html','src','assets','tests','sw.js','manifest.webmanifest'):
+              if not (src/name).exists():
+                  raise SystemExit('Required source missing: '+name)
+          for name in ('index.html','play.html','src','assets','tests','sw.js','manifest.webmanifest','QUALITY.md'):
+              p=src/name
+              if not p.exists(): continue
+              target=Path(name)
+              if p.is_dir():
+                  shutil.copytree(p,target,dirs_exist_ok=True)
+              else:
+                  shutil.copy2(p,target)
+          print('Imported validated source archive; GitHub Pages not enabled')
+          PY
+      - name: Scientific regression suite
+        run: node --test tests/*.test.cjs
+      - name: Commit source to private main branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html play.html src assets tests sw.js manifest.webmanifest QUALITY.md
+          git diff --cached --quiet || git commit -m 'chore: import cycle 27 sources and scientific tests'
+          git push
