@@ -1,5 +1,5 @@
 # SI QUEST — Cahier des charges maître
-**Version 2.0 — 25 octobre 2026 — Référence contractuelle de production et de recette**
+**Version 2.1 — 25 octobre 2026 — Référence contractuelle permanente jusqu'à la mission 996**
 
 > Statut : exigences cibles. Une exigence écrite ne vaut pas preuve d'implémentation. Ce document complète `EXIGENCES.md`, `PRODUCTION.md` et `RECETTE_PEDAGOGIQUE_39.md`. En cas de contradiction, les règles scientifiques et de sécurité priment.
 
@@ -96,3 +96,11 @@ Exécuter : vérification syntaxique, tests unitaires indépendants, tests de pr
 ## 12. Contrôle des changements
 
 Chaque modification indique : exigence liée, fichiers, raison, risque de régression, tests exécutés, résultats, SHA et limites. Aucune suppression de missions, publication publique ou changement d'architecture majeur sans justification et autorisation. Ce cahier des charges doit être relu après chaque lot et les écarts enregistrés dans le registre de recette.
+
+## 13. Applicabilité jusqu'à la mission 996
+
+**Ce cahier des charges s'applique sans exception à toutes les missions 1 à 996**, aux moteurs mutualisés et à toutes les révisions ultérieures. Les missions 40 à 59 constituent uniquement le prochain lot de production, non une limite d'application. Les missions existantes doivent être remises en conformité progressivement, avec preuves conservées.
+
+Chaque nouveau lot doit : (1) partir du HEAD GitHub réel ; (2) vérifier les régressions et les défauts ouverts ; (3) créer des missions scientifiquement indépendantes ; (4) satisfaire les mêmes exigences de tolérance, trois essais, trois aides, corrigé conditionnel, animation, étoiles, 2D/3D selon pertinence, accessibilité ; (5) exécuter les contrôles disponibles ; (6) consigner le nombre **créé**, **testé** et **validé** séparément ; (7) publier uniquement sur le dépôt privé et conserver l'historique.
+
+Aucune cadence, même horaire, n'autorise à déclarer une mission validée sans les preuves exigées. Les améliorations du cahier des charges s'appliquent rétroactivement aux missions déjà créées et sont versionnées. **L'achèvement du projet exige 996 missions indépendantes reçues**, pas 996 liens au catalogue.
