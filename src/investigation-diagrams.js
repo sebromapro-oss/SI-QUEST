@@ -43,13 +43,13 @@ function render(id,x,result){
  let s='';
  switch(id){
  case 'motion-01':{
-  const p=65+430*x/30;
+  const p=65+430*Math.min(1,Math.max(0,x/30));
   s+=line(45,172,570,172,'#91d0e8',5)+box(p,115,70,39,'#386e89')+circle(p+16,163,9,'#071927')+circle(p+55,163,9,'#071927');
   s+=arrow(65,95,p+30,95)+text(65,55,'d = '+N(result)+' m')+text(65,210,'t = '+N(x)+' s');
   break;
  }
  case 'accel-01':{
-  const p=65+430*(x/20)**2,v=.8*x;
+  const p=65+430*Math.min(1,Math.max(0,(x/20)**2)),v=.8*x;
   s+=line(45,172,570,172,'#91d0e8',5)+box(p,115,70,39,'#386e89')+circle(p+16,163,9,'#071927')+circle(p+55,163,9,'#071927');
   s+=arrow(70,80,70+130*x/20,80)+text(70,48,'v = '+N(v)+' m/s')+text(70,210,'d = '+N(.4*x*x)+' m');
   break;
@@ -61,7 +61,7 @@ function render(id,x,result){
   break;
  }
  case 'torque-01':{
-  const start=95-60*x/300;
+  const start=95-60*Math.min(1,x/300);
   s+=line(145,112,480,112,'#b8e7fa',12)+'<path d="M177 121L151 167H203Z" fill="#ffd17d"/>'+line(143,170,212,170,'#fff',3)+arrow(440,start,440,104,'#ff9999',5);
   s+=text(65,45,'F = '+N(x)+' N')+text(265,166,'d = 0,40 m')+text(65,205,'M = '+N(result)+' N·m');
   break;
@@ -92,7 +92,7 @@ function render(id,x,result){
  }
  case 'energy-01':{
   s+=box(65,75,165,95,'#295f81')+box(230,109,25,27,'#d7e5ed')+line(255,123,380,123,'#b8e7fa',5)+circle(415,123,36,'#ffd17d');
-  s+=box(70,185,460,12,'#173f59')+box(70,185,460*x/8,12,'#ffd17d');
+  s+=box(70,185,460,12,'#173f59')+box(70,185,460*Math.min(1,x/8),12,'#ffd17d');
   s+=text(65,45,'P = 240 W')+text(65,220,'E = '+N(result)+' Wh');
   break;
  }
@@ -120,7 +120,7 @@ function render(id,x,result){
   break;
  }
  case 'accuracy-01':{
-  const p=100+420*(x-49)/2;
+  const p=100+420*Math.min(1,Math.max(0,(x-49)/2));
   s+=line(100,132,520,132,'#a9d9ed',5)+line(310,98,310,165,'#7ce8ae',4)+line(p,76,p,155,'#ffca7d',5);
   for(let i=0;i<=10;i++)s+=line(100+i*42,132,100+i*42,i%5===0?148:142,'#fff',2);
   s+=text(95,173,'49 mm')+text(275,190,'50 mm')+text(478,173,'51 mm')+text(55,45,'x₀ = 50,00 mm')+text(55,220,'e = '+N(result)+' mm');
@@ -128,7 +128,7 @@ function render(id,x,result){
  }
  case 'kinetic-01':{
   s+=line(55,173,550,173,'#91d0e8',5)+box(180,95,190,60,'#386e89')+circle(218,165,14,'#071927')+circle(333,165,14,'#071927');
-  s+=arrow(380,77,380+140*x/20,77)+box(80,190,400,12,'#173f59')+box(80,190,400*result/240,12,'#ffd17d');
+  s+=arrow(380,77,380+140*x/20,77)+box(80,190,400,12,'#173f59')+box(80,190,400*Math.min(1,result/240),12,'#ffd17d');
   s+=text(55,42,'m = 1 200 kg ; v = '+N(x)+' m/s')+text(55,223,'Eₖ = '+N(result)+' kJ');
   break;
  }
