@@ -186,6 +186,16 @@ function validateAnswer(raw,expected,absoluteTolerance,relativeTolerance=0){
  const tolerance=Math.max(absoluteTolerance,relativeTolerance*Math.abs(expected));
  return Object.freeze({valid:true,correct:Math.abs(value-expected)<=tolerance+Number.EPSILON*Math.max(1,Math.abs(expected)),value,tolerance});
 }
+function diagnoseAnswer(value,expected,tolerance,unit){
+ if(!Number.isFinite(value)||!Number.isFinite(expected)||!Number.isFinite(tolerance)||tolerance<0)throw new RangeError('Diagnostic invalide');
+ const eps=Math.max(tolerance,1e-10*Math.max(1,Math.abs(expected)));
+ if(expected!==0&&Math.abs(value+expected)<=eps)return 'Le signe semble inversé : vérifie le repère et la convention choisie.';
+ if(expected!==0){for(const factor of [10,100,1000,.1,.01,.001]){
+  if(Math.abs(value-expected*factor)<=eps)return 'L’écart correspond à un facteur '+(factor>=1?factor:Math.round(1/factor))+' : vérifie les conversions et les puissances de dix.';
+ }}
+ if(Math.abs(value-expected)<=Math.max(10*eps,.01*Math.abs(expected)))return 'Réponse proche : vérifie les arrondis, les chiffres significatifs et la précision demandée.';
+ return 'Reprends la formule, les données et les unités'+(unit?' (résultat à exprimer en '+unit+')':'')+'.';
+}
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
  if((id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
@@ -236,7 +246,7 @@ const inputUnits=Object.freeze({
  "thermal-resistance-01": "W/(m·K)",
  "measurement-uncertainty-01": "mm"
 });
-const api=Object.freeze({calculate,assess,criteria,answerPolicy,inputUnits,parseAnswer,validateAnswer});
+const api=Object.freeze({calculate,assess,criteria,answerPolicy,inputUnits,parseAnswer,validateAnswer,diagnoseAnswer});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 root.SIInvestigations=api;
 })(typeof window==='undefined'?globalThis:window);
