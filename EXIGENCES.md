@@ -13,3 +13,7 @@
 - Les seuils de décision propres aux exercices doivent être signalés comme **fictifs** et distincts des prescriptions constructeur. Aucun verdict de simulation ne vaut autorisation d'intervention.
 - Les schémas 2D doivent respecter les connexions, axes, signes, directions des forces et proportions lorsqu'elles ont un sens physique. Toute amplification graphique doit être annoncée. Une courbe générique ne remplace pas un schéma technique ; aucune représentation ne doit être qualifiée de 3D si elle ne l'est pas.
 - Un test numérique, un test DOM simulé, une vérification SVG, une inspection visuelle sur navigateur et un essai matériel constituent cinq preuves différentes ; indiquer explicitement lesquelles ont été réellement réalisées.
+
+## Référence consolidée (25 octobre 2026)
+
+Le document [CAHIER_DES_CHARGES_MAITRE.md](CAHIER_DES_CHARGES_MAITRE.md) détaille les exigences exécutables : tolérances par question, trois essais et trois aides, corrigé conditionnel, étoiles, animations de réussite, géométrie 2D/3D, preuves et réception. Le présent fichier demeure un résumé historique ; appliquer la version maître pour toute nouvelle mission et inscrire les écarts constatés dans le registre de recette. Les fonctionnalités cibles non implémentées ne sont pas réputées livrées.
