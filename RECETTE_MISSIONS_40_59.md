@@ -81,3 +81,17 @@ Les assertions ci-dessous ont été **exécutées dans un moteur JavaScript V8 i
 Les 20 missions sont **intégrées et testées partiellement en V8**, mais **aucune des 20 ne reçoit encore le statut VALIDÉ**. Les vérifications obligatoires non exécutées sont : suite Node sur le dernier commit, contrôle visuel réel de chaque mission sur ordinateur et téléphone, inspection des liaisons/vecteurs/graphes par discipline, vérification du comportement au clavier et au tactile dans un navigateur, essais manuels d'accessibilité et preuves par route. Les 13 missions sans scène 3D restent en 2D lorsque leur modèle le justifie.
 
 **Porte de passage à la production 60+ : fermée.** Corriger les échecs des tests réels, puis seulement réévaluer l'autorisation de poursuivre la création.
+
+
+## Cycle correctif du 25 octobre 2026 — audit contradictoire V2.2
+
+**Anomalies réellement détectées puis corrigées dans le dépôt privé :**
+
+1. Le test de non-régression `tests/batch20.test.cjs` attendait encore **59** identifiants uniques alors que le catalogue en contient **75**. Assertion corrigée à 75.
+2. Les vingt schémas des missions 40–59 n'affichaient pas systématiquement les **unités de la grandeur d'entrée et du résultat**. Un bandeau dimensionné a été ajouté à chacun ; les unités sont fournies par le noyau scientifique et comparées aux configurations des pages.
+3. La cohérence des modèles 2D est désormais contrôlée aux valeurs `min`, `initial`, `max` pour chaque mission de ce lot.
+4. Un diagnostic pédagogique conservateur des erreurs de signe, de facteur décimal et d'arrondi a été ajouté au moteur commun, sans révélation anticipée du résultat.
+
+**Contrôles réellement exécutés :** 20 configurations HTML lues depuis GitHub ; **60 calculs et rendus SVG** réalisés en V8 (3 par mission) ; vérification de l'unité d'entrée, de sortie, du résultat initial et de l'absence de `NaN`/`Infinity` : **60/60 cas sans échec** après correction. Le moteur JS et les modules de dessin modifiés ont été analysés syntaxiquement. Le nouveau fichier `tests/quality-gate-40-75.test.cjs` contient des tests Node persistants, mais **son exécution sous Node n'a pas été observée ici**.
+
+**Réserves maintenues :** aucun contrôle visuel navigateur à 320/390/1440 px, aucune inspection pixel par pixel, aucun essai clavier/tactile matériel, NVDA/TalkBack/VoiceOver ni audit WCAG 2.2 AA réalisé dans ce cycle. Les essais d'interaction en navigateur réel, le contrôle exhaustif des conventions vectorielles et les preuves de recette S/G/P/F/A restent ouverts. **Statut global : NON REÇU.**
