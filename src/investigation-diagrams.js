@@ -21,7 +21,8 @@ const titles=Object.freeze({
 'strain-01':'Barre et allongement élastique',
 'density-01':'Éprouvette de volume fixe',
 'accuracy-01':'Comparaison mesure et référence',
-'frequency-01':'Disque et capteur de rotation'
+'frequency-01':'Disque et capteur de rotation',
+'kinetic-01':'Engin mobile et énergie cinétique'
 });
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
@@ -109,6 +110,12 @@ function render(id,x,result){
   s+=line(100,132,520,132,'#a9d9ed',5)+line(310,98,310,165,'#7ce8ae',4)+line(p,76,p,155,'#ffca7d',5);
   for(let i=0;i<=10;i++)s+=line(100+i*42,132,100+i*42,i%5===0?148:142,'#fff',2);
   s+=text(95,173,'49 mm')+text(275,190,'50 mm')+text(478,173,'51 mm')+text(55,45,'x₀ = 50,00 mm')+text(55,220,'e = '+N(result)+' mm');
+  break;
+ }
+ case 'kinetic-01':{
+  s+=line(55,173,550,173,'#91d0e8',5)+box(180,95,190,60,'#386e89')+circle(218,165,14,'#071927')+circle(333,165,14,'#071927');
+  s+=arrow(380,77,380+140*x/20,77)+box(80,190,400,12,'#173f59')+box(80,190,400*result/240,12,'#ffd17d');
+  s+=text(55,42,'m = 1 200 kg ; v = '+N(x)+' m/s')+text(55,223,'Eₖ = '+N(result)+' kJ');
   break;
  }
  case 'frequency-01':{
