@@ -1,6 +1,8 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'hydro-backpressure-01':x=>(120e5*Math.PI*.08**2/4-x*1e5*Math.PI*(.08**2-.04**2)/4)/1000,
+'euler-buckling-01':x=>Math.PI**2*210e9*(Math.PI*.02**4/64)/(x*x)/1000,
 'hose-pressure-drop-01':x=>128*0.06*5*(x/60000)/(Math.PI*0.012**4)/1e5,
 'dc-voltage-drop-01':x=>2*0.0175*8*x/2.5,
 'motion-01':x=>1.8*x,
@@ -71,6 +73,8 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'hydro-backpressure-01':{min:35,max:Infinity,unit:'kN'},
+'euler-buckling-01':{min:6,max:Infinity,unit:'kN'},
 'hose-pressure-drop-01':{min:0,max:0.5,unit:'bar'},
 'dc-voltage-drop-01':{min:0,max:1.2,unit:'V'},
 'motion-01':{min:0,max:35,unit:'m'},
@@ -141,6 +145,9 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'hydro-backpressure-01':Object.freeze({absoluteTolerance:0.05,relativeTolerance:0,precision:3,assumptions:"Vérin double effet à l'extension ; D = 80 mm, tige d = 40 mm, pression chambre pleine pA = 120 bar relatifs au réservoir, contre-pression chambre annulaire pB variable de 0 à 80 bar relatifs au même réservoir ; écoulement quasi-statique, frottements et inertie négligés.",solution:"Surface pleine Aₚ = πD²/4 = 0,00502655 m² ; surface annulaire Aₐ = π(D²−d²)/4 = 0,00376991 m². À pB = 20 bar : F = pA Aₚ − pB Aₐ = 120×10⁵ Pa × 0,00502655 m² − 20×10⁵ Pa × 0,00376991 m² = 52 778,76 N = 52,779 kN. La contre-pression réduit l'effort disponible à l'extension. Il s'agit de l'effort hydraulique théorique, sans frottement ni charge extérieure."}),
+'euler-buckling-01':Object.freeze({absoluteTolerance:0.02,relativeTolerance:0,precision:3,assumptions:"Colonne droite en acier homogène, section circulaire pleine d = 20 mm, module E = 210 GPa ; deux extrémités articulées idéales, longueur libre L variable de 1,0 à 3,0 m ; petites déformations et flambement élastique d'Euler, imperfections et excentricité négligées. Le résultat ne constitue pas une charge admissible.",solution:"I = πd⁴/64 = π(0,020 m)⁴/64 = 7,854×10⁻⁹ m⁴. E = 210×10⁹ Pa ; L = 2,0 m ; longueur efficace K L = L car K = 1. Pcr = π² E I/L² = π² × 210×10⁹ × 7,854×10⁻⁹ / 2,0² = 4 069,57 N = 4,070 kN. Si L double, Pcr est divisé par quatre. Vérifier élancement, conditions d'appui réelles, défauts géométriques et coefficient de sécurité avant dimensionnement."}),
+
 'hose-pressure-drop-01':Object.freeze({absoluteTolerance:0.005,relativeTolerance:0,precision:3,assumptions:"Huile newtonienne à température constante : viscosité dynamique μ = 0,060 Pa·s, masse volumique ρ = 850 kg/m³ ; flexible rectiligne de longueur L = 5,0 m et diamètre intérieur D = 0,012 m. Écoulement permanent, incompressible, pleinement développé et laminaire ; pertes singulières et différence d’altitude négligées. Domaine 0,5 à 6 L/min : Re = 4ρQ/(πμD) ≤ 150,4, compatible avec l’hypothèse laminaire.",solution:"Q = 2,0 L/min = 2/60 000 m³/s = 3,333 × 10⁻⁵ m³/s. Δp = 128 μLQ/(πD⁴) = 128 × 0,060 × 5,0 × 3,333 × 10⁻⁵ /(π × 0,012⁴) ≈ 19 648,76 Pa = 0,19649 bar. Re = 4ρQ/(πμD) ≈ 50,1 < 2 300 : régime laminaire cohérent. Les pertes des raccords restent à déterminer sur un circuit réel."}),
 'dc-voltage-drop-01':Object.freeze({absoluteTolerance:0.02,relativeTolerance:0,precision:2,assumptions:"Alimentation continue 12 V ; deux conducteurs aller et retour de longueur L = 8,0 m chacun, cuivre à température de référence, résistivité ρ = 0,0175 Ω·mm²/m, section S = 2,5 mm². Courant stationnaire I ; contacts et échauffement négligés. Le modèle ne détermine ni l’ampacité ni la protection électrique.",solution:"Raller-retour = 2ρL/S = 2 × 0,0175 Ω·mm²/m × 8,0 m / 2,5 mm² = 0,112 Ω. Pour I = 15 A, ΔU = RI = 0,112 Ω × 15 A = 1,68 V. Tension à la charge idéale : 12,00 − 1,68 = 10,32 V. Vérifier la section, l’échauffement et la chute admissible constructeur."}),
 "moment-arm-02":Object.freeze({absoluteTolerance:0.5,relativeTolerance:0,precision:4,assumptions:"Force de 280 N appliquée au bout d’un levier rigide de 0,45 m ; angle θ mesuré entre le bras et la force ; moment signé dépendant de l’orientation.",solution:"M = F L sin θ = 280 N × 0,45 m × sin(30°) = 63 N·m. Le signe du moment est fixé par le sens de rotation choisi ; ici on calcule sa valeur absolue."}),
@@ -215,6 +222,8 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'hydro-backpressure-01':'bar',
+'euler-buckling-01':'m',
 'hose-pressure-drop-01':'L/min',
 'dc-voltage-drop-01':'A',
  "circular-02": "m/s",
