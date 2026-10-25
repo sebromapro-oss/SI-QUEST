@@ -1,6 +1,8 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'hose-pressure-drop-01':x=>128*0.06*5*(x/60000)/(Math.PI*0.012**4)/1e5,
+'dc-voltage-drop-01':x=>2*0.0175*8*x/2.5,
 'motion-01':x=>1.8*x,
 'accel-01':x=>0.8*x,
 'rotation-01':x=>2*Math.PI*x/60,
@@ -69,6 +71,8 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'hose-pressure-drop-01':{min:0,max:0.5,unit:'bar'},
+'dc-voltage-drop-01':{min:0,max:1.2,unit:'V'},
 'motion-01':{min:0,max:35,unit:'m'},
 'accel-01':{min:0,max:12,unit:'m/s'},
 'rotation-01':{min:0,max:80,unit:'rad/s'},
@@ -137,6 +141,8 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'hose-pressure-drop-01':Object.freeze({absoluteTolerance:0.005,relativeTolerance:0,precision:3,assumptions:"Huile newtonienne à température constante : viscosité dynamique μ = 0,060 Pa·s, masse volumique ρ = 850 kg/m³ ; flexible rectiligne de longueur L = 5,0 m et diamètre intérieur D = 0,012 m. Écoulement permanent, incompressible, pleinement développé et laminaire ; pertes singulières et différence d’altitude négligées. Domaine 0,5 à 6 L/min : Re = 4ρQ/(πμD) ≤ 150,4, compatible avec l’hypothèse laminaire.",solution:"Q = 2,0 L/min = 2/60 000 m³/s = 3,333 × 10⁻⁵ m³/s. Δp = 128 μLQ/(πD⁴) = 128 × 0,060 × 5,0 × 3,333 × 10⁻⁵ /(π × 0,012⁴) ≈ 19 648,76 Pa = 0,19649 bar. Re = 4ρQ/(πμD) ≈ 50,1 < 2 300 : régime laminaire cohérent. Les pertes des raccords restent à déterminer sur un circuit réel."}),
+'dc-voltage-drop-01':Object.freeze({absoluteTolerance:0.02,relativeTolerance:0,precision:2,assumptions:"Alimentation continue 12 V ; deux conducteurs aller et retour de longueur L = 8,0 m chacun, cuivre à température de référence, résistivité ρ = 0,0175 Ω·mm²/m, section S = 2,5 mm². Courant stationnaire I ; contacts et échauffement négligés. Le modèle ne détermine ni l’ampacité ni la protection électrique.",solution:"Raller-retour = 2ρL/S = 2 × 0,0175 Ω·mm²/m × 8,0 m / 2,5 mm² = 0,112 Ω. Pour I = 15 A, ΔU = RI = 0,112 Ω × 15 A = 1,68 V. Tension à la charge idéale : 12,00 − 1,68 = 10,32 V. Vérifier la section, l’échauffement et la chute admissible constructeur."}),
 "moment-arm-02":Object.freeze({absoluteTolerance:0.5,relativeTolerance:0,precision:4,assumptions:"Force de 280 N appliquée au bout d’un levier rigide de 0,45 m ; angle θ mesuré entre le bras et la force ; moment signé dépendant de l’orientation.",solution:"M = F L sin θ = 280 N × 0,45 m × sin(30°) = 63 N·m. Le signe du moment est fixé par le sens de rotation choisi ; ici on calcule sa valeur absolue."}),
 "kinetic-friction-01":Object.freeze({absoluteTolerance:0.5,relativeTolerance:0,precision:4,assumptions:"Patin en glissement horizontal à vitesse non nulle ; μₖ constant, réaction normale N = mg, pas de composante verticale supplémentaire.",solution:"N = mg = 80 kg × 9,81 m/s² = 784,8 N. Fₖ = μₖN = 0,25 × 784,8 = 196,2 N, opposée à la vitesse relative. Ne pas confondre μₖ avec μₛ."}),
 "spring-stiffness-01":Object.freeze({absoluteTolerance:25,relativeTolerance:0,precision:4,assumptions:"Loi de Hooke dans le domaine élastique linéaire ; allongement ou compression de module 25 mm ; raideur positive.",solution:"Δx = 25 mm = 0,025 m. k = F/Δx = 300 N / 0,025 m = 12 000 N/m. Vérifier la plage de déformation autorisée."}),
@@ -209,6 +215,8 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'hose-pressure-drop-01':'L/min',
+'dc-voltage-drop-01':'A',
  "circular-02": "m/s",
  "angular-accel-01": "s",
  "brake-torque-01": "rad/s²",

@@ -7,11 +7,11 @@ const engine=require('../src/investigations.js');
 const diagrams=require('../src/investigation-diagrams.js');
 const catalog=require('../src/catalog.js');
 const root=path.resolve(__dirname,'..');
-const audited=catalog.levels.slice(39);
+const audited=catalog.levels.slice(39,75);
 const approx=(actual,expected,label)=>assert.ok(Math.abs(actual-expected)<=1e-10*Math.max(1,Math.abs(expected)),label+': '+actual+' != '+expected);
 
 test('36 missions 40–75 : paramètres, calcul, unités et SVG aux trois bornes',()=>{
- assert.equal(catalog.levels.length,75);
+ assert.ok(catalog.levels.length>=75);
  assert.equal(audited.length,36);
  assert.equal(new Set(catalog.levels.map(x=>x.id)).size,75);
  for(const level of audited){

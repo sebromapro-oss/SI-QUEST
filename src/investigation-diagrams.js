@@ -7,6 +7,8 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'hose-pressure-drop-01':'Flexible hydraulique et perte de pression',
+'dc-voltage-drop-01':'Circuit 12 V, conducteurs aller et retour',
 "moment-arm-02":"Levier, bras de levier et force inclinée",
 "kinetic-friction-01":"Patin en glissement et effort de frottement",
 "spring-stiffness-01":"Ressort sollicité axialement",
@@ -75,6 +77,8 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+'hose-pressure-drop-01':['Q','Δp'],
+'dc-voltage-drop-01':['I','ΔU'],
  "circular-02": [
   "v",
   "aₙ"
@@ -230,6 +234,15 @@ function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'hose-pressure-drop-01':{
+  s+=box(95,90,410,70,'#143c56')+line(105,116,495,116,'#8ddcff',7)+line(105,141,495,141,'#8ddcff',7)+arrow(220,128,370,128,'#ffd17d',4);
+  s+=circle(132,72,25,'#315c76')+circle(468,72,25,'#315c76')+line(132,96,132,90)+line(468,96,468,90);
+  s+=text(40,40,'p₁')+text(510,40,'p₂')+text(230,82,'L = 5,0 m')+text(190,185,'D = 12 mm')+valueLabel(id,x,result);break;
+ }
+ case 'dc-voltage-drop-01':{
+  s+=line(100,82,170,82)+box(170,65,100,34,'#315c76')+line(270,82,430,82)+box(430,65,80,34,'#7a5b37')+line(510,82,540,82)+line(540,82,540,172)+line(540,172,430,172)+box(330,155,100,34,'#315c76')+line(330,172,100,172)+line(100,172,100,130)+line(100,105,100,82)+line(83,105,117,105,'#ffd17d',4)+line(90,130,110,130,'#ffd17d',4)+arrow(290,56,380,56,'#7ce8ae',4);
+  s+=text(38,40,'U = 12 V')+text(175,120,'R₁')+text(335,212,'R₂')+valueLabel(id,x,result);break;
+ }
  case 'moment-arm-02':{s+=line(150,168,430,168,'#9bc9e5',9)+circle(150,168,11,'#ffd17d')+arrow(430,168,430+95*Math.cos(x*Math.PI/180),168-95*Math.sin(x*Math.PI/180));s+=text(145,195,'Pivot')+text(255,150,'L = 0,45 m')+text(405,60,'θ = '+N(x)+'°');s+=text(32,40,"Levier, bras de levier et force inclinée")+valueLabel(id,x,result);break;}
 case 'kinetic-friction-01':{s+=box(145,95,300,72)+arrow(320,74,470,74)+arrow(300,187,170,187);s+=text(32,40,"Patin en glissement et effort de frottement")+valueLabel(id,x,result);break;}
 case 'spring-stiffness-01':{s+=line(80,125,160,125)+Array.from({length:8},(_,k)=>line(160+k*32,125+(k%2?28:-28),192+k*32,125+(k%2?-28:28),'#9bc9e5',4)).join('')+arrow(500,125,550,125);s+=text(32,40,"Ressort comprimé et force axiale")+valueLabel(id,x,result);break;}

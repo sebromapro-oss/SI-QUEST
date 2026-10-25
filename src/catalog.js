@@ -83,7 +83,9 @@
     Object.freeze({id:"mechanical-efficiency-02",world:"SI-10",title:"Puissance utile d’une transmission",url:'missions/mechanical-efficiency-02.html'}),
     Object.freeze({id:"rolling-torque-01",world:"SI-11",title:"Couple résistant au roulement",url:'missions/rolling-torque-01.html'}),
     Object.freeze({id:"thermal-resistance-01",world:"SI-12",title:"Résistance thermique plane",url:'missions/thermal-resistance-01.html'}),
-    Object.freeze({id:"measurement-uncertainty-01",world:"SI-13",title:"Incertitude relative",url:'missions/measurement-uncertainty-01.html'})
+    Object.freeze({id:"measurement-uncertainty-01",world:"SI-13",title:"Incertitude relative",url:'missions/measurement-uncertainty-01.html'}),
+    Object.freeze({id:'hose-pressure-drop-01',world:'SI-06',title:'Diagnostic hydraulique — Pertes de charge laminaires',url:'missions/hose-pressure-drop-01.html'}),
+    Object.freeze({id:'dc-voltage-drop-01',world:'SI-08',title:'Diagnostic électrique — Chute de tension des câbles',url:'missions/dc-voltage-drop-01.html'})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
