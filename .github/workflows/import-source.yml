@@ -31,7 +31,7 @@ jobs:
               total=0
               for info in members:
                   p=PurePosixPath(info.filename)
-                  if p.is_absolute() or '..' in p.parts or not p.parts or p.parts[0]!='SI_QUEST':
+                  if p.is_absolute() or '..' in p.parts or not p.parts:
                       raise SystemExit('Unsafe ZIP path: '+info.filename)
                   if (info.external_attr >> 16) & 0o170000 == stat.S_IFLNK:
                       raise SystemExit('Symlink ZIP entry refused: '+info.filename)
@@ -39,11 +39,12 @@ jobs:
                   if info.file_size>12_000_000 or total>40_000_000:
                       raise SystemExit('ZIP expanded size exceeds limit')
               z.extractall('/tmp/siquest-import')
-          src=Path('/tmp/siquest-import/SI_QUEST')
-          for name in ('index.html','play.html','src','assets','tests','sw.js','manifest.webmanifest'):
+          root=Path('/tmp/siquest-import')
+src=root/'SI_QUEST' if (root/'SI_QUEST'/'src').exists() else root
+          for name in ('index.html','play.html','src','assets','tests','sw.js','manifest.webmanifest','mondes'):
               if not (src/name).exists():
                   raise SystemExit('Required source missing: '+name)
-          for name in ('index.html','play.html','src','assets','tests','sw.js','manifest.webmanifest','QUALITY.md'):
+          for name in ('index.html','play.html','src','assets','tests','sw.js','manifest.webmanifest','QUALITY.md','mondes'):
               p=src/name
               if not p.exists(): continue
               target=Path(name)
