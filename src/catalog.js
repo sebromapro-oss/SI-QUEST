@@ -12,7 +12,8 @@
     Object.freeze({id:'gear-01',world:'SI-05',title:'Gear Forge — Réducteur',url:'missions/gear-01.html'}),
     Object.freeze({id:'hydro-01',world:'SI-06',title:'Hydro Lift — Vérin double effet',url:'missions/hydro-01.html'}),
     Object.freeze({id:'slope-01',world:'SI-03',title:'Slope Guard — Retenue sur pente',url:'missions/slope-01.html'}),
-    Object.freeze({id:'electric-01',world:'SI-08',title:'Volt Check — Diagnostic 12 V',url:'missions/electric-01.html'})
+    Object.freeze({id:'electric-01',world:'SI-08',title:'Volt Check — Diagnostic 12 V',url:'missions/electric-01.html'}),
+    Object.freeze({id:'braking-01',world:'SI-01',title:'Brake Check — Distance d’arrêt',url:'missions/braking-01.html'})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
