@@ -167,6 +167,25 @@ case "frequency-period-01":{s+='<path d="M60 125 L130 125 L130 75 L200 75 L200 1
 case "hydro-force-02":{s+=box(110,75,350,100)+box(250,83,18,85,'#d8e8f2')+box(268,115,250,20,'#d8e8f2')+arrow(515,145,565,145)+text(55,40,'p = '+N(x)+' bar ; D = 80 mm');break;}
 case "beam-defl-01":{s+=box(85,60,28,145,'#a2b5c2')+'<path d="M113 110 Q320 115 510 '+(110+Math.min(55,x*.25))+'" fill="none" stroke="#8ddcff" stroke-width="12"/>'+arrow(510,60,510,100+Math.min(55,x*.25))+text(55,40,'F = '+N(x)+' N ; flèche amplifiée');break;}
 case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,126,340,126,'#8ddcff',5)+arrow(340,126,290,126)+arrow(340,126,340,56,'#7ce8ae')+text(50,45,'r = 0,5 m ; v = '+N(x)+' m/s');break;}
+ case 'angular-accel-01':{s+=circle(270,125,74)+line(270,125,270+65*Math.cos(x/4),125-65*Math.sin(x/4),'#ffd17d',6)+text(55,42,'Δt = '+N(x));break;}
+ case 'brake-torque-01':{s+=circle(250,125,74)+box(320,85,35,80,'#ab7156')+arrow(380,185,330,165)+text(55,42,'|α| = '+N(x));break;}
+ case 'incline-force-01':{s+=line(90,190,490,110,'#d4e8f2',7)+box(275,110,110,50)+arrow(330,110,330,200)+arrow(330,110,270,130)+text(55,42,'θ = '+N(x));break;}
+ case 'resultant-01':{s+=arrow(180,175,360,175,'#8ddcff')+arrow(360,175,360,65,'#7ce8ae')+arrow(180,175,360,65)+text(55,42,'Fᵧ = '+N(x));break;}
+ case 'torsion-01':{s+=box(120,100,350,55,'#527d94')+circle(120,128,29)+circle(470,128,29)+arrow(470,95,525,105)+text(55,42,'C = '+N(x));break;}
+ case 'axial-strain-01':{s+=box(110,110,355,42)+arrow(110,130,55,130)+arrow(465,130,535,130)+text(55,42,'ΔL = '+N(x));break;}
+ case 'gear-mesh-01':{s+=circle(205,125,48)+circle(205+48+Math.min(70,x),125,Math.min(70,x))+text(55,42,'z₂ = '+N(x));break;}
+ case 'belt-speed-01':{s+=circle(210,130,55)+circle(435,130,55)+line(210,75,435,75)+line(210,185,435,185)+arrow(280,75,355,75)+text(55,42,'n = '+N(x));break;}
+ case 'hydro-power-01':{s+=circle(205,125,60)+arrow(265,125,390,125)+box(390,100,100,50)+text(55,42,'p = '+N(x));break;}
+ case 'hydro-volume-01':{s+=box(100,80,370,100)+box(220+Math.min(180,x*.3),86,14,88,'#d5e8f4')+text(55,42,'L = '+N(x));break;}
+ case 'pneumatic-force-01':{s+=box(95,80,370,100)+box(245,85,14,90,'#d5e8f4')+box(259,117,250,25,'#d5e8f4')+arrow(510,129,555,129)+text(55,42,'p = '+N(x));break;}
+ case 'electric-power-02':{s+=line(120,90,250,90)+box(250,75,115,30)+line(365,90,475,90)+line(475,90,475,175)+line(475,175,120,175)+line(120,175,120,90)+text(55,42,'I = '+N(x));break;}
+ case 'joule-heat-01':{s+=line(120,115,230,115)+box(230,95,150,40,'#9b6748')+line(380,115,500,115)+arrow(145,115,210,115)+text(55,42,'I = '+N(x));break;}
+ case 'rc-time-01':{s+=line(95,125,190,125)+box(190,110,100,30)+line(290,125,350,125)+line(350,80,350,170,'#ffd17d',5)+line(375,80,375,170,'#ffd17d',5)+line(375,125,515,125)+text(55,42,'R = '+N(x));break;}
+ case 'sampling-01':{s+=line(75,185,525,185)+line(75,185,75,65)+arrow(110,135,170,95)+arrow(225,135,285,95)+arrow(340,135,400,95)+text(55,42,'T = '+N(x));break;}
+ case 'efficiency-chain-01':{s+=box(100,95,145,65)+box(350,95,145,65)+arrow(245,127,345,127)+text(55,42,'η₂ = '+N(x));break;}
+ case 'rolling-load-01':{s+=line(60,190,540,190)+circle(275,130,60)+arrow(275,130,275,60)+arrow(275,190,275,220)+arrow(275,130,175,130)+text(55,42,'cᵣ = '+N(x));break;}
+ case 'heat-transfer-01':{s+=box(245,65,110,140,'#9c7157')+arrow(110,105,230,105)+arrow(370,105,490,105)+text(55,42,'ΔT = '+N(x));break;}
+ case 'measurement-relative-01':{s+=line(85,155,525,155,'#d5e8f4',5)+box(150,120,310,32)+line(300,90,300,195,'#7ce8ae',3)+text(55,42,'mesure = '+N(x));break;}
  case 'frequency-01':{
   const a=2*Math.PI*x/60*.07;
   s+=circle(260,119,68)+circle(260,119,9,'#ffd17d')+line(260,119,260+62*Math.cos(a),119-62*Math.sin(a),'#ffd17d',7);
