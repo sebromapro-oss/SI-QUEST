@@ -103,8 +103,8 @@ $('calc').addEventListener('submit',e=>{
  tries++;
  if(result.correct){unlocked=true;mastered=true;}
  $('answer').setAttribute('aria-invalid',result.correct?'false':'true');
- $('feedback').textContent=result.correct?'Calcul juste. Les simulations sont disponibles.':tries===3?'Trois essais effectués. Les trois aides sont disponibles et le corrigé est maintenant accessible.':'Calcul à reprendre : vérifie la relation, les unités et les conversions.';
- if(!result.correct&&tries===3){$('feedback').textContent='Trois essais effectués. Tu peux consulter les aides restantes une par une, ou ouvrir le corrigé.';}
+ const diagnostic=result.correct?'':SIInvestigations.diagnoseAnswer(result.value,c.expected,result.tolerance,c.unit);
+ $('feedback').textContent=result.correct?'Calcul juste. Les simulations sont disponibles.':diagnostic+(tries===3?' Trois essais effectués : aides restantes et corrigé disponibles.':' Tu peux consulter une aide avant le prochain essai.');
  record('Calcul '+(result.correct?'juste':'à reprendre')+' — essai '+tries+'/3');
 });
 $('hint').addEventListener('click',()=>{if(hints>=3){$('hintText').textContent='Les trois aides sont déjà affichées.';return;}hints=Math.min(3,hints+1);$('hintText').hidden=false;$('hintText').textContent=aids[hints-1];save();render()});
