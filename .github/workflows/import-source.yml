@@ -40,8 +40,8 @@ jobs:
                       raise SystemExit('ZIP expanded size exceeds limit')
               z.extractall('/tmp/siquest-import')
           root=Path('/tmp/siquest-import')
-src=root/'SI_QUEST' if (root/'SI_QUEST'/'src').exists() else root
-          for name in ('index.html','play.html','src','assets','tests','sw.js','manifest.webmanifest','mondes'):
+          src=root/'SI_QUEST' if (root/'SI_QUEST'/'src').exists() else root
+          for name in ('index.html','play.html','src','assets','tests','sw.js','manifest.webmanifest'):
               if not (src/name).exists():
                   raise SystemExit('Required source missing: '+name)
           for name in ('index.html','play.html','src','assets','tests','sw.js','manifest.webmanifest','QUALITY.md','mondes'):
@@ -61,5 +61,6 @@ src=root/'SI_QUEST' if (root/'SI_QUEST'/'src').exists() else root
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html play.html src assets tests sw.js manifest.webmanifest QUALITY.md
+          if [ -d mondes ]; then git add mondes; fi
           git diff --cached --quiet || git commit -m 'chore: import cycle 27 sources and scientific tests'
           git push
