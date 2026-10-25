@@ -39,3 +39,11 @@ Date : 25 octobre 2026. Référence : [Cahier des charges maître](CAHIER_DES_CH
 ## Prochaine porte de validation
 
 Exécuter `node --test tests/*.test.cjs` et le workflow GitHub Actions, corriger tous les échecs, puis inspecter individuellement les 20 scènes et les parcours de réponse. Conserver les preuves par appareil et révision. **Ne pas compter ces 20 missions comme validées avant fermeture des anomalies.**
+
+## Correctifs intégrés après création
+
+- Tolérance relative par question configurable et précision de secours resserrée ; les valeurs doivent encore être spécifiées scientifiquement pour chaque mission.
+- Une entrée non numérique ne consomme plus d'essai ; le corrigé devient disponible après trois essais sans clic obligatoire sur les trois indices.
+- Les 20 schémas SVG disposent désormais de géométries différenciées par phénomène. Ils restent des **schémas 2D non recettés**, et certains paramètres ne gouvernent pas encore une animation physique complète.
+- **Aucune scène 3D manipulable créée dans ce correctif** ; ne pas annoncer de 3D validée.
+- Tests exécutés en environnement Node, contrôles visuels navigateur, tests appareils et lecteurs d'écran : **non démontrés** à la date de cette note. Le statut reste **non validé**.
