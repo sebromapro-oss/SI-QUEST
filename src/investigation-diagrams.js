@@ -42,12 +42,12 @@ function render(id,x,result){
  case 'rotation-01':{
   const a=2*Math.PI*x/60*.07;
   s+=circle(300,113,69)+circle(300,113,12,'#ffd17d')+line(300,113,300+62*Math.cos(a),113-62*Math.sin(a),'#ffca7d',7);
-  s+=arrow(415,155,500,155)+text(55,45,'Régime : '+N(x)+' tr/min')+text(55,205,'Repère observé après 0,07 s');
+  s+='<path d="M395 76 A105 105 0 0 1 393 152" fill="none" stroke="#ffca7d" stroke-width="5" marker-end="url(#pointe)"/>'+text(55,45,'Régime : '+N(x)+' tr/min')+text(55,205,'Repère observé après 0,07 s');
   break;
  }
  case 'torque-01':{
-  const start=112-65*x/300;
-  s+=line(145,112,480,112,'#b8e7fa',12)+box(162,120,30,42,'#ffd17d')+arrow(440,start,440,104,'#ff9999',5);
+  const start=95-60*x/300;
+  s+=line(145,112,480,112,'#b8e7fa',12)+'<path d="M177 121L151 167H203Z" fill="#ffd17d"/>'+line(143,170,212,170,'#fff',3)+arrow(440,start,440,104,'#ff9999',5);
   s+=text(65,45,'Effort : '+N(x)+' N')+text(265,166,'Bras : 0,40 m')+text(65,205,'Moment : '+N(result)+' N·m');
   break;
  }
@@ -65,7 +65,7 @@ function render(id,x,result){
  case 'power-01':{
   const a=2*Math.PI*x/60*.07;
   s+=box(80,76,205,95,'#285b76')+line(285,123,480,123,'#c6d6e1',18)+circle(470,123,50,'#173f59')+line(470,123,470+44*Math.cos(a),123-44*Math.sin(a),'#ffd17d',6);
-  s+=text(65,45,'Couple constant : 120 N·m')+text(65,210,'Puissance : '+N(result)+' kW');
+  s+=text(65,45,'Couple constant : 120 N·m')+text(65,210,'Puissance : '+N(result)+' kW ; repère à 0,07 s');
   break;
  }
  case 'ohm-01':{
@@ -101,7 +101,7 @@ function render(id,x,result){
  }
  case 'density-01':{
   s+=box(235,92,140,93,'#326785')+line(235,92,265,60)+line(375,92,405,60)+line(265,60,405,60)+line(405,60,405,153)+line(375,185,405,153);
-  s+=arrow(310,100,310,115+65*x/12,'#ffca7d')+text(55,45,'Volume fixe : 0,001 m³')+text(55,215,'Masse : '+N(x)+' kg ; masse volumique : '+N(result)+' kg/m³');
+  s+=arrow(310,100,310,115+65*x/12,'#ffca7d')+text(55,45,'Volume fixe : 0,001 m³ ; poids ∝ masse')+text(55,215,'Masse : '+N(x)+' kg ; masse volumique : '+N(result)+' kg/m³');
   break;
  }
  case 'accuracy-01':{
