@@ -47,7 +47,27 @@
     Object.freeze({id:"work-01",world:"SI-10",title:"Travail mécanique",url:'missions/work-01.html'}),
     Object.freeze({id:"frequency-period-01",world:"SI-09",title:"Période d'un signal",url:'missions/frequency-period-01.html'}),
     Object.freeze({id:"hydro-force-02",world:"SI-06",title:"Effort d'un vérin",url:'missions/hydro-force-02.html'}),
-    Object.freeze({id:"beam-defl-01",world:"SI-04",title:"Flèche d'une poutre",url:'missions/beam-defl-01.html'})
+    Object.freeze({id:"beam-defl-01",world:"SI-04",title:"Flèche d'une poutre",url:'missions/beam-defl-01.html'}),
+    Object.freeze({id:"circular-02",world:"SI-01",title:"Accélération centripète",url:'missions/circular-02.html'}),
+    Object.freeze({id:"angular-accel-01",world:"SI-01",title:"Accélération angulaire",url:'missions/angular-accel-01.html'}),
+    Object.freeze({id:"brake-torque-01",world:"SI-02",title:"Couple de freinage",url:'missions/brake-torque-01.html'}),
+    Object.freeze({id:"incline-force-01",world:"SI-03",title:"Composante du poids sur pente",url:'missions/incline-force-01.html'}),
+    Object.freeze({id:"resultant-01",world:"SI-03",title:"Résultante orthogonale",url:'missions/resultant-01.html'}),
+    Object.freeze({id:"torsion-01",world:"SI-04",title:"Contrainte de torsion",url:'missions/torsion-01.html'}),
+    Object.freeze({id:"axial-strain-01",world:"SI-04",title:"Déformation unitaire",url:'missions/axial-strain-01.html'}),
+    Object.freeze({id:"gear-mesh-01",world:"SI-05",title:"Entraxe d'engrenages",url:'missions/gear-mesh-01.html'}),
+    Object.freeze({id:"belt-speed-01",world:"SI-05",title:"Vitesse linéaire de courroie",url:'missions/belt-speed-01.html'}),
+    Object.freeze({id:"hydro-power-01",world:"SI-06",title:"Puissance hydraulique",url:'missions/hydro-power-01.html'}),
+    Object.freeze({id:"hydro-volume-01",world:"SI-06",title:"Volume déplacé par vérin",url:'missions/hydro-volume-01.html'}),
+    Object.freeze({id:"pneumatic-force-01",world:"SI-07",title:"Force pneumatique",url:'missions/pneumatic-force-01.html'}),
+    Object.freeze({id:"electric-power-02",world:"SI-08",title:"Puissance électrique continue",url:'missions/electric-power-02.html'}),
+    Object.freeze({id:"joule-heat-01",world:"SI-08",title:"Effet Joule",url:'missions/joule-heat-01.html'}),
+    Object.freeze({id:"rc-time-01",world:"SI-09",title:"Constante de temps RC",url:'missions/rc-time-01.html'}),
+    Object.freeze({id:"sampling-01",world:"SI-09",title:"Fréquence d'échantillonnage",url:'missions/sampling-01.html'}),
+    Object.freeze({id:"efficiency-chain-01",world:"SI-10",title:"Rendement global",url:'missions/efficiency-chain-01.html'}),
+    Object.freeze({id:"rolling-load-01",world:"SI-11",title:"Effort de roulement",url:'missions/rolling-load-01.html'}),
+    Object.freeze({id:"heat-transfer-01",world:"SI-12",title:"Flux thermique par conduction",url:'missions/heat-transfer-01.html'}),
+    Object.freeze({id:"measurement-relative-01",world:"SI-13",title:"Erreur relative de mesure",url:'missions/measurement-relative-01.html'})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
