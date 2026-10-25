@@ -19,7 +19,7 @@
     'La pression minimale est p = F / (ηₘ × S). Convertis les pascals en bar en divisant par 100 000.',
     'Le débit utile vaut ηᵥ × Q. Pour les vitesses, divise le débit utile en m³/s par la surface correspondante en m², puis convertis en mm/s.'
   ];
-  const empty=()=>({attempts:0,hints:0,calculationPassed:false,solutionShown:false,trialPassed:false,log:[]});
+  const empty=()=>({attempts:0,hints:0,calculationPassed:false,solutionShown:false,trialPassed:false,lastTrialSafe:null,log:[]});
   let state=empty(),running=false,frame=null;
   try{
     const saved=JSON.parse(localStorage.getItem('siquest-hydro02')||'null');
@@ -30,6 +30,7 @@
         calculationPassed:saved.calculationPassed===true,
         solutionShown:saved.solutionShown===true,
         trialPassed:saved.trialPassed===true,
+        lastTrialSafe:saved.lastTrialSafe===true?true:saved.lastTrialSafe===false?false:null,
         log:Array.isArray(saved.log)?saved.log.filter(x=>typeof x==='string').slice(-12):[]
       };
     }
@@ -56,8 +57,10 @@
         ' mm/s ; v rentrée = '+expected.vin.toFixed(2)+
         ' mm/s. En rentrée, la surface annulaire plus petite augmente la vitesse pour le même débit.';
     }
-    if(state.trialPassed){
-      $('decision').textContent='Décision métier : réglages compatibles avec le modèle. Avant mise en service réelle : contrôler les flexibles, les organes de sécurité, la charge et les procédures constructeur.';
+    if(state.lastTrialSafe===true){
+      $('decision').textContent='Dernier essai : réglages compatibles avec le modèle. Avant mise en service réelle : contrôler les flexibles, les organes de sécurité, la charge et les procédures constructeur.';
+    }else if(state.lastTrialSafe===false){
+      $('decision').textContent='Dernier essai : mise en service refusée. Corriger les réglages non conformes.';
     }
   }
   function log(message){
@@ -129,6 +132,7 @@
       (evaluation.extensionSpeedMps*1000).toFixed(1)+' mm/s ; vitesse rentrée '+
       (evaluation.retractionSpeedMps*1000).toFixed(1)+' mm/s.';
     if(!evaluation.safe){
+      state.lastTrialSafe=false;
       const message=prefix+' MISE EN SERVICE REFUSÉE : '+evaluation.issues.join(' ');
       $('trial-feedback').textContent=message;
       $('decision').textContent='Décision métier : refus de mise en service. Corriger le ou les réglages non conformes.';
@@ -137,12 +141,15 @@
       log(message);
       return;
     }
+    state.lastTrialSafe=null;
     running=true;render();
+    $('decision').textContent='Essai en cours : décision après un cycle complet.';
     const durationOutMs=evaluation.extensionTimeS*1000;
     const durationBackMs=evaluation.retractionTimeS*1000;
     const totalMs=durationOutMs+durationBackMs;
     const success=()=>{
       if(state.calculationPassed&&!state.solutionShown)state.trialPassed=true;
+      state.lastTrialSafe=true;
       const message=prefix+' Cycle autorisé ; temps sortie '+evaluation.extensionTimeS.toFixed(2)+
         ' s, temps rentrée '+evaluation.retractionTimeS.toFixed(2)+' s.';
       $('trial-feedback').textContent=message;
@@ -171,9 +178,18 @@
   $('stop').addEventListener('click',()=>{
     if(!running)return;
     if(frame!==null)cancelAnimationFrame(frame);
+    state.lastTrialSafe=null;save();
     finish('Cycle interrompu manuellement : aucun essai validé.');
+    $('decision').textContent='Essai interrompu : aucune décision sur les réglages actuels.';
     $('trial-feedback').textContent='Essai interrompu. Relance le cycle complet pour valider.';
   });
+  for(const id of ['pressure','flow']){
+    $(id).addEventListener('input',()=>{
+      state.lastTrialSafe=null;
+      $('decision').textContent='Réglages modifiés : relancer un essai avant toute décision.';
+      save();
+    });
+  }
   $('reset').addEventListener('click',()=>{
     if(frame!==null)cancelAnimationFrame(frame);
     running=false;frame=null;state=empty();

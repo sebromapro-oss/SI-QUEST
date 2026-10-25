@@ -138,3 +138,28 @@ test('Gear: corrigé bloqué jusqu’à trois calculs faux et trois indices',()=
   assert.equal(state.solutionShown,true);
   assert.equal(state.trialPassed,false);
 });
+
+test('Hydro: un essai dangereux ultérieur ne conserve pas une décision sûre',()=>{
+  const h=harness('hydro-mission.js');
+  fillHydro(h);h.element('calculations').dispatch('submit');
+  h.element('flow').value='10';h.element('settings').dispatch('submit');
+  assert.match(h.element('decision').textContent,/compatibles/);
+  h.element('flow').value='12';h.element('flow').dispatch('input');
+  assert.match(h.element('decision').textContent,/Réglages modifiés/);
+  h.element('settings').dispatch('submit');
+  assert.match(h.element('decision').textContent,/refusée/);
+  const state=JSON.parse(h.storage.get('siquest-hydro02'));
+  assert.equal(state.lastTrialSafe,false);
+  assert.equal(state.trialPassed,true); // réussite historique conservée, décision actuelle refusée
+});
+test('Hydro: interruption après un ancien succès invalide la décision courante',()=>{
+  const h=harness('hydro-mission.js',{reducedMotion:false});
+  fillHydro(h);h.element('calculations').dispatch('submit');
+  h.element('flow').value='10';h.element('settings').dispatch('submit');
+  h.flush();
+  assert.match(h.element('decision').textContent,/compatibles/);
+  h.element('settings').dispatch('submit');
+  h.element('stop').dispatch('click');
+  assert.match(h.element('decision').textContent,/interrompu/);
+  assert.equal(JSON.parse(h.storage.get('siquest-hydro02')).lastTrialSafe,null);
+});
