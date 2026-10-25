@@ -33,7 +33,21 @@
     Object.freeze({id:"density-01",world:"SI-14",title:"Masse volumique",url:'missions/density-01.html'}),
     Object.freeze({id:"accuracy-01",world:"SI-13",title:"Erreur de mesure",url:'missions/accuracy-01.html'}),
     Object.freeze({id:"frequency-01",world:"SI-09",title:"Fréquence de rotation",url:'missions/frequency-01.html'}),
-    Object.freeze({id:"kinetic-01",world:"SI-02",title:"Énergie cinétique d’un engin",url:'missions/kinetic-01.html'})
+    Object.freeze({id:"kinetic-01",world:"SI-02",title:"Énergie cinétique d’un engin",url:'missions/kinetic-01.html'}),
+    Object.freeze({id:"potential-01",world:"SI-02",title:"Énergie potentielle",url:'missions/potential-01.html'}),
+    Object.freeze({id:"impulse-01",world:"SI-02",title:"Impulsion mécanique",url:'missions/impulse-01.html'}),
+    Object.freeze({id:"friction-02",world:"SI-11",title:"Frottement sec",url:'missions/friction-02.html'}),
+    Object.freeze({id:"buoyancy-01",world:"SI-06",title:"Poussée d'Archimède",url:'missions/buoyancy-01.html'}),
+    Object.freeze({id:"gear-eff-01",world:"SI-05",title:"Rendement de transmission",url:'missions/gear-eff-01.html'}),
+    Object.freeze({id:"pulley-01",world:"SI-05",title:"Rapport de poulies",url:'missions/pulley-01.html'}),
+    Object.freeze({id:"capacitor-01",world:"SI-08",title:"Charge d'un condensateur",url:'missions/capacitor-01.html'}),
+    Object.freeze({id:"resistance-02",world:"SI-08",title:"Résistances en série",url:'missions/resistance-02.html'}),
+    Object.freeze({id:"thermal-exp-01",world:"SI-12",title:"Dilatation linéaire",url:'missions/thermal-exp-01.html'}),
+    Object.freeze({id:"hydro-speed-01",world:"SI-06",title:"Vitesse d'un vérin",url:'missions/hydro-speed-01.html'}),
+    Object.freeze({id:"work-01",world:"SI-10",title:"Travail mécanique",url:'missions/work-01.html'}),
+    Object.freeze({id:"frequency-period-01",world:"SI-09",title:"Période d'un signal",url:'missions/frequency-period-01.html'}),
+    Object.freeze({id:"hydro-force-02",world:"SI-06",title:"Effort d'un vérin",url:'missions/hydro-force-02.html'}),
+    Object.freeze({id:"beam-defl-01",world:"SI-04",title:"Flèche d'une poutre",url:'missions/beam-defl-01.html'})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
