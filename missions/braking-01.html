@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brake Check — SI QUEST</title>
+<link rel="stylesheet" href="../src/style.css"><link rel="stylesheet" href="../src/mission.css">
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header><a href="../index.html">← SI QUEST</a><strong>Cycle 05 · Brake Check</strong></header>
+<main id="main" class="mission">
+<h1>Arrêter un engin avant un obstacle</h1>
+<p class="intro">Tu es technicien de maintenance d’un matériel agricole. Sur une aire d’essai fermée, tu dois vérifier par calcul si un engin peut s’arrêter avant un obstacle. <strong>Cette simulation ne remplace ni un essai instrumenté ni les prescriptions constructeur.</strong></p>
+<section class="panel" aria-labelledby="memoryTitle">
+<h2 id="memoryTitle">1 · Réactivation mémoire</h2>
+<details><summary>Trois questions flash</summary>
+<ol><li>Comment convertir des km/h en m/s ?</li><li>Quelle distance parcourt-on à vitesse constante pendant un temps de réaction ?</li><li>Quelle relation relie la vitesse initiale, la décélération et la distance de freinage ?</li></ol>
+<p>Rappels : v (m/s) = v (km/h) ÷ 3,6 ; d = v × t ; v² = v₀² − 2ad pour une décélération de valeur a &gt; 0.</p>
+</details>
+<h2>2 · Situation et hypothèses</h2>
+<div class="facts"><div><span>Vitesse initiale</span><strong>18 km/h</strong></div><div><span>Réaction</span><strong>1,2 s</strong></div><div><span>Décélération constante</span><strong>2,5 m/s²</strong></div><div><span>Obstacle initial</span><strong>12 m</strong></div></div>
+<p>Modèle unidimensionnel sur sol horizontal, vitesse initiale constante pendant le temps de réaction, puis décélération constante de 2,5 m/s² jusqu’à l’arrêt. Aucune pente, aucune résistance au roulement, aucun temps de montée en pression, aucune dispersion d’adhérence, aucune marge réglementaire. Le conducteur ne réaccélère pas.</p>
+<p><strong>Objectif :</strong> déterminer les distances de réaction, de freinage et d’arrêt, puis prendre une décision professionnelle argumentée. <strong>Critère de réussite :</strong> calculs avec unités corrects et décision indépendante du résultat numérique saisi par l’élève.</p>
+</section>
+<section class="panel" aria-labelledby="calcTitle">
+<h2 id="calcTitle">3 · Calcul de l’élève</h2>
+<p>Indique les valeurs en mètres, avec une tolérance de ± 0,1 m. La conformité de l’essai sera vérifiée séparément.</p>
+<form id="calc">
+<div class="field-grid">
+<label for="reaction">Distance de réaction (m)<input id="reaction" inputmode="decimal" autocomplete="off" required></label>
+<label for="braking">Distance de freinage (m)<input id="braking" inputmode="decimal" autocomplete="off" required></label>
+<label for="total">Distance d’arrêt totale (m)<input id="total" inputmode="decimal" autocomplete="off" required></label>
+</div>
+<div class="controls"><button type="submit">Vérifier mes calculs</button><button type="button" id="hint" class="secondary">Afficher un indice</button><button type="button" id="solution" class="secondary" disabled>Corrigé (3 indices et 3 essais)</button></div>
+</form>
+<p id="feedback" class="feedback" role="status" aria-live="polite">Calculs à effectuer.</p>
+<p id="hintText" class="hint" hidden></p><p id="solutionText" class="hint" hidden></p>
+</section>
+<section class="panel" aria-labelledby="trialTitle">
+<h2 id="trialTitle">4 · Investigation et décision métier</h2>
+<label for="obstacle">Distance à l’obstacle (m), entre 0 et 30</label>
+<input id="obstacle" type="number" min="0" max="30" step="0.1" value="12">
+<div class="controls"><button type="button" id="trial" disabled>Tester cette distance</button></div>
+<p id="decision" class="decision" role="status" aria-live="polite">Essai disponible après validation des calculs.</p>
+<h3>Simulation scientifique synchronisée</h3>
+<svg class="machine" viewBox="0 0 520 150" role="img" aria-labelledby="simTitle simDesc">
+<title id="simTitle">Trajectoire de freinage sur une piste de 30 mètres</title>
+<desc id="simDesc">Le véhicule progresse horizontalement selon la position calculée à chaque instant. Une ligne verticale marque l’obstacle. La position et la vitesse exactes sont indiquées en texte.</desc>
+<path d="M40 111H490" stroke="#b4d9ed" stroke-width="4"/>
+<path d="M60 110V119M180 110V119M300 110V119M420 110V119" stroke="#b4d9ed" stroke-width="2"/>
+<text x="52" y="138" fill="#fff">0 m</text><text x="172" y="138" fill="#fff">10 m</text><text x="292" y="138" fill="#fff">20 m</text><text x="412" y="138" fill="#fff">30 m</text>
+<line id="obstacleLine" x1="204" y1="30" x2="204" y2="110" stroke="#ff8989" stroke-width="5"/>
+<text id="obstacleLabel" x="204" y="22" fill="#fff" text-anchor="middle">Obstacle : 12 m</text>
+<g id="vehicle" transform="translate(28 0)">
+<rect x="0" y="69" width="32" height="30" rx="5" fill="#ffd17d"/>
+<circle cx="7" cy="101" r="6" fill="#081726" stroke="#fff" stroke-width="2"/>
+<circle cx="25" cy="101" r="6" fill="#081726" stroke="#fff" stroke-width="2"/>
+</g>
+</svg>
+<p class="small">Échelle horizontale : 12 pixels/m. La position est calculée à partir de la vitesse et du temps. Le déplacement est accéléré pour l’affichage, mais les distances restent exactes. L’animation est facultative : le curseur permet de consulter chaque instant sans mouvement automatique.</p>
+<label for="time">Temps simulé (s)</label>
+<input id="time" type="range" min="0" max="3.2" step="0.05" value="0" disabled>
+<p id="frameText">Temps : 0,00 s ; position : 0,00 m ; vitesse : 5,00 m/s.</p>
+<div class="controls"><button type="button" id="play" disabled>Lire l’animation</button><button type="button" id="pause" class="secondary" disabled>Pause</button></div>
+<h3>Carnet d’essais</h3><ol id="log"></ol>
+<button type="button" id="reset" class="secondary">Réinitialiser cette mission</button>
+</section>
+</main>
+<script src="../src/braking.js"></script><script src="../src/braking-mission.js"></script>
+</body></html>
