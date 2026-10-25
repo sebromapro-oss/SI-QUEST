@@ -13,7 +13,7 @@ const approx=(actual,expected,label)=>assert.ok(Math.abs(actual-expected)<=1e-10
 test('36 missions 40–75 : paramètres, calcul, unités et SVG aux trois bornes',()=>{
  assert.ok(catalog.levels.length>=75);
  assert.equal(audited.length,36);
- assert.equal(new Set(catalog.levels.map(x=>x.id)).size,75);
+ assert.equal(new Set(catalog.levels.map(x=>x.id)).size,catalog.levels.length);
  for(const level of audited){
   const html=fs.readFileSync(path.join(root,level.url),'utf8');
   const match=html.match(/window\.SI_MISSION=(\{.*?\})<\/script>/);

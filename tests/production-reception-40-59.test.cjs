@@ -13,7 +13,7 @@ for(const id of ids){
  test(id+' — schéma et résultat cohérents pour les trois paramètres',()=>{
   const mission=catalog.byId(id);assert.ok(mission);
   const html=fs.readFileSync(path.resolve(__dirname,'..',mission.url),'utf8');
-  const initial=Number(html.match(/"initial"\\s*:\\s*([0-9.]+)/)?.[1]);
+  const initial=JSON.parse(html.split('window.SI_MISSION=')[1].split('</script>')[0]).initial;
   assert.ok(Number.isFinite(initial),'Paramètre initial absent ou non numérique : '+id);
   for(const factor of [.9,1,1.1]){
    const x=initial*factor;
