@@ -7,6 +7,8 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'hydro-backpressure-01':'Vérin double effet, pressions opposées',
+'euler-buckling-01':'Tige articulée et charge critique de flambement',
 'hose-pressure-drop-01':'Flexible hydraulique et perte de pression',
 'dc-voltage-drop-01':'Circuit 12 V, conducteurs aller et retour',
 "moment-arm-02":"Levier, bras de levier et force inclinée",
@@ -77,6 +79,8 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+'hydro-backpressure-01':['pB','Fₕ'],
+'euler-buckling-01':['L','Pcr'],
 'hose-pressure-drop-01':['Q','Δp'],
 'dc-voltage-drop-01':['I','ΔU'],
  "circular-02": [
@@ -234,6 +238,23 @@ function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'hydro-backpressure-01':{
+  s+=box(115,90,355,80,'#173f59')+box(275,96,16,68,'#c8d8e2')+line(291,130,530,130,'#c8d8e2',14);
+  s+=line(123,100,123,160,'#8ddcff',6)+line(462,100,462,160,'#7ce8ae',6);
+  s+=arrow(180,130,256,130,'#8ddcff',5)+arrow(438,130,322,130,'#ffca7d',5);
+  s+=text(62,42,'pA = 120 bar ; pB = '+N(x)+' bar')+text(82,202,'D = 80 mm ; d = 40 mm')+valueLabel(id,x,result);
+  break;
+ }
+ case 'euler-buckling-01':{
+  const yTop=65,yBottom=190;
+  s+=line(300,yTop,300,yBottom,'#d5e8f4',7)+circle(300,yTop,8,'#ffd17d')+circle(300,yBottom,8,'#ffd17d');
+  s+='<path d="M280 57L320 57L300 43Z M280 198L320 198L300 212Z" fill="#315c76" stroke="#9bc9e5" stroke-width="2"/>';
+  s+=arrow(300,20,300,47,'#ffca7d',5)+arrow(300,235,300,212,'#7ce8ae',5);
+  s+=line(360,yTop,360,yBottom,'#7ce8ae',2,'stroke-dasharray="4 4"')+text(370,135,'L = '+N(x)+' m');
+  s+=text(42,42,'E = 210 GPa ; d = 20 mm')+valueLabel(id,x,result);
+  break;
+ }
+
  case 'hose-pressure-drop-01':{
   s+=box(95,90,410,70,'#143c56')+line(105,116,495,116,'#8ddcff',7)+line(105,141,495,141,'#8ddcff',7)+arrow(220,128,370,128,'#ffd17d',4);
   s+=circle(132,72,25,'#315c76')+circle(468,72,25,'#315c76')+line(132,96,132,90)+line(468,96,468,90);
