@@ -30,7 +30,27 @@ const models=Object.freeze({
 "work-01":x=>400*x,
 "frequency-period-01":x=>1/x,
 "hydro-force-02":x=>x*100000*Math.PI*.08*.08/4,
-"beam-defl-01":x=>x*500**3/(3*210000*80000)
+"beam-defl-01":x=>x*500**3/(3*210000*80000),
+"circular-02":x=>x*x/.5,
+"angular-accel-01":x=>120/x,
+"brake-torque-01":x=>8*x,
+"incline-force-01":x=>600*9.81*Math.sin(x*Math.PI/180),
+"resultant-01":x=>Math.hypot(300,x),
+"torsion-01":x=>16*x*1000/(Math.PI*30**3),
+"axial-strain-01":x=>x/1200,
+"gear-mesh-01":x=>3*(20+x)/2,
+"belt-speed-01":x=>Math.PI*.2*x/60,
+"hydro-power-01":x=>x*24/600,
+"hydro-volume-01":x=>50*x/10000,
+"pneumatic-force-01":x=>x*1e5*Math.PI*.05**2/4,
+"electric-power-02":x=>24*x,
+"joule-heat-01":x=>4*x*x,
+"rc-time-01":x=>x*.00047,
+"sampling-01":x=>1000/x,
+"efficiency-chain-01":x=>.92*x,
+"rolling-load-01":x=>8000*x,
+"heat-transfer-01":x=>0.8*2*x/.1,
+"measurement-relative-01":x=>Math.abs(x-80)/80*100
 });
 const criteria=Object.freeze({
 'motion-01':{min:0,max:35,unit:'m'},
@@ -62,11 +82,31 @@ const criteria=Object.freeze({
 "work-01":{min:0,max:3000,unit:"J"},
 "frequency-period-01":{min:0,max:0.1,unit:"s"},
 "hydro-force-02":{min:0,max:15000,unit:"N"},
-"beam-defl-01":{min:0,max:0.5,unit:"mm"}
+"beam-defl-01":{min:0,max:0.5,unit:"mm"},
+"circular-02":{min:0,max:200,unit:"m/s²"},
+"angular-accel-01":{min:0,max:50,unit:"rad/s²"},
+"brake-torque-01":{min:0,max:60,unit:"N·m"},
+"incline-force-01":{min:0,max:3500,unit:"N"},
+"resultant-01":{min:0,max:900,unit:"N"},
+"torsion-01":{min:0,max:45,unit:"MPa"},
+"axial-strain-01":{min:0,max:0.001,unit:"sans unité"},
+"gear-mesh-01":{min:0,max:130,unit:"mm"},
+"belt-speed-01":{min:0,max:15,unit:"m/s"},
+"hydro-power-01":{min:0,max:10,unit:"kW"},
+"hydro-volume-01":{min:0,max:3,unit:"L"},
+"pneumatic-force-01":{min:0,max:1800,unit:"N"},
+"electric-power-02":{min:0,max:200,unit:"W"},
+"joule-heat-01":{min:0,max:100,unit:"W"},
+"rc-time-01":{min:0,max:10,unit:"s"},
+"sampling-01":{min:0,max:400,unit:"Hz"},
+"efficiency-chain-01":{min:0,max:1,unit:"sans unité"},
+"rolling-load-01":{min:0,max:300,unit:"N"},
+"heat-transfer-01":{min:0,max:500,unit:"W"},
+"measurement-relative-01":{min:0,max:2,unit:"%"}
 });
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if(x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01')&&x===0)||(id==='gear-eff-01'&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if(x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
