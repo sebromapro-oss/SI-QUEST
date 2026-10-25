@@ -3,7 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const diagrams=require('../src/investigation-diagrams.js');
 const physics=require('../src/investigations.js');
 const render=(id,x)=>diagrams.render(id,x,physics.calculate(id,x));
-const ids=['motion-01','accel-01','rotation-01','torque-01','pressure-01','flow-01','power-01','ohm-01','energy-01','heat-01','stress-01','strain-01','density-01','accuracy-01','frequency-01'];
+const ids=['motion-01','accel-01','rotation-01','torque-01','pressure-01','flow-01','power-01','ohm-01','energy-01','heat-01','stress-01','strain-01','density-01','accuracy-01','frequency-01','kinetic-01'];
 for(const id of ids)test(id+' : schéma sans prose visible',()=>{
  const svg=render(id,12);
  const labels=[...svg.matchAll(/<text\b[^>]*>([^<]*)<\/text>/g)].map(m=>m[1]);
@@ -54,4 +54,9 @@ test('métrologie : référence distincte du curseur',()=>{
 test('rotation : repère radial au temps nul',()=>{
  assert.match(render('rotation-01',0),/x1="300" y1="113" x2="362" y2="113"/);
  assert.match(render('frequency-01',0),/x1="260" y1="119" x2="322" y2="119"/);
+});
+
+test('énergie cinétique : vecteur vitesse et jauge quadratique',()=>{
+ assert.match(render('kinetic-01',12),/x1="380" y1="77" x2="464" y2="77"/);
+ assert.match(render('kinetic-01',20),/<rect x="80" y="190" width="400" height="12" rx="5" fill="#ffd17d"/);
 });
