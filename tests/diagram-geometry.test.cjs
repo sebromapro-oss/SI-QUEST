@@ -4,21 +4,21 @@ const root=path.join(__dirname,'..'),catalog=require('../src/catalog.js');
 test('SVG visible labels use only mathematical symbols, quantities and units',()=>{
  for(const mission of catalog.levels){
   const page=fs.readFileSync(path.join(root,mission.url),'utf8');
-  const svg=page.match(/<svg\\b[\\s\\S]*?<\\/svg>/);
+  const svg=page.match(/<svg\b[\s\S]*?<\/svg>/);
   assert.ok(svg,mission.id+' missing diagram');
-  const visible=[...svg[0].matchAll(/<text\\b[^>]*>([^<]*)<\\/text>/g)].map(m=>m[1]);
+  const visible=[...svg[0].matchAll(/<text\b[^>]*>([^<]*)<\/text>/g)].map(m=>m[1]);
   for(const label of visible)assert.doesNotMatch(label,/[A-Za-zÀ-ÿ]{3,}/u,mission.id+' label '+label);
  }
 });
 test('incline geometry and block rotation both represent 30 degrees',()=>{
  const html=fs.readFileSync(path.join(root,'missions/slope-01.html'),'utf8');
- const m=html.match(/id="incline" d="M(\\d+) (\\d+) L([\\d.]+) ([\\d.]+)/);
+ const m=html.match(/id="incline" d="M(\d+) (\d+) L([\d.]+) ([\d.]+)/);
  assert.ok(m,'incline geometry absent');
  const angle=Math.atan2(Number(m[2])-Number(m[4]),Number(m[3])-Number(m[1]))*180/Math.PI;
  assert.ok(Math.abs(angle-30)<.001,'geometric slope '+angle);
- assert.match(html,/rotate\\(-30 217\\.5 98\\.65\\)/);
- assert.match(html,/marker-end="url\\(#arrowN\\)"/);
- assert.match(html,/marker-end="url\\(#arrowP\\)"/);
+ assert.match(html,/rotate\(-30 217\.5 98\.65\)/);
+ assert.match(html,/marker-end="url\(#arrowN\)"/);
+ assert.match(html,/marker-end="url\(#arrowP\)"/);
 });
 test('incline traction vector stays tangent to plane and resets correctly',()=>{
  const source=fs.readFileSync(path.join(root,'src/slope-mission.js'),'utf8');
