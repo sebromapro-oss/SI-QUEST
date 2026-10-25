@@ -7,6 +7,22 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+"moment-arm-02":"Levier, bras de levier et force inclinée",
+"kinetic-friction-01":"Patin en glissement et effort de frottement",
+"spring-stiffness-01":"Ressort comprimé et force axiale",
+"beam-stress-02":"Poutre en flexion et moment appliqué",
+"gear-ratio-02":"Engrenages extérieurs, sens opposés",
+"screw-lead-01":"Vis à deux filets et avance par tour",
+"hydro-cylinder-speed-02":"Vérin hydraulique et vitesse de tige",
+"hydro-annular-force-01":"Vérin différentiel, chambre annulaire",
+"pneumatic-consumption-01":"Vérin pneumatique et volume balayé",
+"electrical-series-01":"Résistances en série",
+"electrical-parallel-01":"Résistances en parallèle",
+"inductor-energy-01":"Bobine et énergie magnétique",
+"mechanical-efficiency-02":"Chaîne de transmission et rendement",
+"rolling-torque-01":"Roue et couple résistant",
+"thermal-resistance-01":"Paroi et conduction thermique",
+"measurement-uncertainty-01":"Mesure et incertitude relative",
 'motion-01':'Chariot en translation sur une voie',
 'accel-01':'Chariot en accélération sur une voie',
 'rotation-01':'Arbre en rotation',
@@ -62,7 +78,23 @@ function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
- case 'motion-01':{
+ case 'moment-arm-02':{s+=line(100,130,500,130,'#9bc9e5',12)+arrow(440,75,440,120);s+=text(32,40,"Levier, bras de levier et force inclinée")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'kinetic-friction-01':{s+=box(145,95,300,72)+arrow(320,74,470,74)+arrow(300,187,170,187);s+=text(32,40,"Patin en glissement et effort de frottement")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'spring-stiffness-01':{s+=line(80,125,160,125)+Array.from({length:8},(_,k)=>line(160+k*32,125+(k%2?28:-28),192+k*32,125+(k%2?-28:28),'#9bc9e5',4)).join('')+arrow(500,125,550,125);s+=text(32,40,"Ressort comprimé et force axiale")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'beam-stress-02':{s+=line(100,130,500,130,'#9bc9e5',12)+arrow(440,75,440,120);s+=text(32,40,"Poutre en flexion et moment appliqué")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'gear-ratio-02':{s+=circle(245,120,63)+circle(380,120,63)+arrow(285,42,345,42);s+=text(32,40,"Engrenages extérieurs, sens opposés")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'screw-lead-01':{s+=line(80,125,160,125)+Array.from({length:8},(_,k)=>line(160+k*32,125+(k%2?28:-28),192+k*32,125+(k%2?-28:28),'#9bc9e5',4)).join('')+arrow(500,125,550,125);s+=text(32,40,"Vis à deux filets et avance par tour")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'hydro-cylinder-speed-02':{s+=box(130,77,320,95)+box(265,85,16,78,'#c8d8e2')+line(280,123,515,123,'#a9d9ed',14)+arrow(500,65,555,65);s+=text(32,40,"Vérin hydraulique et vitesse de tige")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'hydro-annular-force-01':{s+=box(130,77,320,95)+box(265,85,16,78,'#c8d8e2')+line(280,123,515,123,'#a9d9ed',14)+arrow(500,65,555,65);s+=text(32,40,"Vérin différentiel, chambre annulaire")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'pneumatic-consumption-01':{s+=box(130,77,320,95)+box(265,85,16,78,'#c8d8e2')+line(280,123,515,123,'#a9d9ed',14)+arrow(500,65,555,65);s+=text(32,40,"Vérin pneumatique et volume balayé")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'electrical-series-01':{s+=line(120,90,480,90)+line(120,175,480,175)+line(120,90,120,175)+line(480,90,480,175)+box(245,75,110,30,'#315c76')+box(245,160,110,30,'#315c76');s+=text(32,40,"Résistances en série")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'electrical-parallel-01':{s+=line(120,90,480,90)+line(120,175,480,175)+line(120,90,120,175)+line(480,90,480,175)+box(245,75,110,30,'#315c76')+box(245,160,110,30,'#315c76');s+=text(32,40,"Résistances en parallèle")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'inductor-energy-01':{s+=line(120,90,480,90)+line(120,175,480,175)+line(120,90,120,175)+line(480,90,480,175)+box(245,75,110,30,'#315c76')+box(245,160,110,30,'#315c76');s+=text(32,40,"Bobine et énergie magnétique")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'mechanical-efficiency-02':{s+=box(145,95,300,72)+arrow(320,74,470,74)+arrow(300,187,170,187);s+=text(32,40,"Chaîne de transmission et rendement")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'rolling-torque-01':{s+=circle(245,120,63)+circle(380,120,63)+arrow(285,42,345,42);s+=text(32,40,"Roue et couple résistant")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'thermal-resistance-01':{s+=box(210,65,160,130,'#315c76')+arrow(95,125,205,125)+arrow(375,125,500,125);s+=text(32,40,"Paroi et conduction thermique")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'measurement-uncertainty-01':{s+=line(110,135,490,135,'#9bc9e5',4)+box(245,90,110,85)+arrow(300,65,300,90);s+=text(32,40,"Mesure et incertitude relative")+text(32,215,'x = '+N(x)+' ; résultat = '+N(result));break;}
+case 'motion-01':{
   const p=65+430*Math.min(1,Math.max(0,x/30));
   s+=line(45,172,570,172,'#91d0e8',5)+box(p,115,70,39,'#386e89')+circle(p+16,163,9,'#071927')+circle(p+55,163,9,'#071927');
   s+=arrow(65,95,p+30,95)+text(65,55,'d = '+N(result)+' m')+text(65,210,'t = '+N(x)+' s');
