@@ -1,6 +1,8 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'accumulator-isothermal-01':x=>800*(1/x-1/200),
+'wheatstone-bridge-01':x=>5000*(x/(1000+x)-.5),
 'hydro-backpressure-01':x=>(120e5*Math.PI*.08**2/4-x*1e5*Math.PI*(.08**2-.04**2)/4)/1000,
 'euler-buckling-01':x=>Math.PI**2*210e9*(Math.PI*.02**4/64)/(x*x)/1000,
 'hose-pressure-drop-01':x=>128*0.06*5*(x/60000)/(Math.PI*0.012**4)/1e5,
@@ -73,6 +75,8 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'accumulator-isothermal-01':{min:2,max:Infinity,unit:'L'},
+'wheatstone-bridge-01':{min:-100,max:100,unit:'mV'},
 'hydro-backpressure-01':{min:35,max:Infinity,unit:'kN'},
 'euler-buckling-01':{min:6,max:Infinity,unit:'kN'},
 'hose-pressure-drop-01':{min:0,max:0.5,unit:'bar'},
@@ -145,6 +149,8 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'accumulator-isothermal-01':Object.freeze({absoluteTolerance:0.01,relativeTolerance:0,precision:3,assumptions:"Accumulateur à vessie : gaz parfait isotherme, précharge p₀ = 80 bar absolus et V₀ = 10,0 L ; pression haute pH = 200 bar absolus ; pression basse pB variable de 100 à 180 bar absolus. Huile incompressible, pertes et fuites négligées. Utiliser des pressions ABSOLUES, pB > p₀ et pB < pH.",solution:"Constante p₀V₀ = 80 bar abs × 10,0 L = 800 bar·L. À 200 bar abs : VH = 800/200 = 4,000 L. À 120 bar abs : VB = 800/120 = 6,667 L. Volume d'huile restitué ΔV = VB − VH = 2,667 L. Une décharge rapide peut nécessiter une loi polytropique et les données constructeur."}),
+'wheatstone-bridge-01':Object.freeze({absoluteTolerance:0.1,relativeTolerance:0,precision:2,assumptions:"Pont de Wheatstone alimenté sous Ue = 5,00 V stabilisés ; R₁ = R₂ = R₃ = 1 000 Ω, capteur R₄ de 900 à 1 100 Ω ; voltmètre d'impédance infinie, échauffement et résistances de liaison négligés. Uout = potentiel milieu droit MOINS potentiel milieu gauche.",solution:"Diviseur gauche : Ug = 5,00 V × 1 000/(1 000 + 1 000) = 2,500 V. Diviseur droit : Ud = 5,00 V × 1 100/(1 000 + 1 100) = 2,61905 V. Uout = Ud − Ug = +0,119048 V = +119,05 mV. À R₄ = 1 000 Ω, Uout = 0 mV. Pour R₄ < 1 000 Ω, le signe est négatif. Vérifier polarité et seuil constructeur."}),
 'hydro-backpressure-01':Object.freeze({absoluteTolerance:0.05,relativeTolerance:0,precision:3,assumptions:"Vérin double effet à l'extension ; D = 80 mm, tige d = 40 mm, pression chambre pleine pA = 120 bar relatifs au réservoir, contre-pression chambre annulaire pB variable de 0 à 80 bar relatifs au même réservoir ; écoulement quasi-statique, frottements et inertie négligés.",solution:"Surface pleine Aₚ = πD²/4 = 0,00502655 m² ; surface annulaire Aₐ = π(D²−d²)/4 = 0,00376991 m². À pB = 20 bar : F = pA Aₚ − pB Aₐ = 120×10⁵ Pa × 0,00502655 m² − 20×10⁵ Pa × 0,00376991 m² = 52 778,76 N = 52,779 kN. La contre-pression réduit l'effort disponible à l'extension. Il s'agit de l'effort hydraulique théorique, sans frottement ni charge extérieure."}),
 'euler-buckling-01':Object.freeze({absoluteTolerance:0.02,relativeTolerance:0,precision:3,assumptions:"Colonne droite en acier homogène, section circulaire pleine d = 20 mm, module E = 210 GPa ; deux extrémités articulées idéales, longueur libre L variable de 1,0 à 3,0 m ; petites déformations et flambement élastique d'Euler, imperfections et excentricité négligées. Le résultat ne constitue pas une charge admissible.",solution:"I = πd⁴/64 = π(0,020 m)⁴/64 = 7,854×10⁻⁹ m⁴. E = 210×10⁹ Pa ; L = 2,0 m ; longueur efficace K L = L car K = 1. Pcr = π² E I/L² = π² × 210×10⁹ × 7,854×10⁻⁹ / 2,0² = 4 069,57 N = 4,070 kN. Si L double, Pcr est divisé par quatre. Vérifier élancement, conditions d'appui réelles, défauts géométriques et coefficient de sécurité avant dimensionnement."}),
 
@@ -211,7 +217,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
 }
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if((id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -222,6 +228,8 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'accumulator-isothermal-01':'bar abs',
+'wheatstone-bridge-01':'Ω',
 'hydro-backpressure-01':'bar',
 'euler-buckling-01':'m',
 'hose-pressure-drop-01':'L/min',

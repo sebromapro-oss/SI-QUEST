@@ -7,6 +7,8 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'accumulator-isothermal-01':'Accumulateur : détente du gaz et huile restituée',
+'wheatstone-bridge-01':'Pont de Wheatstone : deux diviseurs de tension',
 'hydro-backpressure-01':'Vérin double effet, pressions opposées',
 'euler-buckling-01':'Tige articulée et charge critique de flambement',
 'hose-pressure-drop-01':'Flexible hydraulique et perte de pression',
@@ -79,6 +81,8 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+'accumulator-isothermal-01':['pB','ΔV'],
+'wheatstone-bridge-01':['R₄','Uout'],
 'hydro-backpressure-01':['pB','Fₕ'],
 'euler-buckling-01':['L','Pcr'],
 'hose-pressure-drop-01':['Q','Δp'],
@@ -233,11 +237,27 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(["hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(["accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'accumulator-isothermal-01':{
+  const width=360*80/x,interfaceX=130+width,highX=130+360*80/200;
+  s+=box(130,80,360,112,'#254d69')+box(136,86,Math.max(0,width-6),100,'#315e81');
+  s+=line(interfaceX,86,interfaceX,186,'#ffd17d',7)+line(highX,75,highX,195,'#7ce8ae',2,'stroke-dasharray="5 5"');
+  s+=line(490,137,545,137,'#8ddcff',8)+arrow(505,137,558,137,'#ffca7d',4);
+  s+=text(45,42,'p₀ = 80 bar abs ; V₀ = 10,0 L')+text(152,122,'Gaz')+text(395,122,'Huile');
+  s+=text(38,219,'Trait vert : interface à 200 bar abs');break;
+ }
+ case 'wheatstone-bridge-01':{
+  s+=line(185,54,405,54,'#9bc9e5',4)+line(185,205,405,205,'#9bc9e5',4);
+  s+=line(185,54,185,72)+box(163,72,44,40,'#315c76')+line(185,112,185,150)+box(163,150,44,40,'#315c76')+line(185,190,185,205);
+  s+=line(405,54,405,72)+box(383,72,44,40,'#315c76')+line(405,112,405,150)+box(383,150,44,40,'#315c76')+line(405,190,405,205);
+  s+=circle(185,131,5,'#ffd17d')+circle(405,131,5,'#ffd17d')+arrow(220,131,367,131,'#7ce8ae',3);
+  s+=text(105,45,'+5 V')+text(460,213,'0 V')+text(113,101,'R₁')+text(112,181,'R₂')+text(443,101,'R₃')+text(443,181,'R₄');
+  s+=text(232,112,'Uout : droite − gauche')+text(245,187,'R₄ = '+N(x)+' Ω');break;
+ }
  case 'hydro-backpressure-01':{
   s+=box(115,90,355,80,'#173f59')+box(275,96,16,68,'#c8d8e2')+line(291,130,530,130,'#c8d8e2',14);
   s+=line(123,100,123,160,'#8ddcff',6)+line(462,100,462,160,'#7ce8ae',6);
@@ -262,7 +282,7 @@ function render(id,x,result){
  }
  case 'dc-voltage-drop-01':{
   s+=line(100,82,170,82)+box(170,65,100,34,'#315c76')+line(270,82,430,82)+box(430,65,80,34,'#7a5b37')+line(510,82,540,82)+line(540,82,540,172)+line(540,172,430,172)+box(330,155,100,34,'#315c76')+line(330,172,100,172)+line(100,172,100,130)+line(100,105,100,82)+line(83,105,117,105,'#ffd17d',4)+line(90,130,110,130,'#ffd17d',4)+arrow(290,56,380,56,'#7ce8ae',4);
-  s+=text(38,40,'U = 12 V')+text(175,120,'R₁')+text(335,212,'R₂')+valueLabel(id,x,result);break;
+  s+=text(38,40,'U = 12 V')+text(175,120,'R₁')+text(335,212,'R₂')+text(435,53,'Charge')+valueLabel(id,x,result);break;
  }
  case 'moment-arm-02':{s+=line(150,168,430,168,'#9bc9e5',9)+circle(150,168,11,'#ffd17d')+arrow(430,168,430+95*Math.cos(x*Math.PI/180),168-95*Math.sin(x*Math.PI/180));s+=text(145,195,'Pivot')+text(255,150,'L = 0,45 m')+text(405,60,'θ = '+N(x)+'°');s+=text(32,40,"Levier, bras de levier et force inclinée")+valueLabel(id,x,result);break;}
 case 'kinetic-friction-01':{s+=box(145,95,300,72)+arrow(320,74,470,74)+arrow(300,187,170,187);s+=text(32,40,"Patin en glissement et effort de frottement")+valueLabel(id,x,result);break;}
