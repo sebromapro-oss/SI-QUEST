@@ -27,7 +27,7 @@ Date : 25 octobre 2026. Référence : [Cahier des charges maître](CAHIER_DES_CH
 | [heat-transfer-01](missions/heat-transfer-01.html) | Code créé, tests à exécuter | 2D de principe, à corriger/recetter | À vérifier | Non vérifié | Non testé | Non validée |
 | [measurement-relative-01](missions/measurement-relative-01.html) | Code créé, tests à exécuter | 2D de principe, à corriger/recetter | À vérifier | Non vérifié | Non testé | Non validée |
 
-## Non-conformités bloquantes connues
+## Constats initiaux avant correctifs (historique, remplacés par le bilan ci-dessous)
 
 1. Les vues SVG 2D produites pour ce lot sont des schémas de principe et ne démontrent pas encore la fidélité des liaisons, vecteurs, dimensions, cinématiques et courbes ; certaines réutilisent des formes génériques.
 2. Aucune vraie scène 3D manipulable n'a été produite pour ce lot. Ne pas afficher « 3D » dans l'interface de ces missions.
@@ -53,3 +53,31 @@ Exécuter `node --test tests/*.test.cjs` et le workflow GitHub Actions, corriger
 Le module `src/scene3d.js` projette des géométries définies par des coordonnées **3D** et permet de modifier les angles de caméra dans **7 missions** : circular-02, angular-accel-01, brake-torque-01, torsion-01, gear-mesh-01, belt-speed-01, rolling-load-01. Le rendu SVG projeté ne constitue pas une preuve de géométrie CAO fidèle ou de cinématique complète. Les 13 autres missions conservent une représentation 2D, ce qui peut être suffisant selon le savoir étudié.
 
 Le fichier `tests/scene3d.test.cjs` vérifie par code les projections et le changement de caméra. **Aucun résultat d'exécution ni test matériel n'a encore été recueilli** ; les 20 missions restent non validées.
+
+## Bilan de réception intermédiaire — 25 octobre 2026, après correctifs
+
+**Périmètre : missions 40–59 uniquement. Aucune mission nouvelle ajoutée.**
+Les assertions ci-dessous ont été **exécutées dans un moteur JavaScript V8 isolé avec fichiers lus depuis GitHub**. Elles ne sont **ni des exécutions Node**, ni des essais navigateur, ni une inspection visuelle réelle.
+
+| Axe | Preuve réellement exécutée | Résultat | Limite de la preuve |
+|---|---|---|---|
+| **S — Scientifique** | 60 références indépendantes (3 paramètres × 20 modèles), contrôles de tolérance, domaine et saisie française | Contrôles V8 réussis | Pas de confrontation expérimentale/constructeur ni de mesure d'incertitude réelle |
+| **G — Graphique** | 20 rendus SVG vérifiés en V8 ; 12 schémas corrigés ; 7 scènes spatiales paramétriques, contrôles de caméra, zoom, temps et rapports géométriques | Contrôles de code réussis | Aucun contrôle visuel navigateur ; schémas et scènes restent simplifiés, sans CAO ni denture involute |
+| **P — Pédagogique** | 42 tests de parcours DOM simulé sur les 20 missions : 3 essais, aides, corrigé, étoiles 3/2/1/0, réinitialisation, progression locale et commande 3D | Contrôles V8 réussis | Un DOM simulé ne prouve pas le comportement d'un navigateur réel |
+| **F — Fonctionnel** | Analyse syntaxique V8 des modules modifiés ; tests reproductibles ajoutés dans `tests/acceptance-40-59.test.cjs` et `tests/mission-flow-40-59.test.cjs` | Sources et tests intégrés | **`node --test` et statut GitHub Actions non confirmés** ; recette HTTP/PWA absente |
+| **A — Accessibilité** | Présence de commandes HTML natives, titres SVG, alternatives textuelles, statut de réussite, animation volontaire et réduction des mouvements | Revue de code partielle | **Aucun test manuel NVDA, TalkBack, VoiceOver, clavier réel, zoom 400 % ou WCAG complet** |
+
+### Défauts reproduits et corrigés
+
+- **Blocage de chargement de `gear-mesh-01`** : le graphique échantillonnait des nombres de dents fractionnaires, rejetés par le moteur. Échantillonnage entier et curseur à pas de 1 dent ; parcours DOM simulé retesté.
+- **Précision mathématique incorrecte** : la déformation `0,000500` était présentée à trois décimales, rendant le corrigé inutilisable. Précision et tolérance spécifiques à chaque question, affichage et correction détaillée.
+- **Axes des 20 graphiques erronés** : l'abscisse était libellée « m » quelle que soit la grandeur. Les unités des axes sont désormais propres à chaque mission.
+- **Schémas scientifiquement incohérents** : entraxe et rayons primitifs, plan incliné, directions des actions de contact, circuits électriques, signal échantillonné et flèche de déformation corrigés dans le code SVG.
+- **Scènes spatiales initialement décoratives** : rapports d'engrenages et entraxes désormais calculés, rotation liée au temps simulé lorsque les données la justifient ; scènes statiques conservées lorsque la cinématique n'est pas déterminable.
+- **Parcours de réponse** : trois essais maximum, saisie invalide sans pénalité, aides visibles au troisième échec, corrigé sans attribution d'étoiles, verrouillage après réussite et sauvegarde versionnée.
+
+### Réserves et décision
+
+Les 20 missions sont **intégrées et testées partiellement en V8**, mais **aucune des 20 ne reçoit encore le statut VALIDÉ**. Les vérifications obligatoires non exécutées sont : suite Node sur le dernier commit, contrôle visuel réel de chaque mission sur ordinateur et téléphone, inspection des liaisons/vecteurs/graphes par discipline, vérification du comportement au clavier et au tactile dans un navigateur, essais manuels d'accessibilité et preuves par route. Les 13 missions sans scène 3D restent en 2D lorsque leur modèle le justifie.
+
+**Porte de passage à la production 60+ : fermée.** Corriger les échecs des tests réels, puis seulement réévaluer l'autorisation de poursuivre la création.
