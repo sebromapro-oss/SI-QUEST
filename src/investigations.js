@@ -104,9 +104,43 @@ const criteria=Object.freeze({
 "heat-transfer-01":{min:0,max:500,unit:"W"},
 "measurement-relative-01":{min:0,max:2,unit:"%"}
 });
+const answerPolicy=Object.freeze({
+"circular-02":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":1,"assumptions":"Mouvement circulaire uniforme, rayon r = 0,50 m, vitesse tangentielle v = 6 m/s.","solution":"r = 0,50 m ; v = 6,00 m/s.\naₙ = v²/r = (6,00 m/s)²/(0,50 m) = 72,0 m/s².\nLe vecteur accélération est radial, dirigé vers le centre."}),
+"angular-accel-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":1,"assumptions":"Variation de vitesse angulaire Δω = 120 rad/s sur une durée Δt ; accélération angulaire moyenne constante.","solution":"Δω = 120 rad/s ; Δt = 8 s.\nα = Δω/Δt = 120/8 = 15,0 rad/s².\nLe résultat est une accélération angulaire, pas une vitesse."}),
+"brake-torque-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":1,"assumptions":"Inertie J = 8 kg·m² ; décélération angulaire de module |α| ; couple de freinage idéal, pertes négligées.","solution":"J = 8 kg·m² ; |α| = 4 rad/s².\n|C| = J|α| = 8 × 4 = 32,0 N·m.\nLe couple résistant est opposé au sens de rotation."}),
+"incline-force-01":Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Masse 600 kg, g = 9,81 m/s², pente θ en degrés ; projection du poids sur le plan, sans frottement.","solution":"m = 600 kg ; g = 9,81 m/s² ; θ = 15°.\nF∥ = mg sin θ = 600 × 9,81 × sin(15°) ≈ 1 523,41 N.\nLa composante est dirigée vers le bas de la pente."}),
+"resultant-01":Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":1,"assumptions":"Forces coplanaires orthogonales Fx = 300 N et Fy = 400 N, appliquées au même point.","solution":"Fx = 300 N ; Fy = 400 N.\n|R| = √(Fx² + Fy²) = √(300² + 400²) = 500,0 N.\nLe sens est celui de la somme vectorielle, pas la somme des normes."}),
+"torsion-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":2,"assumptions":"Arbre circulaire plein Ø30 mm en torsion pure, contrainte tangentielle maximale en périphérie ; comportement élastique.","solution":"C = 120 N·m = 120 000 N·mm ; d = 30 mm.\nτmax = 16C/(πd³) = 16 × 120 000/(π × 30³) ≈ 22,64 N/mm² = 22,64 MPa.\nVérifier séparément la limite admissible du matériau et le coefficient de sécurité."}),
+"axial-strain-01":Object.freeze({"absoluteTolerance":0.000005,"relativeTolerance":0,"precision":6,"assumptions":"Barre de longueur initiale L₀ = 1 200 mm ; allongement axial homogène ΔL = 0,60 mm ; petites déformations.","solution":"ΔL = 0,60 mm ; L₀ = 1 200 mm.\nε = ΔL/L₀ = 0,60/1 200 = 0,000500 (sans unité).\nLa déformation est un rapport de longueurs, pas un allongement en mm."}),
+"gear-mesh-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":1,"assumptions":"Engrenages extérieurs droits sans correction de denture, module m = 3 mm, z₁ = 20 dents, z₂ entier positif.","solution":"m = 3 mm ; z₁ = 20 ; z₂ = 40 dents.\na = m(z₁ + z₂)/2 = 3 × (20 + 40)/2 = 90,0 mm.\nLes cercles primitifs sont tangents ; la denture réelle n'est pas modélisée."}),
+"belt-speed-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Poulie motrice de diamètre D = 0,200 m, régime n en tr/min ; courroie sans glissement.","solution":"D = 0,200 m ; n = 900 tr/min.\nv = πDn/60 = π × 0,200 × 900/60 ≈ 9,425 m/s.\nLa vitesse linéaire est celle du bord de la poulie sans glissement."}),
+"hydro-power-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":2,"assumptions":"Débit volumique Q = 24 L/min, différence de pression Δp en bar ; puissance hydraulique idéale, sans rendement.","solution":"Δp = 150 bar ; Q = 24 L/min.\nP = ΔpQ/600 = 150 × 24/600 = 6,00 kW.\nLa puissance mécanique demandée serait supérieure si le rendement est inférieur à 1."}),
+"hydro-volume-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":2,"assumptions":"Surface active pleine S = 50 cm² ; course L en mm ; volume balayé idéal, sans prise en compte de la tige.","solution":"S = 50 cm² ; L = 300 mm = 30 cm.\nV = SL = 50 × 30 = 1 500 cm³ = 1,50 L.\nCe volume est celui de la chambre pleine, pas de la chambre annulaire."}),
+"pneumatic-force-01":Object.freeze({"absoluteTolerance":1,"relativeTolerance":0,"precision":1,"assumptions":"Pression manométrique p = 6 bar, piston D = 50 mm ; échappement à l'atmosphère, frottements négligés.","solution":"p = 6 bar = 600 000 Pa ; D = 0,050 m.\nS = πD²/4 ≈ 0,0019635 m².\nF = pS ≈ 1 178,1 N.\nL'effort réel doit intégrer frottements et contre-pression éventuelle."}),
+"electric-power-02":Object.freeze({"absoluteTolerance":1,"relativeTolerance":0,"precision":1,"assumptions":"Récepteur en courant continu, tension U = 24 V et courant I constant ; puissance électrique absorbée.","solution":"U = 24 V ; I = 5 A.\nP = UI = 24 × 5 = 120 W.\nUne puissance électrique n'est pas nécessairement la puissance mécanique utile."}),
+"joule-heat-01":Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":1,"assumptions":"Résistance ohmique R = 4 Ω constante, courant efficace I ; puissance thermique dissipée par effet Joule.","solution":"R = 4 Ω ; I = 3 A.\nP = RI² = 4 × 3² = 36,0 W.\nLe courant intervient au carré ; vérifier l'échauffement admissible."}),
+"rc-time-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":2,"assumptions":"Circuit RC idéal, résistance R = 10 000 Ω, capacité C = 470 µF, absence de fuite.","solution":"R = 10 000 Ω ; C = 470 µF = 0,000470 F.\nτ = RC = 10 000 × 0,000470 = 4,70 s.\nLa constante de temps n'est pas la durée de charge complète."}),
+"sampling-01":Object.freeze({"absoluteTolerance":1,"relativeTolerance":0,"precision":1,"assumptions":"Échantillonnage périodique de période T en millisecondes ; fréquence fₑ = 1/T.","solution":"T = 5 ms = 0,005 s.\nfₑ = 1/T = 1/0,005 = 200 Hz.\nLa fréquence d'échantillonnage ne doit pas être confondue avec celle du signal mesuré."}),
+"efficiency-chain-01":Object.freeze({"absoluteTolerance":0.002,"relativeTolerance":0,"precision":3,"assumptions":"Deux transmissions en série, η₁ = 0,92 et η₂ = 0,90 ; rendements compris entre 0 et 1.","solution":"η₁ = 0,92 ; η₂ = 0,90.\nηglobal = η₁ × η₂ = 0,92 × 0,90 = 0,828.\nLe rendement global est inférieur ou égal à chacun des rendements partiels."}),
+"rolling-load-01":Object.freeze({"absoluteTolerance":1,"relativeTolerance":0,"precision":1,"assumptions":"Roue sur sol horizontal, réaction normale N = 8 000 N, coefficient de résistance au roulement cᵣ ; modèle Fᵣ = cᵣN.","solution":"N = 8 000 N ; cᵣ = 0,025 (sans unité).\nFᵣ = cᵣN = 0,025 × 8 000 = 200 N.\nLa résistance s'oppose au mouvement ; ne pas confondre avec la limite du frottement statique."}),
+"heat-transfer-01":Object.freeze({"absoluteTolerance":1,"relativeTolerance":0,"precision":1,"assumptions":"Paroi plane homogène, conduction 1D stationnaire, λ = 0,8 W/(m·K), A = 2 m², épaisseur e = 0,1 m.","solution":"λ = 0,8 W/(m·K) ; A = 2 m² ; e = 0,1 m ; ΔT = 15 K.\nΦ = λAΔT/e = 0,8 × 2 × 15/0,1 = 240 W.\nLe flux est orienté du côté chaud vers le côté froid."}),
+"measurement-relative-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":2,"assumptions":"Valeur de référence x₀ = 80,0 mm non nulle ; mesure x = 80,4 mm ; écart relatif positif exprimé en %.","solution":"x = 80,4 mm ; x₀ = 80,0 mm.\neᵣ = |x − x₀|/|x₀| × 100 = 0,4/80 × 100 = 0,50 %.\nLe signe de l'écart n'est pas conservé dans la valeur absolue."})
+});
+function parseAnswer(raw){
+ const str=String(raw??'').trim().replace(/[\u00a0\u202f]/g,' ');
+ if(!/^[+-]?(?:(?:\d{1,3}(?: \d{3})+|\d+)(?:[.,]\d+)?|[.,]\d+)$/.test(str))return NaN;
+ return Number(str.replace(/ /g,'').replace(',','.'));
+}
+function validateAnswer(raw,expected,absoluteTolerance,relativeTolerance=0){
+ const value=parseAnswer(raw);
+ if(!Number.isFinite(value)||!Number.isFinite(expected))return Object.freeze({valid:false,correct:false,value:NaN});
+ if(!Number.isFinite(absoluteTolerance)||absoluteTolerance<0||!Number.isFinite(relativeTolerance)||relativeTolerance<0)throw new RangeError('Tolérance invalide');
+ const tolerance=Math.max(absoluteTolerance,relativeTolerance*Math.abs(expected));
+ return Object.freeze({valid:true,correct:Math.abs(value-expected)<=tolerance+Number.EPSILON*Math.max(1,Math.abs(expected)),value,tolerance});
+}
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if(x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==='gear-mesh-01'&&!Number.isInteger(x))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -116,7 +150,7 @@ function assess(id,x){
  return Object.freeze({value,acceptable:value>=criterion.min-1e-9&&value<=criterion.max+1e-9,
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
-const api=Object.freeze({calculate,assess,criteria});
+const api=Object.freeze({calculate,assess,criteria,answerPolicy,parseAnswer,validateAnswer});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 root.SIInvestigations=api;
 })(typeof window==='undefined'?globalThis:window);
