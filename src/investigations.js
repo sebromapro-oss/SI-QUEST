@@ -50,7 +50,23 @@ const models=Object.freeze({
 "efficiency-chain-01":x=>.92*x,
 "rolling-load-01":x=>8000*x,
 "heat-transfer-01":x=>0.8*2*x/.1,
-"measurement-relative-01":x=>Math.abs(x-80)/80*100
+"measurement-relative-01":x=>Math.abs(x-80)/80*100,
+"moment-arm-02":x=>280*.45*Math.sin(x*Math.PI/180),
+"kinetic-friction-01":x=>x*80*9.81,
+"spring-stiffness-01":x=>x/.025,
+"beam-stress-02":x=>6*x*1000/(40*80**2),
+"gear-ratio-02":x=>18/x,
+"screw-lead-01":x=>2*x,
+"hydro-cylinder-speed-02":x=>x/60000/.004,
+"hydro-annular-force-01":x=>x*1e5*Math.PI*(.08**2-.04**2)/4,
+"pneumatic-consumption-01":x=>Math.PI*50**2*x/4/1e6,
+"electrical-series-01":x=>12+x,
+"electrical-parallel-01":x=>12*x/(12+x),
+"inductor-energy-01":x=>.1*x*x,
+"mechanical-efficiency-02":x=>12*x,
+"rolling-torque-01":x=>.35*x,
+"thermal-resistance-01":x=>.12/(2*x),
+"measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
 'motion-01':{min:0,max:35,unit:'m'},
@@ -102,9 +118,41 @@ const criteria=Object.freeze({
 "efficiency-chain-01":{min:0,max:1,unit:"sans unité"},
 "rolling-load-01":{min:0,max:300,unit:"N"},
 "heat-transfer-01":{min:0,max:500,unit:"W"},
-"measurement-relative-01":{min:0,max:2,unit:"%"}
+"measurement-relative-01":{min:0,max:2,unit:"%"},
+"moment-arm-02":{min:0,max:126,unit:"N·m"},
+"kinetic-friction-01":{min:0,max:500,unit:"N"},
+"spring-stiffness-01":{min:0,max:16000,unit:"N/m"},
+"beam-stress-02":{min:0,max:35,unit:"MPa"},
+"gear-ratio-02":{min:0,max:1,unit:"sans unité"},
+"screw-lead-01":{min:0,max:12,unit:"mm/tr"},
+"hydro-cylinder-speed-02":{min:0,max:0.12,unit:"m/s"},
+"hydro-annular-force-01":{min:0,max:70000,unit:"N"},
+"pneumatic-consumption-01":{min:0,max:0.9,unit:"L"},
+"electrical-series-01":{min:0,max:60,unit:"Ω"},
+"electrical-parallel-01":{min:0,max:12,unit:"Ω"},
+"inductor-energy-01":{min:0,max:8,unit:"J"},
+"mechanical-efficiency-02":{min:0,max:12,unit:"kW"},
+"rolling-torque-01":{min:0,max:150,unit:"N·m"},
+"thermal-resistance-01":{min:0,max:0.4,unit:"K/W"},
+"measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"moment-arm-02":Object.freeze({absoluteTolerance:0.5,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"kinetic-friction-01":Object.freeze({absoluteTolerance:0.5,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"spring-stiffness-01":Object.freeze({absoluteTolerance:25,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"beam-stress-02":Object.freeze({absoluteTolerance:0.05,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"gear-ratio-02":Object.freeze({absoluteTolerance:0.005,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"screw-lead-01":Object.freeze({absoluteTolerance:0.1,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"hydro-cylinder-speed-02":Object.freeze({absoluteTolerance:0.001,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"hydro-annular-force-01":Object.freeze({absoluteTolerance:50,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"pneumatic-consumption-01":Object.freeze({absoluteTolerance:0.005,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"electrical-series-01":Object.freeze({absoluteTolerance:0.1,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"electrical-parallel-01":Object.freeze({absoluteTolerance:0.05,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"inductor-energy-01":Object.freeze({absoluteTolerance:0.02,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"mechanical-efficiency-02":Object.freeze({absoluteTolerance:0.05,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"rolling-torque-01":Object.freeze({absoluteTolerance:0.5,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"thermal-resistance-01":Object.freeze({absoluteTolerance:0.002,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
+"measurement-uncertainty-01":Object.freeze({absoluteTolerance:0.01,relativeTolerance:0,precision:4,assumptions:"Modèle idéal sous hypothèses explicitées dans la mission ; vérifier le domaine et les unités.",solution:"Détailler les conversions et substituer les valeurs dans la relation fournie."}),
 "circular-02":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":1,"assumptions":"Mouvement circulaire uniforme, rayon r = 0,50 m, vitesse tangentielle v = 6 m/s.","solution":"r = 0,50 m ; v = 6,00 m/s.\naₙ = v²/r = (6,00 m/s)²/(0,50 m) = 72,0 m/s².\nLe vecteur accélération est radial, dirigé vers le centre."}),
 "angular-accel-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":1,"assumptions":"Variation de vitesse angulaire Δω = 120 rad/s sur une durée Δt ; accélération angulaire moyenne constante.","solution":"Δω = 120 rad/s ; Δt = 8 s.\nα = Δω/Δt = 120/8 = 15,0 rad/s².\nLe résultat est une accélération angulaire, pas une vitesse."}),
 "brake-torque-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":1,"assumptions":"Inertie J = 8 kg·m² ; décélération angulaire de module |α| ; couple de freinage idéal, pertes négligées.","solution":"J = 8 kg·m² ; |α| = 4 rad/s².\n|C| = J|α| = 8 × 4 = 32,0 N·m.\nLe couple résistant est opposé au sens de rotation."}),
@@ -140,7 +188,7 @@ function validateAnswer(raw,expected,absoluteTolerance,relativeTolerance=0){
 }
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if((id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
