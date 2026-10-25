@@ -16,7 +16,8 @@
     Object.freeze({id:'braking-01',world:'SI-01',title:'Brake Check — Distance d’arrêt',url:'missions/braking-01.html'}),
     Object.freeze({id:'rolling-01',world:'SI-11',title:'Rolling Lab — Résistance au roulement',url:'missions/rolling-01.html'}),
     Object.freeze({id:'spring-01',world:'SI-04',title:'Spring Check — Ressort de compression',url:'missions/spring-01.html'}),
-    Object.freeze({id:'lever-01',world:'SI-03',title:'Lever Balance — Équilibre des moments',url:'missions/lever-01.html'})
+    Object.freeze({id:'lever-01',world:'SI-03',title:'Lever Balance — Équilibre des moments',url:'missions/lever-01.html'}),
+    Object.freeze({id:'cooling-01',world:'SI-12',title:'Thermo Cool — Refroidissement exponentiel',url:'missions/cooling-01.html'})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
