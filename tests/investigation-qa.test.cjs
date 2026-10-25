@@ -14,7 +14,7 @@ const cases=[
 ['energy-01',3,720,8],['heat-01',25,23,80],
 ['stress-01',12000,100,24000],['strain-01',10000,0.5,20000],
 ['density-01',7.8,7800,12],['accuracy-01',50.12,0.12,51],
-['frequency-01',1800,30,3600]
+['frequency-01',1800,30,3600],['kinetic-01',12,86.4,20]
 ];
 function mockPage(c){
  function el(tag=''){return {tag,style:{},attrs:{},events:{},children:[],value:'',textContent:'',hidden:false,disabled:false,
