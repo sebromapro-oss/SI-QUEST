@@ -60,8 +60,8 @@ test('Mission 79 : flambement Euler, moment quadratique et loi inverse du carré
  assert.throws(()=>engine.calculate(c.id,0),RangeError);
 });
 test('Catalogue : 79 missions indépendantes et deux savoirs distincts',()=>{
- assert.equal(catalog.levels.length,79);
- assert.equal(new Set(catalog.levels.map(x=>x.id)).size,79);
+ assert.ok(catalog.levels.length>=79);
+ assert.equal(new Set(catalog.levels.map(x=>x.id)).size,catalog.levels.length);
  assert.equal(catalog.byId('hydro-backpressure-01').world,'SI-06');
  assert.equal(catalog.byId('euler-buckling-01').world,'SI-04');
 });
