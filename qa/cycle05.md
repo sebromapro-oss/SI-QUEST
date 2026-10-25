@@ -15,6 +15,7 @@ Exécution dans le moteur JavaScript V8 de l'orchestrateur sur le contenu récup
 - 6 tests scientifiques `tests/braking.test.cjs` : références 18 km/h = 5 m/s, 6 m de réaction, 5 m de freinage, 11 m d'arrêt, temps d'arrêt 3,2 s ; obstacle à 10,9 m ; continuité ; monotonie ; cas limites ; rejet d'entrées invalides.
 - 4 tests structurels `tests/braking-dom.test.cjs` : correspondance de tous les identifiants DOM utilisés, étiquetage des champs, contrôle temporel et réduction du mouvement, référencement au catalogue.
 - Analyse syntaxique du contrôleur JS et vérification supplémentaire des 18 identifiants DOM utilisés.
+Contrôle de non-régression supplémentaire sur les fichiers réels du HEAD : 6 tests de statique (Slope Guard), 4 tests électriques (Volt Check) et les 10 tests Brake Check, soit **20 tests exécutés, 20 réussis** dans le même harnais V8.
 Résultat : aucun échec dans ce harnais V8. Ces vérifications ne constituent **pas** une exécution de `node --test` sur la branche distante.
 
 ## Contrôles encore requis avant validation finale
