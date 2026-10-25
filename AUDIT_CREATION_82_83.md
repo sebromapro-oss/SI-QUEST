@@ -26,3 +26,7 @@ Aucune publication GitHub Pages, aucun changement d'accueil, carte, visibilité 
 ## Livraison et preuves d'exécution
 
 Commit initial du lot 82–83 : `58d0989a2e180475926b201712af8d8b04ac4b2d` ; les trois workflows GitHub Actions associés ont conclu `success`. La suite Node s'est exécutée dans la CI, mais le nombre détaillé de tests n'est pas avancé ici faute de décompte extrait des journaux. La validation scientifique demeure limitée aux invariants et cas explicitement testés.
+
+## Contre-audit du corrigé 82
+
+Un écart d'arrondi a été détecté après la première intégration : le texte du corrigé affichait `0,85479°` au lieu de `0,85490°` pour 250 N·m. Corrigé dans `src/investigations.js` (commit `9a43d10bcd3b3b5fccc76b8535d41c17bb19b645`) et test spécifique ajouté dans `tests/batch82-83.test.cjs` (commit `995db9b335d591a992a5f20d0dcf70ddfa48dcdd`). Le résultat numérique du moteur était déjà exact. Les contrôles CI de ces commits et du présent registre doivent être revérifiés.
