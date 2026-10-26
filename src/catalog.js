@@ -147,6 +147,11 @@
     Object.freeze({"id":"symmetric-sling-tension-01","world":"SI-03","title":"Élingage symétrique — Effort dans un brin","url":"missions/symmetric-sling-tension-01.html","subskill":"Équilibre d'une charge suspendue par deux brins inclinés"}),
     Object.freeze({"id":"voltage-divider-sensor-01","world":"SI-08","title":"Capteur résistif — Pont diviseur","url":"missions/voltage-divider-sensor-01.html","subskill":"Conditionnement d'un capteur résistif par diviseur de tension"}),
     Object.freeze({"id":"restrained-thermal-stress-01","world":"SI-04","title":"Barre bloquée — Contrainte thermique","url":"missions/restrained-thermal-stress-01.html","subskill":"Contrainte de compression par dilatation empêchée"}),
+    Object.freeze({"id":"hydraulic-oil-compressibility-01","world":"SI-06","title":"Huile hydraulique — Compression volumique","url":"missions/hydraulic-oil-compressibility-01.html","subskill":"Variation de volume par module de compressibilité"}),
+    Object.freeze({"id":"hollow-shaft-polar-inertia-01","world":"SI-04","title":"Arbre tubulaire — Moment quadratique polaire","url":"missions/hollow-shaft-polar-inertia-01.html","subskill":"Calcul de Jp pour une section annulaire"}),
+    Object.freeze({"id":"wheel-braking-slip-01","world":"SI-01","title":"Roue freinée — Glissement longitudinal","url":"missions/wheel-braking-slip-01.html","subskill":"Glissement cinématique en freinage sans inversion"}),
+    Object.freeze({"id":"lumped-cooling-time-constant-01","world":"SI-12","title":"Refroidissement — Constante de temps thermique","url":"missions/lumped-cooling-time-constant-01.html","subskill":"Identification de la constante de temps d’un solide isotherme"}),
+    Object.freeze({"id":"adc-voltage-step-01","world":"SI-13","title":"Acquisition — Pas de quantification CAN","url":"missions/adc-voltage-step-01.html","subskill":"Résolution en tension d’un convertisseur idéal"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});

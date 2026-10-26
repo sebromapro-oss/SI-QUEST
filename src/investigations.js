@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"hydraulic-oil-compressibility-01":x=>2e-3*x*1e5/1.5e9*1e6,
+"hollow-shaft-polar-inertia-01":x=>Math.PI*(60**4-x**4)/(32*1e4),
+"wheel-braking-slip-01":x=>(5-.4*x)/5*100,
+"lumped-cooling-time-constant-01":x=>12*460/(x*.8),
+"adc-voltage-step-01":x=>x/4096*1000,
 "accumulator-polytropic-delivery-01":x=>10*((100/x)**(1/1.4)-(100/180)**(1/1.4)),
 "three-phase-capacitor-sizing-01":x=>15000*(Math.sqrt(1-.75**2)/.75-Math.sqrt(1-x*x)/x)/(3*2*Math.PI*50*400**2)*1e6,
 "pump-affinity-power-01":x=>8*(x/1200)**3,
@@ -134,6 +139,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"hydraulic-oil-compressibility-01":{min:0,max:20,unit:"mL"},
+"hollow-shaft-polar-inertia-01":{min:80,max:Infinity,unit:"cm⁴"},
+"wheel-braking-slip-01":{min:0,max:15,unit:"%"},
+"lumped-cooling-time-constant-01":{min:0,max:200,unit:"s"},
+"adc-voltage-step-01":{min:0,max:3,unit:"mV"},
 "accumulator-polytropic-delivery-01":{min:1.5,max:Infinity,unit:"L"},
 "three-phase-capacitor-sizing-01":{min:0,max:60,unit:"µF"},
 "pump-affinity-power-01":{min:0,max:16,unit:"kW"},
@@ -267,6 +277,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"hydraulic-oil-compressibility-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Huile homogène à température constante, V₀ = 2,00 L = 0,00200 m³, module volumique K = 1,50 GPa constant, Δp de 0 à 200 bar. Compression faible ΔV/V₀ ≤ 1,34 %, absence d’air entraîné, de dilatation du récipient et de fuite ; ΔV est une réduction positive du volume. Le critère de 20 mL est fictif.","solution":"V₀ = 2,00 L = 2,00×10⁻³ m³ ; Δp = 120 bar = 12,0×10⁶ Pa ; K = 1,50×10⁹ Pa. ΔV = V₀ Δp/K = 2,00×10⁻³×12,0×10⁶/(1,50×10⁹) = 1,60×10⁻⁵ m³ = 16,0 mL. Contrôle dimensionnel : m³×Pa/Pa = m³. ΔV/V₀ = 0,008 = 0,8 %. Il faut mesurer le module réel et rechercher l’air dissous avant toute décision."}),
+"hollow-shaft-polar-inertia-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":2,"assumptions":"Section circulaire annulaire homogène, D = 60 mm constant, diamètre intérieur d entre 20 et 50 mm, axe longitudinal au centre de la section. Moment quadratique polaire géométrique Jₚ = ∫r²dA ; ce n’est pas un moment d’inertie massique. Modèle de Saint-Venant applicable à un tube circulaire ; seuil fictif Jₚ ≥ 80 cm⁴, aucune vérification de contrainte ou de flambement.","solution":"D = 60 mm, d = 40 mm ; D⁴ = 12 960 000 mm⁴, d⁴ = 2 560 000 mm⁴. Jₚ = π(12 960 000 − 2 560 000)/32 = 1 021 017,61 mm⁴ = 102,102 cm⁴. Contrôle : mm⁴/(10⁴ mm⁴/cm⁴) = cm⁴. Si d augmente, Jₚ diminue ; Jₚ d’une section pleine serait πD⁴/32. Les contraintes de torsion et le matériau restent à contrôler."}),
+"wheel-braking-slip-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":2,"assumptions":"Vitesse longitudinale v = 5,00 m/s constante et strictement positive, rayon de roulement effectif R = 0,400 m, vitesse angulaire ω comprise entre 0 et 12,5 rad/s en freinage sans inversion. Le glissement s est positif au freinage ; absence de modèle d’adhérence pneu-sol et de transfert de charge. Le plafond de 15 % est pédagogique et fictif, pas une consigne ABS.","solution":"v = 5,00 m/s ; R = 0,400 m ; ω = 10,0 rad/s. Vitesse périphérique Rω = 0,400×10,0 = 4,00 m/s. Écart v − Rω = 1,00 m/s ; s = 1,00/5,00×100 = 20,0 %. Contrôle : (m/s)/(m/s) = 1. Pour ω = 12,5 rad/s, s = 0 % ; pour ω = 0, s = 100 %. L’adhérence réelle doit être mesurée : ce calcul ne détermine pas une distance de freinage."}),
+"lumped-cooling-time-constant-01":Object.freeze({"absoluteTolerance":1,"relativeTolerance":0,"precision":1,"assumptions":"Carter assimilé à un solide isotherme : m = 12,0 kg, cₚ = 460 J/(kg·K), surface A = 0,800 m², h entre 10 et 80 W/(m²·K). Acier de masse volumique 7 800 kg/m³ et conductivité 45 W/(m·K) ; Lc = (m/ρ)/A ≈ 0,001923 m, Bi ≤ 0,00342 < 0,1. Température ambiante et h constants, aucun rayonnement ni apport interne. Seuil τ ≤ 200 s fictif.","solution":"Capacité thermique C = mcₚ = 12,0×460 = 5 520 J/K. Conductance convective H = hA = 40×0,800 = 32,0 W/K. τ = C/H = 5 520/32,0 = 172,5 s. Contrôle : (J/K)/(W/K) = J/W = s. Bi = hLc/λ = 40×0,001923/45 = 0,00171 < 0,1. La température suit une exponentielle uniquement sous ces hypothèses ; mesurer h et les pertes réelles."}),
+"adc-voltage-step-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":4,"assumptions":"CAN unipolaire idéal 12 bits, plage de tension 0 ≤ Uin < Uref, 2¹² = 4 096 codes, tension de référence Uref entre 2 et 12 V. Pas idéal q = Uref/4096, sans bruit, offset, non-linéarité ni saturation. La valeur du dernier code est 4095q, non Uref ; q n’est pas l’incertitude totale. Critère q ≤ 3 mV fictif.","solution":"N = 12 bits, 2¹² = 4 096 codes ; Uref = 10,0 V. q = 10,0 V/4 096 = 0,00244140625 V = 2,44140625 mV. Contrôle : V/1 = V et 1 V = 1 000 mV. Dernier code : 4095q ≈ 9,99756 V. Ce pas n’intègre ni erreur d’offset, ni bruit, ni précision du capteur ; étalonner la chaîne réelle."}),
 "accumulator-polytropic-delivery-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Gaz parfait, détente pV^n constante, n = 1,40 ; précharge p₀ = 100 bar absolus et volume V₀ = 10 L ; p_haut = 180 bar absolus ; p_bas = 110 à 170 bar absolus, donc p₀ < p_bas < p_haut. Gaz homogène ; fuites, pertes et prescriptions constructeur non modélisées. Critère fictif de 1,50 L.","solution":"V_haut = 10(100/180)^(1/1,4) = 6,57147 L ; V_bas = 10(100/120)^(1/1,4) = 8,77894 L ; ΔV = V_bas − V_haut = 2,20747 L. Contrôle : les rapports de pression sont sans dimension, le volume est en L et décroît lorsque p_bas augmente. Aucun verdict réel sans notice constructeur."}),
 "three-phase-capacitor-sizing-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":2,"assumptions":"Réseau triphasé équilibré sinusoïdal, P = 15 000 W, cos φ₁ = 0,75 inductif, cos φ₂ cible de 0,80 à 0,99, U = 400 V efficaces entre phases, f = 50 Hz. Trois condensateurs idéaux identiques en triangle soumis chacun à U ; harmoniques, résonance et protections exclues. Seuil fictif de 60 µF par branche.","solution":"tan φ₁ = 0,881917 ; tan φ₂ = 0,328684 ; Q_c = 15 000(0,881917 − 0,328684) = 8 298,495 var. C_Δ = 8 298,495/(3 × 2π × 50 × 400²) = 5,50311×10⁻⁵ F = 55,0311 µF par branche. Contrôle : var/(s⁻¹·V²) = F ; vérifier les harmoniques avant installation."}),
 "pump-affinity-power-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":3,"assumptions":"Même roue, même diamètre et même fluide ; fonctionnement hydraulique homologue et rendement supposé constant. P₁ = 8,0 kW à n₁ = 1 200 tr/min ; n₂ varie de 600 à 1 600 tr/min. Cavitation, courbe réseau et rendement réel exclus. Seuil moteur fictif de 16 kW.","solution":"r = n₂/n₁ = 1 500/1 200 = 1,25 sans unité. P₂ = 8 × 1,25³ = 8 × 1,953125 = 15,625 kW. Contrôle : kW × (sans unité)³ = kW ; à n₂ = n₁, P₂ = P₁. Vérifier les courbes de pompe et moteur réelles."}),
@@ -393,8 +408,10 @@ function diagnoseAnswer(value,expected,tolerance,unit){
  if(Math.abs(value-expected)<=Math.max(10*eps,.01*Math.abs(expected)))return 'Réponse proche : vérifie les arrondis, les chiffres significatifs et la précision demandée.';
  return 'Reprends la formule, les données et les unités'+(unit?' (résultat à exprimer en '+unit+')':'')+'.';
 }
+const cycle138Domains=Object.freeze({"hydraulic-oil-compressibility-01":[0,200],"hollow-shaft-polar-inertia-01":[20,50],"wheel-braking-slip-01":[0,12.5],"lumped-cooling-time-constant-01":[10,80],"adc-voltage-step-01":[2,12]});
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
+ const domain=cycle138Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
  if((id==="stepped-bar-extension-01"&&(x<0||x>35))||(id==="motor-slip-01"&&(x<48||x>60))||(id==="log-decrement-01"&&(x<5||x>19))||(id==="exchanger-effectiveness-01"&&(x<0||x>110))||(id==="darcy-pipe-loss-01"&&(x<20||x>60))||(id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||(id==='flywheel-angular-momentum-01'&&x>1500)||(id==='rc-charge-threshold-01'&&(x<1||x>22))||(id==='thermal-clearance-01'&&x>120)||(id==='venturi-pressure-01'&&x>60)||(id==='spring-series-01'&&(x<5000||x>40000))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  if((id==="cylinder-stroke-time-01"&&(x<0||x>600))||(id==="gas-isothermal-work-01"&&(x<1||x>4))||(id==="symmetric-sling-tension-01"&&(x<20||x>70))||(id==="voltage-divider-sensor-01"&&(x<0.5||x>5))||(id==="restrained-thermal-stress-01"&&(x<0||x>80)))throw new RangeError('Paramètre hors domaine physique');
  if((id==="accumulator-polytropic-delivery-01"&&(x<110||x>170))||(id==="three-phase-capacitor-sizing-01"&&(x<0.8||x>0.99))||(id==="pump-affinity-power-01"&&(x<600||x>1600))||(id==="spring-stored-energy-01"&&(x<0||x>80))||(id==="goodman-fatigue-factor-01"&&(x<0||x>180)))throw new RangeError('Paramètre hors domaine physique');
@@ -408,6 +425,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"hydraulic-oil-compressibility-01":"bar",
+"hollow-shaft-polar-inertia-01":"mm",
+"wheel-braking-slip-01":"rad/s",
+"lumped-cooling-time-constant-01":"W/(m²·K)",
+"adc-voltage-step-01":"V",
 "gear-eff-01":"sans unité",
 "pulley-01":"mm",
 "capacitor-01":"V",
