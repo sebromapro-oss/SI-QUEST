@@ -33,3 +33,20 @@
 .hero-copy{background:linear-gradient(90deg,#051630c9,transparent)}
 .island{min-width:66px}
 }
+
+/* Recette responsive : les îles ne doivent pas devenir des cibles minuscules. */
+body.dialog-open{overflow:hidden}
+@media(max-width:620px){
+.game-screen{min-height:990px}
+.archipelago{top:25%;bottom:25%;left:4%;right:4%}
+.island-name{max-width:130%;overflow-wrap:anywhere}
+.island{min-width:66px;min-height:62px}
+.island:focus-visible{outline-offset:2px}
+.map-side{bottom:1.5%}
+}
+@media(max-width:390px){
+.game-screen{min-height:1050px}
+.archipelago{top:23%;bottom:24%}
+.island{width:66px!important;height:64px!important}
+.island-name{max-width:112%;font-size:.52rem}
+}
