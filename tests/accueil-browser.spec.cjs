@@ -25,6 +25,22 @@ for(const device of devices){
   await expect(page.locator('#world-dialog')).toBeHidden();
   await page.screenshot({path:'artifacts/'+device.name+'.png',fullPage:true});
  });
+
+ test('la carte mobile se parcourt horizontalement sans écraser les îles',async({page})=>{
+  if(device.viewport.width>620)return;
+  await page.goto('http://127.0.0.1:4173/');
+  const result=await page.evaluate(()=>{
+   const map=document.querySelector('.archipelago');
+   const first=document.querySelector('.island');
+   const before=map.scrollLeft;
+   map.scrollLeft=400;
+   return {scrollWidth:map.scrollWidth,clientWidth:map.clientWidth,after:map.scrollLeft,before,width:first.getBoundingClientRect().width};
+  });
+  expect(result.scrollWidth).toBeGreaterThan(result.clientWidth);
+  expect(result.after).toBeGreaterThan(result.before);
+  expect(result.width).toBeGreaterThanOrEqual(100);
+ });
+
  test('aucun débordement horizontal au document',async({page})=>{
   await page.goto('http://127.0.0.1:4173/');
   const width=await page.evaluate(()=>({doc:document.documentElement.scrollWidth,view:innerWidth}));
