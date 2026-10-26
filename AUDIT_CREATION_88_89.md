@@ -19,3 +19,10 @@ Mission `hydro-annular-force-01` (lot 40–75) : le remplissage bleu de la chamb
 
 ## Réserves
 Pas de tests matériels, navigateur réel, 3D manipulable, inspection visuelle exhaustive ni conformité WCAG démontrée. Aucune publication publique, refonte d'accueil/carte, ZIP ou changement de visibilité. Les deux missions sont codées ; réception globale non revendiquée.
+
+## Preuves d’exécution CI du lot 88–89
+Révision de code `b9094e42166f74d40b76e7472ac52ed95b387ef8` : trois workflows GitHub Actions terminés avec la conclusion **success**.
+- `Recette automatisée SI QUEST` : exécution **40258178597** ; `node --test` : **550 tests exécutés, 550 réussis, 0 échec, 0 ignoré** ; syntaxe JavaScript réussie.
+- `Contrôles scientifiques SI QUEST` : exécution **40258178581**, réussie ; vérifications syntaxiques, scientifiques et catalogue.
+- `SI QUEST scientific quality` : exécution **40258179493**, réussie ; contrôles indépendants de structure et de science.
+Ces résultats sont des preuves **automatisées**. Ils ne démontrent ni une inspection visuelle réelle ni des tests NVDA, TalkBack, VoiceOver ou sur appareils.
