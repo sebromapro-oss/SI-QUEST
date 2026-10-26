@@ -117,6 +117,11 @@
     Object.freeze({id:"reactive-three-phase-01",world:"SI-08",title:"Moteur triphasé — Puissance réactive",url:"missions/reactive-three-phase-01.html",subskill:"Triangle des puissances en triphasé"}),
     Object.freeze({id:"rl-step-current-01",world:"SI-09",title:"Circuit RL — Établissement du courant",url:"missions/rl-step-current-01.html",subskill:"Réponse temporelle d’un circuit RL"}),
     Object.freeze({id:"npsh-available-01",world:"SI-06",title:"Pompe d’eau — NPSH disponible",url:"missions/npsh-available-01.html",subskill:"Hauteur nette d’aspiration et cavitation"}),
+    Object.freeze({"id":"double-shear-pin-01","world":"SI-04","title":"Axe de chape — Cisaillement double","url":"missions/double-shear-pin-01.html","subskill":"Cisaillement d'un axe à deux plans"}),
+    Object.freeze({"id":"hydraulic-reynolds-01","world":"SI-06","title":"Flexible hydraulique — Nombre de Reynolds","url":"missions/hydraulic-reynolds-01.html","subskill":"Régime d'écoulement en conduite circulaire"}),
+    Object.freeze({"id":"composite-wall-01","world":"SI-12","title":"Paroi multicouche — Flux thermique","url":"missions/composite-wall-01.html","subskill":"Résistances thermiques de deux couches en série"}),
+    Object.freeze({"id":"combined-uncertainty-01","world":"SI-13","title":"Métrologie — Incertitude combinée","url":"missions/combined-uncertainty-01.html","subskill":"Composition quadratique d'incertitudes-types indépendantes"}),
+    Object.freeze({"id":"stability-overturn-angle-01","world":"SI-03","title":"Engin sur dévers — Limite statique","url":"missions/stability-overturn-angle-01.html","subskill":"Projection du centre de gravité et angle limite de basculement"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});

@@ -5,7 +5,7 @@ const ids=["hydro-motor-speed-01","beam-center-deflection-01","reactive-three-ph
 const near=(a,b)=>assert.ok(Math.abs(a-b)<=1e-8*Math.max(1,Math.abs(b)),a+' != '+b);
 const cfg=id=>JSON.parse(fs.readFileSync('missions/'+id+'.html','utf8').split('window.SI_MISSION=')[1].split('</script>')[0]);
 test('103–107 : catalogue, politiques, schémas et domaines',()=>{
- assert.equal(cat.levels.length,107);assert.equal(new Set(cat.levels.map(x=>x.id)).size,107);
+ assert.ok(cat.levels.length>=107);assert.equal(new Set(cat.levels.map(x=>x.id)).size,cat.levels.length);
  const home=fs.readFileSync('index.html','utf8');assert.match(home,/id="islands"/);assert.match(fs.readFileSync('missions/reactive-three-phase-01.html','utf8'),/cos φ<\/text>/);
  for(const id of ids){const c=cfg(id),p=m.answerPolicy[id];assert.ok(cat.byId(id));assert.equal(c.unit,m.criteria[id].unit);assert.equal(c.inputUnit,m.inputUnits[id]);near(m.calculate(id,c.initial),c.expected);assert.ok(p.assumptions.length>160&&p.solution.length>120);for(const x of [c.min,c.initial,c.max]){const y=m.calculate(id,x),svg=d.render(id,x,y);assert.ok(Number.isFinite(y));assert.match(svg,/<title/);assert.match(svg,/<desc/);assert.ok(svg.includes(c.unit)&&svg.includes(c.inputUnit));assert.doesNotMatch(svg,/NaN|Infinity|undefined/);}assert.throws(()=>m.calculate(id,c.max+.01),RangeError);assert.throws(()=>m.calculate(id,-.01),RangeError);assert.equal(m.validateAnswer(String(c.expected).replace('.',','),c.expected,p.absoluteTolerance).correct,true);assert.equal(m.validateAnswer(String(c.expected+2*p.absoluteTolerance),c.expected,p.absoluteTolerance).correct,false);}
 });
