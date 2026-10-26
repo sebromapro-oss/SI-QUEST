@@ -22,3 +22,6 @@ Révision de code `7bb19992b54f972d231caa3839254a7f4d745264` : trois workflows *
 - **Contrôles scientifiques SI QUEST**, exécution `40263793405` : syntaxe, tests scientifiques et contrôle du catalogue réussis.
 - **SI QUEST scientific quality**, exécution `40263793483` : vérifications scientifiques et structurelles réussies.
 Ces preuves sont automatisées. Aucun test visuel navigateur réel, mobile matériel ou lecteur d'écran n'a été effectué.
+
+## Contre-audit graphique complémentaire
+Après le premier contrôle, deux défauts ont été identifiés et **corrigés dans le code** : (1) le tube était dessiné avec des coins arrondis alors que le modèle de section supposait des angles vifs ; le rectangle extérieur utilise désormais des coins géométriquement droits ; (2) le ressort et la masse étaient séparés de 12 pixels ; un segment de liaison explicite les relie. Des assertions SVG spécifiques ont été ajoutées dans `tests/batch90-91.test.cjs`. Révisions de correction : `3a3fd42d65a301c5ef76bbdfb8a975a7234d36a5`, puis `d91704648213569a46f75b99dd014d2a7dec42a1`. Les tests CI de ces révisions sont à vérifier séparément ; la recette visuelle réelle demeure non effectuée.
