@@ -25,3 +25,10 @@ Ces preuves sont automatisées. Aucun test visuel navigateur réel, mobile maté
 
 ## Contre-audit graphique complémentaire
 Après le premier contrôle, deux défauts ont été identifiés et **corrigés dans le code** : (1) le tube était dessiné avec des coins arrondis alors que le modèle de section supposait des angles vifs ; le rectangle extérieur utilise désormais des coins géométriquement droits ; (2) le ressort et la masse étaient séparés de 12 pixels ; un segment de liaison explicite les relie. Des assertions SVG spécifiques ont été ajoutées dans `tests/batch90-91.test.cjs`. Révisions de correction : `3a3fd42d65a301c5ef76bbdfb8a975a7234d36a5`, puis `d91704648213569a46f75b99dd014d2a7dec42a1`. Les tests CI de ces révisions sont à vérifier séparément ; la recette visuelle réelle demeure non effectuée.
+
+## Recette CI finale après contre-audit
+Révision contrôlée `132632f015859d69cd8a77f31cbef6ba7153ee91` : **3 workflows réussis** le 26 octobre 2026.
+- `Recette automatisée SI QUEST` — exécution `40263899758` : **555 tests Node, 555 réussis, 0 échec, 0 ignoré** ; job `121381944727`.
+- `Contrôles scientifiques SI QUEST` — exécution `40263899725` : **success**.
+- `SI QUEST scientific quality` — exécution `40263899769` : **success**.
+Les vérifications CI ne constituent pas une inspection visuelle réelle ni une preuve d'accessibilité manuelle. Le présent ajout au registre ne modifie aucun moteur scientifique.
