@@ -15,3 +15,21 @@
 .island-count{right:0}
 .map-side{bottom:1%}
 }
+
+/* Direction artistique V3 : décor illustré, couche lisible et variation d'atmosphère. */
+.game-screen{background:#081e37 url("../assets/archipelago-cinematic.svg") center center/cover no-repeat}
+.game-screen::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,#041226d9 0%,#041226a6 23%,transparent 58%,#03112648 100%);pointer-events:none}
+.sky,.sun,.world-sea,.cloud{display:none}
+.hero-copy,.archipelago,.map-side{z-index:2}
+.hero-copy{padding:1rem;border-radius:20px;background:linear-gradient(90deg,#081d37d4,#081d3700)}
+.archipelago{filter:drop-shadow(0 3px 5px #041525)}
+.island-artwork{transition:filter .2s ease,transform .2s ease}
+.island:hover .island-artwork,.island:focus-visible .island-artwork{transform:translateY(-4px)}
+.island:focus-visible{outline:3px solid #fff8cc;outline-offset:6px;border-radius:18px}
+.game-screen .map-side{background:linear-gradient(#061a32a8,#061a3200);padding:.5rem;border-radius:14px}
+@media(max-width:620px){
+.game-screen{background-position:57% center}
+.game-screen::before{background:linear-gradient(#031328b5,transparent 30%,#04142655 75%,#031128bd)}
+.hero-copy{background:linear-gradient(90deg,#051630c9,transparent)}
+.island{min-width:66px}
+}
