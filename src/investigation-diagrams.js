@@ -7,6 +7,11 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+"braking-distance-friction-01":"Freinage — Distance idéale",
+"heat-exchanger-lmtd-01":"Échangeur — Écart logarithmique",
+"column-slenderness-01":"Tige — Élancement",
+"acoustic-distance-loss-01":"Acoustique — Éloignement",
+"beam-central-moment-01":"Traverse — Moment central",
 "water-hammer-joukowsky-01":"Hydraulique — Coup de bélier",
 "thermal-contact-resistance-01":"Thermique — Contact dissipateur",
 "noise-level-addition-01":"Acoustique — Deux machines",
@@ -403,6 +408,11 @@ function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+case "braking-distance-friction-01":{const w=350*Math.min(1,result/35);s+=line(70,175,540,175)+box(90,123,100,40)+circle(110,173,10)+circle(170,173,10)+(x>0?arrow(195,140,230,140):'')+line(195,185,195+w,185,'#7ce8ae',4)+text(30,40,'v₀ = '+N(x)+' km/h ; μ = 0,60')+text(30,216,'d = '+N(result)+' m')+'<g data-distance-m="'+result.toFixed(6)+'"></g>';break;}
+case "heat-exchanger-lmtd-01":{s+=box(140,90,320,95)+line(160,115,440,115,'#ffca7d',6)+line(160,158,440,158,'#7ce8ae',6)+text(30,40,'ΔT₁ = 60 K ; ΔT₂ = '+N(x)+' K')+text(30,216,'ΔTₘₗ = '+N(result)+' K')+'<g data-lmtd-k="'+result.toFixed(6)+'"></g>';break;}
+case "column-slenderness-01":{const h=65+85*(x-600)/1200;s+=line(230,198,370,198)+line(300,198,300,198-h,'#7ce8ae',12)+circle(300,198,7)+circle(300,198-h,7)+text(30,40,'L = '+N(x)+' mm ; d = 25 mm')+text(30,216,'λ = '+N(result)+' sans unité')+'<g data-slenderness="'+result.toFixed(6)+'"></g>';break;}
+case "acoustic-distance-loss-01":{const px=170+(x-2)/8*300;s+=circle(105,135,32)+line(140,135,px,135,'#8ddcff',3)+circle(px,135,10,'#ffd17d')+text(30,40,'r₁ = 1 m ; r₂ = '+N(x)+' m')+text(30,216,'Perte ΔL = '+N(result)+' dB')+'<g data-acoustic-db="'+result.toFixed(6)+'"></g>';break;}
+case "beam-central-moment-01":{s+=line(110,153,490,153,'#8ddcff',8)+line(110,155,95,180)+line(110,155,125,180)+line(490,155,475,180)+line(490,155,505,180)+(x>0?arrow(300,65,300,140):'')+text(30,40,'F = '+N(x)+' kN ; L = 2,0 m')+text(30,216,'Mₘₐₓ = '+N(result)+' kN·m')+'<g data-moment-knm="'+result.toFixed(6)+'"></g>';break;}
 case 'water-hammer-joukowsky-01':{s+=box(95,95,410,75,'#21465d')+line(110,110,490,110,'#8ddcff',3)+line(110,170,490,170,'#8ddcff',3)+line(385,100,385,170,'#ffca7d',4);if(x>0)s+=arrow(170,140,170+Math.min(155,35+x*75),140,'#ffca7d',4);s+=text(35,38,'ρ = 850 kg/m³ ; a = 1 200 m/s')+text(35,65,'Δv = '+N(x)+' m/s ; onde de pression idéale')+text(35,215,'Δp = '+N(result)+' bar')+'<g data-surge-bar="'+result.toFixed(6)+'"></g>';break;}
 case 'thermal-contact-resistance-01':{const flux=20/result;s+=box(120,90,170,100,'#9b704d')+box(310,90,170,100,'#426f91')+line(300,85,300,195,'#ffca7d',5)+arrow(165,139,275,139,'#ffca7d',4)+arrow(325,139,435,139,'#7ce8ae',4);s+=text(35,36,'Interface A = 0,040 m² ; ΔT = 20 K')+text(35,64,'h_c = '+N(x)+' W/(m²·K)')+text(35,218,'R_c = '+N(result)+' K/W ; Φ = '+N(flux)+' W')+'<g data-contact-k-w="'+result.toFixed(8)+'" data-heat-flow-w="'+flux.toFixed(4)+'"></g>';break;}
 case 'noise-level-addition-01':{s+=box(100,98,75,75,'#315a73')+circle(137,135,24,'#ffd17d')+box(425,98,75,75,'#315a73')+circle(463,135,24,'#ffd17d')+line(177,136,257,136,'#8ddcff',4)+line(345,136,423,136,'#8ddcff',4);const width=240*Math.max(0,Math.min(1,(result-60)/45));s+=box(180,180,240,18,'#234c66')+'<rect x="180" y="180" width="'+width.toFixed(3)+'" height="18" fill="#ffca7d" data-level-width="'+width.toFixed(3)+'"/>';s+=text(35,37,'Sources incohérentes : L₁ = 80 dB(A)')+text(35,66,'L₂ = '+N(x)+' dB(A) ; somme énergétique')+text(35,222,'LΣ = '+N(result)+' dB(A)')+'<g data-total-db="'+result.toFixed(6)+'"></g>';break;}

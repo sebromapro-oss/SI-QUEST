@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"braking-distance-friction-01","world":"SI-02","title":"Freinage — Distance idéale","url":"missions/braking-distance-friction-01.html","subskill":"Distance de freinage à décélération constante par adhérence"}),
+Object.freeze({"id":"heat-exchanger-lmtd-01","world":"SI-12","title":"Échangeur — Écart logarithmique","url":"missions/heat-exchanger-lmtd-01.html","subskill":"Écart logarithmique moyen de température d'un échangeur"}),
+Object.freeze({"id":"column-slenderness-01","world":"SI-04","title":"Tige — Élancement","url":"missions/column-slenderness-01.html","subskill":"Élancement géométrique d'une tige circulaire pleine articulée"}),
+Object.freeze({"id":"acoustic-distance-loss-01","world":"SI-13","title":"Acoustique — Éloignement","url":"missions/acoustic-distance-loss-01.html","subskill":"Atténuation géométrique du niveau sonore en champ libre"}),
+Object.freeze({"id":"beam-central-moment-01","world":"SI-03","title":"Traverse — Moment central","url":"missions/beam-central-moment-01.html","subskill":"Moment fléchissant maximal d'une poutre bi-appuyée chargée au centre"}),
 Object.freeze({"id":"water-hammer-joukowsky-01","world":"SI-06","title":"Hydraulique — Coup de bélier","url":"missions/water-hammer-joukowsky-01.html","subskill":"Surpression de Joukowsky lors d'une décélération brusque"}),
 Object.freeze({"id":"thermal-contact-resistance-01","world":"SI-12","title":"Thermique — Contact dissipateur","url":"missions/thermal-contact-resistance-01.html","subskill":"Résistance thermique d'interface en fonction de la conductance surfacique"}),
 Object.freeze({"id":"noise-level-addition-01","world":"SI-13","title":"Acoustique — Deux machines","url":"missions/noise-level-addition-01.html","subskill":"Somme énergétique de deux niveaux acoustiques incohérents en décibels"}),
