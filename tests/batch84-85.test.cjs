@@ -61,7 +61,7 @@ test('Audit 40–75 : schéma du volume pneumatique synchronisé avec la course'
 });
 test('Catalogue : deux questions nouvelles, aucune entrée dupliquée',()=>{
  assert.ok(catalog.levels.length>=85);
- assert.equal(new Set(catalog.levels.map(l=>l.id)).size,85);
+ assert.equal(new Set(catalog.levels.map(l=>l.id)).size,catalog.levels.length);
  assert.equal(catalog.byId('rotation-energy-01').world,'SI-02');
  assert.equal(catalog.byId('center-mass-01').world,'SI-03');
 });
