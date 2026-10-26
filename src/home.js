@@ -1,47 +1,28 @@
-(function(){
-'use strict';
-const catalog=window.SICatalog, container=document.getElementById('universes');
-const search=document.getElementById('world-search');
-const buttons=[...document.querySelectorAll('[data-filter]')];
-const symbols=['↗','F','Σ','I','⚙','⇅','◉','ϟ','∿','P','μ','℃','⌁','◇','⚒','⛨','⬡'];
-const missionsByWorld=new Map(catalog.worlds.map(w=>[w.id,catalog.levels.filter(m=>m.world===w.id)]));
-const make=(tag,cls,value)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=value;return el;};
-document.getElementById('level-count').textContent=String(catalog.levels.length);
-document.getElementById('world-count').textContent=String(catalog.worlds.length);
-document.getElementById('active-count').textContent=String([...missionsByWorld.values()].filter(items=>items.length).length);
-document.getElementById('status').textContent='Catalogue chargé : '+catalog.levels.length+' missions répertoriées. Présence dans le catalogue ≠ validation scientifique, fonctionnelle ou matérielle.';
-const cards=[];
-catalog.worlds.forEach((world,i)=>{
- const missions=missionsByWorld.get(world.id),card=make('article','world'+(missions.length?' has-levels':'')); 
- const top=make('div','world-top'),icon=make('span','world-icon',symbols[i]||'◈');
- icon.setAttribute('aria-hidden','true');top.append(icon,make('span','world-index',world.id));card.append(top);
- card.append(make('h3','',world.title));
- card.append(make('p','world-state',missions.length?missions.length+' mission'+(missions.length>1?'s':'')+' répertoriée'+(missions.length>1?'s':''):'Univers en préparation'));
- if(missions.length){const ul=document.createElement('ul');missions.forEach(m=>{const li=document.createElement('li'),a=document.createElement('a');a.href=m.url;a.textContent=m.title;li.append(a);ul.append(li)});card.append(ul)}
- else card.append(make('p','world-empty','Aucune mission répertoriée pour cet univers.'));
- container.append(card);cards.push({card,world,missions});
-});
-const quick=document.getElementById('mission-links');
-catalog.levels.slice(0,6).forEach((mission,i)=>{
- const a=make('a','mission-tile'),glyph=make('span','mission-glyph',symbols[catalog.worlds.findIndex(w=>w.id===mission.world)]||'◈');
- glyph.setAttribute('aria-hidden','true');a.href=mission.url;
- const detail=make('span',''),title=make('strong','',mission.title),small=make('small','',catalog.worlds.find(w=>w.id===mission.world)?.title||mission.world);
- detail.append(title,small);a.append(glyph,detail);quick.append(a);
-});
-let filter='all';
-function update(){
- const term=search.value.trim().toLocaleLowerCase('fr');
- let visible=0;
- cards.forEach(({card,world,missions})=>{
- const matches=!term||(world.title+' '+world.id+' '+missions.map(m=>m.title).join(' ')).toLocaleLowerCase('fr').includes(term);
- const category=filter==='all'||(filter==='with'?missions.length>0:missions.length===0);
- card.hidden=!(matches&&category);if(!card.hidden)visible++;
- });
- document.getElementById('filter-status').textContent=visible+' univers affiché'+(visible>1?'s':'')+'.';
-}
-search.addEventListener('input',update);
-buttons.forEach(button=>button.addEventListener('click',()=>{
- filter=button.dataset.filter;buttons.forEach(b=>{const selected=b===button;b.classList.toggle('is-active',selected);b.setAttribute('aria-pressed',String(selected))});update();
-}));
-update();
+(function(){'use strict';
+const cat=window.SICatalog;const worlds=cat.worlds;const levels=cat.levels;
+const coords=[[17,22],[38,17],[58,25],[78,15],[24,42],[47,43],[70,43],[88,40],[11,65],[33,65],[56,65],[78,64],[21,85],[42,84],[62,84],[82,85],[49,7]];
+const glyphs=['↗','F','Σ','I','⚙','⇅','◉','ϟ','∿','P','μ','℃','⌁','◇','⚒','⛨','⬡'];
+const tones=['#1e8cc3','#cd6265','#4583a6','#ba8665','#c58d1f','#1689aa','#59afba','#7254b8','#b04d92','#3aa367','#aa8137','#d75931','#83b9d2','#477aa8','#459969','#cfb348','#bcc1db'];
+const sizes=[108,100,117,105,111,121,105,107,103,115,104,117,94,108,104,99,90];
+const byWorld=new Map(worlds.map(w=>[w.id,levels.filter(l=>l.world===w.id)]));
+const get=id=>document.getElementById(id);
+let previous=null,activeDialog=null;
+function text(tag,content,cls){const el=document.createElement(tag);if(cls)el.className=cls;if(content!==undefined)el.textContent=content;return el}
+function close(dialog){dialog.hidden=true;activeDialog=null;if(previous)previous.focus()}
+function open(dialog){if(activeDialog)close(activeDialog);previous=document.activeElement;dialog.hidden=false;activeDialog=dialog;dialog.querySelector('.close').focus()}
+function showWorld(world){const missions=byWorld.get(world.id)||[];get('dialog-kicker').textContent=world.id+' · ARCHIPEL SCIENTIFIQUE';get('dialog-title').textContent=world.title.toUpperCase();get('dialog-note').textContent=missions.length?missions.length+' mission'+(missions.length>1?'s':'')+' répertoriée'+(missions.length>1?'s':'')+'. Choisis ton aventure.':'Univers en préparation : aucune mission répertoriée.';const list=get('dialog-missions');list.replaceChildren();missions.forEach(m=>{const a=text('a',m.title);a.href=m.url;list.append(a)});open(get('world-dialog'))}
+get('world-total').textContent=worlds.length;
+worlds.forEach((w,i)=>{const missions=byWorld.get(w.id),p=coords[i]||[50,50],button=text('button',undefined,'island'+(missions.length?'':' empty'));button.type='button';button.style.setProperty('--x',p[0]+'%');button.style.setProperty('--y',p[1]+'%');button.style.setProperty('--w',sizes[i]+'px');button.style.setProperty('--h',Math.round(sizes[i]*.73)+'px');button.style.setProperty('--tone',tones[i]);button.style.setProperty('--glow',tones[i]+'aa');button.setAttribute('aria-label',w.title+' : '+missions.length+' mission'+(missions.length>1?'s':'')+' répertoriée'+(missions.length>1?'s':''));const scene=text('span',undefined,'island-scene');scene.setAttribute('aria-hidden','true');const glyph=text('span',glyphs[i],'island-glyph');glyph.setAttribute('aria-hidden','true');button.append(scene,glyph,text('span',w.title,'island-name'));if(missions.length)button.append(text('span',String(missions.length),'island-count'));button.addEventListener('click',()=>showWorld(w));get('islands').append(button);
+const item=text('button',undefined);item.type='button';const symbol=text('span',glyphs[i]);symbol.setAttribute('aria-hidden','true');item.append(symbol,text('strong',w.title+(missions.length?' · '+missions.length:'')));item.addEventListener('click',()=>showWorld(w));get('world-list').append(item)});
+levels.slice(0,4).forEach((m,i)=>{const a=text('a',undefined,'feature');a.href=m.url;const w=worlds.find(w=>w.id===m.world),ix=worlds.indexOf(w),art=text('div',glyphs[ix]||'✦','feature-art');art.style.setProperty('--tone',tones[ix]||'#387fa0');art.setAttribute('aria-hidden','true');const cap=text('div',undefined,'feature-caption');cap.append(text('strong',m.title),text('small',w?w.title:m.world));a.append(art,cap);get('featured-cards').append(a)});
+get('all-worlds').addEventListener('click',()=>{get('world-list').scrollIntoView({behavior:document.body.classList.contains('reduced-motion')?'instant':'smooth'});get('world-list').querySelector('button')?.focus({preventScroll:true})});
+get('progress-open').addEventListener('click',()=>{get('dialog-kicker').textContent='PARCOURS EXPLORATEUR';get('dialog-title').textContent='MA PROGRESSION';get('dialog-note').textContent='Aucune progression consolidée n’est actuellement disponible dans cet accueil. Les étoiles et badges ne sont pas estimés.';get('dialog-missions').replaceChildren();open(get('world-dialog'))});
+get('settings-open').addEventListener('click',()=>open(get('settings-dialog')));
+get('dialog-close').addEventListener('click',()=>close(get('world-dialog')));
+get('settings-close').addEventListener('click',()=>close(get('settings-dialog')));
+document.querySelectorAll('.overlay').forEach(d=>d.addEventListener('click',e=>{if(e.target===d)close(d)}));
+document.addEventListener('keydown',e=>{if(!activeDialog)return;if(e.key==='Escape'){close(activeDialog);return}if(e.key==='Tab'){const controls=[...activeDialog.querySelectorAll('button:not([disabled]),a[href],input:not([disabled])')];if(!controls.length)return;const first=controls[0],last=controls[controls.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+const reduced=get('reduce-motion');reduced.checked=window.matchMedia('(prefers-reduced-motion: reduce)').matches;reduced.addEventListener('change',()=>document.body.classList.toggle('reduced-motion',reduced.checked));document.body.classList.toggle('reduced-motion',reduced.checked);
+get('runtime-status').textContent=levels.length+' entrées au catalogue ; disponibilité technique et recette individuelle non garanties. Les étoiles non vérifiables ne sont pas affichées.';
+get('stars').textContent='—';
 })();
