@@ -7,6 +7,8 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'natural-frequency-01':'Oscillateur masse–ressort et fréquence propre',
+'rectangular-tube-inertia-01':'Tube rectangulaire creux, axe z',
 'three-phase-power-01':'Moteur triphasé : trois conducteurs de phase',
 'hydrostatic-column-01':'Colonne d’huile et prises de pression',
 'planetary-fixed-ring-01':'Train épicycloïdal — cercles primitifs',
@@ -90,6 +92,8 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+'natural-frequency-01':['m','f₀'],
+'rectangular-tube-inertia-01':['e','I_z'],
 'three-phase-power-01':['Iₗ','P'],
 'hydrostatic-column-01':['h','Δp'],
 'planetary-fixed-ring-01':['nₛ','nₚ'],
@@ -255,11 +259,31 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(["three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(["natural-frequency-01","rectangular-tube-inertia-01","three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'natural-frequency-01':{
+  const f=Math.sqrt(18000/x)/(2*Math.PI),side=40+4*Math.sqrt(x);
+  s+=line(110,105,160,105,'#d5e8f4',6);
+  const coil=Array.from({length:17},(_,k)=>[160+k*10,105+(k===0||k===16?0:(k%2?18:-18))]);
+  s+='<path d="'+coil.map((p,k)=>(k?'L':'M')+p[0]+' '+p[1]).join(' ')+'" fill="none" stroke="#8ddcff" stroke-width="4"/>';
+  s+=box(332,105-side/2,side,side,'#315c76')+text(348,112,'m');
+  const wave=Array.from({length:201},(_,k)=>{const t=k/200;return [60+470*t,188-16*Math.sin(2*Math.PI*f*t)]});
+  s+=line(60,188,530,188,'#9bc9e5',1.5);
+  s+='<path data-signal="libre" d="'+wave.map((p,k)=>(k?'L':'M')+p[0].toFixed(2)+' '+p[1].toFixed(2)).join(' ')+'" fill="none" stroke="#7ce8ae" stroke-width="2"/>';
+  s+=text(43,37,'k = 18 000 N/m ; m = '+N(x)+' kg')+text(43,220,'Signal libre idéal, amplitude illustrative, durée 1 s');break;
+ }
+ case 'rectangular-tube-inertia-01':{
+  const t=1.25*x;
+  s+=box(245,54,100,150,'#315c76');
+  s+='<rect data-epaisseur-mm="'+N(x)+'" x="'+(245+t)+'" y="'+(54+t)+'" width="'+(100-2*t)+'" height="'+(150-2*t)+'" fill="#092236" stroke="#9bc9e5" stroke-width="2"/>';
+  s+=line(205,129,385,129,'#ffd17d',2,'stroke-dasharray="5 5"');
+  s+=text(43,37,'b = 80 mm ; h = 120 mm')+text(390,90,'e = '+N(x)+' mm')+text(390,115,'Axe z');
+  s+=text(43,220,'Coupe à 1,25 px/mm ; angles vifs idéalisés');break;
+ }
+
  case 'three-phase-power-01':{
   s+=box(265,57,205,144,'#244963');
   for(let k=0;k<3;k++){const y=85+40*k;s+=line(95,y,265,y,'#8ddcff',4)+circle(265,y,4,'#ffd17d')+text(54,y+5,'L'+(k+1));}
@@ -267,14 +291,14 @@ function render(id,x,result){
   s+=text(44,35,'Uₗ = 400 V ; cos φ = 0,82')+text(48,222,'Trois phases, réseau équilibré ; P active');break;
  }
  case 'hydrostatic-column-01':{
+  const yLow=84+Math.round(100*x/6);
   s+=box(264,67,110,134,'#143c56')+'<rect x="270" y="73" width="98" height="122" fill="#2477aa" opacity="0.55"/>';
-  s+=line(374,84,453,84,'#7ce8ae',4)+line(374,185,453,185,'#ffca7d',4);
-  s+=circle(453,84,5,'#7ce8ae')+circle(453,185,5,'#ffca7d');
-  s+=arrow(223,84,223,185,'#ffd17d',4);
-  s+=text(49,36,'ρ = 850 kg/m³ ; g = 9,81 m/s²')+text(145,141,'h = '+N(x)+' m')+text(461,91,'haut')+text(461,191,'bas');
-  s+=text(48,223,'p_bas − p_haut = ρgh ; bas plus pressurisé');break;
+  s+=line(374,84,453,84,'#7ce8ae',4)+line(374,yLow,453,yLow,'#ffca7d',4,'data-depth-y="'+yLow+'"');
+  s+=circle(453,84,5,'#7ce8ae')+circle(453,yLow,5,'#ffca7d');
+  if(x>0)s+=arrow(223,84,223,yLow,'#ffd17d',4);
+  s+=text(49,36,'ρ = 850 kg/m³ ; g = 9,81 m/s²')+text(145,141,'h = '+N(x)+' m')+text(461,75,'haut')+text(461,yLow+18,'bas');
+  s+=text(48,223,'Échelle verticale : 100 px pour 6 m');break;
  }
-
  case 'planetary-fixed-ring-01':{
   const cx=300,cy=130;s+=circle(cx,cy,90,'none','stroke-dasharray="6 5"')+circle(cx,cy,30,'#315c76');
   for(let i=0;i<3;i++){const a=i*2*Math.PI/3;s+=circle(cx+60*Math.cos(a),cy+60*Math.sin(a),30,'#254d69');}
