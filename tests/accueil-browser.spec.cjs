@@ -1,4 +1,6 @@
 const { test, expect } = require('@playwright/test');
+const fs = require('node:fs');
+fs.mkdirSync('artifacts',{recursive:true});
 const devices=[
  {name:'desktop',viewport:{width:1440,height:900}},
  {name:'android-portrait',viewport:{width:390,height:844},isMobile:true,hasTouch:true},
