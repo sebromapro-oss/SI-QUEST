@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"cylinder-stroke-time-01":x=>(Math.PI*.08**2/4)*(x/1000)/(.024/60),
+"gas-isothermal-work-01":x=>1e5*.02*Math.log(x)/1000,
+"symmetric-sling-tension-01":x=>8/(2*Math.sin(x*Math.PI/180)),
+"voltage-divider-sensor-01":x=>5*x/(2.2+x),
+"restrained-thermal-stress-01":x=>-210e9*12e-6*x/1e6,
 "stepped-bar-extension-01":x=>x*1000/210e9*(.8/(400e-6)+.6/(250e-6))*1000,
 "motor-slip-01":x=>(30*x-1440)/(30*x)*100,
 "log-decrement-01":x=>Math.log(20/x)/3,
@@ -124,6 +129,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"cylinder-stroke-time-01":{"min":0,"max":6,"unit":"s"},
+"gas-isothermal-work-01":{"min":0,"max":3,"unit":"kJ"},
+"symmetric-sling-tension-01":{"min":0,"max":7,"unit":"kN"},
+"voltage-divider-sensor-01":{"min":2,"max":3.3,"unit":"V"},
+"restrained-thermal-stress-01":{"min":-150,"max":0,"unit":"MPa"},
 "stepped-bar-extension-01":{"min":0,"max":0.6,"unit":"mm"},
 "motor-slip-01":{"min":0,"max":8,"unit":"%"},
 "log-decrement-01":{"min":0.12,"max":0.3,"unit":"sans unité"},
@@ -247,6 +257,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"cylinder-stroke-time-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Extension de la tige d'un vérin simple alimenté côté fond ; diamètre intérieur D = 0,080 m, débit constant Q = 24 L/min = 4,00×10⁻⁴ m³/s ; course L entre 0 et 600 mm. Huile incompressible, aucune fuite, accélération ni ralentissement, absence de limitation de débit. Axe positif vers la sortie de tige ; temps ≥ 0. Limite de 6 s fictive.","solution":"D = 80 mm = 0,080 m ; A = π×0,080²/4 = 5,02655×10⁻³ m². L = 400 mm = 0,400 m ; volume V = AL = 2,01062×10⁻³ m³. Q = 24 L/min = 24×10⁻³/60 = 4,00×10⁻⁴ m³/s. t = V/Q = 5,02655 s. Contrôle : m³/(m³/s) = s ; pour L = 0, t = 0. Critère fictif de 6 s ; débit réel et rampes de vitesse restent à mesurer."}),
+"gas-isothermal-work-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Air assimilé à un gaz parfait ; compression quasi statique, réversible et isotherme, pression initiale ABSOLUE p₁ = 100 000 Pa, volume initial V₁ = 0,020 m³ ; rapport r = V₁/V₂ entre 1 et 4. Température constante, aucune fuite ni perte thermique comptabilisée. W > 0 représente le travail fourni au gaz. Limite de 3 kJ fictive ; aucune puissance moteur calculée.","solution":"p₁ = 1,00 bar absolu = 100 000 Pa ; V₁ = 20 L = 0,020 m³ ; r = 2 donc V₂ = 0,010 m³. Pour un gaz parfait isotherme, pV = p₁V₁ = 2 000 J ; W = ∫(p₁V₁/V)dV de V₂ à V₁ = p₁V₁ ln(V₁/V₂) = 2 000 ln 2 = 1 386,294 J = 1,38629 kJ. Contrôle : Pa·m³ = J ; si r = 1, W = 0. Critère fictif de 3 kJ, rendement réel non évalué."}),
+"symmetric-sling-tension-01":Object.freeze({"absoluteTolerance":0.03,"relativeTolerance":0,"precision":3,"assumptions":"Charge immobile de poids P = 8,0 kN ; deux brins identiques symétriques, θ mesuré au-dessus de l'horizontale et compris entre 20° et 70°. Nœud et brins idéaux, pas de dynamique ni dissymétrie, charge verticale. Composantes horizontales opposées ; équilibre vertical 2T sinθ = P. Plafond pédagogique fictif T ≤ 7 kN, distinct de toute CMU constructeur ; aucune autorisation de levage.","solution":"P = 8,0 kN = 8 000 N ; θ = 40°. Équilibre horizontal : T cosθ − T cosθ = 0. Équilibre vertical : 2T sinθ − P = 0. sin40° = 0,642788 ; T = 8,0/(2×0,642788) = 6,2229 kN. Contrôle : kN/1 = kN ; pour θ croissant, T décroît ; à θ → 0°, T diverge. Seuil fictif 7 kN ; vérifier la CMU, les angles admissibles et le centre de gravité réels."}),
+"voltage-divider-sensor-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Diviseur résistif idéal en régime continu ; alimentation stabilisée Uₛ = 5,0 V, résistance supérieure R₁ = 2,2 kΩ, résistance inférieure R₂ variable de 0,5 à 5 kΩ. Sortie prise entre nœud central et masse ; entrée de mesure d'impédance infinie, aucun courant de charge. Résistances strictement positives. Plage de tension utile fictive de 2,0 à 3,3 V.","solution":"R₁ = 2,2 kΩ ; R₂ = 3,0 kΩ ; Rtot = 5,2 kΩ = 5 200 Ω. Courant I = 5,0 V/5 200 Ω = 9,61538×10⁻⁴ A. Tension U₂ = IR₂ = 9,61538×10⁻⁴×3 000 = 2,884615 V ; équivalent U₂ = 5×3/5,2 = 2,884615 V. Contrôle : V×Ω/Ω = V et 0 < U₂ < 5 V. Seuil fictif ; vérifier la charge d'entrée et l'étalonnage réel."}),
+"restrained-thermal-stress-01":Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Barre d'acier homogène, droite et parfaitement bloquée entre deux appuis indéformables ; température uniforme, E = 210 GPa, α = 12×10⁻⁶ K⁻¹, échauffement ΔT entre 0 et 80 K. Déformation totale axiale nulle, pas de flambement, fluage ni plastification ; convention traction positive, compression négative. Seuil de compression fictif |σ| ≤ 150 MPa, non admissible constructeur.","solution":"E = 210 GPa = 210×10⁹ Pa ; α = 12×10⁻⁶ K⁻¹ ; ΔT = 50 K. Déformation thermique libre εth = αΔT = 6,00×10⁻⁴ ; blocage total impose εméc = −εth. Loi de Hooke : σ = Eεméc = −210×10⁹×6,00×10⁻⁴ = −126×10⁶ Pa = −126 MPa. Contrôle : Pa×K⁻¹×K = Pa ; le signe négatif indique la compression. Seuil fictif 150 MPa ; vérifier flambement, contraintes locales et appuis."}),
 "stepped-bar-extension-01":Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Traction axiale centrée ; acier linéaire élastique E = 210 GPa ; L₁ = 0,800 m et A₁ = 400 mm² ; L₂ = 0,600 m et A₂ = 250 mm² ; liaisons rigides, pas de flambement. Charge de 0 à 35 kN, limite fictive δ ≤ 0,600 mm. Le calcul de la contrainte de chaque section reste nécessaire.","solution":"F = 20 kN = 20 000 N ; E = 210×10⁹ N/m² ; A₁ = 400×10⁻⁶ m² ; A₂ = 250×10⁻⁶ m². L₁/A₁ = 2 000 m⁻¹ ; L₂/A₂ = 2 400 m⁻¹ ; δ = 20 000/210×10⁹ × 4 400 = 4,190476×10⁻⁴ m = 0,41905 mm. Contrôle : N/(N/m²)×m⁻¹ = m. Les contraintes locales, l'assemblage et la fatigue ne sont pas vérifiés."}),
 "motor-slip-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Moteur à 4 pôles soit p = 2 paires ; fréquence électrique 48–60 Hz, vitesse mécanique mesurée n = 1 440 tr/min supposée figée pour comparer des clichés instantanés. nₛ = 60f/p ; glissement positif en mode moteur, aucune conclusion de régime permanent lorsque f change. Seuil 8 % fictif.","solution":"Quatre pôles donnent p = 2 paires. À f = 50 Hz, nₛ = 60×50/2 = 1 500 tr/min ; n = 1 440 tr/min ; écart = 60 tr/min ; s = 60/1 500 × 100 = 4,00 %. Contrôle : rapport de deux vitesses, sans dimension ; s = 0 à synchronisme. Un vrai changement de fréquence modifie généralement le régime rotor."}),
 "log-decrement-01":Object.freeze({"absoluteTolerance":0.003,"relativeTolerance":0,"precision":4,"assumptions":"Réponse libre d'un oscillateur linéaire sous-amorti, enveloppe exponentielle Aₙ = A₀ exp(−nδ) ; amplitude initiale A₀ = 20 mm et amplitude après N = 3 périodes entre 5 et 19 mm. Même grandeur et même repère, amplitude strictement positive, aucune excitation forcée. Plage de δ fictive 0,12–0,30.","solution":"A₀ = 20 mm ; A₃ = 12 mm ; N = 3 ; A₀/A₃ = 1,66667 ; ln(1,66667) = 0,510826 ; δ = 0,510826/3 = 0,170275 (sans unité). Contrôle : le logarithme s'applique à un rapport sans dimension ; si A₃ = A₀, δ = 0. Vérifier la constance de l'amortissement sur plusieurs périodes avant diagnostic."}),
@@ -365,6 +380,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
  if((id==="stepped-bar-extension-01"&&(x<0||x>35))||(id==="motor-slip-01"&&(x<48||x>60))||(id==="log-decrement-01"&&(x<5||x>19))||(id==="exchanger-effectiveness-01"&&(x<0||x>110))||(id==="darcy-pipe-loss-01"&&(x<20||x>60))||(id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||(id==='flywheel-angular-momentum-01'&&x>1500)||(id==='rc-charge-threshold-01'&&(x<1||x>22))||(id==='thermal-clearance-01'&&x>120)||(id==='venturi-pressure-01'&&x>60)||(id==='spring-series-01'&&(x<5000||x>40000))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==="cylinder-stroke-time-01"&&(x<0||x>600))||(id==="gas-isothermal-work-01"&&(x<1||x>4))||(id==="symmetric-sling-tension-01"&&(x<20||x>70))||(id==="voltage-divider-sensor-01"&&(x<0.5||x>5))||(id==="restrained-thermal-stress-01"&&(x<0||x>80)))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -375,6 +391,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"cylinder-stroke-time-01":"mm",
+"gas-isothermal-work-01":"sans unité",
+"symmetric-sling-tension-01":"°",
+"voltage-divider-sensor-01":"kΩ",
+"restrained-thermal-stress-01":"K",
 'work-01':'m',
 'frequency-period-01':'Hz',
 'hydro-force-02':'bar',

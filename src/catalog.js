@@ -137,6 +137,11 @@
     Object.freeze({"id":"thermal-clearance-01","world":"SI-12","title":"Dilatation différentielle — Jeu résiduel","url":"missions/thermal-clearance-01.html","subskill":"Jeu fonctionnel et dilatation de deux matériaux"}),
     Object.freeze({"id":"venturi-pressure-01","world":"SI-06","title":"Venturi — Différence de pression idéale","url":"missions/venturi-pressure-01.html","subskill":"Bernoulli et continuité dans une conduite rétrécie"}),
     Object.freeze({"id":"spring-series-01","world":"SI-04","title":"Deux ressorts en série — Raideur équivalente","url":"missions/spring-series-01.html","subskill":"Association en série de deux ressorts linéaires"}),
+    Object.freeze({"id":"cylinder-stroke-time-01","world":"SI-06","title":"Vérin — Temps de sortie de tige","url":"missions/cylinder-stroke-time-01.html","subskill":"Temps de parcours d'un vérin à débit imposé"}),
+    Object.freeze({"id":"gas-isothermal-work-01","world":"SI-07","title":"Air comprimé — Travail isotherme","url":"missions/gas-isothermal-work-01.html","subskill":"Travail de compression réversible d'un gaz parfait"}),
+    Object.freeze({"id":"symmetric-sling-tension-01","world":"SI-03","title":"Élingage symétrique — Effort dans un brin","url":"missions/symmetric-sling-tension-01.html","subskill":"Équilibre d'une charge suspendue par deux brins inclinés"}),
+    Object.freeze({"id":"voltage-divider-sensor-01","world":"SI-08","title":"Capteur résistif — Pont diviseur","url":"missions/voltage-divider-sensor-01.html","subskill":"Conditionnement d'un capteur résistif par diviseur de tension"}),
+    Object.freeze({"id":"restrained-thermal-stress-01","world":"SI-04","title":"Barre bloquée — Contrainte thermique","url":"missions/restrained-thermal-stress-01.html","subskill":"Contrainte de compression par dilatation empêchée"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});

@@ -7,6 +7,11 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+"cylinder-stroke-time-01":"Vérin — Temps de sortie de tige",
+"gas-isothermal-work-01":"Air comprimé — Travail isotherme",
+"symmetric-sling-tension-01":"Élingage symétrique — Effort dans un brin",
+"voltage-divider-sensor-01":"Capteur résistif — Pont diviseur",
+"restrained-thermal-stress-01":"Barre bloquée — Contrainte thermique",
 "stepped-bar-extension-01":"Tirant à deux sections — Allongement élastique",
 "motor-slip-01":"Moteur asynchrone — Glissement instantané",
 "log-decrement-01":"Vibrations amorties — Décrément logarithmique",
@@ -130,6 +135,11 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+"cylinder-stroke-time-01":["L","t"],
+"gas-isothermal-work-01":["r","W"],
+"symmetric-sling-tension-01":["θ","T"],
+"voltage-divider-sensor-01":["R₂","U₂"],
+"restrained-thermal-stress-01":["ΔT","σ"],
 "flywheel-angular-momentum-01":["n","L"],
 "rc-charge-threshold-01":["Uₛ","t"],
 "thermal-clearance-01":["ΔT","g"],
@@ -323,11 +333,16 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(["flywheel-angular-momentum-01","rc-charge-threshold-01","thermal-clearance-01","venturi-pressure-01","spring-series-01","hydraulic-pump-shaft-01","braking-stop-time-01","beam-curvature-01","battery-autonomy-01","strain-gauge-bridge-01","double-shear-pin-01","hydraulic-reynolds-01","composite-wall-01","combined-uncertainty-01","stability-overturn-angle-01","hydro-motor-speed-01","beam-center-deflection-01","reactive-three-phase-01","rl-step-current-01","npsh-available-01",'convective-heat-flux-01','orifice-flow-01','hydrostatic-gate-force-01','capstan-tension-01',"natural-frequency-01","rectangular-tube-inertia-01","three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(["cylinder-stroke-time-01","gas-isothermal-work-01","symmetric-sling-tension-01","voltage-divider-sensor-01","restrained-thermal-stress-01","flywheel-angular-momentum-01","rc-charge-threshold-01","thermal-clearance-01","venturi-pressure-01","spring-series-01","hydraulic-pump-shaft-01","braking-stop-time-01","beam-curvature-01","battery-autonomy-01","strain-gauge-bridge-01","double-shear-pin-01","hydraulic-reynolds-01","composite-wall-01","combined-uncertainty-01","stability-overturn-angle-01","hydro-motor-speed-01","beam-center-deflection-01","reactive-three-phase-01","rl-step-current-01","npsh-available-01",'convective-heat-flux-01','orifice-flow-01','hydrostatic-gate-force-01','capstan-tension-01',"natural-frequency-01","rectangular-tube-inertia-01","three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+case 'cylinder-stroke-time-01':{const px=185+190*x/600;s+=box(115,89,330,84,'#28536b')+box(px,95,15,72,'#d4e6ee')+line(px+15,130,px+150,130,'#d4e6ee',14)+arrow(140,190,140+190*x/600,190,'#7ce8ae',4)+text(35,38,'D = 80 mm ; Q = 24 L/min')+text(35,222,'Course = '+N(x)+' mm ; t = '+N(result)+' s');s+='<g data-piston-x="'+px.toFixed(3)+'" data-stroke-mm="'+x.toFixed(3)+'"></g>';break;}
+case 'gas-isothermal-work-01':{const len=210/x;s+=box(130,80,335,100,'#28536b')+box(145+len,86,16,88,'#d4e6ee')+line(161+len,130,510,130,'#d4e6ee',12)+arrow(515,130,450,130,'#ffca7d',4)+text(35,38,'p₁ = 1 bar abs ; V₁ = 20 L')+text(35,222,'V₂ = '+N(20/x)+' L ; W = '+N(result)+' kJ');s+='<g data-volume-ratio="'+x.toFixed(3)+'" data-piston-x="'+(145+len).toFixed(3)+'"></g>';break;}
+case 'symmetric-sling-tension-01':{const a=x*Math.PI/180,dx=120*Math.cos(a),dy=120*Math.sin(a),lx=300-dx,rx=300+dx,ty=170-dy;s+=line(lx,ty,300,170,'#8ddcff',5)+line(rx,ty,300,170,'#8ddcff',5)+circle(lx,ty,7,'#ffd17d')+circle(rx,ty,7,'#ffd17d')+circle(300,170,8,'#ffd17d')+arrow(300,170,lx,ty,'#7ce8ae',3)+arrow(300,170,rx,ty,'#7ce8ae',3)+arrow(300,170,300,217,'#ffca7d',4)+text(35,38,'P = 8 kN ; θ = '+N(x)+'°')+text(35,224,'T = '+N(result)+' kN dans chaque brin');s+='<g data-sling-angle-deg="'+x.toFixed(3)+'" data-anchor-y="'+ty.toFixed(3)+'"></g>';break;}
+case 'voltage-divider-sensor-01':{s+=line(135,55,300,55)+line(300,55,300,75)+box(275,75,50,35,'#b98a50')+line(300,110,300,145)+box(275,145,50,35,'#b98a50')+line(300,180,300,200)+line(300,200,135,200)+line(135,55,135,100)+line(115,100,155,100,'#ffd17d',4)+line(123,120,147,120,'#ffd17d',4)+line(135,120,135,200)+line(300,128,480,128,'#7ce8ae',4)+text(342,118,'U₂')+text(355,91,'R₁ = 2,2 kΩ')+text(355,164,'R₂ = '+N(x)+' kΩ')+text(35,38,'Uₛ = 5 V ; sortie / masse')+text(35,222,'U₂ = '+N(result)+' V ; charge négligée');s+='<g data-divider-r2-kohm="'+x.toFixed(4)+'" data-output-v="'+result.toFixed(7)+'"></g>';break;}
+case 'restrained-thermal-stress-01':{s+=box(105,70,30,145,'#8b9eac')+box(465,70,30,145,'#8b9eac')+box(135,115,330,52,'#457c94')+arrow(180,142,245,142,'#ffca7d',4)+arrow(420,142,355,142,'#ffca7d',4)+text(35,38,'Acier bloqué ; ΔT = '+N(x)+' K')+text(35,224,'σ = '+N(result)+' MPa (compression si < 0)');s+='<g data-compressive-stress-mpa="'+result.toFixed(5)+'"></g>';break;}
 
 case 'stepped-bar-extension-01':{
  const e1=x*1000/210e9*.8/(400e-6)*1000,e2=result-e1;
