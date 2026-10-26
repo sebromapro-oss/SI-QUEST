@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"miner-fatigue-damage-01","world":"SI-14","title":"Fatigue — Cumul de dommage de Miner","url":"missions/miner-fatigue-damage-01.html","subskill":"Cumul linéaire des fractions de vie en fatigue"}),
+Object.freeze({"id":"thermocouple-seebeck-voltage-01","world":"SI-13","title":"Thermocouple — Tension de Seebeck","url":"missions/thermocouple-seebeck-voltage-01.html","subskill":"Approximation locale de la force électromotrice d'un thermocouple"}),
+Object.freeze({"id":"transformer-turns-ratio-01","world":"SI-08","title":"Transformateur — Rapport de spires idéal","url":"missions/transformer-turns-ratio-01.html","subskill":"Relation tension-spires d'un transformateur idéal isolé"}),
+Object.freeze({"id":"rc-lowpass-cutoff-01","world":"SI-09","title":"Filtre RC — Fréquence de coupure","url":"missions/rc-lowpass-cutoff-01.html","subskill":"Fréquence à −3 dB d'un filtre passe-bas RC non chargé"}),
+Object.freeze({"id":"rotating-unbalance-force-01","world":"SI-11","title":"Balourd — Force centrifuge harmonique","url":"missions/rotating-unbalance-force-01.html","subskill":"Amplitude de l'effort tournant dû à un balourd"}),
 Object.freeze({"id":"cantilever-strain-energy-01","world":"SI-04","title":"Console — Énergie élastique de flexion","url":"missions/cantilever-strain-energy-01.html","subskill":"Énergie de déformation d'une console chargée en bout"}),
 Object.freeze({"id":"gas-polytropic-temperature-01","world":"SI-07","title":"Compresseur — Température polytropique","url":"missions/gas-polytropic-temperature-01.html","subskill":"Température finale d'un gaz parfait en compression polytropique"}),
 Object.freeze({"id":"battery-discharge-c-rate-01","world":"SI-10","title":"Batterie — Taux de décharge","url":"missions/battery-discharge-c-rate-01.html","subskill":"Taux de décharge rapporté à la capacité en ampères-heures"}),

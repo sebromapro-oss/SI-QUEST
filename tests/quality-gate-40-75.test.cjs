@@ -7,12 +7,15 @@ const engine=require('../src/investigations.js');
 const diagrams=require('../src/investigation-diagrams.js');
 const catalog=require('../src/catalog.js');
 const root=path.resolve(__dirname,'..');
-const audited=catalog.levels.slice(39,75);
+const historicalIds=["hydro-speed-01","work-01","frequency-period-01","hydro-force-02","beam-defl-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01","moment-arm-02","kinetic-friction-01","spring-stiffness-01","beam-stress-02","gear-ratio-02","screw-lead-01","hydro-cylinder-speed-02","hydro-annular-force-01","pneumatic-consumption-01","electrical-series-01","electrical-parallel-01"];
+const audited=historicalIds.map(id=>catalog.byId(id));
 const approx=(actual,expected,label)=>assert.ok(Math.abs(actual-expected)<=1e-10*Math.max(1,Math.abs(expected)),label+': '+actual+' != '+expected);
 
 test('36 missions 40–75 : paramètres, calcul, unités et SVG aux trois bornes',()=>{
  assert.ok(catalog.levels.length>=75);
  assert.equal(audited.length,36);
+ assert.ok(audited.every(Boolean),'Une mission historique 40–75 manque au catalogue');
+ assert.deepEqual(audited.map(m=>m.id),historicalIds);
  assert.equal(new Set(catalog.levels.map(x=>x.id)).size,catalog.levels.length);
  for(const level of audited){
   const html=fs.readFileSync(path.join(root,level.url),'utf8');

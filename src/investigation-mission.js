@@ -1,6 +1,11 @@
 (()=>{
 'use strict';
 const c=window.SI_MISSION,profile={
+"miner-fatigue-damage-01":["Arbre de transmission soumis à deux régimes de charge.","Calculer deux fractions de vie et leur somme.","Comparer à D ≤ 0,80, seuil pédagogique fictif.","Relever le spectre des amplitudes et les données S–N.","Revoir la stratégie de maintenance après étude de fatigue réelle."],
+"thermocouple-seebeck-voltage-01":["Chaîne de mesure thermique d'une machine.","Distinguer température de jonction et différence thermique.","Comparer à 5 mV, seuil fictif de l'exercice.","Contrôler la compensation de jonction froide.","Utiliser les tables du thermocouple réel avant étalonnage."],
+"transformer-turns-ratio-01":["Transformateur d'alimentation d'un capteur.","Utiliser le rapport de spires sur des valeurs efficaces.","Comparer au plafond fictif 48 V.","Contrôler charge, pertes et isolement réel.","Choisir un appareil certifié selon l'application."],
+"rc-lowpass-cutoff-01":["Entrée analogique d'un automate.","Convertir kΩ et µF en unités SI.","Comparer à f_c ≤ 5 Hz, critère fictif.","Mesurer la réponse à −3 dB.","Vérifier impédance de charge et tolérances."],
+"rotating-unbalance-force-01":["Rotor d'un équipement agricole.","Calculer ω puis l'amplitude de force de balourd.","Comparer au plafond fictif 50 N.","Mesurer vibrations et conditions de montage.","Vérifier les paliers et vitesses critiques avant décision."],
 "cantilever-strain-energy-01":["Console porteuse d'un équipement.","Calculer δ puis U par deux méthodes.","Comparer au plafond fictif 4 J.","Mesurer effort, section et rigidité réelle.","Compléter par contraintes, fatigue et fixations."],
 "gas-polytropic-temperature-01":["Compresseur d'air d'atelier.","Distinguer pression absolue et température absolue.","Comparer à 160 °C fictifs.","Mesurer températures et rapport de compression.","Vérifier refroidissement et limites constructeur."],
 "battery-discharge-c-rate-01":["Batterie de traction d'une machine.","Différencier Ah et courant en A.","Comparer au plafond fictif 0,8 h⁻¹.","Contrôler capacité et courant admissible.","Adapter la charge après mesures réelles."],
