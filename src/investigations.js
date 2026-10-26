@@ -375,6 +375,7 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'hydro-speed-01':'L/min',
 "stepped-bar-extension-01":"kN",
 "motor-slip-01":"Hz",
 "log-decrement-01":"mm",
