@@ -1,6 +1,11 @@
 (()=>{
 'use strict';
 const c=window.SI_MISSION,profile={
+"cantilever-strain-energy-01":["Console porteuse d'un équipement.","Calculer δ puis U par deux méthodes.","Comparer au plafond fictif 4 J.","Mesurer effort, section et rigidité réelle.","Compléter par contraintes, fatigue et fixations."],
+"gas-polytropic-temperature-01":["Compresseur d'air d'atelier.","Distinguer pression absolue et température absolue.","Comparer à 160 °C fictifs.","Mesurer températures et rapport de compression.","Vérifier refroidissement et limites constructeur."],
+"battery-discharge-c-rate-01":["Batterie de traction d'une machine.","Différencier Ah et courant en A.","Comparer au plafond fictif 0,8 h⁻¹.","Contrôler capacité et courant admissible.","Adapter la charge après mesures réelles."],
+"hydraulic-cavitation-number-01":["Pompe centrifuge et conduite d'aspiration.","Comparer pression statique et dynamique.","Comparer à σ ≥ 4, repère fictif.","Mesurer pertes et NPSH disponible.","Contrôler le NPSH requis constructeur."],
+"bolt-preload-torque-01":["Assemblage boulonné d'un support.","Séparer couple et précharge.","Comparer au plafond fictif 60 N·m.","Contrôler lubrification et classe de vis.","Appliquer la procédure de serrage validée."],
 "thin-wall-hoop-stress-01":["Réservoir sous pression différentielle.","Équilibrer une demi-coque et vérifier t/D.","Comparer au seuil fictif 120 MPa.","Mesurer épaisseur, soudures, corrosion et pressions réelles.","Faire vérifier le réservoir suivant les règles applicables."],
 "thermal-fourier-number-01":["Plaque soumise à un chauffage transitoire.","Calculer Fo sans en déduire une température.","Comparer au seuil fictif Fo ≥ 0,50.","Déterminer α, L et le coefficient d'échange.","Choisir un modèle thermique après estimation de Bi."],
 "gear-mesh-frequency-01":["Réducteur soumis à un diagnostic vibratoire.","Calculer la fréquence d'engrènement par les deux roues.","Comparer au seuil fictif 900 Hz.","Mesurer régime, spectre et bandes latérales.","Établir un diagnostic à partir de mesures réelles."],

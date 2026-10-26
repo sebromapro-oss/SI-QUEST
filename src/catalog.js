@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"cantilever-strain-energy-01","world":"SI-04","title":"Console — Énergie élastique de flexion","url":"missions/cantilever-strain-energy-01.html","subskill":"Énergie de déformation d'une console chargée en bout"}),
+Object.freeze({"id":"gas-polytropic-temperature-01","world":"SI-07","title":"Compresseur — Température polytropique","url":"missions/gas-polytropic-temperature-01.html","subskill":"Température finale d'un gaz parfait en compression polytropique"}),
+Object.freeze({"id":"battery-discharge-c-rate-01","world":"SI-10","title":"Batterie — Taux de décharge","url":"missions/battery-discharge-c-rate-01.html","subskill":"Taux de décharge rapporté à la capacité en ampères-heures"}),
+Object.freeze({"id":"hydraulic-cavitation-number-01","world":"SI-06","title":"Aspiration — Indice de cavitation","url":"missions/hydraulic-cavitation-number-01.html","subskill":"Indice de cavitation basé sur pression dynamique et vapeur"}),
+Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage boulonné — Couple estimé","url":"missions/bolt-preload-torque-01.html","subskill":"Estimation du couple de serrage par coefficient global d'écrou"}),
     Object.freeze({"id":"thin-wall-hoop-stress-01","world":"SI-04","title":"Réservoir mince — Contrainte de cerclage","url":"missions/thin-wall-hoop-stress-01.html","subskill":"Membrane circonférentielle d'un cylindre mince"}),
     Object.freeze({"id":"thermal-fourier-number-01","world":"SI-12","title":"Plaque chauffée — Nombre de Fourier","url":"missions/thermal-fourier-number-01.html","subskill":"Temps réduit de diffusion thermique"}),
     Object.freeze({"id":"gear-mesh-frequency-01","world":"SI-05","title":"Engrenages — Fréquence d'engrènement","url":"missions/gear-mesh-frequency-01.html","subskill":"Fréquence de passage des dents en diagnostic vibratoire"}),
