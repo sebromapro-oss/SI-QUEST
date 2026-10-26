@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+    Object.freeze({"id":"accumulator-polytropic-delivery-01","world":"SI-06","title":"Accumulateur — Restitution polytropique","url":"missions/accumulator-polytropic-delivery-01.html","subskill":"Volume d’huile utile en détente polytropique"}),
+    Object.freeze({"id":"three-phase-capacitor-sizing-01","world":"SI-08","title":"Compensation triphasée — Capacités en triangle","url":"missions/three-phase-capacitor-sizing-01.html","subskill":"Capacité par branche pour corriger le facteur de puissance"}),
+    Object.freeze({"id":"pump-affinity-power-01","world":"SI-10","title":"Pompe centrifuge — Puissance selon la vitesse","url":"missions/pump-affinity-power-01.html","subskill":"Loi cubique de puissance en similitude hydraulique"}),
+    Object.freeze({"id":"spring-stored-energy-01","world":"SI-04","title":"Ressort comprimé — Énergie élastique","url":"missions/spring-stored-energy-01.html","subskill":"Énergie stockée dans un ressort linéaire"}),
+    Object.freeze({"id":"goodman-fatigue-factor-01","world":"SI-14","title":"Fatigue — Facteur de Goodman","url":"missions/goodman-fatigue-factor-01.html","subskill":"Facteur de sécurité simplifié en fatigue selon Goodman"}),
     Object.freeze({"id":"stepped-bar-extension-01","world":"SI-04","title":"Tirant à deux sections — Allongement élastique","url":"missions/stepped-bar-extension-01.html","subskill":"Déformation axiale d'une barre étagée"}),
     Object.freeze({"id":"motor-slip-01","world":"SI-08","title":"Moteur asynchrone — Glissement instantané","url":"missions/motor-slip-01.html","subskill":"Glissement d'une machine asynchrone à quatre pôles"}),
     Object.freeze({"id":"log-decrement-01","world":"SI-09","title":"Vibrations amorties — Décrément logarithmique","url":"missions/log-decrement-01.html","subskill":"Identification de l'amortissement par enveloppe d'oscillations"}),

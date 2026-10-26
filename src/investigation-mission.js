@@ -1,6 +1,11 @@
 (()=>{
 'use strict';
 const c=window.SI_MISSION,profile={
+"accumulator-polytropic-delivery-01":["Relevage hydraulique : étudier la réserve d’huile.","Appliquer la loi polytropique aux pressions absolues.","Comparer au besoin fictif de 1,50 L.","Vérifier la précharge et les données constructeur.","Adapter la plage de pression après étude."],
+"three-phase-capacitor-sizing-01":["Un moteur nécessite une étude de compensation.","Calculer Q_c et C_Δ.","Comparer à 60 µF fictifs.","Contrôler les harmoniques et protections.","Choisir une batterie après étude électrique."],
+"pump-affinity-power-01":["Une pompe est pilotée par variateur.","Appliquer la similitude hydraulique.","Comparer à 16 kW fictifs.","Contrôler la courbe réseau et la cavitation.","Adapter la vitesse après mesures."],
+"spring-stored-energy-01":["Un ressort est comprimé avant démontage.","Calculer force et énergie.","Comparer à 40 J fictifs.","Consigner et retenir le ressort.","Appliquer une procédure constructeur."],
+"goodman-fatigue-factor-01":["Un arbre est soumis à la fatigue cyclique.","Appliquer Goodman en traction moyenne.","Comparer à n = 1,50 fictif.","Mesurer spectres et entailles.","Engager une étude de fatigue complète."],
 "cylinder-stroke-time-01":["Un technicien prépare la séquence de sortie d'un vérin sur un équipement agricole.","Calculer la section, le volume déplacé et le temps à débit constant.","Comparer au délai fictif de 6 s.","Mesurer la course, le débit et les phases d'accélération réels.","Adapter le débit ou la cinématique après vérification constructeur."],
 "gas-isothermal-work-01":["Un laboratoire caractérise le travail idéal d'une compression lente d'air.","Appliquer pV constant et intégrer le travail volumique.","Comparer au plafond pédagogique fictif de 3 kJ.","Mesurer températures, pression absolue et irréversibilités.","Recalculer avec une transformation polytropique si l'isothermie n'est pas justifiée."],
 "symmetric-sling-tension-01":["Une opération de manutention exige une préétude des efforts dans les élingues.","Projeter les deux tensions et isoler le nœud de suspension.","Comparer à un plafond fictif de 7 kN par brin.","Consulter les tableaux de CMU, la géométrie réelle et les prescriptions de levage.","Augmenter l'angle ou changer le matériel après validation réglementaire."],

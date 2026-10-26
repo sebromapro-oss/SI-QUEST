@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"accumulator-polytropic-delivery-01":x=>10*((100/x)**(1/1.4)-(100/180)**(1/1.4)),
+"three-phase-capacitor-sizing-01":x=>15000*(Math.sqrt(1-.75**2)/.75-Math.sqrt(1-x*x)/x)/(3*2*Math.PI*50*400**2)*1e6,
+"pump-affinity-power-01":x=>8*(x/1200)**3,
+"spring-stored-energy-01":x=>.5*18000*(x/1000)**2,
+"goodman-fatigue-factor-01":x=>1/(80/180+x/600),
 "cylinder-stroke-time-01":x=>(Math.PI*.08**2/4)*(x/1000)/(.024/60),
 "gas-isothermal-work-01":x=>1e5*.02*Math.log(x)/1000,
 "symmetric-sling-tension-01":x=>8/(2*Math.sin(x*Math.PI/180)),
@@ -129,6 +134,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"accumulator-polytropic-delivery-01":{min:1.5,max:Infinity,unit:"L"},
+"three-phase-capacitor-sizing-01":{min:0,max:60,unit:"µF"},
+"pump-affinity-power-01":{min:0,max:16,unit:"kW"},
+"spring-stored-energy-01":{min:0,max:40,unit:"J"},
+"goodman-fatigue-factor-01":{min:1.5,max:Infinity,unit:"sans unité"},
 "cylinder-stroke-time-01":{"min":0,"max":6,"unit":"s"},
 "gas-isothermal-work-01":{"min":0,"max":3,"unit":"kJ"},
 "symmetric-sling-tension-01":{"min":0,"max":7,"unit":"kN"},
@@ -257,6 +267,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"accumulator-polytropic-delivery-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Gaz parfait, détente pV^n constante, n = 1,40 ; précharge p₀ = 100 bar absolus et volume V₀ = 10 L ; p_haut = 180 bar absolus ; p_bas = 110 à 170 bar absolus, donc p₀ < p_bas < p_haut. Gaz homogène ; fuites, pertes et prescriptions constructeur non modélisées. Critère fictif de 1,50 L.","solution":"V_haut = 10(100/180)^(1/1,4) = 6,57147 L ; V_bas = 10(100/120)^(1/1,4) = 8,77894 L ; ΔV = V_bas − V_haut = 2,20747 L. Contrôle : les rapports de pression sont sans dimension, le volume est en L et décroît lorsque p_bas augmente. Aucun verdict réel sans notice constructeur."}),
+"three-phase-capacitor-sizing-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":2,"assumptions":"Réseau triphasé équilibré sinusoïdal, P = 15 000 W, cos φ₁ = 0,75 inductif, cos φ₂ cible de 0,80 à 0,99, U = 400 V efficaces entre phases, f = 50 Hz. Trois condensateurs idéaux identiques en triangle soumis chacun à U ; harmoniques, résonance et protections exclues. Seuil fictif de 60 µF par branche.","solution":"tan φ₁ = 0,881917 ; tan φ₂ = 0,328684 ; Q_c = 15 000(0,881917 − 0,328684) = 8 298,495 var. C_Δ = 8 298,495/(3 × 2π × 50 × 400²) = 5,50311×10⁻⁵ F = 55,0311 µF par branche. Contrôle : var/(s⁻¹·V²) = F ; vérifier les harmoniques avant installation."}),
+"pump-affinity-power-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":3,"assumptions":"Même roue, même diamètre et même fluide ; fonctionnement hydraulique homologue et rendement supposé constant. P₁ = 8,0 kW à n₁ = 1 200 tr/min ; n₂ varie de 600 à 1 600 tr/min. Cavitation, courbe réseau et rendement réel exclus. Seuil moteur fictif de 16 kW.","solution":"r = n₂/n₁ = 1 500/1 200 = 1,25 sans unité. P₂ = 8 × 1,25³ = 8 × 1,953125 = 15,625 kW. Contrôle : kW × (sans unité)³ = kW ; à n₂ = n₁, P₂ = P₁. Vérifier les courbes de pompe et moteur réelles."}),
+"spring-stored-energy-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Ressort linéaire idéal k = 18 000 N/m, compression x de 0 à 80 mm depuis sa longueur libre. Pas de précharge, frottement, amortissement, flambement ni butée. Compression positive ; énergie E_e ≥ 0. Seuil fictif de 40 J sans valeur de procédure de consignation.","solution":"x = 50 mm = 0,050 m ; F = kx = 18 000 × 0,050 = 900 N. E_e = ∫₀ˣ kξ dξ = ½ × 18 000 × 0,050² = 22,50 J. Contrôle : (N/m)·m² = J ; si x double, E quadruple. La sécurité réelle exige une retenue mécanique du ressort."}),
+"goodman-fatigue-factor-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Chargement uniaxial à amplitude constante, σ_a = 80 MPa, limite d’endurance corrigée S_e = 180 MPa, résistance ultime S_u = 600 MPa ; contrainte moyenne σ_m entre 0 et 180 MPa, en traction. Modèle Goodman linéaire sans entaille, multiaxialité, plastification ni incertitudes. Critère fictif n ≥ 1,50.","solution":"σ_a/S_e = 80/180 = 0,444444 ; σ_m/S_u = 60/600 = 0,100000 ; 1/n = 0,544444 ; n = 1,83673 sans unité. Contrôle : MPa/MPa = 1 ; n diminue quand σ_m augmente. Les spectres réels et concentrations de contraintes doivent être étudiés."}),
 'hydro-speed-01':Object.freeze({"absoluteTolerance":0.0002,"relativeTolerance":0,"precision":5,"assumptions":"Vérin en extension, surface pleine S = 0,004 m², débit Q de 0 à 24 L/min, huile incompressible et sans fuite. Axe positif dans le sens de sortie de tige. La relation v = Q/S décrit une vitesse théorique moyenne à débit constant ; les transitoires, pertes, débits de fuite et limites constructeur ne sont pas inclus. Seuil fictif v ≤ 0,08 m/s.","solution":"Q = 12 L/min = 12×10⁻³/60 = 2,00×10⁻⁴ m³/s ; S = 0,004 m² ; v = Q/S = 2,00×10⁻⁴/0,004 = 0,05000 m/s. Contrôle : (m³/s)/m² = m/s. Pour Q = 0, v = 0 ; à débit double, vitesse double. La vitesse réelle doit être mesurée et les contraintes du vérin contrôlées."}),
 "cylinder-stroke-time-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Extension de la tige d'un vérin simple alimenté côté fond ; diamètre intérieur D = 0,080 m, débit constant Q = 24 L/min = 4,00×10⁻⁴ m³/s ; course L entre 0 et 600 mm. Huile incompressible, aucune fuite, accélération ni ralentissement, absence de limitation de débit. Axe positif vers la sortie de tige ; temps ≥ 0. Limite de 6 s fictive.","solution":"D = 80 mm = 0,080 m ; A = π×0,080²/4 = 5,02655×10⁻³ m². L = 400 mm = 0,400 m ; volume V = AL = 2,01062×10⁻³ m³. Q = 24 L/min = 24×10⁻³/60 = 4,00×10⁻⁴ m³/s. t = V/Q = 5,02655 s. Contrôle : m³/(m³/s) = s ; pour L = 0, t = 0. Critère fictif de 6 s ; débit réel et rampes de vitesse restent à mesurer."}),
 "gas-isothermal-work-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Air assimilé à un gaz parfait ; compression quasi statique, réversible et isotherme, pression initiale ABSOLUE p₁ = 100 000 Pa, volume initial V₁ = 0,020 m³ ; rapport r = V₁/V₂ entre 1 et 4. Température constante, aucune fuite ni perte thermique comptabilisée. W > 0 représente le travail fourni au gaz. Limite de 3 kJ fictive ; aucune puissance moteur calculée.","solution":"p₁ = 1,00 bar absolu = 100 000 Pa ; V₁ = 20 L = 0,020 m³ ; r = 2 donc V₂ = 0,010 m³. Pour un gaz parfait isotherme, pV = p₁V₁ = 2 000 J ; W = ∫(p₁V₁/V)dV de V₂ à V₁ = p₁V₁ ln(V₁/V₂) = 2 000 ln 2 = 1 386,294 J = 1,38629 kJ. Contrôle : Pa·m³ = J ; si r = 1, W = 0. Critère fictif de 3 kJ, rendement réel non évalué."}),
@@ -382,6 +397,7 @@ function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
  if((id==="stepped-bar-extension-01"&&(x<0||x>35))||(id==="motor-slip-01"&&(x<48||x>60))||(id==="log-decrement-01"&&(x<5||x>19))||(id==="exchanger-effectiveness-01"&&(x<0||x>110))||(id==="darcy-pipe-loss-01"&&(x<20||x>60))||(id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||(id==='flywheel-angular-momentum-01'&&x>1500)||(id==='rc-charge-threshold-01'&&(x<1||x>22))||(id==='thermal-clearance-01'&&x>120)||(id==='venturi-pressure-01'&&x>60)||(id==='spring-series-01'&&(x<5000||x>40000))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  if((id==="cylinder-stroke-time-01"&&(x<0||x>600))||(id==="gas-isothermal-work-01"&&(x<1||x>4))||(id==="symmetric-sling-tension-01"&&(x<20||x>70))||(id==="voltage-divider-sensor-01"&&(x<0.5||x>5))||(id==="restrained-thermal-stress-01"&&(x<0||x>80)))throw new RangeError('Paramètre hors domaine physique');
+ if((id==="accumulator-polytropic-delivery-01"&&(x<110||x>170))||(id==="three-phase-capacitor-sizing-01"&&(x<0.8||x>0.99))||(id==="pump-affinity-power-01"&&(x<600||x>1600))||(id==="spring-stored-energy-01"&&(x<0||x>80))||(id==="goodman-fatigue-factor-01"&&(x<0||x>180)))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -392,6 +408,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"accumulator-polytropic-delivery-01":"bar abs",
+"three-phase-capacitor-sizing-01":"sans unité",
+"pump-affinity-power-01":"tr/min",
+"spring-stored-energy-01":"mm",
+"goodman-fatigue-factor-01":"MPa",
 "cylinder-stroke-time-01":"mm",
 "gas-isothermal-work-01":"sans unité",
 "symmetric-sling-tension-01":"°",
