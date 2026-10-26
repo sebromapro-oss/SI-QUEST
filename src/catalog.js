@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"water-hammer-joukowsky-01","world":"SI-06","title":"Hydraulique — Coup de bélier","url":"missions/water-hammer-joukowsky-01.html","subskill":"Surpression de Joukowsky lors d'une décélération brusque"}),
+Object.freeze({"id":"thermal-contact-resistance-01","world":"SI-12","title":"Thermique — Contact dissipateur","url":"missions/thermal-contact-resistance-01.html","subskill":"Résistance thermique d'interface en fonction de la conductance surfacique"}),
+Object.freeze({"id":"noise-level-addition-01","world":"SI-13","title":"Acoustique — Deux machines","url":"missions/noise-level-addition-01.html","subskill":"Somme énergétique de deux niveaux acoustiques incohérents en décibels"}),
+Object.freeze({"id":"machine-availability-01","world":"SI-15","title":"Maintenance — Disponibilité intrinsèque","url":"missions/machine-availability-01.html","subskill":"Disponibilité intrinsèque à partir des moyennes MTBF et MTTR"}),
+Object.freeze({"id":"filter-beta-efficiency-01","world":"SI-15","title":"Filtration — Rapport bêta","url":"missions/filter-beta-efficiency-01.html","subskill":"Efficacité de capture particulaire issue d'un rapport bêta de filtration"}),
 Object.freeze({"id":"bearing-friction-power-01","world":"SI-11","title":"Palier — Puissance dissipée","url":"missions/bearing-friction-power-01.html","subskill":"Puissance de frottement d'un palier sous charge constante"}),
 Object.freeze({"id":"poiseuille-microtube-flow-01","world":"SI-06","title":"Microconduite — Débit de Poiseuille","url":"missions/poiseuille-microtube-flow-01.html","subskill":"Débit laminaire selon Hagen–Poiseuille dans un tube circulaire"}),
 Object.freeze({"id":"ultrasonic-doppler-shift-01","world":"SI-13","title":"Ultrasons — Décalage Doppler","url":"missions/ultrasonic-doppler-shift-01.html","subskill":"Décalage fréquentiel Doppler en réflexion à faible vitesse"}),
