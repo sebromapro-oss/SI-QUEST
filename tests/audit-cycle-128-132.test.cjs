@@ -51,6 +51,13 @@ test('128–132 : invariants et signes des cinq phénomènes',()=>{
  near(f('restrained-thermal-stress-01',0),0);assert.ok(f('restrained-thermal-stress-01',50)<0);
  assert.equal(science.assess('restrained-thermal-stress-01',80).acceptable,false);
 });
+test('Audit historique : vitesse du vérin, tolérance réellement appliquée',()=>{
+ const q=science.answerPolicy['hydro-speed-01'];assert.equal(q.absoluteTolerance,.0002);
+ assert.equal(science.calculate('hydro-speed-01',12),.05);
+ assert.equal(science.validateAnswer('0,0501',.05,q.absoluteTolerance).correct,true);
+ assert.equal(science.validateAnswer('0,06',.05,q.absoluteTolerance).correct,false);
+ const html=fs.readFileSync('missions/hydro-speed-01.html','utf8');assert.match(html,/Ta réponse \(m\/s\)/);assert.match(html,/Questions flash/);
+});
 test('Audit historique : unités réelles des 36 missions 40–75',()=>{
  const selected=catalog.levels.slice(39,75);
  assert.equal(selected.length,36);
