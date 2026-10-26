@@ -18,3 +18,13 @@ Date : 26 octobre 2026 ; dépôt privé, branche `main` ; parent du lot : `46fa5
 **A :** titres, descriptions SVG et annonces textuelles présents ; tests NVDA, TalkBack, VoiceOver, zoom et appareils réels non réalisés.
 
 **Statut :** codé et vérifié syntaxiquement ; validation complète suspendue à la CI, aux essais visuels, matériels, d'accessibilité et à la réception pédagogique. Pas de refonte accueil/carte, pas de publication GitHub Pages, pas de ZIP, aucune branche supprimée.
+
+
+## Contre-audit exécuté — 26 octobre 2026, 06 h 22 (Europe/Paris)
+Révision technique testée : `88a3d8df7ecebcf0098196c8f3b6c10313901166`.
+
+- Premier passage CI : **539 réussites, 25 échecs sur 564 tests**. Causes identifiées : insertion initiale des deux missions au début du catalogue décalant la tranche 40–75, anciens tests imposant encore trois clics d'aide, assertion de catalogue figée à 93 et libellé « sans unité » dans un axe SVG statique.
+- Corrections intégrées : conserver les 93 missions historiques dans leur ordre, ajouter 94–95 en fin ; adapter les tests au contrat V2.2 sans supprimer les contrôles ; conserver l'unité dimensionnelle dans le texte accessible tout en affichant le symbole μ sur l'axe.
+- Deuxième passage : **564 tests Node réussis / 564 ; 0 échec**, trois workflows GitHub Actions au vert : [scientific quality](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/40273851594), [recette automatisée](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/40273851614), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/40273851733).
+- Preuves **S** : modèles et contre-calculs automatisés ; **G** : SVG/valeurs paramétriques contrôlés par code, aucune preuve de réception visuelle ; **P** : parcours des trois essais et aides automatiques vérifié par simulation DOM ; **F** : suite Node et CI réussies ; **A** : contrôles de structure automatisés uniquement, essais lecteurs d'écran et appareils réels non réalisés.
+- Réserve scientifique/graphique : scènes 2D de principe et non simulations 3D ; les deux phénomènes étudiés sont plans. Les contrôles automatiques ne démontrent pas l'absence de chevauchement sur tous les écrans.
