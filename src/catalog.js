@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"helical-gear-axial-force-01","world":"SI-05","title":"Engrenage hélicoïdal — Effort axial","url":"missions/helical-gear-axial-force-01.html","subskill":"Poussée axiale d'une denture hélicoïdale"}),
+Object.freeze({"id":"oil-pressure-wave-speed-01","world":"SI-06","title":"Hydraulique — Célérité d'une onde","url":"missions/oil-pressure-wave-speed-01.html","subskill":"Célérité acoustique dans un liquide compressible"}),
+Object.freeze({"id":"parallel-axis-inertia-01","world":"SI-02","title":"Inertie — Transport d'axe","url":"missions/parallel-axis-inertia-01.html","subskill":"Théorème de Huygens pour axes massiques parallèles"}),
+Object.freeze({"id":"heat-pump-carnot-cop-01","world":"SI-12","title":"Pompe à chaleur — COP de Carnot","url":"missions/heat-pump-carnot-cop-01.html","subskill":"Limite supérieure du COP de chauffage réversible"}),
+Object.freeze({"id":"oil-kinematic-viscosity-01","world":"SI-14","title":"Huile — Viscosité cinématique","url":"missions/oil-kinematic-viscosity-01.html","subskill":"Conversion de viscosité dynamique en cinématique"}),
 Object.freeze({"id":"miner-fatigue-damage-01","world":"SI-14","title":"Fatigue — Cumul de dommage de Miner","url":"missions/miner-fatigue-damage-01.html","subskill":"Cumul linéaire des fractions de vie en fatigue"}),
 Object.freeze({"id":"thermocouple-seebeck-voltage-01","world":"SI-13","title":"Thermocouple — Tension de Seebeck","url":"missions/thermocouple-seebeck-voltage-01.html","subskill":"Approximation locale de la force électromotrice d'un thermocouple"}),
 Object.freeze({"id":"transformer-turns-ratio-01","world":"SI-08","title":"Transformateur — Rapport de spires idéal","url":"missions/transformer-turns-ratio-01.html","subskill":"Relation tension-spires d'un transformateur idéal isolé"}),
