@@ -32,3 +32,6 @@ Révision contrôlée `132632f015859d69cd8a77f31cbef6ba7153ee91` : **3 workflows
 - `Contrôles scientifiques SI QUEST` — exécution `40263899725` : **success**.
 - `SI QUEST scientific quality` — exécution `40263899769` : **success**.
 Les vérifications CI ne constituent pas une inspection visuelle réelle ni une preuve d'accessibilité manuelle. Le présent ajout au registre ne modifie aucun moteur scientifique.
+
+## Audit prioritaire complémentaire — missions 40 à 75
+Mission `rolling-torque-01` : la réaction normale était représentée à tort au centre de la roue, et la grandeur Fᵣ était écrite deux fois au même emplacement, avec chevauchement. Correctif : point d'application de la réaction normale déplacé au contact roue-sol, roue tangentielle au sol, légende Fᵣ unique via le moteur scientifique ; test des origines et directions des deux vecteurs et du libellé unique dans `tests/batch90-91.test.cjs`. Commits de correction `aa1f5f44ca5a683d99a939626e5d039a23d17879` et de test `0276abca8381b856af1784d0a06ef18ba02635d1`. La conformité graphique visuelle sur navigateur reste à démontrer.
