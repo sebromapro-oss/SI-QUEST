@@ -105,6 +105,8 @@
     Object.freeze({id:'sensor-4-20ma-01',world:'SI-13',title:'Capteur 4–20 mA — Conversion en pression',url:'missions/sensor-4-20ma-01.html'}),
     Object.freeze({"id":"hydrostatic-gate-force-01","world":"SI-06","title":"Poussée hydrostatique — Porte verticale","url":"missions/hydrostatic-gate-force-01.html"}),
     Object.freeze({"id":"capstan-tension-01","world":"SI-11","title":"Adhérence courroie–poulie — Limite de tension","url":"missions/capstan-tension-01.html"}),
+    Object.freeze({id:'convective-heat-flux-01',world:'SI-12',title:'Convection d’une paroi — Puissance thermique',url:'missions/convective-heat-flux-01.html'}),
+    Object.freeze({id:'orifice-flow-01',world:'SI-06',title:'Orifice hydraulique — Débit sous pression',url:'missions/orifice-flow-01.html'}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});

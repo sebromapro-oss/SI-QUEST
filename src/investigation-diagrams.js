@@ -7,6 +7,8 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'convective-heat-flux-01':'Convection d’une paroi vers l’air ambiant',
+'orifice-flow-01':'Orifice hydraulique : différence de pression et débit',
 'hydrostatic-gate-force-01':'Poussée hydrostatique sur une porte verticale',
 'capstan-tension-01':'Courroie sur demi-poulie et tensions tangentielles',
 'bearing-l10-life-01':'Roulement à billes : charge radiale',
@@ -96,6 +98,8 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+'convective-heat-flux-01':['h','Φ'],
+'orifice-flow-01':['Δp','Q'],
 'hydrostatic-gate-force-01':['h','F'],
 'capstan-tension-01':['μ','Tlim'],
 'natural-frequency-01':['m','f₀'],
@@ -265,11 +269,29 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(['hydrostatic-gate-force-01','capstan-tension-01',"natural-frequency-01","rectangular-tube-inertia-01","three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(['convective-heat-flux-01','orifice-flow-01','hydrostatic-gate-force-01','capstan-tension-01',"natural-frequency-01","rectangular-tube-inertia-01","three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'convective-heat-flux-01':{
+  const length=30+Math.round(90*(x-5)/55);
+  s+=box(185,66,115,142,'#925a3c')+line(185,66,185,208,'#ffd17d',5);
+  for(let k=0;k<3;k++){const y=91+k*44;s+=arrow(305,y,305+length,y,'#7ce8ae',4);}
+  s+=text(30,35,'Paroi 65 °C ; air 20 °C')+text(30,230,'A = 1,50 m² ; h = '+N(x)+' W/(m²·K)');
+  s+='<g data-convection-arrow-length="'+length+'" data-thermal-gradient-K="45"></g>';break;
+ }
+ case 'orifice-flow-01':{
+  const len=25+Math.round(75*Math.sqrt(x/40));
+  s+=box(100,91,145,98,'#315c76')+line(245,139,323,139,'#8ddcff',10);
+  s+=line(323,107,323,171,'#d5e8f4',7)+line(323,132,323,146,'#8ddcff',5);
+  s+=line(323,139,500,139,'#8ddcff',5);
+  if(x>0)s+=arrow(350,139,350+len,139,'#7ce8ae',4);
+  s+=text(105,82,'Amont')+text(411,116,'Aval');
+  s+=text(30,36,'d = 2,00 mm ; Cd = 0,62 ; ρ = 850 kg/m³');
+  s+=text(32,225,'Δp = '+N(x)+' bar ; débit vers la droite');
+  s+='<g data-orifice-d-mm="2" data-flow-arrow-length="'+(x>0?len:0)+'"></g>';break;
+ }
  case 'hydrostatic-gate-force-01':{
   const depth=150*x/2.5,base=35*x,cp=55+depth*2/3;
   s+=line(315,48,315,214,'#d5e8f4',8)+line(95,55,315,55,'#7ce8ae',2);
@@ -582,7 +604,7 @@ case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,1
   s+='</g>'+text(35,39,'T = '+N(T)+' ms ; fₑ = '+N(result)+' Hz')+text(110,215,'Signal témoin 20 Hz ; fenêtre 60 ms');break;
  }
  case 'efficiency-chain-01':{s+=box(100,95,145,65)+box(350,95,145,65)+arrow(245,127,345,127)+text(55,42,'η₂ = '+N(x));break;}
- case 'rolling-load-01':{s+=line(60,190,540,190)+circle(275,130,60)+circle(275,130,7,'#ffd17d')+arrow(275,130,275,205,'#ffca7d')+arrow(275,190,275,115,'#7ce8ae')+arrow(275,190,165,190,'#ff9999')+arrow(350,130,445,130,'#8ddcff')+text(55,42,'N = 8 000 N ; cᵣ = '+N(x))+text(55,224,'Fᵣ = '+N(result)+' N ; opposition au roulement');break;}
+ case 'rolling-load-01':{s+=line(60,190,540,190)+circle(275,130,60)+circle(275,130,7,'#ffd17d')+arrow(275,130,275,177,'#ffca7d')+arrow(275,190,275,132,'#7ce8ae')+arrow(275,190,165,190,'#ff9999')+arrow(350,130,445,130,'#8ddcff')+text(55,42,'N = 8 000 N ; cᵣ = '+N(x))+text(55,224,'Fᵣ = '+N(result)+' N ; P vers le bas, N vers le haut');break;}
  case 'heat-transfer-01':{s+=box(245,65,110,140,'#9c7157')+arrow(110,105,230,105)+arrow(370,105,490,105)+text(55,42,'ΔT = '+N(x));break;}
  case 'measurement-relative-01':{const xp=300+(x-80)*75;s+=line(85,155,525,155,'#d5e8f4',5)+box(150,120,310,32)+line(300,90,300,195,'#7ce8ae',3)+line(xp,85,xp,200,'#ffca7d',4)+text(55,42,'x₀ = 80 mm ; x = '+N(x)+' mm')+text(55,223,'Écart relatif = '+N(result)+' %');break;}
  case 'frequency-01':{
