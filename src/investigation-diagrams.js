@@ -7,6 +7,8 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'bearing-l10-life-01':'Roulement à billes : charge radiale',
+'sensor-4-20ma-01':'Capteur 4–20 mA : chaîne de mesure',
 'natural-frequency-01':'Oscillateur masse–ressort et fréquence propre',
 'rectangular-tube-inertia-01':'Tube rectangulaire creux, axe z',
 'three-phase-power-01':'Moteur triphasé : trois conducteurs de phase',
@@ -264,6 +266,22 @@ function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'bearing-l10-life-01':{
+  const cx=295,cy=130;
+  s+=circle(cx,cy,82,'none')+circle(cx,cy,32,'#315c76');
+  for(let k=0;k<8;k++){const t=2*Math.PI*k/8;s+=circle(Number((cx+58*Math.cos(t)).toFixed(2)),Number((cy+58*Math.sin(t)).toFixed(2)),10,'#8ddcff');}
+  s+=circle(cx,cy,16,'#092236')+arrow(cx,26,cx,94,'#ffca7d',4);
+  s+=text(42,36,'Charge radiale P = 6,0 kN')+text(45,209,'C = 24,0 kN ; n = '+N(x)+' tr/min')+text(45,227,'Coupe de principe ; L10 nominal, pas panne certaine');break;
+ }
+ case 'sensor-4-20ma-01':{
+  s+=line(85,185,515,185,'#8ddcff',7)+line(260,185,260,143,'#8ddcff',6);
+  s+=circle(260,105,37,'#315c76')+text(247,112,'PT','font-size="20"');
+  s+=arrow(297,105,385,105,'#7ce8ae',4)+box(389,75,147,64,'#315c76')+text(408,112,'Acquisition');
+  s+=text(42,39,'Capteur : 0–250 bar')+text(311,85,'I = '+N(x)+' mA');
+  const px=99+410*(x-4)/16;
+  s+=line(99,215,509,215,'#9bc9e5',3)+circle(px,215,6,'#ffd17d','data-signal-x="'+px.toFixed(2)+'"');
+  s+=text(105,205,'4 mA')+text(443,205,'20 mA')+text(41,228,'Schéma fonctionnel, pas un câblage électrique');break;
+ }
  case 'natural-frequency-01':{
   const f=Math.sqrt(18000/x)/(2*Math.PI),side=40+4*Math.sqrt(x);
   s+=line(110,105,160,105,'#d5e8f4',6);
@@ -528,7 +546,7 @@ case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,1
  case 'axial-strain-01':{const ext=45*Math.min(1,x/1.2);s+=box(110,110,355+ext,42)+line(465,95,465,180,'#ffd17d',2,'stroke-dasharray="5 4"')+arrow(110,130,55,130)+arrow(465+ext,130,535,130)+arrow(465,188,465+ext,188,'#7ce8ae')+text(55,42,'L₀ = 1 200 mm ; ΔL = '+N(x)+' mm')+text(55,221,'ε = '+result.toFixed(6)+' ; allongement amplifié');break;}
  case 'gear-mesh-01':{const r1=32,r2=32*x/20,center=280-(r1+r2)/2,c1=center,c2=center+r1+r2;s+=circle(c1,130,r1)+circle(c2,130,r2)+circle(c1,130,6,'#ffd17d')+circle(c2,130,6,'#ffd17d')+line(c1,130,c2,130,'#ffd17d',2,'stroke-dasharray="5 5"')+text(55,42,'m = 3 mm ; z₁ = 20 ; z₂ = '+N(x))+text(55,224,'a = '+N(result)+' mm ; cercles primitifs tangents');break;}
  case 'belt-speed-01':{s+=circle(210,130,55)+circle(435,130,55)+line(210,75,435,75,'#d5e8f4',5)+line(210,185,435,185,'#d5e8f4',5)+arrow(280,75,355,75)+text(55,42,'D motrice = 200 mm ; n = '+N(x)+' tr/min')+text(55,224,'v = '+N(result)+' m/s ; galet illustratif identique');break;}
- case 'hydro-power-01':{s+=circle(205,125,60)+arrow(265,125,390,125)+box(390,100,100,50)+text(55,42,'p = '+N(x));break;}
+ case 'hydro-power-01':{s+=circle(180,130,46,'#315c76')+'<path d="M168 116 L168 144 L197 130 Z" fill="#8ddcff"/>'+line(226,130,385,130,'#8ddcff',6)+arrow(270,130,350,130,'#ffca7d',3)+box(385,94,145,72,'#315c76')+text(398,137,'Récepteur')+text(45,42,'Δp = '+N(x)+' bar ; Q = 24 L/min')+text(45,218,'Chaîne simplifiée ; retour non représenté');break;}
  case 'hydro-volume-01':{s+=box(100,80,370,100)+box(220+Math.min(180,x*.3),86,14,88,'#d5e8f4')+text(55,42,'L = '+N(x));break;}
  case 'pneumatic-force-01':{s+=box(95,80,370,100)+box(245,85,14,90,'#d5e8f4')+box(259,117,250,25,'#d5e8f4')+arrow(510,129,555,129)+text(55,42,'p = '+N(x));break;}
  case 'electric-power-02':{s+=line(120,90,250,90)+box(250,75,115,30)+line(365,90,475,90)+line(475,90,475,175)+line(475,175,120,175)+line(120,175,120,143)+line(120,120,120,90)+line(100,120,140,120,'#fff',5)+line(109,143,131,143,'#fff',5)+arrow(390,90,430,90,'#7ce8ae')+text(55,42,'U = 24 V ; I = '+N(x)+' A')+text(55,222,'P = '+N(result)+' W ; circuit continu');break;}

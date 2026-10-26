@@ -100,6 +100,9 @@
     Object.freeze({"id":"hydrostatic-column-01","world":"SI-06","title":"Colonne d’huile — Écart de pression hydrostatique","url":"missions/hydrostatic-column-01.html"}),
     Object.freeze({"id":"natural-frequency-01","world":"SI-09","title":"Fréquence propre d’un support masse–ressort","url":"missions/natural-frequency-01.html"}),
     Object.freeze({"id":"rectangular-tube-inertia-01","world":"SI-04","title":"Moment quadratique d’un tube rectangulaire","url":"missions/rectangular-tube-inertia-01.html"})
+,
+    Object.freeze({id:'bearing-l10-life-01',world:'SI-15',title:'Durée de vie nominale L10 d’un roulement',url:'missions/bearing-l10-life-01.html'}),
+    Object.freeze({id:'sensor-4-20ma-01',world:'SI-13',title:'Capteur 4–20 mA — Conversion en pression',url:'missions/sensor-4-20ma-01.html'})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});

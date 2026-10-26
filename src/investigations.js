@@ -1,6 +1,8 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'bearing-l10-life-01':n=>64e6/(60*n),
+'sensor-4-20ma-01':i=>250*(i-4)/16,
 'natural-frequency-01':m=>Math.sqrt(18000/m)/(2*Math.PI),
 'rectangular-tube-inertia-01':e=>(80*120**3-(80-2*e)*(120-2*e)**3)/120000,
 'three-phase-power-01':i=>Math.sqrt(3)*400*i*.82/1000,
@@ -86,6 +88,8 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'bearing-l10-life-01':{min:1000,max:Infinity,unit:'h'},
+'sensor-4-20ma-01':{min:0,max:150,unit:'bar'},
 'natural-frequency-01':{min:0,max:4,unit:'Hz'},
 'rectangular-tube-inertia-01':{min:400,max:Infinity,unit:'cm⁴'},
 'three-phase-power-01':{min:0,max:8,unit:'kW'},
@@ -171,6 +175,8 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'bearing-l10-life-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Roulement à billes : capacité dynamique C = 24,0 kN, charge équivalente P = 6,0 kN constante, exposant p = 3, régime n de 400 à 1600 tr/min. L10 est une durée de vie nominale à 90 % de fiabilité, pas une date certaine de panne. Lubrification, contamination, charges variables et corrections de durée de vie exclues. Minimum fictif L10h ≥ 1000 h.","solution":"C/P = 24/6 = 4 (sans unité). L10 = (C/P)³ × 10⁶ = 64 000 000 tours. À n = 1000 tr/min : 60n = 60 000 tr/h ; L10h = 64 000 000 / 60 000 = 1066,67 h. Dimension : tours/(tours/h) = h. À charge constante, doubler n divise la durée en heures par deux. Le seuil 1000 h est fictif, pas un intervalle de maintenance constructeur."}),
+'sensor-4-20ma-01':Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Transmetteur linéaire idéal : pression manométrique 0–250 bar pour 4–20 mA. Domaine 4 ≤ I ≤ 20 mA ; absence de dérive, hystérésis, bruit et défaut de câblage. Une conversion mathématique ne valide pas l'étalonnage. Seuil fictif p ≤ 150 bar.","solution":"Étendue : 20 − 4 = 16 mA. I = 12,8 mA ; décalage 12,8 − 4 = 8,8 mA ; fraction d'échelle 8,8/16 = 0,55. Pression p = 250 × 0,55 = 137,50 bar. Unités : mA/mA × bar = bar. À 4 mA : 0 bar ; à 12 mA : 125 bar ; à 20 mA : 250 bar. Seuil fictif 150 bar respecté ; contrôler l'étalonnage réel."}),
 'natural-frequency-01':Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Oscillateur libre à un degré de liberté, masse m de 10 à 80 kg, raideur k = 18 000 N/m, amortissement négligé, petites oscillations. Seuil fictif f₀ ≤ 4 Hz ; fréquence d’excitation non connue.","solution":"m = 40 kg ; k/m = 450 s⁻² ; ω₀ = √450 = 21,2132 rad/s ; f₀ = ω₀/(2π) = 3,37619 Hz ; T₀ = 0,29619 s. (N/m)/kg = s⁻². Seuil fictif respecté ; la résonance réelle exige la mesure de l’excitation."}),
 'rectangular-tube-inertia-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Section rectangulaire creuse b = 80 mm, h = 120 mm, épaisseur e de 4 à 12 mm, angles vifs idéalisés, axe horizontal centroidal z. Moment quadratique de surface, pas inertie massique. Seuil fictif I_z ≥ 400 cm⁴.","solution":"e = 6 mm ; bᵢ = 68 mm ; hᵢ = 108 mm. I_ext = 80×120³/12 = 11 520 000 mm⁴ ; I_int = 68×108³/12 = 7 138 368 mm⁴ ; I_z = 4 381 632 mm⁴ = 438,1632 cm⁴. Homogénéité mm × mm³ = mm⁴. Vérifier les rayons et sollicitations réels avant dimensionnement."}),
 'three-phase-power-01':Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Réseau sinusoïdal triphasé équilibré, tension composée efficace Uₗ = 400 V, courant de ligne efficace Iₗ entre 4 et 25 A, cos φ = 0,82 constant. Calcul de la puissance active électrique absorbée, pas de la puissance mécanique, ni du démarrage. Plafond fictif 8,00 kW.","solution":"Uₗ = 400 V ; Iₗ = 12 A ; cos φ = 0,82. S = √3 × 400 V × 12 A = 8 313,84 VA. P = 8 313,84 VA × 0,82 = 6 817,35 W = 6,817 kW. Contrôle dimensionnel : V × A × cos φ donne W. Critère fictif de 8,00 kW respecté. Pour obtenir la puissance mécanique, mesurer ou connaître le rendement réel."}),
@@ -250,7 +256,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
 }
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if(((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -261,6 +267,8 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'bearing-l10-life-01':'tr/min',
+'sensor-4-20ma-01':'mA',
 'natural-frequency-01':'kg',
 'rectangular-tube-inertia-01':'mm',
 'three-phase-power-01':'A',
