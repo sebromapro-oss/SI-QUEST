@@ -23,7 +23,7 @@ for(const v of cases)test(v.id+' : 5 contre-calculs, domaines, unités, SVG et c
  assert.ok(p.validateAnswer(String(v.expected),v.expected,v.tol).correct);
  for(const s of ['Questions flash','Prérequis','Hypothèses','id="hint"','id="solution"','id="trialValue"','id="log"','id="reset"'])assert.ok(h.includes(s));
 });
-test('hélice : effort axial nul à 0° et croissant',()=>{eq(p.calculate('helical-gear-axial-force-01',0),0);assert.ok(p.calculate('helical-gear-axial-force-01',35)>p.calculate('helical-gear-axial-force-01',20))});
+test('hélice : effort axial nul à 0°, force tangentielle au contact et poussée croissante',()=>{eq(p.calculate('helical-gear-axial-force-01',0),0);assert.ok(p.calculate('helical-gear-axial-force-01',35)>p.calculate('helical-gear-axial-force-01',20));const svg=d.render('helical-gear-axial-force-01',20,p.calculate('helical-gear-axial-force-01',20));assert.match(svg,/x1="276" y1="125" x2="276" y2="65"/);assert.match(svg,/x1="276" y1="125" x2="[0-9.]+" y2="125"/);const zero=d.render('helical-gear-axial-force-01',0,0);assert.equal((zero.match(/marker-end/g)||[]).length,1)});
 test('onde : célérité en racine de K et front cohérent à 5 ms',()=>{eq(p.calculate('oil-pressure-wave-speed-01',1.6)/p.calculate('oil-pressure-wave-speed-01',.8),Math.SQRT2);assert.match(d.render('oil-pressure-wave-speed-01',1.4,p.calculate('oil-pressure-wave-speed-01',1.4)),/data-wave-front-m="6\.416/)});
 test('Steiner : axes confondus et augmentation quadratique',()=>{eq(p.calculate('parallel-axis-inertia-01',0),.18);eq(p.calculate('parallel-axis-inertia-01',.4)-.18,12*.4**2)});
 test('Carnot : bilan Qh=Qc+W et COP décroissant',()=>{const a=p.calculate('heat-pump-carnot-cop-01',40);eq(a-(a-1),1);assert.ok(p.calculate('heat-pump-carnot-cop-01',65)<a)});

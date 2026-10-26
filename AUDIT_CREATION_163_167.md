@@ -23,3 +23,10 @@ Chaque mission comporte sous-savoir distinct, situation métier, trois questions
 
 ## Preuves et réserves
 S : PASS ciblé après contre-calculs ; G : structure SVG contrôlée, inspection visuelle NOT RUN ; P : contenu présent, essai élève NOT RUN ; F : V8 et DOM simulé ciblés si exécutés, CI native BLOCKED tant que les workflows échouent avant runner ; A : NVDA/TalkBack/VoiceOver et appareils NOT RUN. Aucun niveau déclaré validé intégralement. Aucun ZIP, publication Pages ou changement de visibilité.
+
+## Contre-audit et publication (26 octobre 2026)
+- **P1 graphique détecté avant réception :** la force tangentielle de la denture était initialement appliquée au centre du cercle primitif, ce qui annulait le moment représenté. Origine déplacée au contact sur le cercle primitif (centre 240,125 ; point de contact 276,125), vecteurs Fₜ et Fₐ au contact. Test géométrique ajouté ; cas β = 0° sans poussée axiale.
+- **132 contrôles V8 préparatoires PASS** : calculs, domaines, unités, SVG et présence du profil de repli.
+- **13 tests du lot 163–167 PASS dans un harnais JavaScript V8 avec adaptateurs**, dont les deux tests historiques P0/P1 ; **8 tests DOM simulés PASS** (cinq nouveaux et trois historiques). Les tests ont été répartis en sous-lots pour charger les fixtures nécessaires. Ce ne sont pas des tests Node natifs.
+- **GitHub Actions du premier commit 49212482c0f36d0b327a4dcee9643a050329e768 : 4 FAILURE sans steps ni runner identifié**. Nouvelle tentative du workflow Recette automatisée SI QUEST : FAILURE avant étapes ; logs BlobNotFound. Cause externe non établie. CI native BLOCKED.
+- **S PASS ciblé ; G PASS géométrie programmée, visuel NOT RUN ; P PASS contenu statique, essai élève NOT RUN ; F PASS V8 ciblé, CI BLOCKED ; A NOT RUN**. Réception complète non obtenue.
