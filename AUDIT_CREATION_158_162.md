@@ -30,3 +30,11 @@ Modèles purs, hypothèses, limites, trois questions flash, cinq points de contr
 - **A :** parcours clavier/zoom matériels, NVDA, TalkBack, VoiceOver **NOT RUN**.
 
 Les cinq missions sont **codées**, non « validées » au sens du cahier des charges. Aucun déploiement GitHub Pages ni ZIP.
+
+## Contre-audit post-intégration et état CI
+- SHA du commit de production : `375dd86edc90d29ede65cf7f18bf99eb83730651` ; **162 fichiers HTML de missions** présents et 162 identifiants uniques dans le catalogue.
+- **130 assertions V8 préparatoires PASS** sur les cinq modèles, les cinq points de calcul, domaines, unités, SVG et cas invalides.
+- **576 contrôles V8 ciblés PASS** sur les 36 missions historiques 40–75, soit minimum/nominal/maximum, cohérence moteur–configuration, unités et SVG ; ces contrôles ne sont pas 36 contre-calculs indépendants.
+- **55 assertions V8 DOM simulé PASS** sur les cinq nouvelles missions : verrouillage initial, réussite, sauvegarde, trois échecs, corrigé conditionnel et absence de maîtrise fictive. Une erreur dans l'adaptateur de test (absence de `previousElementSibling`) a été corrigée dans le **nouveau harnais de test**, sans modification de l'application.
+- Quatre workflows du commit `375dd86edc90d29ede65cf7f18bf99eb83730651` : **FAILURE avant toute étape** (jobs sans runner ni steps). Relance du workflow `Recette automatisée SI QUEST` (run 40384857463, tentative 2) : **FAILURE avant toute étape**, logs **BlobNotFound**. Cause non établie, **CI native BLOCKED**, et non PASS.
+- Les tests Playwright réels, les inspections graphiques sur navigateur et les essais NVDA/TalkBack/VoiceOver restent **NOT RUN**.
