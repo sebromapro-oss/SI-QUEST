@@ -28,3 +28,12 @@ Ces contrôles ne démontrent pas le rendu, l'absence de collision, ni le bon fo
 ## Statut
 **Implémenté partiellement — non réceptionné**.
 Ne pas déclarer conforme ni validé avant tests en navigateur, correction des défauts constatés, recette mobile et vérification indépendante.
+
+
+## Lot artistique complémentaire — 26 octobre 2026
+- Asset ajouté : `assets/archipelago-cinematic.svg` (panorama SVG 1600×900 : plusieurs plans atmosphériques, deux grandes îles détaillées, cascades, reliefs, bâtiments et machines, pont énergétique).
+- Intégration CSS dans `src/style.css`, avec couches de lisibilité, variations mobile et conservation des 17 scènes SVG interactives préexistantes.
+- Vérification statique distante : 7 assertions/7 satisfaites sur les fichiers GitHub (asset complet, dégradés et flou, chemin CSS, 17 décors, liens catalogue, réduction du mouvement, chargement de scripts).
+- Contrôles NON réalisés : ouverture réelle en navigateur, comparaison par capture avec la maquette, performance mesurée, contrôle de chevauchement mobile, réception lecteur d'écran, tests matériels.
+- Écart ART-01 / ART-02 : ambiance améliorée mais fidélité cinématographique non démontrée ; les éléments SVG procéduraux des 17 îles restent des illustrations stylisées, et les grandes îles de fond ne constituent pas des lieux interactifs individualisés.
+- Statut : **implémenté, non réceptionné**. La correction du parcours mobile et la recette visuelle demeurent ouvertes.
