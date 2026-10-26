@@ -1,6 +1,8 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'natural-frequency-01':m=>Math.sqrt(18000/m)/(2*Math.PI),
+'rectangular-tube-inertia-01':e=>(80*120**3-(80-2*e)*(120-2*e)**3)/120000,
 'three-phase-power-01':i=>Math.sqrt(3)*400*i*.82/1000,
 'hydrostatic-column-01':h=>850*9.81*h/1e5,
 'planetary-fixed-ring-01':n=>n*24/96,
@@ -84,6 +86,8 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'natural-frequency-01':{min:0,max:4,unit:'Hz'},
+'rectangular-tube-inertia-01':{min:400,max:Infinity,unit:'cm⁴'},
 'three-phase-power-01':{min:0,max:8,unit:'kW'},
 'hydrostatic-column-01':{min:0,max:.3,unit:'bar'},
 'planetary-fixed-ring-01':{min:0,max:250,unit:'tr/min'},
@@ -167,6 +171,8 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'natural-frequency-01':Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Oscillateur libre à un degré de liberté, masse m de 10 à 80 kg, raideur k = 18 000 N/m, amortissement négligé, petites oscillations. Seuil fictif f₀ ≤ 4 Hz ; fréquence d’excitation non connue.","solution":"m = 40 kg ; k/m = 450 s⁻² ; ω₀ = √450 = 21,2132 rad/s ; f₀ = ω₀/(2π) = 3,37619 Hz ; T₀ = 0,29619 s. (N/m)/kg = s⁻². Seuil fictif respecté ; la résonance réelle exige la mesure de l’excitation."}),
+'rectangular-tube-inertia-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Section rectangulaire creuse b = 80 mm, h = 120 mm, épaisseur e de 4 à 12 mm, angles vifs idéalisés, axe horizontal centroidal z. Moment quadratique de surface, pas inertie massique. Seuil fictif I_z ≥ 400 cm⁴.","solution":"e = 6 mm ; bᵢ = 68 mm ; hᵢ = 108 mm. I_ext = 80×120³/12 = 11 520 000 mm⁴ ; I_int = 68×108³/12 = 7 138 368 mm⁴ ; I_z = 4 381 632 mm⁴ = 438,1632 cm⁴. Homogénéité mm × mm³ = mm⁴. Vérifier les rayons et sollicitations réels avant dimensionnement."}),
 'three-phase-power-01':Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Réseau sinusoïdal triphasé équilibré, tension composée efficace Uₗ = 400 V, courant de ligne efficace Iₗ entre 4 et 25 A, cos φ = 0,82 constant. Calcul de la puissance active électrique absorbée, pas de la puissance mécanique, ni du démarrage. Plafond fictif 8,00 kW.","solution":"Uₗ = 400 V ; Iₗ = 12 A ; cos φ = 0,82. S = √3 × 400 V × 12 A = 8 313,84 VA. P = 8 313,84 VA × 0,82 = 6 817,35 W = 6,817 kW. Contrôle dimensionnel : V × A × cos φ donne W. Critère fictif de 8,00 kW respecté. Pour obtenir la puissance mécanique, mesurer ou connaître le rendement réel."}),
 'hydrostatic-column-01':Object.freeze({"absoluteTolerance":0.002,"relativeTolerance":0,"precision":4,"assumptions":"Huile homogène incompressible au repos, ρ = 850 kg/m³, g = 9,81 m/s² ; deux prises dans le même liquide, hauteur h positive vers le bas, h de 0 à 6 m. Absence d’écoulement, de pertes de charge et de pompe active. Seuil pédagogique fictif de 0,30 bar.","solution":"ρ = 850 kg/m³ ; g = 9,81 m/s² ; h = 2,50 m. Δp = p_bas − p_haut = 850 × 9,81 × 2,50 = 20 846,25 Pa = 0,2084625 bar ≈ 0,2085 bar. Homogénéité : (kg/m³)(m/s²)(m) = kg/(m·s²) = Pa. Δp est positif vers le bas et nul à h = 0. Ce n’est pas une perte de charge en écoulement."}),
 'planetary-fixed-ring-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Train épicycloïdal idéal à couronne intérieure fixe, nᵣ = 0 tr/min, zₛ = 24 dents, zᵣ = 72 dents, trois satellites zₚ = 24 dents. Régime solaire positif 400 à 1 200 tr/min, axes parallèles, pas de glissement. Cinématique seule, ni couple ni rendement. Seuil de 250 tr/min fictif.","solution":"Willis : (nₛ − nₚ)/(nᵣ − nₚ) = −zᵣ/zₛ = −72/24 = −3. Couronne fixe : nᵣ = 0 tr/min. Donc nₛ − nₚ = 3nₚ et nₛ = 4nₚ. À nₛ = 900 tr/min : nₚ = 900/4 = 225 tr/min, de même sens que le soleil. Satellites : zₚ = (72 − 24)/2 = 24 dents ; entraxe soleil/satellite = m(24+24)/2 = 24m ; entraxe couronne/satellite = m(72−24)/2 = 24m. Contrôler la couronne réellement immobilisée et les limites constructeur."}),
@@ -244,7 +250,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
 }
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if((id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if(((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -255,6 +261,8 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'natural-frequency-01':'kg',
+'rectangular-tube-inertia-01':'mm',
 'three-phase-power-01':'A',
 'hydrostatic-column-01':'m',
 'planetary-fixed-ring-01':'tr/min',
