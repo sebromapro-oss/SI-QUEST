@@ -97,7 +97,9 @@
     Object.freeze({id:"planetary-fixed-ring-01",world:"SI-05",title:"Train épicycloïdal — Couronne fixe",url:"missions/planetary-fixed-ring-01.html"}),
     Object.freeze({id:"thermal-radiation-01",world:"SI-12",title:"Rayonnement net d’une paroi chaude",url:"missions/thermal-radiation-01.html"}),
     Object.freeze({"id":"three-phase-power-01","world":"SI-08","title":"Moteur triphasé — Puissance active absorbée","url":"missions/three-phase-power-01.html"}),
-    Object.freeze({"id":"hydrostatic-column-01","world":"SI-06","title":"Colonne d’huile — Écart de pression hydrostatique","url":"missions/hydrostatic-column-01.html"})
+    Object.freeze({"id":"hydrostatic-column-01","world":"SI-06","title":"Colonne d’huile — Écart de pression hydrostatique","url":"missions/hydrostatic-column-01.html"}),
+    Object.freeze({"id":"natural-frequency-01","world":"SI-09","title":"Fréquence propre d’un support masse–ressort","url":"missions/natural-frequency-01.html"}),
+    Object.freeze({"id":"rectangular-tube-inertia-01","world":"SI-04","title":"Moment quadratique d’un tube rectangulaire","url":"missions/rectangular-tube-inertia-01.html"})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
