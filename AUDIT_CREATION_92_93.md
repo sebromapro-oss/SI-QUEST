@@ -20,3 +20,13 @@ Mission `hydro-power-01` du lot 40–75. Anomalie graphique et didactique : pres
 | A | HTML sémantique, titre et description SVG | NVDA, TalkBack, VoiceOver, zoom sur appareils |
 
 **Statut : codées ; non validées au sens de la recette complète.** Aucun changement de visibilité, accueil, carte, branche archive ou publication.
+
+## Contre-audit automatisé réellement exécuté — 26 octobre 2026
+Révision de code contrôlée : `c6df32be3f5f8403df25e58130bd229057d6ca40`.
+
+- Suite Node : **560 tests exécutés, 560 réussis, 0 échec**, journal du workflow [Recette automatisée](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/40268257621).
+- Workflow [SI QUEST scientific quality](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/40268257709) : **success**.
+- Workflow [Contrôles scientifiques SI QUEST](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/40268257658) : **success**.
+- Anomalie détectée lors de la première exécution : ancien test `batch90-91` exigeait exactement 91 entrées ; corrigé pour accepter une extension sans doublon. Première CI échouée, puis contre-essai complet réussi.
+- Vérifications supplémentaires exécutées dans l'environnement JavaScript de préparation : syntaxe des quatre modules modifiés, valeurs de référence, domaines, structures SVG et catalogue de 93 entrées.
+- **Réserves non levées** : réception graphique sur navigateur, essais mobiles et lecteurs d'écran NVDA/TalkBack/VoiceOver, séance pédagogique réelle. Aucun résultat d'essai manuel n'est revendiqué.
