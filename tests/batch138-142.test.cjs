@@ -35,3 +35,5 @@ test('audit 40–75 : prérequis et domaine engrenage/vis',()=>{
  assert.throws(()=>engine.calculate('gear-ratio-02',54.5),RangeError);
  for(const p of [1,2,4])near(engine.calculate('screw-lead-01',p),2*p);
 });
+
+test('contre-audit : la constante thermique a des légendes physiques correctes',()=>{const svg=diagram.render('lumped-cooling-time-constant-01',40,engine.calculate('lumped-cooling-time-constant-01',40));assert.match(svg,/h = 40 W\/\(m²·K\)/);assert.match(svg,/τ ≈ 172,5 s/);assert.doesNotMatch(svg,/Δp = 40/)});

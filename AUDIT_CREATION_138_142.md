@@ -20,3 +20,6 @@ Contrôle numérique des 36 modèles aux données nominales en JavaScript V8 ; e
 - F : 3 essais, 3 aides, sauvegarde et verrouillage réutilisent le contrôleur commun ; test Node CI et tests navigateur à consulter après commit. Aucun essai matériel déclaré.
 - A : attributs textuels SVG, labels, clavier et aides hérités du contrôleur commun ; NVDA, TalkBack, VoiceOver et zoom sur appareils NOT RUN.
 - Aucun test non exécuté ne vaut conformité. La réception finale S/G/P/F/A demeure ouverte.
+
+## Contre-audit correctif
+Anomalie P2 supplémentaire détectée après le premier commit : la légende du graphique thermique utilisait par erreur Δp/ΔV. Corrigée en h/τ et couverte par un test dédié. Le SHA final et les résultats CI sont à confirmer depuis la branche distante.

@@ -148,7 +148,7 @@ const scientificLabels=Object.freeze({
 "hydraulic-oil-compressibility-01":["Δp","ΔV"],
 "hollow-shaft-polar-inertia-01":["d","Jₚ"],
 "wheel-braking-slip-01":["ω","s"],
-"lumped-cooling-time-constant-01":["Δp","ΔV"],
+"lumped-cooling-time-constant-01":["h","τ"],
 "adc-voltage-step-01":["Uref","q"],
 "gear-eff-01":["η","Pᵤ"],
 "pulley-01":["D₂","n₂"],
