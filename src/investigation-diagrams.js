@@ -7,6 +7,11 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+"stepped-bar-extension-01":"Tirant à deux sections — Allongement élastique",
+"motor-slip-01":"Moteur asynchrone — Glissement instantané",
+"log-decrement-01":"Vibrations amorties — Décrément logarithmique",
+"exchanger-effectiveness-01":"Échangeur — Efficacité thermique",
+"darcy-pipe-loss-01":"Conduite turbulente — Perte de pression",
 "flywheel-angular-momentum-01":"Volant — Moment cinétique axial",
 "rc-charge-threshold-01":"Circuit RC — Temps pour atteindre un seuil",
 "thermal-clearance-01":"Dilatations différentielles — Jeu résiduel",
@@ -323,6 +328,40 @@ function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+
+case 'stepped-bar-extension-01':{
+ const e1=x*1000/210e9*.8/(400e-6)*1000,e2=result-e1;
+ s+=box(75,70,25,120,'#607f90')+box(100,100,205,52,'#477a93')+box(305,107,170,38,'#bc925e');
+ s+=arrow(475,126,552,126,'#ffd17d',5)+text(130,91,'A₁ = 400 mm²')+text(322,91,'A₂ = 250 mm²');
+ s+=text(35,39,'F = '+N(x)+' kN ; E = 210 GPa')+text(35,217,'δ₁ = '+N(e1)+' mm ; δ₂ = '+N(e2)+' mm');
+ s+='<g data-extension-mm="'+result.toFixed(6)+'"></g>';break;}
+case 'motor-slip-01':{
+ const ns=30*x,as=2*Math.PI*(ns/60)*.05,ar=2*Math.PI*(1440/60)*.05;
+ s+=circle(300,125,77,'#315a73')+circle(300,125,53,'#1a405c')+circle(300,125,8,'#ffd17d');
+ s+=line(300,125,300+64*Math.cos(as),125-64*Math.sin(as),'#7ce8ae',5);
+ s+=line(300,125,300+43*Math.cos(ar),125-43*Math.sin(ar),'#ffd17d',5);
+ s+=text(30,38,'4 pôles ; n rotor = 1 440 tr/min')+text(30,215,'nₛ = '+N(ns)+' tr/min ; s = '+N(result)+' %');
+ s+='<g data-stator-phase-rad="'+as.toFixed(6)+'" data-rotor-phase-rad="'+ar.toFixed(6)+'" data-slip-percent="'+result.toFixed(6)+'"></g>';break;}
+case 'log-decrement-01':{
+ const delta=result,pts=[],top=[],bottom=[];
+ for(let i=0;i<=120;i++){const t=i/40,amp=20*Math.exp(-delta*t)*3,px=90+t*140;pts.push((i?'L':'M')+px.toFixed(2)+' '+(130-amp*Math.cos(2*Math.PI*t)).toFixed(2));top.push((i?'L':'M')+px.toFixed(2)+' '+(130-amp).toFixed(2));bottom.push((i?'L':'M')+px.toFixed(2)+' '+(130+amp).toFixed(2));}
+ s+=line(90,130,510,130,'#9bc9e5',2)+ '<path d="'+pts.join(' ')+'" fill="none" stroke="#8ddcff" stroke-width="3"/><path d="'+top.join(' ')+'" fill="none" stroke="#ffd17d" stroke-width="2" stroke-dasharray="5 5"/><path d="'+bottom.join(' ')+'" fill="none" stroke="#ffd17d" stroke-width="2" stroke-dasharray="5 5"/>';
+ s+=text(35,37,'A₀ = 20 mm ; A₃ = '+N(x)+' mm')+text(35,218,'3 périodes ; δ = '+N(result)+' (sans unité)');
+ s+='<g data-log-decrement="'+result.toFixed(7)+'"></g>';break;}
+case 'exchanger-effectiveness-01':{
+ const hot=80-x/2,cold=20+x/3;
+ s+=box(145,76,305,117,'#305c76')+line(65,103,530,103,'#ef997a',13)+line(65,166,530,166,'#8ddcff',13);
+ s+=arrow(255,103,345,103,'#ffca7d',4)+arrow(375,166,285,166,'#7ce8ae',4);
+ s+=text(35,36,'Chaud : 80 °C → '+N(hot)+' °C')+text(35,220,'Froid : 20 °C → '+N(cold)+' °C ; ε = '+N(result));
+ s+='<g data-hot-out-c="'+hot.toFixed(6)+'" data-cold-out-c="'+cold.toFixed(6)+'" data-effectiveness="'+result.toFixed(6)+'"></g>';break;}
+case 'darcy-pipe-loss-01':{
+ const v=(x/60000)/(Math.PI*.025**2/4),scale=Math.min(65,result*160);
+ s+=box(80,101,430,63,'#2b617c')+line(90,133,500,133,'#8ddcff',3,'stroke-dasharray="8 5"');
+ for(let i=0;i<3;i++)s+=arrow(170+i*100,132,212+i*100,132,'#7ce8ae',4);
+ s+=line(145,101,145,61,'#ffd17d',3)+line(445,101,445,61+scale,'#ffd17d',3);
+ s+=text(35,36,'L = 20 m ; D = 25 mm ; fᴅ = 0,030')+text(35,219,'v = '+N(v)+' m/s ; Δp = '+N(result)+' bar');
+ s+='<g data-velocity-ms="'+v.toFixed(7)+'" data-pressure-loss-bar="'+result.toFixed(7)+'"></g>';break;}
+
 
 case 'flywheel-angular-momentum-01':{
  const a=2*Math.PI*x/60*.1,px=290+60*Math.cos(a),py=127-60*Math.sin(a);

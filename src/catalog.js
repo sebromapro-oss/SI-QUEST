@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+    Object.freeze({"id":"stepped-bar-extension-01","world":"SI-04","title":"Tirant à deux sections — Allongement élastique","url":"missions/stepped-bar-extension-01.html","subskill":"Déformation axiale d'une barre étagée"}),
+    Object.freeze({"id":"motor-slip-01","world":"SI-08","title":"Moteur asynchrone — Glissement instantané","url":"missions/motor-slip-01.html","subskill":"Glissement d'une machine asynchrone à quatre pôles"}),
+    Object.freeze({"id":"log-decrement-01","world":"SI-09","title":"Vibrations amorties — Décrément logarithmique","url":"missions/log-decrement-01.html","subskill":"Identification de l'amortissement par enveloppe d'oscillations"}),
+    Object.freeze({"id":"exchanger-effectiveness-01","world":"SI-12","title":"Échangeur — Efficacité thermique","url":"missions/exchanger-effectiveness-01.html","subskill":"Efficacité d'un échangeur et capacité thermique minimale"}),
+    Object.freeze({"id":"darcy-pipe-loss-01","world":"SI-06","title":"Conduite turbulente — Perte de pression","url":"missions/darcy-pipe-loss-01.html","subskill":"Darcy–Weisbach en conduite hydraulique turbulente"}),
     Object.freeze({id:'gear-01',world:'SI-05',title:'Atelier des engrenages — Réducteur',url:'missions/gear-01.html'}),
     Object.freeze({id:'hydro-01',world:'SI-06',title:'Levage hydraulique — Vérin double effet',url:'missions/hydro-01.html'}),
     Object.freeze({id:'slope-01',world:'SI-03',title:'Sécurité en pente — Retenue statique',url:'missions/slope-01.html'}),
