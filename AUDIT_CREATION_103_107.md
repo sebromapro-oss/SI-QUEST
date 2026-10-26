@@ -24,3 +24,6 @@ S : calculs automatisés ciblés ; G : géométries contrôlées dans le code ; 
 - P2 : la flèche de débit du moteur était visible à Q = 0 ; affichage désormais conditionnel à Q > 0.
 - P2 : les triangles d'appui de la traverse étaient détachés de la fibre initiale ; apex replacés au niveau y = 112. Le vecteur de charge rejoint désormais le point chargé de la déformée calculée, avec amplification explicitée.
 - Tests ciblés de non-régression ajoutés ; contrôles manuels visuels toujours NOT RUN.
+
+## Non-régression CI détectée et corrigée
+Le premier passage de 584 tests a relevé 1 échec : l'axe du facteur de puissance était libellé « sans unité » au lieu de la grandeur physique cos φ. Correction de la page : abscisse « cos φ ». Le test de labels SVG accepte désormais explicitement cette notation mathématique (sans autoriser la prose). Une assertion ciblée de non-régression est ajoutée. Résultats du nouveau passage à confirmer sur le commit final.
