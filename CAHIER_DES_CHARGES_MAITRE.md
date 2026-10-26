@@ -1,5 +1,5 @@
 # SI QUEST — Cahier des charges maître
-**Version 2.2 — 25 octobre 2026 — Référence contractuelle permanente jusqu'à la mission 996**
+**Version 2.3 — 26 octobre 2026 — Référence contractuelle permanente jusqu'à la mission 996**
 
 > Statut : exigences cibles. Une exigence écrite ne vaut pas preuve d'implémentation. Ce document complète `EXIGENCES.md`, `PRODUCTION.md` et `RECETTE_PEDAGOGIQUE_39.md`. En cas de contradiction, les règles scientifiques et de sécurité priment.
 
@@ -145,3 +145,10 @@ Pour chaque mission, conserver cinq statuts séparés : **S** (scientifique), **
 ### 14.9 Conditions de production et périmètre d'autorisation
 
 Ces exigences s'appliquent à toutes les missions existantes et nouvelles jusqu'à 996. Ne pas lancer un nouveau lot lorsque des anomalies bloquantes connues sur le lot précédent restent corrigeables. La qualité scientifique prime sur le volume ou la cadence. Les corrections et commits sur `main` dans le dépôt **privé** sont autorisés sans validation intermédiaire ; toute publication publique, modification de visibilité, suppression d'archive ou action extérieure au périmètre autorisé nécessite un accord explicite. Conserver la gratuité, les 17 univers, les 249 sous-savoirs, les contraintes d'inclusion et de compatibilité multiplateforme.
+
+
+## Addendum V2.3 — Protection de l'accueil et preuves par cycle
+
+L'accueil ajouté par l'utilisateur constitue une zone protégée. Identifier au HEAD réel ses dépendances HTML, CSS, JavaScript, SVG et assets, relever leurs signatures Git et ne jamais écraser ni refondre cette page. Vérifier les nouvelles missions par le catalogue sans toucher à l'accueil.
+
+À chaque cycle, réaliser les deux chantiers : audit/correction/contre-audit de l'existant (priorité 40–75) ET création de missions indépendantes. Cible adaptative 5 à 10 missions par cycle, sans sacrifier l'exactitude ou gonfler les statistiques. Contrôler composants communs, calculs indépendants, domaines, géométrie, interactions et régressions. Vérifier le HEAD distant avant toute intégration ; aucun force push. Rapporter SHA initial/final, missions, anomalies P0–P3, tests, preuves S/G/P/F/A et états PASS/FAIL/BLOCKED/NOT RUN. Tests manuels non exécutés = NOT RUN.

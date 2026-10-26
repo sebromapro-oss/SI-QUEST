@@ -1,0 +1,17 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
+const m=require('../src/investigations.js'),d=require('../src/investigation-diagrams.js'),cat=require('../src/catalog.js');
+const ids=["hydro-motor-speed-01","beam-center-deflection-01","reactive-three-phase-01","rl-step-current-01","npsh-available-01"];
+const near=(a,b)=>assert.ok(Math.abs(a-b)<=1e-8*Math.max(1,Math.abs(b)),a+' != '+b);
+const cfg=id=>JSON.parse(fs.readFileSync('missions/'+id+'.html','utf8').split('window.SI_MISSION=')[1].split('</script>')[0]);
+test('103–107 : catalogue, politiques, schémas et domaines',()=>{
+ assert.equal(cat.levels.length,107);assert.equal(new Set(cat.levels.map(x=>x.id)).size,107);
+ const home=fs.readFileSync('index.html','utf8');assert.match(home,/id="islands"/);
+ for(const id of ids){const c=cfg(id),p=m.answerPolicy[id];assert.ok(cat.byId(id));assert.equal(c.unit,m.criteria[id].unit);assert.equal(c.inputUnit,m.inputUnits[id]);near(m.calculate(id,c.initial),c.expected);assert.ok(p.assumptions.length>160&&p.solution.length>120);for(const x of [c.min,c.initial,c.max]){const y=m.calculate(id,x),svg=d.render(id,x,y);assert.ok(Number.isFinite(y));assert.match(svg,/<title/);assert.match(svg,/<desc/);assert.ok(svg.includes(c.unit)&&svg.includes(c.inputUnit));assert.doesNotMatch(svg,/NaN|Infinity|undefined/);}assert.throws(()=>m.calculate(id,c.max+.01),RangeError);assert.throws(()=>m.calculate(id,-.01),RangeError);assert.equal(m.validateAnswer(String(c.expected).replace('.',','),c.expected,p.absoluteTolerance).correct,true);assert.equal(m.validateAnswer(String(c.expected+2*p.absoluteTolerance),c.expected,p.absoluteTolerance).correct,false);}
+});
+test('103 moteur : débit et volume par tour indépendants',()=>{for(const x of [0,10,30,50])near(m.calculate(ids[0],x)*.08/.88,x);near(m.calculate(ids[0],30),330);assert.match(d.render(ids[0],30,330),/data-motor-rpm="330.000"/);});
+test('104 traverse : bilan de flexion',()=>{for(const x of [0,1000,4000,8000])near(m.calculate(ids[1],x)*48*210e9*8e-6/1000,x*1.2**3);near(m.calculate(ids[1],4000),.08571428571428572);assert.match(d.render(ids[1],4000,m.calculate(ids[1],4000)),/data-deflection-mm/);});
+test('105 triphasé : P² + Q² = S²',()=>{const S=Math.sqrt(3)*400*10/1000;for(const c of [.5,.8,1]){const P=S*c,Q=m.calculate(ids[2],c);near(P*P+Q*Q,S*S);}near(m.calculate(ids[2],1),0);});
+test('106 RL : courant et écart à I∞',()=>{for(const t of [0,10,20,50])near(2-m.calculate(ids[3],t),2*Math.exp(-t/10));near(m.calculate(ids[3],0),0);});
+test('107 NPSH : bilan de charge en Pa',()=>{for(const h of [0,1,2,4,6])near((m.calculate(ids[4],h)+h+.8)*998*9.81,101325-2340);assert.equal(m.assess(ids[4],6).acceptable,true);});
+test('Audit ressort : effort de traction cohérent, légende unique',()=>{const h=fs.readFileSync('missions/spring-stiffness-01.html','utf8');assert.match(h,/sollicité en traction/);const svg=d.render('spring-stiffness-01',300,m.calculate('spring-stiffness-01',300));assert.equal((svg.match(/F = 300 N/g)||[]).length,1);assert.match(svg,/data-ressort-continu="true"/);});

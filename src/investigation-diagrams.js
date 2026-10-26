@@ -7,6 +7,11 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+"hydro-motor-speed-01":"Moteur hydraulique — Vitesse volumétrique",
+"beam-center-deflection-01":"Traverse bi-appuyée — Flèche centrale",
+"reactive-three-phase-01":"Moteur triphasé — Puissance réactive",
+"rl-step-current-01":"Circuit RL — Établissement du courant",
+"npsh-available-01":"Pompe d’eau — NPSH disponible",
 'hydraulic-relief-setpoint-01':"Soupape hydraulique — Pression de tarage",
 'beam-support-reaction-01':"Poutre sur deux appuis — Réaction d'appui",
 'lc-resonance-01':"Circuit LC — Fréquence propre électrique",
@@ -103,6 +108,11 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+"hydro-motor-speed-01":["Q","n"],
+"beam-center-deflection-01":["F","δ"],
+"reactive-three-phase-01":["cosφ","Q"],
+"rl-step-current-01":["t","i"],
+"npsh-available-01":["H","NPSHₐ"],
 'convective-heat-flux-01':['h','Φ'],
 'orifice-flow-01':['Δp','Q'],
 'hydrostatic-gate-force-01':['h','F'],
@@ -274,11 +284,44 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(['convective-heat-flux-01','orifice-flow-01','hydrostatic-gate-force-01','capstan-tension-01',"natural-frequency-01","rectangular-tube-inertia-01","three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(["hydro-motor-speed-01","beam-center-deflection-01","reactive-three-phase-01","rl-step-current-01","npsh-available-01",'convective-heat-flux-01','orifice-flow-01','hydrostatic-gate-force-01','capstan-tension-01',"natural-frequency-01","rectangular-tube-inertia-01","three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+case 'hydro-motor-speed-01':{
+ s+=line(90,112,206,112,'#8ddcff',8)+arrow(110,112,186,112,'#7ce8ae',4)+circle(270,135,59,'#315c76')+circle(270,135,12,'#ffd17d')+line(270,135,490,135,'#d5e8f4',10)+line(270,194,270,213,'#8ddcff',8)+line(270,213,490,213,'#8ddcff',8);
+ if(x>0)s+=arrow(345,135,345+Math.min(125,result/5),135,'#ffca7d',4);
+ s+=text(30,40,'Moteur : Vg = 80 cm³/tr ; ηᵥ = 0,88');
+ s+='<g data-motor-rpm="'+result.toFixed(3)+'" data-flow-Lmin="'+x.toFixed(2)+'"></g>';break;}
+case 'beam-center-deflection-01':{
+ const L=1.2,EI=210e9*8e-6;
+ const def=z=>{const a=Math.min(z,L-z);return x*a*(3*L*L-4*a*a)/(48*EI)*1000};
+ const path=Array.from({length:41},(_,i)=>{const z=L*i/40;return(i?'L':'M')+(150+300*z/L).toFixed(2)+' '+(112+300*def(z)).toFixed(2)}).join(' ');
+ s+=line(150,112,450,112,'#9bc9e5',2)+'<path d="'+path+'" fill="none" stroke="#ffd17d" stroke-width="5" data-deflection-mm="'+result.toFixed(6)+'"/>';
+ s+='<path d="M135 151 L165 151 L150 130 Z M435 151 L465 151 L450 130 Z" fill="#315c76" stroke="#d5e8f4" stroke-width="2"/>';
+ if(x>0)s+=arrow(300,56,300,100,'#ffca7d',4);
+ s+=text(30,38,'Traverse bi-appuyée : L = 1,20 m ; E I = 1,68 MN·m²');
+ s+=text(30,210,'Déformée amplifiée ×1 200 à l’écran');break;}
+case 'reactive-three-phase-01':{
+ const S=Math.sqrt(3)*400*10/1000,dx=220*x,dy=220*Math.sqrt(1-x*x),bx=170+dx,by=185-dy;
+ s+=line(170,185,bx,185,'#8ddcff',5)+line(bx,185,bx,by,'#7ce8ae',5)+line(170,185,bx,by,'#ffd17d',5)+circle(bx,by,5,'#ffd17d');
+ s+=text(30,38,'Triangle : S = '+N(S)+' kVA');
+ s+=text(30,218,'P horizontal (kW) ; Q vertical (kVAr)');
+ s+='<g data-reactive-kvar="'+result.toFixed(5)+'" data-cosphi="'+x.toFixed(3)+'"></g>';break;}
+case 'rl-step-current-01':{
+ s+=line(110,75,205,75,'#8ddcff',4)+box(205,58,100,34,'#315c76')+line(305,75,410,75,'#8ddcff',4)+line(410,75,410,98,'#8ddcff',4);
+ s+='<path d="M410 98 C386 98 386 110 410 110 C434 110 434 122 410 122 C386 122 386 134 410 134 C434 134 434 146 410 146 C386 146 386 158 410 158" fill="none" stroke="#ffd17d" stroke-width="4"/>';
+ s+=line(410,158,410,188,'#8ddcff',4)+line(410,188,110,188,'#8ddcff',4)+line(110,75,110,115,'#8ddcff',4)+line(82,119,138,119,'#d5e8f4',4)+line(94,140,126,140,'#d5e8f4',4)+line(110,144,110,188,'#8ddcff',4);
+ if(x>0)s+=arrow(140,75,140+Math.round(45*result/2),75,'#7ce8ae',4);
+ s+=text(30,37,'Échelon 12 V ; R = 6 Ω ; L = 60 mH')+text(30,222,'τ = 10 ms ; courant orienté sens horaire');
+ s+='<g data-rl-current-A="'+result.toFixed(6)+'" data-time-ms="'+x.toFixed(3)+'"></g>';break;}
+case 'npsh-available-01':{
+ const py=145-12*x;
+ s+=box(90,145,170,70,'#237c9b')+line(85,145,265,145,'#7ce8ae',3)+line(235,190,285,190,'#8ddcff',8)+line(285,190,285,py,'#8ddcff',8)+line(285,py,387,py,'#8ddcff',8)+circle(420,py,33,'#315c76')+circle(420,py,8,'#ffd17d')+line(453,py,525,py,'#d5e8f4',9);
+ if(x>0)s+=arrow(337,145,337,py,'#ffca7d',4);
+ s+=text(30,36,'Cuve ouverte ; eau 20 °C ; h𝒻 = 0,80 m')+text(30,229,'H = '+N(x)+' m ; pompe au-dessus du plan libre');
+ s+='<g data-lift-m="'+x.toFixed(3)+'" data-pump-y="'+py.toFixed(2)+'"></g>';break;}
  case 'hydraulic-relief-setpoint-01':{
  const adjuster=475-3*x,coilStart=329,coilEnd=adjuster-8;
  s+=line(85,170,281,170,'#8ddcff',8)+line(281,145,281,194,'#d5e8f4',5);
@@ -518,7 +561,6 @@ case 'spring-stiffness-01':{
   s+='<path d="'+pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ')+'" fill="none" stroke="#8ddcff" stroke-width="4" data-ressort-continu="true"/>';
   s+=box(485,99,37,52,'#315c76')+arrow(522,125,567,125,'#ffca7d',4);
   s+=text(32,40,'Ressort axial : allongement fixé à 25 mm');
-  s+=text(32,215,'F = '+N(x)+' N ; k = '+N(result)+' N/m');
   s+=valueLabel(id,x,result);break;
 }
 case 'beam-stress-02':{s+=line(110,135,500,135,'#9bc9e5',10)+'<path d="M145 103 A42 42 0 1 1 145 167" fill="none" stroke="#ffca7d" stroke-width="5" marker-end="url(#pointe)"/>'+'<path d="M465 167 A42 42 0 1 1 465 103" fill="none" stroke="#ffca7d" stroke-width="5" marker-end="url(#pointe)"/>'+text(55,65,'Couple de flexion : M = '+N(x)+' N·m')+text(350,192,'Section : b = 40 mm ; h = 80 mm');s+=text(32,40,"Poutre en flexion et moment appliqué")+valueLabel(id,x,result);break;}

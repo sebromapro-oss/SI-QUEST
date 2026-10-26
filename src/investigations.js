@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"hydro-motor-speed-01":x=>11*x,
+"beam-center-deflection-01":x=>x*1.2**3/(48*210e9*8e-6)*1000,
+"reactive-three-phase-01":x=>Math.sqrt(3)*400*10*Math.sqrt(1-x*x)/1000,
+"rl-step-current-01":x=>2*(-Math.expm1(-x/10)),
+"npsh-available-01":x=>(101325-2340)/(998*9.81)-.8-x,
 'hydraulic-relief-setpoint-01':x=>80*x/100*10,
 'beam-support-reaction-01':x=>8*(2-x)/2,
 'lc-resonance-01':x=>1/(2*Math.PI*Math.sqrt(.05*x*1e-6)),
@@ -97,6 +102,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"hydro-motor-speed-01":{min:250,max:500,unit:"tr/min"},
+"beam-center-deflection-01":{min:0,max:0.12,unit:"mm"},
+"reactive-three-phase-01":{min:0,max:4,unit:"kVAr"},
+"rl-step-current-01":{min:1.5,max:2,unit:"A"},
+"npsh-available-01":{min:3,max:Infinity,unit:"m"},
 'hydraulic-relief-setpoint-01':{min:0,max:150,unit:"bar"},
 'beam-support-reaction-01':{min:0,max:6,unit:"kN"},
 'lc-resonance-01':{min:80,max:140,unit:"Hz"},
@@ -193,6 +203,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"hydro-motor-speed-01":Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Moteur à cylindrée fixe Vg = 80 cm³/tr ; rendement volumétrique ηᵥ = 0,88 constant ; débit entrant Q de 0 à 50 L/min ; huile incompressible, régime établi, rotation positive. Rendement mécanique, fuite dépendant de la pression et inertie exclus. Critère 250–500 tr/min fictif.","solution":"Q = 30 L/min = 0,000500 m³/s ; Vg = 80 cm³/tr = 80×10⁻⁶ m³/tr ; Qutile = 0,88×0,000500 = 0,000440 m³/s. n = Qutile/Vg = 5,50 tr/s = 330,00 tr/min. Vérification dimensionnelle : (m³/s)/(m³/tr) = tr/s. Vérifier au tachymètre et comparer aux données constructeur avant réglage."}),
+"beam-center-deflection-01":Object.freeze({"absoluteTolerance":0.001,"relativeTolerance":0,"precision":4,"assumptions":"Poutre prismatique bi-appuyée de portée L = 1,20 m, charge ponctuelle centrée F de 0 à 8 000 N, E = 210 GPa, I = 8,00×10⁻⁶ m⁴ ; matériau linéaire élastique, petites déformations, flèche positive vers le bas. Poids propre, cisaillement et déformation des appuis négligés. Seuil 0,12 mm fictif.","solution":"F = 4 000 N ; L³ = 1,728 m³ ; E I = 210×10⁹×8×10⁻⁶ = 1,680×10⁶ N·m². Numérateur F L³ = 6 912 N·m³ ; dénominateur 48 E I = 80 640 000 N·m². δ = 0,0000857143 m = 0,08571 mm. Dimension : N·m³/(N·m²) = m. Contrôler séparément la contrainte maximale et les conditions réelles des appuis."}),
+"reactive-three-phase-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Réseau triphasé sinusoïdal équilibré, tension composée efficace 400 V, courant de ligne efficace 10 A constant, charge inductive, cosφ entre 0,50 et 1,00, Q positive absorbée. Déséquilibres, harmoniques et modification du courant lors d’une compensation exclus. Plafond de 4 kVAr fictif.","solution":"S = √3×400×10 = 6 928,20 VA = 6,9282 kVA. Pour cosφ = 0,80, sinφ = √(1−0,80²) = 0,60. Q = 6,9282×0,60 = 4,1569 kVAr ; P = 6,9282×0,80 = 5,5426 kW. Vérifier S² = P² + Q² et l’unité V·A = VA. Mesurer les grandeurs électriques réelles avant toute compensation."}),
+"rl-step-current-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Source idéale de 12 V appliquée à t = 0, résistance totale 6 Ω, inductance constante 60 mH, courant initial nul, circuit série sans saturation ni force contre-électromotrice variable. Temps de 0 à 50 ms ; courant positif du pôle + vers le circuit. Plage 1,5–2,0 A fictive.","solution":"L = 60 mH = 0,060 H ; τ = L/R = 0,060/6 = 0,010 s = 10 ms. Courant final I∞ = U/R = 12/6 = 2,00 A. À t = 20 ms = 0,020 s : t/τ = 2, exp(−2) ≈ 0,135335. i = 2,00(1−0,135335) = 1,72933 A. Dimensions : H/Ω = s et V/Ω = A. i(0) = 0 ; i(t→∞) = 2 A. La saturation et les variations de résistance exigent des mesures réelles."}),
+"npsh-available-01":Object.freeze({"absoluteTolerance":0.03,"relativeTolerance":0,"precision":3,"assumptions":"Cuve ouverte à 101 325 Pa absolus ; eau à 20 °C de masse volumique 998 kg/m³ et pression de vapeur 2 340 Pa absolus ; g = 9,81 m/s² ; perte de charge à l’aspiration h𝒻 = 0,80 m supposée constante ; hauteur H positive au-dessus du plan libre, de 0 à 6 m. Vitesse du plan libre négligeable. Seuil de 3 m fictif, NPSH requis constructeur à vérifier.","solution":"pₐₜₘ − pᵥ = 101 325 − 2 340 = 98 985 Pa ; ρg = 998×9,81 = 9 790,38 N/m³. Charge de pression = 98 985/9 790,38 ≈ 10,1104 m. Pour H = 2,00 m et h𝒻 = 0,80 m : NPSHₐ ≈ 10,1104 − 2,00 − 0,80 = 7,3104 m. Dimension : Pa/(kg·m⁻³·m·s⁻²) = m. Le seuil fictif ne remplace pas le NPSH requis constructeur avec marge de sécurité."}),
 'hydraulic-relief-setpoint-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Clapet de section hydraulique effective A = 100 mm² ; ressort linéaire k = 80 N/mm ; précompression x dans [0 ; 25] mm. Équilibre juste avant ouverture, pression manométrique amont, pression aval atmosphérique. Masse, frottement, débit, hystérésis et dynamique exclus. Le plafond 150 bar est fictif.","solution":"k = 80 N/mm ; x = 15 mm ; F_ressort = kx = 1 200 N. A = 100 mm² = 1,00×10⁻⁴ m². p = F/A = 1,20×10⁷ Pa = 120,00 bar. Dimension : N/m² = Pa. Il s'agit d'un tarage théorique, pas d'une pression de service autorisée."}),
 'beam-support-reaction-01':Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Poutre rigide simplement appuyée en A et B, portée L = 2,00 m ; charge verticale ponctuelle F = 8,00 kN appliquée à distance a de A, 0 ≤ a ≤ L. Poids propre et effets dynamiques négligés. Réactions verticales positives vers le haut. Seuil de 6 kN à gauche fictif.","solution":"F = 8,00 kN ; L = 2,00 m ; a = 0,75 m. Moment en B : R_A L = F(L−a) = 8×1,25 = 10,00 kN·m. R_A = 10/2 = 5,000 kN. R_B = F−R_A = 3,000 kN. Dimensions : (kN·m)/m = kN. Vérifier les deux appuis avant manutention."}),
 'lc-resonance-01':Object.freeze({"absoluteTolerance":0.3,"relativeTolerance":0,"precision":2,"assumptions":"Circuit LC idéal sans résistance ni charge, L = 50 mH constant, C variable de 10 à 100 µF ; régime libre de faible amplitude, composants linéaires. La fréquence propre f₀ = 1/(2π√LC) ne prédit pas l'amplitude ni l'amortissement d'un montage réel. Plage 80–140 Hz fictive.","solution":"L = 50 mH = 0,050 H ; C = 47 µF = 47×10⁻⁶ F. LC = 2,350×10⁻⁶ s² ; √LC = 0,00153297 s. f₀ = 1/(2π×0,00153297) ≈ 103,82 Hz. Dimension : 1/√(H·F) = s⁻¹ = Hz. Les pertes réelles modifient la réponse du circuit."}),
@@ -283,7 +298,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
 }
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if((id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -294,6 +309,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"hydro-motor-speed-01":"L/min",
+"beam-center-deflection-01":"N",
+"reactive-three-phase-01":"sans unité",
+"rl-step-current-01":"ms",
+"npsh-available-01":"m",
 'hydraulic-relief-setpoint-01':"mm",
 'beam-support-reaction-01':"m",
 'lc-resonance-01':"µF",

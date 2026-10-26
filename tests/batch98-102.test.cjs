@@ -5,7 +5,7 @@ const ids=["hydraulic-relief-setpoint-01","beam-support-reaction-01","lc-resonan
 const near=(a,b,t=1e-10)=>assert.ok(Math.abs(a-b)<=t*Math.max(1,Math.abs(b)),a+' != '+b);
 function cfg(id){const html=fs.readFileSync('missions/'+id+'.html','utf8');return JSON.parse(html.split('window.SI_MISSION=')[1].split('</script>')[0]);}
 test('Lot 98–102 : catalogue, pages, politiques, schémas et navigation archipel',()=>{
- assert.equal(cat.levels.length,102);assert.equal(new Set(cat.levels.map(x=>x.id)).size,102);
+ assert.ok(cat.levels.length>=102);assert.equal(new Set(cat.levels.map(x=>x.id)).size,cat.levels.length);
  const home=fs.readFileSync('index.html','utf8');assert.match(home,/id="islands"/);
  for(const id of ids){const c=cfg(id),level=cat.byId(id);assert.ok(level);assert.equal(c.world,level.world);assert.equal(c.unit,m.criteria[id].unit);assert.equal(c.inputUnit,m.inputUnits[id]);near(c.expected,m.calculate(id,c.initial));assert.ok(m.answerPolicy[id].assumptions.length>160);assert.ok(m.answerPolicy[id].solution.length>120);for(const x of [c.min,c.initial,c.max]){const y=m.calculate(id,x),svg=d.render(id,x,y);assert.ok(Number.isFinite(y));assert.match(svg,/<title/);assert.match(svg,/<desc/);assert.ok(svg.includes(c.inputUnit));assert.ok(svg.includes(c.unit));assert.doesNotMatch(svg,/NaN|Infinity|undefined/);}}
 });

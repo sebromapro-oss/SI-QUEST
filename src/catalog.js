@@ -112,6 +112,11 @@
     Object.freeze({id:'lc-resonance-01',world:'SI-09',title:"Circuit LC — Fréquence propre électrique",url:'missions/lc-resonance-01.html',subskill:"Oscillations libres d'un circuit LC"}),
     Object.freeze({id:'screw-efficiency-01',world:'SI-05',title:"Vis de levage — Rendement avec frottement",url:'missions/screw-efficiency-01.html',subskill:"Vis–écrou et angle de frottement"}),
     Object.freeze({id:'adiabatic-compressor-01',world:'SI-07',title:"Compresseur — Température de compression idéale",url:'missions/adiabatic-compressor-01.html',subskill:"Compression isentropique d'un gaz parfait"}),
+    Object.freeze({id:"hydro-motor-speed-01",world:"SI-06",title:"Moteur hydraulique — Vitesse volumétrique",url:"missions/hydro-motor-speed-01.html",subskill:"Cylindrée et rendement volumétrique"}),
+    Object.freeze({id:"beam-center-deflection-01",world:"SI-04",title:"Traverse bi-appuyée — Flèche centrale",url:"missions/beam-center-deflection-01.html",subskill:"Flexion élastique d’une poutre bi-appuyée"}),
+    Object.freeze({id:"reactive-three-phase-01",world:"SI-08",title:"Moteur triphasé — Puissance réactive",url:"missions/reactive-three-phase-01.html",subskill:"Triangle des puissances en triphasé"}),
+    Object.freeze({id:"rl-step-current-01",world:"SI-09",title:"Circuit RL — Établissement du courant",url:"missions/rl-step-current-01.html",subskill:"Réponse temporelle d’un circuit RL"}),
+    Object.freeze({id:"npsh-available-01",world:"SI-06",title:"Pompe d’eau — NPSH disponible",url:"missions/npsh-available-01.html",subskill:"Hauteur nette d’aspiration et cavitation"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
