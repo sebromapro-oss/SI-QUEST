@@ -21,3 +21,11 @@ Chaque mission dispose de son HTML, modèle, unités, contexte métier, réactiv
 
 ## Réserves
 Pas de scènes 3D manipulables pour ces deux nouveaux modèles ; aucun essai navigateur, mobile, clavier matériel, zoom ni lecteur d'écran réel revendiqué. L'audit complet des missions 40–75 reste ouvert. Aucun changement de visibilité, accueil, carte, branche d'archive ou publication GitHub Pages.
+
+## Preuves CI vérifiées après correction du test d'unicité
+Révision de code `7b0002d11c72521fac4c33b1d5ce1d7f4f79f155` : les trois workflows GitHub Actions ont terminé avec la conclusion **success**.
+- `Recette automatisée SI QUEST` : exécution 40253822713 ; `node --test` : **546 tests, 546 réussis, 0 échec, 0 ignoré** ; syntaxe JS réussie.
+- `SI QUEST scientific quality` : exécution 40253822662, réussie.
+- `Contrôles scientifiques SI QUEST` : exécution 40253822514, réussie.
+
+Une première exécution sur `562459c1e6e5f69ea5bbe021f9227548217cfe64` avait échoué sur une assertion de taille fixe (85) du catalogue dans `tests/batch84-85.test.cjs`. Le test a été corrigé pour comparer le nombre d'identifiants uniques à la taille réelle du catalogue. Les trois workflows ont ensuite réussi. Ces preuves restent des contrôles automatisés, et non une réception visuelle ou matérielle.
