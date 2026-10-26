@@ -122,6 +122,11 @@
     Object.freeze({"id":"composite-wall-01","world":"SI-12","title":"Paroi multicouche — Flux thermique","url":"missions/composite-wall-01.html","subskill":"Résistances thermiques de deux couches en série"}),
     Object.freeze({"id":"combined-uncertainty-01","world":"SI-13","title":"Métrologie — Incertitude combinée","url":"missions/combined-uncertainty-01.html","subskill":"Composition quadratique d'incertitudes-types indépendantes"}),
     Object.freeze({"id":"stability-overturn-angle-01","world":"SI-03","title":"Engin sur dévers — Limite statique","url":"missions/stability-overturn-angle-01.html","subskill":"Projection du centre de gravité et angle limite de basculement"}),
+    Object.freeze({"id":"hydraulic-pump-shaft-01","world":"SI-06","title":"Pompe — Puissance à l'arbre","url":"missions/hydraulic-pump-shaft-01.html","subskill":"Puissance absorbée et rendement de pompe"}),
+    Object.freeze({"id":"braking-stop-time-01","world":"SI-02","title":"Freinage — Durée d'arrêt","url":"missions/braking-stop-time-01.html","subskill":"Temps d'arrêt sous force résistante constante"}),
+    Object.freeze({"id":"beam-curvature-01","world":"SI-04","title":"Flexion — Courbure élastique","url":"missions/beam-curvature-01.html","subskill":"Relation moment-courbure en flexion pure"}),
+    Object.freeze({"id":"battery-autonomy-01","world":"SI-10","title":"Batterie 24 V — Autonomie idéale","url":"missions/battery-autonomy-01.html","subskill":"Durée de service à puissance constante"}),
+    Object.freeze({"id":"strain-gauge-bridge-01","world":"SI-13","title":"Jauge — Tension d'un quart de pont","url":"missions/strain-gauge-bridge-01.html","subskill":"Sensibilité électrique d'un quart de pont"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});

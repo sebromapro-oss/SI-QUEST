@@ -1,6 +1,12 @@
 (()=>{
 'use strict';
 const c=window.SI_MISSION,profile={
+"hydraulic-pump-shaft-01":["Une pompe hydraulique doit être entraînée.","Distinguer puissance utile et puissance absorbée.","Comparer à 10 kW fictifs.","Mesurer les pressions et le rendement réel.","Choisir l'entraînement après étude."],
+"braking-stop-time-01":["Un engin doit être arrêté.","Calculer la décélération et le temps.","Comparer au critère fictif de 8 s.","Mesurer l'adhérence et la distance réelle.","Réexaminer le freinage."],
+"beam-curvature-01":["Un arbre est soumis à la flexion.","Calculer EI puis la courbure.","Comparer au seuil fictif.","Mesurer la géométrie et le moment.","Réexaminer la rigidité."],
+"battery-autonomy-01":["Une machine fonctionne sur batterie.","Calculer énergie puis durée.","Comparer au seuil fictif de 12 h.","Mesurer la capacité et la consommation réelles.","Adapter la batterie."],
+"strain-gauge-bridge-01":["Une jauge mesure une déformation.","Convertir µm/m et calculer ΔU.","Comparer au seuil fictif de 3 mV.","Contrôler excitation et étalonnage.","Adapter l'instrumentation."],
+
 "hydro-motor-speed-01":["Une transmission hydrostatique manque de vitesse.","Convertir Q et Vg et distinguer rendement volumétrique et mécanique.","Comparer n à la plage fictive 250–500 tr/min.","Mesurer débit, régime, pressions et température.","Rechercher fuites internes et défaut de réglage avant remplacement."],
 "beam-center-deflection-01":["Une traverse de manutention fléchit sous charge.","Identifier E, I, L et F et leurs unités.","Comparer δ au plafond fictif de 0,12 mm.","Mesurer la déformée, les appuis et les sections réelles.","Augmenter EI ou réduire la portée après étude de résistance."],
 "reactive-three-phase-01":["Le facteur de puissance d’un moteur triphasé est analysé.","Distinguer P, Q et S et calculer sinφ.","Comparer Q au plafond fictif de 4 kVAr.","Mesurer courants, cosφ, harmoniques et charge réelle.","Étudier une compensation avec protections et prescription constructeur."],

@@ -1,6 +1,12 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"hydraulic-pump-shaft-01":x=>x*24/(600*.8),
+"braking-stop-time-01":x=>1200*(x/3.6)/3000,
+"beam-curvature-01":x=>x/(210e9*8e-6),
+"battery-autonomy-01":x=>24*x/120,
+"strain-gauge-bridge-01":x=>5*2.1*(x*1e-6)*1000/4,
+
 "double-shear-pin-01":x=>2*x*1000/(Math.PI*.012**2)/1e6,
 "hydraulic-reynolds-01":x=>4*850*(x/60000)/(Math.PI*.04*.008),
 "composite-wall-01":x=>x/(.08/(.04*2)+.10/(.8*2)),
@@ -108,6 +114,12 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"hydraulic-pump-shaft-01":{min:0,max:10,unit:"kW"},
+"braking-stop-time-01":{min:0,max:8,unit:"s"},
+"beam-curvature-01":{min:0,max:0.0015,unit:"m⁻¹"},
+"battery-autonomy-01":{min:12,max:Infinity,unit:"h"},
+"strain-gauge-bridge-01":{min:0,max:3,unit:"mV"},
+
 "double-shear-pin-01":{min:0,max:70,unit:"MPa"},
 "hydraulic-reynolds-01":{min:0,max:2300,unit:"sans unité"},
 "composite-wall-01":{min:0,max:40,unit:"W"},
@@ -215,6 +227,12 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"hydraulic-pump-shaft-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":2,"assumptions":"Huile incompressible, écoulement stationnaire, débit 24 L/min et rendement global 0,80 constants, pression différentielle de 0 à 250 bar. Critère P_arbre ≤ 10 kW fictif ; vérifier les données constructeur.","solution":"Δp = 150 bar = 15 000 000 Pa ; Q = 24 L/min = 4,00×10⁻⁴ m³/s ; P_h = 6 000 W ; P_arbre = 6 000/0,80 = 7 500 W = 7,50 kW. Contrôle : Pa·m³/s = W. Critère fictif de 10 kW, non constructeur."}),
+"braking-stop-time-01":Object.freeze({"absoluteTolerance":0.03,"relativeTolerance":0,"precision":2,"assumptions":"Translation rectiligne, freinage constant, vitesse initiale 0 à 90 km/h, adhérence suffisante, sans pente, traînée ni temps de réaction. Critère t ≤ 8 s fictif ; ne démontre pas la sécurité du freinage.","solution":"v₀ = 54 km/h = 15,0 m/s ; a = −3 000/1 200 = −2,50 m/s² ; t = 15,0/2,50 = 6,00 s. Contrôle : (m/s)/(m/s²) = s. Critère de 8 s fictif ; distance d'arrêt non évaluée."}),
+"beam-curvature-01":Object.freeze({"absoluteTolerance":0.000002,"relativeTolerance":0,"precision":7,"assumptions":"Poutre prismatique homogène, flexion pure, petites déformations, moment de 500 à 3 000 N·m, E et I constants. Déformée graphique amplifiée et non à l'échelle. Critère κ ≤ 0,0015 m⁻¹ fictif.","solution":"E = 210 GPa = 2,10×10¹¹ Pa ; EI = 1,68×10⁶ N·m² ; κ = 1 000/1 680 000 = 5,95238×10⁻⁴ m⁻¹. Contrôle : (N·m)/(N·m²) = m⁻¹. Rayon local = 1/κ = 1 680 m. Vérifier les contraintes et la flèche."}),
+"battery-autonomy-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":2,"assumptions":"Tension moyenne 24 V constante, capacité utilisable 0 à 150 Ah, charge de 120 W constante, pertes et vieillissement exclus. Critère t ≥ 12 h fictif, non garantie d'autonomie réelle.","solution":"E = 24 V×80 Ah = 1 920 Wh ; t = 1 920 Wh/120 W = 16,0 h. Contrôle : Wh/W = h. Seuil fictif 12 h ; mesurer la capacité et les pertes réelles."}),
+"strain-gauge-bridge-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Pont initialement équilibré, une jauge active et trois résistances constantes, ε de 0 à 1 500 µm/m, excitation 5 V, GF 2,10. |GF ε| ≪ 1, polarité positive en traction pour le branchement retenu. Température et fils exclus. Critère ΔU ≤ 3 mV fictif.","solution":"ε = 800 µm/m = 8,00×10⁻⁴ ; GFε = 0,00168 ; ΔU ≈ 5 V×0,00168/4 = 0,00210 V = 2,100 mV. Contrôle : V×1 = V. Seuil fictif 3 mV ; vérifier câblage et étalonnage."}),
+
 "double-shear-pin-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":3,"assumptions":"Axe plein de diamètre 12 mm, deux plans identiques et symétriques, répartition uniforme de la charge F entre les deux sections, charge statique de 0 à 30 kN. Flexion, contact, jeu, fatigue et concentrations de contraintes exclus. Seuil de 70 MPa fictif, non constructeur.","solution":"F = 12 kN = 12 000 N ; d = 12 mm = 0,012 m ; A = πd²/4 = 1,13097×10⁻⁴ m². Deux plans : 2A = 2,26195×10⁻⁴ m². τ = F/(2A) = 53 051 648 Pa = 53,052 MPa. Contrôle N/m² = Pa ; si F double, τ double. Seuil fictif 70 MPa ; vérifier flexion, pression de contact et fatigue avant dimensionnement."}),
 "hydraulic-reynolds-01":Object.freeze({"absoluteTolerance":2,"relativeTolerance":0,"precision":2,"assumptions":"Huile newtonienne incompressible à ρ = 850 kg/m³ et μ = 0,040 Pa·s constants, tube circulaire de D = 0,008 m, débit de 0 à 80 L/min. Seuils usuels indicatifs : laminaire sous 2 300, transition 2 300–4 000, turbulent au-delà de 4 000. À débit nul, pas d'écoulement. Rugosité, entrée et singularités exclues. Critère fictif Q > 0 et Re ≤ 2 300.","solution":"Q = 20 L/min = 3,33333×10⁻⁴ m³/s ; D = 0,008 m ; A = πD²/4 = 5,02655×10⁻⁵ m². v = Q/A = 6,63146 m/s ; Re = 850×6,63146×0,008/0,040 = 1 127,35, sans unité. Contrôle : (kg/m³)(m/s)(m)/(kg/(m·s)) = 1. À 80 L/min, Re = 4 509,39 ; régime turbulent indicatif. À Q = 0, aucun régime d'écoulement. Vérifier la viscosité à la température réelle."}),
 "composite-wall-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":3,"assumptions":"Deux couches planes, A = 2,00 m², e₁ = 0,080 m, λ₁ = 0,040 W/(m·K), e₂ = 0,100 m, λ₂ = 0,80 W/(m·K). Écart ΔT de 0 à 60 K, face froide 20 °C. Conduction stationnaire 1D, contact parfait ; ponts thermiques, convection, rayonnement et résistances de surface exclus. Seuil Φ ≤ 40 W fictif.","solution":"R₁ = 0,080/(0,040×2,00) = 1,000 K/W ; R₂ = 0,100/(0,80×2,00) = 0,0625 K/W. Rtotal = 1,0625 K/W. Pour ΔT = 30 K, Φ = 30/1,0625 = 28,235 W. Face chaude = 50 °C ; chute dans couche 1 = ΦR₁ = 28,235 K ; Tinterface = 21,765 °C ; chute dans couche 2 = 1,765 K. Vérification : K/(K/W) = W. Comparer à 40 W fictifs ; mesurer les températures et les autres échanges."}),
@@ -316,7 +334,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
 }
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if((id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -327,6 +345,12 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"hydraulic-pump-shaft-01":"bar",
+"braking-stop-time-01":"km/h",
+"beam-curvature-01":"N·m",
+"battery-autonomy-01":"Ah",
+"strain-gauge-bridge-01":"µm/m",
+
 "double-shear-pin-01":"kN",
 "hydraulic-reynolds-01":"L/min",
 "composite-wall-01":"K",
