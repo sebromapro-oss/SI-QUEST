@@ -15,3 +15,10 @@ P : réactivation, aides, trois essais, corrigé conditionnel et décision ficti
 F : catalogue, pages et moteurs intégrés ; résultats CI à vérifier après commit.
 A : descriptions SVG et labels HTML ; tests NVDA, TalkBack, VoiceOver et zoom réel **non effectués**.
 Statut : **codées, réception complète non démontrée**. Aucune publication publique, ZIP, refonte accueil/carte ou changement de visibilité.
+
+## Preuves d'exécution GitHub Actions
+Révision de code `7bb19992b54f972d231caa3839254a7f4d745264` : trois workflows **terminés avec succès** le 26 octobre 2026.
+- **Recette automatisée SI QUEST**, exécution `40263793395`, job `121381619687` : **554 tests Node exécutés, 554 réussis, 0 échec, 0 ignoré** ; syntaxe JavaScript réussie.
+- **Contrôles scientifiques SI QUEST**, exécution `40263793405` : syntaxe, tests scientifiques et contrôle du catalogue réussis.
+- **SI QUEST scientific quality**, exécution `40263793483` : vérifications scientifiques et structurelles réussies.
+Ces preuves sont automatisées. Aucun test visuel navigateur réel, mobile matériel ou lecteur d'écran n'a été effectué.
