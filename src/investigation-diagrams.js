@@ -314,7 +314,7 @@ case 'screw-efficiency-01':{
  const lam=8*Math.PI/180,fl=55+150*x/.3;
  s+=line(125,174,492,174,'#9bc9e5',2)+line(125,174,492,174-367*Math.tan(lam),'#8ddcff',6);
  s+='<path d="M125 174 L492 174 L492 '+(174-367*Math.tan(lam)).toFixed(2)+' Z" fill="#315c76" opacity=".4"/>';
- s+=box(345,119,60,38,'#315c76');
+ s+='<path d="M338 144 L398 '+(144-60*Math.tan(lam)).toFixed(2)+' L398 '+(112-60*Math.tan(lam)).toFixed(2)+' L338 112 Z" fill="#315c76" stroke="#9bc9e5" stroke-width="2" data-bloc-tangent="true"/>';
  s+=arrow(345,142,345-fl,142+fl*Math.tan(lam),'#ffca7d',4);
  s+=arrow(405,118,470,118-65*Math.tan(lam),'#7ce8ae',4);
  s+=text(32,35,'λ = 8° ; µ = '+N(x)+' (sans unité)');
