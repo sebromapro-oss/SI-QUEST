@@ -50,3 +50,23 @@ body.dialog-open{overflow:hidden}
 .island{width:66px!important;height:64px!important}
 .island-name{max-width:112%;font-size:.52rem}
 }
+
+/* Correction mobile v4 : surface de carte panoramique défilable, non miniaturisée */
+@media (max-width:620px){
+ .game-screen{min-height:995px}
+ .archipelago{left:0;right:0;top:218px;bottom:auto;height:550px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-color:#7dcdec #0a2944;scrollbar-width:thin;touch-action:pan-x;z-index:3}
+ .archipelago::after{content:"Glisser pour explorer les îles →";position:sticky;left:0;top:510px;display:block;width:max-content;margin-left:12px;padding:5px 10px;border-radius:6px;background:#071c34db;color:#e1f7ff;font-size:.76rem;pointer-events:none}
+ .archipelago .islands{position:relative;inset:auto;width:1050px;height:510px;min-width:1050px}
+ .archipelago .routes{display:none}
+ .archipelago .map-label{position:sticky;left:12px;right:auto;top:0;width:max-content;z-index:5;background:#082642ca;padding:.3rem .65rem;border-radius:8px}
+ .archipelago .island{width:130px!important;height:105px!important;min-width:130px;min-height:105px}
+ .archipelago .island-name{max-width:125%;font-size:.7rem;white-space:normal;min-width:90px;overflow-wrap:normal}
+ .map-side{left:3%;right:3%;bottom:10px;z-index:5}
+}
+@media (max-width:390px){
+ .game-screen{min-height:1010px}
+ .archipelago{top:215px;height:560px;bottom:auto}
+ .archipelago .islands{height:520px}
+ .archipelago .island{width:130px!important;height:105px!important}
+ .archipelago .island-name{font-size:.7rem;max-width:125%}
+}
