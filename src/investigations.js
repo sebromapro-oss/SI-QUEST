@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"thin-wall-hoop-stress-01":x=>x*1e5*.5/(2*.006)/1e6,
+"thermal-fourier-number-01":x=>1.2e-5*x/(.02**2),
+"gear-mesh-frequency-01":x=>36*x/60,
+"jet-impact-force-01":x=>1000*(x/60000)**2/(Math.PI*.01**2/4),
+"rectangular-beam-shear-01":x=>1.5*x*1000/(.04*.08)/1e6,
 "combined-stress-von-mises-01":x=>Math.hypot(120,Math.sqrt(3)*x),
 "pt100-linear-response-01":x=>100*(1+.00385*x),
 "torsional-eigenfrequency-01":x=>Math.sqrt(x/8)/(2*Math.PI),
@@ -144,6 +149,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"thin-wall-hoop-stress-01":{min:0,max:120,unit:"MPa"},
+"thermal-fourier-number-01":{min:0.5,max:Infinity,unit:"sans unité"},
+"gear-mesh-frequency-01":{min:0,max:900,unit:"Hz"},
+"jet-impact-force-01":{min:0,max:4,unit:"N"},
+"rectangular-beam-shear-01":{min:0,max:4,unit:"MPa"},
 "combined-stress-von-mises-01":{min:0,max:180,unit:"MPa"},
 "pt100-linear-response-01":{min:100,max:140,unit:"Ω"},
 "torsional-eigenfrequency-01":{min:1.8,max:Infinity,unit:"Hz"},
@@ -287,6 +297,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"thin-wall-hoop-stress-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":2,"assumptions":"Enveloppe cylindrique mince homogène, pression différentielle p de 0 à 36 bar, diamètre moyen D = 0,500 m, épaisseur t = 0,00600 m et t/D = 0,012. Contrainte positive en traction. Les soudures, fonds, corrosion, concentrations et prescriptions réglementaires sont exclus. Limite 120 MPa fictive.","solution":"p = 24 bar = 2,40×10⁶ Pa ; D = 0,500 m ; t = 0,00600 m. Équilibre d'une demi-coque de longueur L : pDL = 2σθtL. σθ = (2,40×10⁶ Pa × 0,500 m)/(2×0,00600 m) = 1,00×10⁸ Pa = 100 MPa. Contrôle : Pa×m/m = Pa. À pression nulle, contrainte nulle ; si p double, σθ double. Le critère fictif ne dispense jamais des règles d'équipement sous pression."}),
+"thermal-fourier-number-01":Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Plaque homogène de diffusivité constante α = 1,20×10⁻⁵ m²/s et demi-épaisseur L = 0,0200 m. Temps t de 0 à 60 s. Fo compare deux échelles de temps et ne donne pas de température. Conditions de convection et nombre de Biot non renseignés : aucun profil thermique réel ne peut être calculé. Seuil Fo ≥ 0,50 fictif.","solution":"α = 1,20×10⁻⁵ m²/s ; t = 20,0 s ; L = 0,0200 m ; L² = 4,00×10⁻⁴ m². Fo = (1,20×10⁻⁵ m²/s × 20,0 s)/(4,00×10⁻⁴ m²) = 0,600 sans unité. Contrôle dimensionnel : (m²/s)×s/m² = 1. À t = 0, Fo = 0 ; doubler t double Fo. Le seuil est fictif ; mesurer l'échange convectif et déterminer Bi avant toute prédiction de température."}),
+"gear-mesh-frequency-01":Object.freeze({"absoluteTolerance":1,"relativeTolerance":0,"precision":1,"assumptions":"Engrenages droits extérieurs en prise permanente : pignon z₁ = 36 dents, roue z₂ = 54 dents. Régime n₁ de 600 à 1 800 tr/min, supposé stationnaire ; pas de glissement de denture. fₑ est une fréquence de passage, non une fréquence propre. Le seuil d'alerte 900 Hz est fictif et ne constitue pas un diagnostic vibratoire.","solution":"n₁ = 1 200 tr/min = 20 tr/s. fₑ = z₁n₁/60 = 36×1 200/60 = 720 Hz. Vérification indépendante : n₂ = 1 200×36/54 = 800 tr/min en sens opposé ; fₑ = 54×800/60 = 720 Hz. Contrôle dimensionnel : dents/tr × tr/s = s⁻¹. Si n₁ double, fₑ double. Relever le spectre réel et rechercher bandes latérales et harmoniques avant de conclure."}),
+"jet-impact-force-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Eau incompressible ρ = 1 000 kg/m³, buse circulaire d = 0,0100 m, Q entre 0 et 40 L/min. Jet libre à pression ambiante, vitesse uniforme et axiale, cible plane fixe normale au jet, composante axiale de sortie nulle. Écoulement stationnaire sans éclaboussures axiales ni pression résiduelle. Force sur cible positive dans le sens du jet. Limite fictive 4 N.","solution":"Q = 24 L/min = 24×10⁻³/60 = 4,00×10⁻⁴ m³/s. A = π×0,0100²/4 = 7,85398×10⁻⁵ m². v = Q/A = 5,09296 m/s. ṁ = ρQ = 0,400 kg/s. F = ṁ(v−0) = 0,400×5,09296 = 2,03718 N. Contrôle : kg/s × m/s = N. À débit nul, force nulle ; si Q double, F quadruple. La déviation réelle du jet et les projections doivent être mesurées avant une décision."}),
+"rectangular-beam-shear-01":Object.freeze({"absoluteTolerance":0.03,"relativeTolerance":0,"precision":3,"assumptions":"Poutre droite prismatique homogène, section rectangulaire b = 0,0400 m et h = 0,0800 m, effort tranchant V de 0 à 12 kN. Hypothèses classiques de poutre, petites déformations et charge statique. Profil τ(y) = τmax[1−(2y/h)²] ; y mesuré depuis l'axe neutre. Concentrations locales, assemblages et contraintes de flexion non étudiés. Limite 4 MPa fictive.","solution":"A = bh = 0,0400×0,0800 = 3,20×10⁻³ m². V = 8,00 kN = 8 000 N. τmoy = V/A = 2,50×10⁶ Pa = 2,50 MPa. τmax = 3τmoy/2 = 3,75 MPa. Contrôle : N/m² = Pa. À l'axe neutre y = 0, τ = τmax ; aux bords y = ±h/2, τ = 0. À effort tranchant double, contrainte double. Vérifier également flexion, appuis et assemblages."}),
 "combined-stress-von-mises-01":Object.freeze({"absoluteTolerance":0.25,"relativeTolerance":0,"precision":2,"assumptions":"État de contrainte plane homogène, σx = 120 MPa, σy = 0 MPa, τxy entre 0 et 100 MPa ; matériau ductile isotrope en régime élastique, chargement statique. La limite pédagogique de 180 MPa est fictive. Le modèle ne traite ni fatigue, ni flambement, ni concentration de contrainte.","solution":"σVM² = σx² + 3τ² = 120² + 3×40² = 19 200 MPa². σVM = √19 200 = 138,56 MPa. Contrôle dimensionnel : √MPa² = MPa. À τ = 0, σVM = 120 MPa. Comparer au seuil fictif de 180 MPa puis contrôler matière, coefficients et contraintes locales."}),
 "pt100-linear-response-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":2,"assumptions":"Pt100 nominale R₀ = 100 Ω à 0 °C, approximation linéaire avec α = 0,00385 K⁻¹, température entre 0 et 150 °C. Ce modèle simplifié n'est PAS la relation normative exacte IEC 60751 : il ne convient pas pour un étalonnage de précision. Plafond fictif de 140 Ω.","solution":"ΔT = 80 K depuis 0 °C ; αΔT = 0,00385×80 = 0,308 sans unité. R = 100 Ω × (1 + 0,308) = 130,80 Ω. Contrôle : Ω×(1+K⁻¹×K) = Ω. Comparer au seuil fictif de 140 Ω ; pour une mesure réelle, utiliser la table IEC 60751 et corriger les fils."}),
 "torsional-eigenfrequency-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Oscillateur torsionnel idéal à un degré de liberté : J = 8,00 kg·m², raideur kθ de 500 à 2 000 N·m/rad. Arbre sans inertie répartie, sans amortissement ni jeu ; petites oscillations. Le seuil de 1,8 Hz est fictif et ne prouve pas l'absence de résonance réelle.","solution":"kθ/J = 1 250/8 = 156,25 s⁻². Pulsation propre ω₀ = √156,25 = 12,5 rad/s. Fréquence f₀ = 12,5/(2π) = 1,9894 Hz. Contrôle : √[(N·m)/(kg·m²)] = s⁻¹. Mesurer les excitations réelles et l'amortissement avant décision."}),
@@ -423,7 +438,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
  if(Math.abs(value-expected)<=Math.max(10*eps,.01*Math.abs(expected)))return 'Réponse proche : vérifie les arrondis, les chiffres significatifs et la précision demandée.';
  return 'Reprends la formule, les données et les unités'+(unit?' (résultat à exprimer en '+unit+')':'')+'.';
 }
-const cycle138Domains=Object.freeze({"combined-stress-von-mises-01":[0,100],"pt100-linear-response-01":[0,150],"torsional-eigenfrequency-01":[500,2000],"laminar-darcy-factor-01":[400,2000],"triangle-actuator-angle-01":[0.25,1.05],"hydraulic-oil-compressibility-01":[0,200],"hollow-shaft-polar-inertia-01":[20,50],"wheel-braking-slip-01":[0,12.5],"lumped-cooling-time-constant-01":[10,80],"adc-voltage-step-01":[2,12]});
+const cycle138Domains=Object.freeze({"thin-wall-hoop-stress-01":[0,36],"thermal-fourier-number-01":[0,60],"gear-mesh-frequency-01":[600,1800],"jet-impact-force-01":[0,40],"rectangular-beam-shear-01":[0,12],"combined-stress-von-mises-01":[0,100],"pt100-linear-response-01":[0,150],"torsional-eigenfrequency-01":[500,2000],"laminar-darcy-factor-01":[400,2000],"triangle-actuator-angle-01":[0.25,1.05],"hydraulic-oil-compressibility-01":[0,200],"hollow-shaft-polar-inertia-01":[20,50],"wheel-braking-slip-01":[0,12.5],"lumped-cooling-time-constant-01":[10,80],"adc-voltage-step-01":[2,12]});
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
  const domain=cycle138Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
@@ -440,6 +455,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"thin-wall-hoop-stress-01":"bar",
+"thermal-fourier-number-01":"s",
+"gear-mesh-frequency-01":"tr/min",
+"jet-impact-force-01":"L/min",
+"rectangular-beam-shear-01":"kN",
 "combined-stress-von-mises-01":"MPa",
 "pt100-linear-response-01":"°C",
 "torsional-eigenfrequency-01":"N·m/rad",
