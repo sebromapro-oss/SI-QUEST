@@ -127,6 +127,11 @@
     Object.freeze({"id":"beam-curvature-01","world":"SI-04","title":"Flexion — Courbure élastique","url":"missions/beam-curvature-01.html","subskill":"Relation moment-courbure en flexion pure"}),
     Object.freeze({"id":"battery-autonomy-01","world":"SI-10","title":"Batterie 24 V — Autonomie idéale","url":"missions/battery-autonomy-01.html","subskill":"Durée de service à puissance constante"}),
     Object.freeze({"id":"strain-gauge-bridge-01","world":"SI-13","title":"Jauge — Tension d'un quart de pont","url":"missions/strain-gauge-bridge-01.html","subskill":"Sensibilité électrique d'un quart de pont"}),
+    Object.freeze({"id":"flywheel-angular-momentum-01","world":"SI-02","title":"Volant — Moment cinétique axial","url":"missions/flywheel-angular-momentum-01.html","subskill":"Moment cinétique autour d’un axe fixe"}),
+    Object.freeze({"id":"rc-charge-threshold-01","world":"SI-09","title":"Circuit RC — Temps d’atteinte d’un seuil","url":"missions/rc-charge-threshold-01.html","subskill":"Résolution temporelle d’une charge exponentielle"}),
+    Object.freeze({"id":"thermal-clearance-01","world":"SI-12","title":"Dilatation différentielle — Jeu résiduel","url":"missions/thermal-clearance-01.html","subskill":"Jeu fonctionnel et dilatation de deux matériaux"}),
+    Object.freeze({"id":"venturi-pressure-01","world":"SI-06","title":"Venturi — Différence de pression idéale","url":"missions/venturi-pressure-01.html","subskill":"Bernoulli et continuité dans une conduite rétrécie"}),
+    Object.freeze({"id":"spring-series-01","world":"SI-04","title":"Deux ressorts en série — Raideur équivalente","url":"missions/spring-series-01.html","subskill":"Association en série de deux ressorts linéaires"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
