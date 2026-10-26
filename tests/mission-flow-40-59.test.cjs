@@ -62,7 +62,7 @@ test('persistance et reprise locale versionnée',()=>{
  b.get('reset').fire('click');assert.equal(storage['siquest:gear-mesh-01:v2.1'],undefined);
 });
 
-const newIds=['hydraulic-pump-shaft-01','braking-stop-time-01','beam-curvature-01','battery-autonomy-01','strain-gauge-bridge-01','double-shear-pin-01','hydraulic-reynolds-01','composite-wall-01','combined-uncertainty-01','stability-overturn-angle-01'];
+const newIds=['hydraulic-pump-shaft-01','braking-stop-time-01','beam-curvature-01','battery-autonomy-01','strain-gauge-bridge-01','double-shear-pin-01','hydraulic-reynolds-01','composite-wall-01','combined-uncertainty-01','stability-overturn-angle-01','flywheel-angular-momentum-01','rc-charge-threshold-01','thermal-clearance-01','venturi-pressure-01','spring-series-01'];
 for(const id of newIds)test(id+' : sauvegarde, reprise et investigation au seuil',()=>{
  const storage={},a=harness(id,storage);a.submit(a.cfg.expected);
  assert.equal(JSON.parse(storage['siquest:'+id+':v2.1']).mastered,true);
