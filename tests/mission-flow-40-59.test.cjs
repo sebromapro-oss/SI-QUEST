@@ -39,7 +39,7 @@ for(const id of ids){
   assert.equal(JSON.parse(h.storage['siquest:'+id+':v2.1']).mastered,false);
   g('reset').fire('click');assert.equal(g('graph').style.display,'none');assert.equal(g('solution').disabled,true);
   h.submit(h.cfg.expected);assert.equal(g('rewardStars').textContent,'★★★');assert.equal(g('submit').disabled,true);
-  assert.equal(g('axis-y').textContent,h.cfg.unit);assert.equal(g('axis-x').textContent,h.cfg.inputUnit);
+  assert.equal(g('axis-y').textContent,h.cfg.unit==='sans unité'?'1':h.cfg.unit);assert.equal(g('axis-x').textContent,h.cfg.inputUnit==='sans unité'?'1':h.cfg.inputUnit);
   assert.equal(JSON.parse(h.storage['siquest:'+id+':v2.1']).stars,3);
   if(spatial.allowed.has(id)){assert.match(g('scene3-view').innerHTML,/<svg/);if(spatial.animated.has(id)){g('scene3-step').fire('click');assert.ok(g('scene3-info').textContent.includes('0.10 s'))}}
  });
