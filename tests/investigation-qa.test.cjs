@@ -73,9 +73,9 @@ test('trois essais et trois indices requis avant corrigé',()=>{
  const p=mockPage(c),n=p.nodes;
  n.answer.value='-999';
  for(let i=0;i<3;i++)n.calc.events.submit({preventDefault(){}});
- assert.equal(n.solution.disabled,true);
- for(let i=0;i<3;i++)n.hint.events.click();
  assert.equal(n.solution.disabled,false);
+ assert.match(n.hintText.textContent,/3\. /);
+ assert.equal(n.hint.disabled,true);
  assert.equal(p.graph.style.display,'none');
  n.solution.events.click();
  assert.equal(p.graph.style.display,'block');

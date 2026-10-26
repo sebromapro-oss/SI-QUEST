@@ -31,9 +31,9 @@ for(const id of ids){
   const h=harness(id),g=h.get;
   assert.equal(g('graph').style.display,'none');assert.equal(g('solution').disabled,true);
   h.submit('mauvaise saisie');assert.equal(g('solution').disabled,true);assert.equal(g('answer').disabled,false);
-  for(let i=0;i<3;i++){h.submit('999999');assert.equal(g('solution').disabled,true)}
+  for(let i=0;i<3;i++){h.submit('999999');assert.equal(g('solution').disabled,i<2)}
   assert.equal(g('answer').disabled,true);
-  for(let i=0;i<3;i++){g('hint').fire('click');assert.equal(g('solution').disabled,i<2)}
+  assert.equal(g('hint').disabled,true);
   assert.ok(g('hintText').textContent.includes('3. '));
   g('solution').fire('click');assert.equal(g('graph').style.display,'block');assert.equal(g('rewardStars').textContent,'☆☆☆');
   assert.equal(JSON.parse(h.storage['siquest:'+id+':v2.1']).mastered,false);
