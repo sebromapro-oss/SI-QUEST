@@ -7,6 +7,11 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'hydraulic-relief-setpoint-01':"Soupape hydraulique — Pression de tarage",
+'beam-support-reaction-01':"Poutre sur deux appuis — Réaction d'appui",
+'lc-resonance-01':"Circuit LC — Fréquence propre électrique",
+'screw-efficiency-01':"Vis de levage — Rendement avec frottement",
+'adiabatic-compressor-01':"Compresseur — Température de compression idéale",
 'convective-heat-flux-01':'Convection d’une paroi vers l’air ambiant',
 'orifice-flow-01':'Orifice hydraulique : différence de pression et débit',
 'hydrostatic-gate-force-01':'Poussée hydrostatique sur une porte verticale',
@@ -274,6 +279,59 @@ function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'hydraulic-relief-setpoint-01':{
+ const adjuster=475-3*x,coilStart=329,coilEnd=adjuster-8;
+ s+=line(85,170,281,170,'#8ddcff',8)+line(281,145,281,194,'#d5e8f4',5);
+ s+=circle(295,170,16,'#315c76')+line(311,170,coilStart,170,'#8ddcff',4);
+ const points=[[coilStart,170]];for(let k=0;k<10;k++)points.push([coilStart+(coilEnd-coilStart)*(k+.5)/10, k%2?183:157],[coilStart+(coilEnd-coilStart)*(k+1)/10,170]);
+ s+='<path d="'+points.map((p,i)=>(i?'L':'M')+p[0].toFixed(2)+' '+p[1]).join(' ')+'" fill="none" stroke="#7ce8ae" stroke-width="3" data-spring-end="'+coilEnd.toFixed(2)+'"/>';
+ s+=line(adjuster,130,adjuster,210,'#ffd17d',7)+arrow(125,170,245,170,'#ffca7d',4);
+ s+=text(32,40,'A = 100 mm² ; k = 80 N/mm ; x = '+N(x)+' mm');
+ s+=text(32,226,'Tarage théorique p = '+N(result)+' bar ; clapet fermé avant ouverture');break;
+}
+case 'beam-support-reaction-01':{
+ const load=130+160*x,RA=8*(2-x)/2,RB=8-RA;
+ s+=line(130,124,450,124,'#9bc9e5',9)+line(130,135,130,177,'#9bc9e5',2)+line(450,135,450,177,'#9bc9e5',2);
+ s+='<path d="M115 179 L145 179 L130 152 Z M435 179 L465 179 L450 152 Z" fill="#315c76" stroke="#d5e8f4" stroke-width="2"/>';
+ s+=arrow(load,55,load,113,'#ffca7d',5);
+ if(RA>0)s+=arrow(130,190,130,190-RA*11,'#7ce8ae',4);
+ if(RB>0)s+=arrow(450,190,450,190-RB*11,'#7ce8ae',4);
+ s+=text(32,36,'F = 8,00 kN ; L = 2,00 m ; a = '+N(x)+' m');
+ s+=text(32,223,'R_A = '+N(RA)+' kN ; R_B = '+N(RB)+' kN');
+ s+='<g data-load-x="'+load.toFixed(2)+'" data-reaction-sum-kN="'+(RA+RB).toFixed(3)+'"></g>';break;
+}
+case 'lc-resonance-01':{
+ s+=line(155,65,445,65,'#9bc9e5',4)+line(155,190,445,190,'#9bc9e5',4);
+ s+=line(210,65,210,88,'#8ddcff',4)+line(210,164,210,190,'#8ddcff',4);
+ s+='<path d="M210 88 C180 92 180 104 210 108 C240 112 240 124 210 128 C180 132 180 144 210 148 C240 152 240 160 210 164" fill="none" stroke="#8ddcff" stroke-width="4"/>';
+ s+=line(390,65,390,111,'#ffd17d',4)+line(366,111,414,111,'#ffd17d',5)+line(366,137,414,137,'#ffd17d',5)+line(390,137,390,190,'#ffd17d',4);
+ s+=text(32,35,'L = 50 mH ; C = '+N(x)+' µF');
+ s+=text(220,118,'L')+text(418,130,'C');
+ s+=text(32,223,'Circuit LC idéal ; f₀ = '+N(result)+' Hz');
+ s+='<g data-capacitance-uF="'+N(x)+'" data-inductance-H="0.05"></g>';break;
+}
+case 'screw-efficiency-01':{
+ const lam=8*Math.PI/180,fl=55+150*x/.3;
+ s+=line(125,174,492,174,'#9bc9e5',2)+line(125,174,492,174-367*Math.tan(lam),'#8ddcff',6);
+ s+='<path d="M125 174 L492 174 L492 '+(174-367*Math.tan(lam)).toFixed(2)+' Z" fill="#315c76" opacity=".4"/>';
+ s+=box(345,119,60,38,'#315c76');
+ s+=arrow(345,142,345-fl,142+fl*Math.tan(lam),'#ffca7d',4);
+ s+=arrow(405,118,470,118-65*Math.tan(lam),'#7ce8ae',4);
+ s+=text(32,35,'λ = 8° ; µ = '+N(x)+' (sans unité)');
+ s+=text(32,223,'Vis à filet carré idéalisé ; η = '+N(result)+' (sans unité)');
+ s+='<g data-friction-arrow-length="'+fl.toFixed(2)+'" data-helix-angle-deg="8"></g>';break;
+}
+case 'adiabatic-compressor-01':{
+ const ratio=Math.pow(1/x,1/1.4),gas=250*ratio,piston=155+gas;
+ s+=box(145,74,310,122,'#173f59');
+ s+='<rect x="154" y="82" width="'+gas.toFixed(2)+'" height="106" fill="#2477aa" opacity=".65" data-gas-length="'+gas.toFixed(2)+'"/>';
+ s+=box(piston,80,16,110,'#d5e8f4')+line(piston+16,135,530,135,'#d5e8f4',11);
+ s+=arrow(530,108,485,108,'#ffca7d',4);
+ s+=text(32,36,'p₁ = 1 bar abs ; T₁ = 293,15 K ; γ = 1,4');
+ s+=text(32,223,'p₂ = '+N(x)+' bar abs ; T₂ = '+N(result)+' °C');
+ s+='<g data-volume-ratio="'+ratio.toFixed(6)+'" data-piston-x="'+piston.toFixed(2)+'"></g>';break;
+}
+
  case 'convective-heat-flux-01':{
   const length=30+Math.round(90*(x-5)/55);
   s+=box(185,66,115,142,'#925a3c')+line(185,66,185,208,'#ffd17d',5);

@@ -107,6 +107,11 @@
     Object.freeze({"id":"capstan-tension-01","world":"SI-11","title":"Adhérence courroie–poulie — Limite de tension","url":"missions/capstan-tension-01.html"}),
     Object.freeze({id:'convective-heat-flux-01',world:'SI-12',title:'Convection d’une paroi — Puissance thermique',url:'missions/convective-heat-flux-01.html'}),
     Object.freeze({id:'orifice-flow-01',world:'SI-06',title:'Orifice hydraulique — Débit sous pression',url:'missions/orifice-flow-01.html'}),
+    Object.freeze({id:'hydraulic-relief-setpoint-01',world:'SI-06',title:"Soupape hydraulique — Pression de tarage",url:'missions/hydraulic-relief-setpoint-01.html',subskill:"Équilibre d'un clapet à ressort"}),
+    Object.freeze({id:'beam-support-reaction-01',world:'SI-03',title:"Poutre sur deux appuis — Réaction d'appui",url:'missions/beam-support-reaction-01.html',subskill:"Équilibre statique et moments"}),
+    Object.freeze({id:'lc-resonance-01',world:'SI-09',title:"Circuit LC — Fréquence propre électrique",url:'missions/lc-resonance-01.html',subskill:"Oscillations libres d'un circuit LC"}),
+    Object.freeze({id:'screw-efficiency-01',world:'SI-05',title:"Vis de levage — Rendement avec frottement",url:'missions/screw-efficiency-01.html',subskill:"Vis–écrou et angle de frottement"}),
+    Object.freeze({id:'adiabatic-compressor-01',world:'SI-07',title:"Compresseur — Température de compression idéale",url:'missions/adiabatic-compressor-01.html',subskill:"Compression isentropique d'un gaz parfait"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});

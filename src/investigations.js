@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'hydraulic-relief-setpoint-01':x=>80*x/100*10,
+'beam-support-reaction-01':x=>8*(2-x)/2,
+'lc-resonance-01':x=>1/(2*Math.PI*Math.sqrt(.05*x*1e-6)),
+'screw-efficiency-01':x=>Math.tan(8*Math.PI/180)/Math.tan(8*Math.PI/180+Math.atan(x)),
+'adiabatic-compressor-01':x=>293.15*Math.pow(x,2/7)-273.15,
 'convective-heat-flux-01':h=>h*1.5*45,
 'orifice-flow-01':dp=>.62*(Math.PI*.002**2/4)*Math.sqrt(2*dp*1e5/850)*60000,
 'hydrostatic-gate-force-01':h=>1000*9.81*1.2*h*h/2000,
@@ -92,6 +97,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'hydraulic-relief-setpoint-01':{min:0,max:150,unit:"bar"},
+'beam-support-reaction-01':{min:0,max:6,unit:"kN"},
+'lc-resonance-01':{min:80,max:140,unit:"Hz"},
+'screw-efficiency-01':{min:0.45,max:1,unit:"sans unité"},
+'adiabatic-compressor-01':{min:0,max:200,unit:"°C"},
 'convective-heat-flux-01':{min:0,max:2000,unit:'W'},
 'orifice-flow-01':{min:0,max:9,unit:'L/min'},
 'hydrostatic-gate-force-01':{min:0,max:15,unit:'kN'},
@@ -183,6 +193,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'hydraulic-relief-setpoint-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Clapet de section hydraulique effective A = 100 mm² ; ressort linéaire k = 80 N/mm ; précompression x dans [0 ; 25] mm. Équilibre juste avant ouverture, pression manométrique amont, pression aval atmosphérique. Masse, frottement, débit, hystérésis et dynamique exclus. Le plafond 150 bar est fictif.","solution":"k = 80 N/mm ; x = 15 mm ; F_ressort = kx = 1 200 N. A = 100 mm² = 1,00×10⁻⁴ m². p = F/A = 1,20×10⁷ Pa = 120,00 bar. Dimension : N/m² = Pa. Il s'agit d'un tarage théorique, pas d'une pression de service autorisée."}),
+'beam-support-reaction-01':Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Poutre rigide simplement appuyée en A et B, portée L = 2,00 m ; charge verticale ponctuelle F = 8,00 kN appliquée à distance a de A, 0 ≤ a ≤ L. Poids propre et effets dynamiques négligés. Réactions verticales positives vers le haut. Seuil de 6 kN à gauche fictif.","solution":"F = 8,00 kN ; L = 2,00 m ; a = 0,75 m. Moment en B : R_A L = F(L−a) = 8×1,25 = 10,00 kN·m. R_A = 10/2 = 5,000 kN. R_B = F−R_A = 3,000 kN. Dimensions : (kN·m)/m = kN. Vérifier les deux appuis avant manutention."}),
+'lc-resonance-01':Object.freeze({"absoluteTolerance":0.3,"relativeTolerance":0,"precision":2,"assumptions":"Circuit LC idéal sans résistance ni charge, L = 50 mH constant, C variable de 10 à 100 µF ; régime libre de faible amplitude, composants linéaires. La fréquence propre f₀ = 1/(2π√LC) ne prédit pas l'amplitude ni l'amortissement d'un montage réel. Plage 80–140 Hz fictive.","solution":"L = 50 mH = 0,050 H ; C = 47 µF = 47×10⁻⁶ F. LC = 2,350×10⁻⁶ s² ; √LC = 0,00153297 s. f₀ = 1/(2π×0,00153297) ≈ 103,82 Hz. Dimension : 1/√(H·F) = s⁻¹ = Hz. Les pertes réelles modifient la réponse du circuit."}),
+'screw-efficiency-01':Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":4,"assumptions":"Vis à filet carré idéalisé en levage quasistatique ; angle d'hélice λ = 8° constant, coefficient de frottement µ dans [0 ; 0,30], angle de frottement φ = arctan µ. Pertes des paliers, écrou, déformation et frottement de butée exclus. η = tanλ/tan(λ+φ) est un rendement en montée, sans unité. Minimum 0,45 fictif.","solution":"λ = 8° = 0,139626 rad ; µ = 0,15 ; φ = arctan(0,15) ≈ 8,5308°. tanλ ≈ 0,14054 ; tan(λ+φ) ≈ 0,29685 ; η ≈ 0,4735, soit 47,35 %. Dimension : rapport de deux tangentes, sans unité. Ce rendement n'est pas une preuve d'autoblocage ou de sécurité."}),
+'adiabatic-compressor-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Air assimilé à un gaz parfait, compression adiabatique réversible (isentropique) de 1 bar absolu et 20 °C à p₂ compris entre 1 et 8 bar absolus ; γ = 1,4 constant. Températures converties en kelvins. Ni pertes, ni échange thermique, ni humidité ; résultat idéal et non prédiction de la température réelle. Seuil 200 °C fictif.","solution":"T₁ = 20 + 273,15 = 293,15 K ; p₂/p₁ = 5/1 = 5 ; (γ−1)/γ = 0,4/1,4 = 2/7. T₂ = 293,15×5^(2/7) ≈ 464,16 K ; θ₂ ≈ 191,01 °C. Dimension : rapport de pressions sans unité, T₂ en K. Le modèle ne permet pas d'autoriser une mise en service."}),
 'convective-heat-flux-01':Object.freeze({"absoluteTolerance":1,"relativeTolerance":0,"precision":2,"assumptions":"Convection stationnaire forcée idéalisée sur une paroi isotherme, aire A = 1,50 m², surface à 65 °C, air ambiant à 20 °C ; coefficient d'échange h constant et uniforme, de 5 à 60 W/(m²·K). Flux positif de la paroi vers l'air. Rayonnement, conduction et évolution des températures exclus. Plafond de dissipation de 2 000 W fictif.","solution":"Écart thermique ΔT = 65 − 20 = 45 K. h = 25 W/(m²·K) ; A = 1,50 m². Φ = h A ΔT = 25 × 1,50 × 45 = 1 687,50 W = 1,6875 kW. Dimension : W/(m²·K) × m² × K = W. Le critère fictif Φ ≤ 2 000 W est respecté ; vérifier le coefficient d'échange réel, le rayonnement et les températures en service."}),
 'orifice-flow-01':Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":3,"assumptions":"Orifice circulaire mince de diamètre d = 2,00 mm, coefficient de décharge Cd = 0,62 supposé constant, huile incompressible de masse volumique ρ = 850 kg/m³. Pression différentielle Δp de 0 à 40 bar, écoulement stationnaire, aval sans cavitation, pertes incluses uniquement via Cd. Le modèle simplifié est inadapté aux très faibles Reynolds et à la cavitation. Plafond de débit fictif 9 L/min.","solution":"Δp = 20 bar = 2,0×10⁶ Pa ; d = 0,00200 m ; A = πd²/4 = 3,14159×10⁻⁶ m². Vitesse idéale v = √(2Δp/ρ) = √(4,0×10⁶/850) = 68,5994 m/s. Q = Cd A v = 0,62 × 3,14159×10⁻⁶ × 68,5994 = 1,336×10⁻⁴ m³/s ≈ 8,017 L/min. Dimension : m² × m/s = m³/s. Débit nul à Δp = 0 dans le modèle mathématique ; près de zéro, Cd constant n'est pas physiquement garanti. Critère fictif de 9 L/min respecté ; contrôler Cd, viscosité, cavitation et la plage constructeur."}),
 'hydrostatic-gate-force-01':Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":4,"assumptions":"Eau au repos, ρ = 1000 kg/m³, g = 9,81 m/s², porte verticale de largeur b = 1,20 m, surface libre à z = 0, partie immergée de z = 0 à h ; pression relative p(z)=ρgz. h dans [0 ; 2,50] m, poussée horizontale de l'eau vers la porte. Vagues, effets dynamiques et résistance des appuis exclus. Seuil fictif F ≤ 15 kN.","solution":"h = 1,50 m ; p(h) = 1000×9,81×1,50 = 14 715 Pa ; pression moyenne 7 357,5 Pa ; aire immergée 1,20×1,50 = 1,80 m² ; F = 7 357,5×1,80 = 13 243,5 N = 13,2435 kN. Dimension : Pa·m² = N. Centre de poussée : zcp = 2h/3 = 1,00 m sous la surface, pour h > 0. Seuil fictif de 15 kN respecté ; charnières et structure non vérifiées."}),
@@ -268,7 +283,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
 }
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if((id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -279,6 +294,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'hydraulic-relief-setpoint-01':"mm",
+'beam-support-reaction-01':"m",
+'lc-resonance-01':"µF",
+'screw-efficiency-01':"sans unité",
+'adiabatic-compressor-01':"bar abs",
 'convective-heat-flux-01':'W/(m²·K)',
 'orifice-flow-01':'bar',
 'hydrostatic-gate-force-01':'m',
