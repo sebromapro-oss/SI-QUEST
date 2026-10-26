@@ -1,6 +1,11 @@
 (()=>{
 'use strict';
 const c=window.SI_MISSION,profile={
+"thin-wall-hoop-stress-01":["Réservoir sous pression différentielle.","Équilibrer une demi-coque et vérifier t/D.","Comparer au seuil fictif 120 MPa.","Mesurer épaisseur, soudures, corrosion et pressions réelles.","Faire vérifier le réservoir suivant les règles applicables."],
+"thermal-fourier-number-01":["Plaque soumise à un chauffage transitoire.","Calculer Fo sans en déduire une température.","Comparer au seuil fictif Fo ≥ 0,50.","Déterminer α, L et le coefficient d'échange.","Choisir un modèle thermique après estimation de Bi."],
+"gear-mesh-frequency-01":["Réducteur soumis à un diagnostic vibratoire.","Calculer la fréquence d'engrènement par les deux roues.","Comparer au seuil fictif 900 Hz.","Mesurer régime, spectre et bandes latérales.","Établir un diagnostic à partir de mesures réelles."],
+"jet-impact-force-01":["Jet de nettoyage sur une cible fixe.","Établir le bilan axial de quantité de mouvement.","Comparer au plafond fictif 4 N.","Mesurer débit, section et déviation réelle.","Adapter la buse après analyse des risques de projection."],
+"rectangular-beam-shear-01":["Traverse rectangulaire sous effort tranchant.","Comparer contrainte moyenne et maximum parabolique.","Comparer au plafond fictif 4 MPa.","Mesurer section, appuis et effort réel.","Compléter par une étude de flexion et d'assemblage."],
 "combined-stress-von-mises-01":["Patte d'attelage sous efforts combinés.","Calculer la contrainte équivalente.","Comparer au seuil fictif 180 MPa.","Mesurer géométrie, efforts et limite matière.","Revoir la section après dimensionnement complet."],
 "pt100-linear-response-01":["Contrôle d'une Pt100 en maintenance.","Appliquer le modèle linéaire simplifié.","Comparer au plafond fictif 140 Ω.","Mesurer la résistance à quatre fils.","Consulter la norme et contrôler le câblage."],
 "torsional-eigenfrequency-01":["Volant soumis à des oscillations de torsion.","Relier raideur et inertie à la fréquence propre.","Comparer au minimum fictif 1,8 Hz.","Relever spectre d'excitation et modes.","Adapter la transmission après analyse vibratoire."],
