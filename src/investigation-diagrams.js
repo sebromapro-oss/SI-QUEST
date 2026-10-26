@@ -7,6 +7,11 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+"bearing-friction-power-01":"Palier — Puissance dissipée",
+"poiseuille-microtube-flow-01":"Microconduite — Débit de Poiseuille",
+"ultrasonic-doppler-shift-01":"Ultrasons — Décalage Doppler",
+"ntc-beta-resistance-01":"Thermistance NTC — Modèle bêta",
+"fracture-critical-crack-01":"Fissure — Longueur critique en mode I",
 "helical-gear-axial-force-01":"Engrenage hélicoïdal — Effort axial",
 "oil-pressure-wave-speed-01":"Hydraulique — Célérité d'une onde",
 "parallel-axis-inertia-01":"Inertie — Transport d'axe",
@@ -393,6 +398,11 @@ function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+case "bearing-friction-power-01":{const v=2*Math.PI*.04*x/60;s+=circle(260,128,57,'#315a73')+circle(260,128,18,'#ffd17d')+line(260,128,420,128,'#8ddcff',8)+line(140,184,420,184,'#9bc9e5',3);if(x>0)s+=arrow(260,185,260+Math.min(90,20+x/30),185,'#ffca7d',4);s+=text(34,36,'Palier équivalent : N = 800 N ; μ = 0,06')+text(34,62,'r = 0,040 m ; n = '+N(x)+' tr/min')+text(340,110,'Ff = 48 N')+text(34,217,'v = '+N(v)+' m/s ; P = '+N(result)+' W')+'<g data-loss-w="'+result.toFixed(6)+'"></g>';break;}
+case "poiseuille-microtube-flow-01":{s+=box(120,100,360,65,'#173f59')+line(125,108,475,108,'#8ddcff',4)+line(125,157,475,157,'#8ddcff',4);if(x>0){s+=arrow(170,132,170+Math.min(210,30+result*50),132,'#ffca7d',4)+arrow(170,119,170+Math.min(120,15+result*24),119,'#7ce8ae',3)+arrow(170,145,170+Math.min(120,15+result*24),145,'#7ce8ae',3);}s+=text(34,37,'Conduite : r = 2 mm ; L = 2 m ; μ = 0,080 Pa·s')+text(34,65,'Δp = '+N(x)+' kPa ; profil laminaire schématique')+text(35,214,'Q = '+N(result)+' mL/s')+'<g data-flow-ml-s="'+result.toFixed(6)+'"></g>';break;}
+case "ultrasonic-doppler-shift-01":{s+=box(92,98,65,58,'#315a73')+circle(430,125,29,'#ffd17d')+line(158,125,398,125,'#8ddcff',2,'stroke-dasharray="8 7"');for(let k=0;k<3;k++)s+='<path d="M'+(170+k*35)+' 89 Q'+(188+k*35)+' 125 '+(170+k*35)+' 161" fill="none" stroke="#8ddcff" stroke-width="2"/>';if(x>0)s+=arrow(395,178,395-Math.min(95,20+35*x),178,'#ffca7d',4);s+=text(30,36,'Capteur f₀ = 2 MHz ; c = 1 500 m/s')+text(30,65,'Cible vers capteur ; θ = 30° ; v = '+N(x)+' m/s')+text(35,215,'Δf = '+N(result)+' kHz')+'<g data-doppler-khz="'+result.toFixed(6)+'"></g>';break;}
+case "ntc-beta-resistance-01":{const h=105*x/80;s+=box(210,86,170,70,'#315a73')+line(245,122,345,122,'#ffd17d',5)+line(170,122,210,122,'#8ddcff',4)+line(380,122,420,122,'#8ddcff',4)+box(112,78,28,117,'#183e59')+'<rect x="117" y="'+(190-h).toFixed(2)+'" width="18" height="'+h.toFixed(2)+'" fill="#ffca7d" data-thermometer-height="'+h.toFixed(3)+'"/>'+text(35,37,'NTC : R₂₅ = 10 kΩ ; B = 3 950 K')+text(35,66,'T = '+N(x)+' °C = '+N(x+273.15)+' K')+text(390,112,'NTC')+text(35,215,'R(T) = '+N(result)+' kΩ')+'<g data-resistance-kohm="'+result.toFixed(6)+'"></g>';break;}
+case "fracture-critical-crack-01":{const a=Math.min(125,Math.max(20,result*4));s+=box(160,85,290,100,'#315a73')+line(160,135,160+a,135,'#ffca7d',5)+circle(160+a,135,4,'#ffca7d')+arrow(165,134,90,134,'#7ce8ae',4)+arrow(445,134,520,134,'#7ce8ae',4)+text(35,36,'Fissure de rive : K_IC = 40 MPa√m ; Y = 1,12')+text(35,64,'σ = '+N(x)+' MPa ; traction ; géométrie indicative')+text(35,216,'a critique = '+N(result)+' mm ; non à l’échelle')+'<g data-crack-mm="'+result.toFixed(6)+'"></g>';break;}
 case "helical-gear-axial-force-01":{const fa=Math.min(105,result/14);s+=circle(240,125,36,'#315a73')+circle(240,125,5,'#ffd17d')+line(240,125,276,125,'#8ddcff',3)+circle(276,125,6,'#ffd17d')+arrow(276,125,276,65,'#7ce8ae',4);if(x>0)s+=arrow(276,125,276+fa,125,'#ffca7d',4);s+=text(40,38,'Projection locale : axes tangentiel t et axial a')+text(40,66,'Fₜ = 2 000 N ; C = 180 N·m ; d = 0,180 m')+text(370,99,'a →')+text(300,170,'β = '+N(x)+' °')+text(45,220,'Fₐ = '+N(result)+' N ; effort axial')+'<g data-axial-n="'+result.toFixed(6)+'" data-angle-deg="'+x.toFixed(3)+'"></g>';break;}
 case "oil-pressure-wave-speed-01":{const dist=result*.005,front=95+420*dist/10;s+=line(95,102,515,102,'#8ddcff',6)+line(95,157,515,157,'#8ddcff',6)+line(95,102,95,157,'#8ddcff',4)+line(515,102,515,157,'#8ddcff',4)+line(front,105,front,154,'#ffca7d',5)+arrow(front-70,129,front-7,129,'#ffca7d',3);s+=text(35,40,'Conduite rigide : L = 10 m ; ρ = 850 kg/m³')+text(35,70,'Instantané t = 5 ms ; K = '+N(x)+' GPa')+text(40,196,'Front à '+N(dist)+' m ; a = '+N(result)+' m/s')+text(40,222,'Modèle fluide seul : paroi indéformable')+'<g data-wave-front-m="'+dist.toFixed(6)+'" data-wave-speed-m-s="'+result.toFixed(6)+'"></g>';break;}
 case "parallel-axis-inertia-01":{const gx=210,oy=133,offset=250*x,ox=gx+offset;s+=circle(gx,oy,43,'#315a73')+circle(gx,oy,7,'#ffd17d')+circle(ox,oy,5,'#7ce8ae')+line(gx,oy+52,ox,oy+52,'#ffd17d',3)+line(gx,oy+44,gx,oy+62,'#ffd17d',2)+line(ox,oy+44,ox,oy+62,'#ffd17d',2)+text(35,40,'Axes parallèles z_G et z_O ; masse m = 12 kg')+text(35,67,'J_G = 0,18 kg·m² ; d = '+N(x)+' m')+text(gx-17,100,'G')+text(ox+9,126,'O')+text(40,218,'J_O = '+N(result)+' kg·m²')+'<g data-offset-px="'+offset.toFixed(4)+'" data-inertia-kg-m2="'+result.toFixed(6)+'"></g>';break;}
@@ -803,7 +813,7 @@ case 'adiabatic-compressor-01':{
 case 'kinetic-friction-01':{
   s+=line(80,172,520,172,'#9bc9e5',3)+box(145,95,300,72,'#315c76');
   s+=arrow(320,74,470,74,'#7ce8ae',4);
-  s+=arrow(300,168,175,168,'#ffca7d',5);
+  if(x>0)s+=arrow(300,168,175,168,'#ffca7d',5);
   s+=circle(300,168,4,'#ffd17d','data-contact-y="168"');
   s+=text(32,40,'Patin : v vers la droite, frottement au contact vers la gauche');
   s+=text(33,210,'Fₜ = '+N(result)+' N ; N = 80 kg × 9,81 m/s²');
@@ -828,7 +838,7 @@ case 'hydro-annular-force-01':{
   s+='<rect x="259" y="87" width="183" height="29" fill="#2477aa" opacity=".65" data-fluid-zone="superieure"/>';
   s+='<rect x="259" y="138" width="183" height="27" fill="#2477aa" opacity=".65" data-fluid-zone="inferieure"/>';
   s+=box(240,86,18,80,'#c8d8e2')+line(258,126,520,126,'#c8d8e2',14);
-  s+=arrow(400,60,310,60)+text(65,52,'Chambre annulaire sous pression')+text(65,73,'D = 80 mm ; d = 40 mm');
+  if(x>0)s+=arrow(400,60,310,60);s+=text(65,52,'Chambre annulaire sous pression')+text(65,73,'D = 80 mm ; d = 40 mm');
   s+=valueLabel(id,x,result);break;
  }
 case 'pneumatic-consumption-01':{const pistonX=137+155*x/400,rodEnd=pistonX+267;s+=box(125,80,280,92,'#173f59')+'<rect x="137" y="87" width="'+(pistonX-137).toFixed(2)+'" height="78" fill="#2477aa" opacity=".55"/>'+line(137,72,137,177,'#7ce8ae',2,'stroke-dasharray="5 5"')+box(pistonX,87,12,78,'#c8d8e2','data-piston-x="'+pistonX.toFixed(2)+'"')+line(pistonX+12,126,rodEnd,126,'#c8d8e2',12)+line(137,190,pistonX,190,'#ffd17d',3)+text(35,42,'Volume balayé côté plein : D = 50 mm ; course = '+N(x)+' mm')+valueLabel(id,x,result);s+='<g data-rod-length-px="255" data-rod-end-x="'+rodEnd.toFixed(3)+'" data-piston-x="'+pistonX.toFixed(3)+'"></g>';break;}

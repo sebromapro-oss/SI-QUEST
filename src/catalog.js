@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"bearing-friction-power-01","world":"SI-11","title":"Palier — Puissance dissipée","url":"missions/bearing-friction-power-01.html","subskill":"Puissance de frottement d'un palier sous charge constante"}),
+Object.freeze({"id":"poiseuille-microtube-flow-01","world":"SI-06","title":"Microconduite — Débit de Poiseuille","url":"missions/poiseuille-microtube-flow-01.html","subskill":"Débit laminaire selon Hagen–Poiseuille dans un tube circulaire"}),
+Object.freeze({"id":"ultrasonic-doppler-shift-01","world":"SI-13","title":"Ultrasons — Décalage Doppler","url":"missions/ultrasonic-doppler-shift-01.html","subskill":"Décalage fréquentiel Doppler en réflexion à faible vitesse"}),
+Object.freeze({"id":"ntc-beta-resistance-01","world":"SI-08","title":"Thermistance NTC — Modèle bêta","url":"missions/ntc-beta-resistance-01.html","subskill":"Loi exponentielle de résistance d'une thermistance NTC"}),
+Object.freeze({"id":"fracture-critical-crack-01","world":"SI-14","title":"Fissure — Longueur critique en mode I","url":"missions/fracture-critical-crack-01.html","subskill":"Longueur critique d'une fissure de rive par mécanique de la rupture linéaire"}),
 Object.freeze({"id":"helical-gear-axial-force-01","world":"SI-05","title":"Engrenage hélicoïdal — Effort axial","url":"missions/helical-gear-axial-force-01.html","subskill":"Poussée axiale d'une denture hélicoïdale"}),
 Object.freeze({"id":"oil-pressure-wave-speed-01","world":"SI-06","title":"Hydraulique — Célérité d'une onde","url":"missions/oil-pressure-wave-speed-01.html","subskill":"Célérité acoustique dans un liquide compressible"}),
 Object.freeze({"id":"parallel-axis-inertia-01","world":"SI-02","title":"Inertie — Transport d'axe","url":"missions/parallel-axis-inertia-01.html","subskill":"Théorème de Huygens pour axes massiques parallèles"}),

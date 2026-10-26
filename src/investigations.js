@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"bearing-friction-power-01":x=>.06*800*(2*Math.PI*.04*x/60),
+"poiseuille-microtube-flow-01":x=>Math.PI*(.002**4)*(x*1000)/(8*.08*2)*1e6,
+"ultrasonic-doppler-shift-01":x=>2*2e6*x*Math.cos(Math.PI/6)/1500/1000,
+"ntc-beta-resistance-01":x=>10*Math.exp(3950*(1/(x+273.15)-1/298.15)),
+"fracture-critical-crack-01":x=>1000*(40/(1.12*x))**2/Math.PI,
 "helical-gear-axial-force-01":x=>2000*Math.tan(x*Math.PI/180),
 "oil-pressure-wave-speed-01":x=>Math.sqrt(x*1e9/850),
 "parallel-axis-inertia-01":x=>.18+12*x*x,
@@ -164,6 +169,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"bearing-friction-power-01":{min:0,max:250,unit:"W"},
+"poiseuille-microtube-flow-01":{min:0,max:3,unit:"mL/s"},
+"ultrasonic-doppler-shift-01":{min:0,max:4,unit:"kHz"},
+"ntc-beta-resistance-01":{min:2,max:20,unit:"kΩ"},
+"fracture-critical-crack-01":{min:8,max:Infinity,unit:"mm"},
 "helical-gear-axial-force-01":{min:0,max:850,unit:"N"},
 "oil-pressure-wave-speed-01":{min:1150,max:Infinity,unit:"m/s"},
 "parallel-axis-inertia-01":{min:0,max:2,unit:"kg·m²"},
@@ -327,6 +337,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"bearing-friction-power-01":Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":3,"assumptions":"Frottement équivalent à coefficient constant μ = 0,06 ; N = 800 N ; rayon r = 0,040 m ; vitesse n de 0 à 1 800 tr/min. Régime permanent, sans prédiction de température ni de lubrification. Seuil pédagogique fictif P ≤ 250 W ; vérifier les données constructeur avant toute décision réelle.","solution":"1. n = 900 tr/min = 94,2478 rad/s.\n2. v = rω = 0,040 m × 94,2478 rad/s = 3,7699 m/s.\n3. Ff = μN = 0,06 × 800 N = 48 N.\n4. P = Ff v = 48 N × 3,7699 m/s = 180,956 W ; N·m/s = W.\n5. P(0 tr/min) = 0 W, et P est proportionnelle à n.\n6. P < 250 W : critère fictif seulement ; mesurer l'échauffement et consulter le fabricant."}),
+"poiseuille-microtube-flow-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Huile newtonienne incompressible ; écoulement permanent, pleinement développé, laminaire et sans glissement ; rayon r = 0,002 m, longueur L = 2 m, μ = 0,080 Pa·s, ρ = 850 kg/m³, Δp entre 0 et 100 kPa. Reynolds < 20 sur la plage. Pertes singulières négligées ; seuil fictif Q ≤ 3 mL/s.","solution":"1. Δp = 60 kPa = 60 000 Pa ; r = 0,002 m.\n2. r⁴ = 1,6 × 10⁻¹¹ m⁴ ; 8μL = 1,28 Pa·s·m.\n3. Q = π × 1,6 × 10⁻¹¹ m⁴ × 60 000 Pa / 1,28 Pa·s·m = 2,35619 × 10⁻⁶ m³/s.\n4. Q = 2,35619 mL/s ; homogénéité : m⁴·Pa/(Pa·s·m) = m³/s.\n5. v moyenne = 0,1875 m/s ; Re ≈ 7,97, cohérent avec le régime laminaire.\n6. Q < 3 mL/s : seuil fictif, à confronter aux mesures réelles."}),
+"ultrasonic-doppler-shift-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Capteur de fréquence f₀ = 2 MHz ; célérité c = 1 500 m/s ; angle θ = 30° ; vitesse v de 0 à 2 m/s vers le capteur. Approximation au premier ordre v ≪ c ; signe positif au rapprochement, réflexion spéculaire et milieu homogène. Seuil fictif Δf ≤ 4 kHz.","solution":"1. f₀ = 2 MHz = 2 000 000 Hz ; cos 30° = 0,866025.\n2. v projetée = 1,2 m/s × 0,866025 = 1,03923 m/s.\n3. Δf ≈ 2 × 2 000 000 Hz × 1,03923 m/s / 1 500 m/s = 2 771,28 Hz.\n4. Δf = 2,77128 kHz ; Hz × (m/s)/(m/s) = Hz.\n5. Pour v = 0, Δf = 0 ; le signe dépend du sens de déplacement.\n6. Δf < 4 kHz : seuil fictif ; vérifier l'angle et l'étalonnage."}),
+"ntc-beta-resistance-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":3,"assumptions":"Modèle bêta simplifié sur 0 à 80 °C ; R₂₅ = 10 kΩ à 298,15 K ; B = 3 950 K supposé constant. Utiliser les températures absolues ; autoéchauffement, tolérances et évolution de B négligés. Plage fictive 2 à 20 kΩ ; valeurs non issues d'une fiche constructeur.","solution":"1. T = 40 °C = 313,15 K ; T₂₅ = 298,15 K.\n2. Exposant = 3 950 K × (1/313,15 K − 1/298,15 K), sans unité.\n3. R = 10 kΩ × exp(exposant) = 5,30147 kΩ.\n4. R(25 °C) = 10 kΩ, point de contrôle indépendant.\n5. R diminue quand la température augmente ; ne pas calculer les inverses en °C.\n6. Valeur comprise entre 2 et 20 kΩ, plage fictive ; consulter la courbe constructeur."}),
+"fracture-critical-crack-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":3,"assumptions":"Mode I en élasticité linéaire, chargement monotone, plaque assez large pour approximer une fissure de rive courte par Y = 1,12 constant ; ténacité K_IC = 40 MPa√m ; σ entre 100 et 350 MPa. Plasticité, fatigue et corrosion négligées ; géométrie réelle à confirmer. Seuil fictif acrit ≥ 8 mm ; aucune autorisation d'exploitation d'une pièce fissurée.","solution":"1. σ = 200 MPa ; K_IC = 40 MPa√m ; Y = 1,12.\n2. K_I = Yσ√(πa) ; à la limite K_I = K_IC.\n3. acrit = [40 MPa√m/(1,12 × 200 MPa)]²/π = 0,0101502 m.\n4. acrit = 10,1502 mm ; homogénéité : (MPa√m/MPa)² = m.\n5. Si σ double, acrit est divisée par quatre.\n6. acrit ≥ 8 mm, critère fictif uniquement : faire contrôler la fissure et vérifier la géométrie."}),
 "helical-gear-axial-force-01":Object.freeze({"absoluteTolerance":2,"relativeTolerance":0,"precision":2,"assumptions":"Denture idéale : couple C = 180 N·m, diamètre primitif d = 0,180 m, Fₜ = 2 000 N, angle β entre 0° et 35°. Pertes, efforts radiaux et dynamique négligés. β est exprimé en degrés, puis converti en radians pour la fonction tan. Vue locale 2D projetée ; seuil Fₐ ≤ 850 N fictif.","solution":"1. Fₜ = 2 C/d = 2 × 180 N·m / 0,180 m = 2 000 N.\n2. β = 20° = 20π/180 = 0,349066 rad pour le calcul numérique.\n3. Fₐ = 2 000 × tan(20°) = 727,94 N.\n4. Unités : N × sans unité = N. Pour β = 0°, Fₐ = 0 N.\n5. Décision : 727,94 N ≤ 850 N, seuil fictif. Vérifier la capacité réelle du palier et le sens de l'hélice."}),
 "oil-pressure-wave-speed-01":Object.freeze({"absoluteTolerance":5,"relativeTolerance":0,"precision":2,"assumptions":"Petites perturbations dans une huile homogène de masse volumique ρ = 850 kg/m³ ; K varie de 0,8 à 1,8 GPa. Conduite parfaitement rigide ; air dissous, pertes et température variables négligés. Front représenté à t = 5 ms sur L = 10 m. Seuil a ≥ 1 150 m/s fictif.","solution":"1. K = 1,4 GPa = 1,4 × 10⁹ Pa ; ρ = 850 kg/m³.\n2. K/ρ = 1 647 058,82 m²/s².\n3. a = √(K/ρ) = 1 283,38 m/s.\n4. À t = 0,005 s : distance a t = 6,4169 m dans une conduite de 10 m.\n5. Contrôle : Pa/(kg/m³) = m²/s². Décision : a ≥ 1 150 m/s, seuil fictif ; mesurer l'onde et vérifier la souplesse réelle des conduites."}),
 "parallel-axis-inertia-01":Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Solide rigide de masse m = 12 kg, inertie centrale J_G = 0,18 kg·m², axes z parallèles et distance perpendiculaire d entre 0 et 0,50 m. Répartition de masse inchangée. Critère Jₒ ≤ 2,0 kg·m² fictif.","solution":"1. J_G = 0,18 kg·m² ; m = 12 kg ; d = 0,30 m.\n2. m d² = 12 kg × (0,30 m)² = 1,08 kg·m².\n3. Jₒ = 0,18 + 1,08 = 1,26 kg·m².\n4. Contrôle : kg × m² = kg·m² ; à d = 0, Jₒ = J_G.\n5. Décision : 1,26 kg·m² ≤ 2,0 kg·m², seuil fictif ; vérifier les masses et la géométrie réelles."}),
@@ -483,13 +498,14 @@ function diagnoseAnswer(value,expected,tolerance,unit){
  if(Math.abs(value-expected)<=Math.max(10*eps,.01*Math.abs(expected)))return 'Réponse proche : vérifie les arrondis, les chiffres significatifs et la précision demandée.';
  return 'Reprends la formule, les données et les unités'+(unit?' (résultat à exprimer en '+unit+')':'')+'.';
 }
+const cycle168Domains=Object.freeze({"bearing-friction-power-01":[0,1800],"poiseuille-microtube-flow-01":[0,100],"ultrasonic-doppler-shift-01":[0,2],"ntc-beta-resistance-01":[0,80],"fracture-critical-crack-01":[100,350]});
 const cycle163Domains=Object.freeze({"helical-gear-axial-force-01":[0,35],"oil-pressure-wave-speed-01":[0.8,1.8],"parallel-axis-inertia-01":[0,0.5],"heat-pump-carnot-cop-01":[30,65],"oil-kinematic-viscosity-01":[10,120]});
 const cycle158Domains=Object.freeze({"miner-fatigue-damage-01":[0,50],"thermocouple-seebeck-voltage-01":[20,160],"transformer-turns-ratio-01":[100,500],"rc-lowpass-cutoff-01":[1,20],"rotating-unbalance-force-01":[0,3000]});
 const cycle153Domains=Object.freeze({"cantilever-strain-energy-01":[0,6],"gas-polytropic-temperature-01":[1,8],"battery-discharge-c-rate-01":[0,120],"hydraulic-cavitation-number-01":[1,8],"bolt-preload-torque-01":[0,30]});
 const cycle138Domains=Object.freeze({"thin-wall-hoop-stress-01":[0,36],"thermal-fourier-number-01":[0,60],"gear-mesh-frequency-01":[600,1800],"jet-impact-force-01":[0,40],"rectangular-beam-shear-01":[0,12],"combined-stress-von-mises-01":[0,100],"pt100-linear-response-01":[0,150],"torsional-eigenfrequency-01":[500,2000],"laminar-darcy-factor-01":[400,2000],"triangle-actuator-angle-01":[0.25,1.05],"hydraulic-oil-compressibility-01":[0,200],"hollow-shaft-polar-inertia-01":[20,50],"wheel-braking-slip-01":[0,12.5],"lumped-cooling-time-constant-01":[10,80],"adc-voltage-step-01":[2,12]});
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- const domain=cycle163Domains[id]||cycle158Domains[id]||cycle138Domains[id]||cycle153Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
+ const domain=cycle168Domains[id]||cycle163Domains[id]||cycle158Domains[id]||cycle138Domains[id]||cycle153Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
  if(id==='transformer-turns-ratio-01'&&!Number.isInteger(x))throw new RangeError('Le nombre de spires doit être entier');
  if((id==="stepped-bar-extension-01"&&(x<0||x>35))||(id==="motor-slip-01"&&(x<48||x>60))||(id==="log-decrement-01"&&(x<5||x>19))||(id==="exchanger-effectiveness-01"&&(x<0||x>110))||(id==="darcy-pipe-loss-01"&&(x<20||x>60))||(id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||(id==='flywheel-angular-momentum-01'&&x>1500)||(id==='rc-charge-threshold-01'&&(x<1||x>22))||(id==='thermal-clearance-01'&&x>120)||(id==='venturi-pressure-01'&&x>60)||(id==='spring-series-01'&&(x<5000||x>40000))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  if((id==="cylinder-stroke-time-01"&&(x<0||x>600))||(id==="gas-isothermal-work-01"&&(x<1||x>4))||(id==="symmetric-sling-tension-01"&&(x<20||x>70))||(id==="voltage-divider-sensor-01"&&(x<0.5||x>5))||(id==="restrained-thermal-stress-01"&&(x<0||x>80)))throw new RangeError('Paramètre hors domaine physique');
@@ -504,6 +520,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"bearing-friction-power-01":"tr/min",
+"poiseuille-microtube-flow-01":"kPa",
+"ultrasonic-doppler-shift-01":"m/s",
+"ntc-beta-resistance-01":"°C",
+"fracture-critical-crack-01":"MPa",
 "helical-gear-axial-force-01":"°",
 "oil-pressure-wave-speed-01":"GPa",
 "parallel-axis-inertia-01":"m",
