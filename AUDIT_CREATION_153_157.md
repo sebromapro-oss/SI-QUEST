@@ -29,3 +29,11 @@ Modèles indépendants, hypothèses, unités, contre-calculs, cinq points par mo
 - **A : NOT RUN** : clavier/zoom matériels et NVDA, TalkBack, VoiceOver.
 
 Les workflows GitHub Actions du HEAD initial étaient en échec sans étape exécutée ni runner indiqué ; la cause reste à rechercher. Ne pas confondre intégration au catalogue et validation intégrale.
+
+## Contre-audit complémentaire du même cycle
+- **Historique 40–75 : 36/36 PASS ciblés**, sur 108 points (minimum, nominal, maximum), en quatre lots de neuf missions ; cohérence configuration/moteur, unité d'entrée/sortie, résultat nominal, finitude, structure SVG et absence de NaN/Infinity/undefined. Ces tests ne sont pas des contre-calculs indépendants pour chacune des 36 lois.
+- **Nouveau lot 153–157 : 8/8 blocs de tests PASS, 253 assertions**, exécutés sur les fichiers réellement relus du commit avec un adaptateur CommonJS JavaScript V8 ; **ce n'est pas une exécution Node native**.
+- **CI GitHub Actions sur le commit de production `e7d6e4fcb7e3b3a5c94919f3a6e72661336c55be` : 4 workflows en état FAILURE** (runs 40376460272, 40376460475, 40376460832, 40376460374). Chaque job retourné ne contient aucune étape exécutée ni runner identifié ; la récupération du journal du job 121760724686 renvoie BlobNotFound. **BLOCKED : impossible de démontrer la réussite des tests Node natifs ou de corriger une erreur d'exécution non reproduite.** Ne pas déclarer la CI réussie.
+- Protection vérifiée après publication : `index.html`, `src/home.js`, `src/style.css`, `assets/archipelago-cinematic.svg` ont conservé exactement leurs SHA de blobs initiaux. Les 157 pages HTML sont présentes.
+
+**Verdict :** S = PASS ciblé ; G = PASS structurel ciblé / inspection visuelle NOT RUN ; P = contenus intégrés / essai élève NOT RUN ; F = PASS V8 ciblé / CI native BLOCKED ; A = NOT RUN. La réception globale demeure ouverte.
