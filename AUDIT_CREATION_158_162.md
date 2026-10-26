@@ -38,3 +38,6 @@ Les cinq missions sont **codées**, non « validées » au sens du cahier des ch
 - **55 assertions V8 DOM simulé PASS** sur les cinq nouvelles missions : verrouillage initial, réussite, sauvegarde, trois échecs, corrigé conditionnel et absence de maîtrise fictive. Une erreur dans l'adaptateur de test (absence de `previousElementSibling`) a été corrigée dans le **nouveau harnais de test**, sans modification de l'application.
 - Quatre workflows du commit `375dd86edc90d29ede65cf7f18bf99eb83730651` : **FAILURE avant toute étape** (jobs sans runner ni steps). Relance du workflow `Recette automatisée SI QUEST` (run 40384857463, tentative 2) : **FAILURE avant toute étape**, logs **BlobNotFound**. Cause non établie, **CI native BLOCKED**, et non PASS.
 - Les tests Playwright réels, les inspections graphiques sur navigateur et les essais NVDA/TalkBack/VoiceOver restent **NOT RUN**.
+
+## Correctif scientifique P2 complémentaire
+Le nombre de spires N₂ doit être entier : rejet de N₂ fractionnaire dans le moteur, curseur par pas de 1 spire et graphique échantillonné uniquement sur des entiers. Test ajouté (200,5 rejeté ; 200 accepté). Aucun fichier de l'accueil modifié.
