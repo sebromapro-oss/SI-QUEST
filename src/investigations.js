@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"flywheel-angular-momentum-01":x=>8*2*Math.PI*x/60,
+"rc-charge-threshold-01":x=>-4.7*Math.log1p(-x/24),
+"thermal-clearance-01":x=>1+(12e-6-23e-6)*.5*x*1000,
+"venturi-pressure-01":x=>{const q=x/60000,a1=Math.PI*.04**2/4,a2=Math.PI*.02**2/4;return .5*1000*((q/a2)**2-(q/a1)**2)/1e5},
+"spring-series-01":x=>1/(1/20000+1/x),
 "hydraulic-pump-shaft-01":x=>x*24/(600*.8),
 "braking-stop-time-01":x=>1200*(x/3.6)/3000,
 "beam-curvature-01":x=>x/(210e9*8e-6),
@@ -114,6 +119,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"flywheel-angular-momentum-01":{min:0,max:800,unit:"kg·m²/s"},
+"rc-charge-threshold-01":{min:0,max:6,unit:"s"},
+"thermal-clearance-01":{min:0.5,max:Infinity,unit:"mm"},
+"venturi-pressure-01":{min:0,max:0.025,unit:"bar"},
+"spring-series-01":{min:6500,max:Infinity,unit:"N/m"},
 "hydraulic-pump-shaft-01":{min:0,max:10,unit:"kW"},
 "braking-stop-time-01":{min:0,max:8,unit:"s"},
 "beam-curvature-01":{min:0,max:0.0015,unit:"m⁻¹"},
@@ -227,6 +237,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"flywheel-angular-momentum-01":Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Volant rigide de moment d’inertie axial J = 8,00 kg·m² ; rotation autour d’un axe fixe à n = 0–1 500 tr/min, sans couple gyroscopique étudié. Moment cinétique axial L = Jω ; signe positif selon l’axe choisi. Plafond pédagogique fictif de 800 kg·m²/s.","solution":"n = 600 tr/min = 10 tr/s ; ω = 2π×10 = 62,8319 rad/s ; J = 8,00 kg·m² ; L = Jω = 502,655 kg·m²/s. Contrôle : kg·m²×s⁻¹ = kg·m²/s. Le signe change avec le sens de rotation ; la grandeur calculée ne démontre pas la sécurité d’un volant réel."}),
+"rc-charge-threshold-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Circuit série RC idéal alimenté par un échelon de 24 V, condensateur initialement déchargé, R = 10 000 Ω, C = 470 µF. Seuil U entre 1 et 22 V (strictement inférieur à 24 V). t = −RC ln(1−U/24). Fuites, résistance interne et tolérances exclues. Limite fictive de 6 s.","solution":"C = 470 µF = 470×10⁻⁶ F ; τ = RC = 10 000×470×10⁻⁶ = 4,70 s. Pour U = 12 V : U/24 = 0,5 ; t = −4,70 ln(0,5) = 3,25779 s. Contrôle : Ω×F = s ; le logarithme porte sur une grandeur sans dimension. À U→24 V, t→+∞ : le seuil de 24 V ne peut être atteint en temps fini dans ce modèle."}),
+"thermal-clearance-01":Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Deux barres acier et aluminium de longueur initiale 0,500 m, fixées au même point, dilatation libre vers une butée avec jeu initial de 1,000 mm. α_acier = 12×10⁻⁶ K⁻¹, α_alu = 23×10⁻⁶ K⁻¹, ΔT = 0–120 K ; même échauffement uniforme. Jeu final g = g₀ + (α_acier−α_alu)LΔT. Absence de contact pour le domaine choisi, déformations linéaires. Jeu minimal fictif 0,500 mm.","solution":"Δα = (12−23)×10⁻⁶ = −11×10⁻⁶ K⁻¹ ; ΔL_relative = Δα×0,500 m×60 K = −0,000330 m = −0,330 mm ; g = 1,000−0,330 = 0,670 mm. Contrôle : K⁻¹×m×K = m. Le signe négatif indique une réduction du jeu ; à ΔT = 0 K, g = 1,000 mm. Critère 0,500 mm fictif."}),
+"venturi-pressure-01":Object.freeze({"absoluteTolerance":0.0002,"relativeTolerance":0,"precision":5,"assumptions":"Venturi horizontal idéal, eau incompressible ρ = 1 000 kg/m³, diamètre amont D₁ = 40 mm, col D₂ = 20 mm, débit Q = 0–60 L/min, régime permanent. Δp = ρ(v₂²−v₁²)/2, vitesses v=Q/A. Pressions absolues non calculées ; pertes réelles, cavitation et profil non uniforme exclus. Plafond de Δp = 0,025 bar fictif.","solution":"Q = 30 L/min = 5,000×10⁻⁴ m³/s ; A₁ = π(0,040)²/4 = 1,25664×10⁻³ m² ; A₂ = π(0,020)²/4 = 3,14159×10⁻⁴ m². v₁ = 0,397887 m/s ; v₂ = 1,591549 m/s ; Δp = 0,5×1 000×(1,591549²−0,397887²) = 1 187,36 Pa = 0,011874 bar. Contrôle : kg/m³×m²/s² = Pa. Vérifier pertes de charge et pressions absolues avant toute conclusion réelle."}),
+"spring-series-01":Object.freeze({"absoluteTolerance":20,"relativeTolerance":0,"precision":1,"assumptions":"Deux ressorts hélicoïdaux linéaires en série : k₁ = 20 000 N/m, k₂ = 5 000–40 000 N/m ; même effort axial F = 100 N, masses, précharges, flambement et butées exclus. Raideur équivalente k_eq = (1/k₁+1/k₂)⁻¹. Minimum pédagogique fictif de 6 500 N/m.","solution":"k₁ = 20 000 N/m ; k₂ = 10 000 N/m ; 1/k_eq = 1/20 000+1/10 000 = 0,000150 m/N ; k_eq = 6 666,67 N/m. Sous F = 100 N : x₁ = 100/20 000 = 0,005 m ; x₂ = 100/10 000 = 0,010 m ; x_total = 0,015 m. Contrôle : F/x_total = 100/0,015 = 6 666,67 N/m ; k_eq < min(k₁,k₂)."}),
 "hydraulic-pump-shaft-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":2,"assumptions":"Huile incompressible, écoulement stationnaire, débit 24 L/min et rendement global 0,80 constants, pression différentielle de 0 à 250 bar. Critère P_arbre ≤ 10 kW fictif ; vérifier les données constructeur.","solution":"Δp = 150 bar = 15 000 000 Pa ; Q = 24 L/min = 4,00×10⁻⁴ m³/s ; P_h = 6 000 W ; P_arbre = 6 000/0,80 = 7 500 W = 7,50 kW. Contrôle : Pa·m³/s = W. Critère fictif de 10 kW, non constructeur."}),
 "braking-stop-time-01":Object.freeze({"absoluteTolerance":0.03,"relativeTolerance":0,"precision":2,"assumptions":"Translation rectiligne, freinage constant, vitesse initiale 0 à 90 km/h, adhérence suffisante, sans pente, traînée ni temps de réaction. Critère t ≤ 8 s fictif ; ne démontre pas la sécurité du freinage.","solution":"v₀ = 54 km/h = 15,0 m/s ; a = −3 000/1 200 = −2,50 m/s² ; t = 15,0/2,50 = 6,00 s. Contrôle : (m/s)/(m/s²) = s. Critère de 8 s fictif ; distance d'arrêt non évaluée."}),
 "beam-curvature-01":Object.freeze({"absoluteTolerance":0.000002,"relativeTolerance":0,"precision":7,"assumptions":"Poutre prismatique homogène, flexion pure, petites déformations, moment de 500 à 3 000 N·m, E et I constants. Déformée graphique amplifiée et non à l'échelle. Critère κ ≤ 0,0015 m⁻¹ fictif.","solution":"E = 210 GPa = 2,10×10¹¹ Pa ; EI = 1,68×10⁶ N·m² ; κ = 1 000/1 680 000 = 5,95238×10⁻⁴ m⁻¹. Contrôle : (N·m)/(N·m²) = m⁻¹. Rayon local = 1/κ = 1 680 m. Vérifier les contraintes et la flèche."}),
@@ -334,7 +349,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
 }
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if((id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||(id==='flywheel-angular-momentum-01'&&x>1500)||(id==='rc-charge-threshold-01'&&(x<1||x>22))||(id==='thermal-clearance-01'&&x>120)||(id==='venturi-pressure-01'&&x>60)||(id==='spring-series-01'&&(x<5000||x>40000))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -345,6 +360,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"flywheel-angular-momentum-01":"tr/min",
+"rc-charge-threshold-01":"V",
+"thermal-clearance-01":"K",
+"venturi-pressure-01":"L/min",
+"spring-series-01":"N/m",
 "hydraulic-pump-shaft-01":"bar",
 "braking-stop-time-01":"km/h",
 "beam-curvature-01":"N·m",
