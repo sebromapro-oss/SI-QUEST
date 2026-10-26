@@ -1,6 +1,8 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'three-phase-power-01':i=>Math.sqrt(3)*400*i*.82/1000,
+'hydrostatic-column-01':h=>850*9.81*h/1e5,
 'planetary-fixed-ring-01':n=>n*24/96,
 'thermal-radiation-01':t=>0.85*5.670374419e-8*0.5*((t+273.15)**4-293.15**4),
 'rotation-energy-01':n=>0.5*12*(2*Math.PI*n/60)**2/1000,
@@ -82,6 +84,8 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'three-phase-power-01':{min:0,max:8,unit:'kW'},
+'hydrostatic-column-01':{min:0,max:.3,unit:'bar'},
 'planetary-fixed-ring-01':{min:0,max:250,unit:'tr/min'},
 'thermal-radiation-01':{min:0,max:250,unit:'W'},
 'rotation-energy-01':{min:0,max:8,unit:'kJ'},
@@ -163,6 +167,8 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'three-phase-power-01':Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Réseau sinusoïdal triphasé équilibré, tension composée efficace Uₗ = 400 V, courant de ligne efficace Iₗ entre 4 et 25 A, cos φ = 0,82 constant. Calcul de la puissance active électrique absorbée, pas de la puissance mécanique, ni du démarrage. Plafond fictif 8,00 kW.","solution":"Uₗ = 400 V ; Iₗ = 12 A ; cos φ = 0,82. S = √3 × 400 V × 12 A = 8 313,84 VA. P = 8 313,84 VA × 0,82 = 6 817,35 W = 6,817 kW. Contrôle dimensionnel : V × A × cos φ donne W. Critère fictif de 8,00 kW respecté. Pour obtenir la puissance mécanique, mesurer ou connaître le rendement réel."}),
+'hydrostatic-column-01':Object.freeze({"absoluteTolerance":0.002,"relativeTolerance":0,"precision":4,"assumptions":"Huile homogène incompressible au repos, ρ = 850 kg/m³, g = 9,81 m/s² ; deux prises dans le même liquide, hauteur h positive vers le bas, h de 0 à 6 m. Absence d’écoulement, de pertes de charge et de pompe active. Seuil pédagogique fictif de 0,30 bar.","solution":"ρ = 850 kg/m³ ; g = 9,81 m/s² ; h = 2,50 m. Δp = p_bas − p_haut = 850 × 9,81 × 2,50 = 20 846,25 Pa = 0,2084625 bar ≈ 0,2085 bar. Homogénéité : (kg/m³)(m/s²)(m) = kg/(m·s²) = Pa. Δp est positif vers le bas et nul à h = 0. Ce n’est pas une perte de charge en écoulement."}),
 'planetary-fixed-ring-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Train épicycloïdal idéal à couronne intérieure fixe, nᵣ = 0 tr/min, zₛ = 24 dents, zᵣ = 72 dents, trois satellites zₚ = 24 dents. Régime solaire positif 400 à 1 200 tr/min, axes parallèles, pas de glissement. Cinématique seule, ni couple ni rendement. Seuil de 250 tr/min fictif.","solution":"Willis : (nₛ − nₚ)/(nᵣ − nₚ) = −zᵣ/zₛ = −72/24 = −3. Couronne fixe : nᵣ = 0 tr/min. Donc nₛ − nₚ = 3nₚ et nₛ = 4nₚ. À nₛ = 900 tr/min : nₚ = 900/4 = 225 tr/min, de même sens que le soleil. Satellites : zₚ = (72 − 24)/2 = 24 dents ; entraxe soleil/satellite = m(24+24)/2 = 24m ; entraxe couronne/satellite = m(72−24)/2 = 24m. Contrôler la couronne réellement immobilisée et les limites constructeur."}),
 'thermal-radiation-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Plaque grise diffuse isotherme de surface A = 0,50 m², émissivité ε = 0,85 constante ; échange radiatif net avec une enceinte très grande à Tₐ = 20 °C (293,15 K), facteur de forme 1. Tₛ de 40 à 120 °C. Ni convection ni conduction. Flux positif vers l’enceinte ; seuil 250 W fictif.","solution":"Tₛ = 80 °C = 353,15 K ; Tₐ = 20 °C = 293,15 K ; σ = 5,670374419×10⁻⁸ W·m⁻²·K⁻⁴. Pᵣ = εσA(Tₛ⁴−Tₐ⁴) = 0,85 × 5,670374419×10⁻⁸ × 0,50 × [(353,15)⁴−(293,15)⁴] = 196,86 W. Contrôle dimensionnel : W·m⁻²·K⁻⁴ × m² × K⁴ = W. À Tₛ = Tₐ, le flux net est nul ; convection et conduction restent à étudier."}),
 'rotation-energy-01':Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Volant d'inertie rigide en rotation autour d'un axe fixe, moment d'inertie massique J = 12 kg·m² constant, vitesse n positive de 100 à 450 tr/min ; aucun glissement ni déformation. L'énergie calculée est l'énergie cinétique du volant seul ; seuil de 8 kJ fictif.","solution":"J = 12 kg·m² ; n = 300 tr/min = 5 tr/s. ω = 2πn/60 = 10π rad/s = 31,4159 rad/s. E = ½Jω² = ½ × 12 kg·m² × (31,4159 rad/s)² = 5 921,76 J = 5,922 kJ. Contrôle dimensionnel : kg·m²/s² = J ; le radian est sans dimension. Le seuil pédagogique de 8 kJ est respecté à 300 tr/min, mais l'énergie à dissiper croît avec le carré du régime. Pour un freinage réel, vérifier les autres inerties et le système de freinage."}),
@@ -249,6 +255,8 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'three-phase-power-01':'A',
+'hydrostatic-column-01':'m',
 'planetary-fixed-ring-01':'tr/min',
 'thermal-radiation-01':'°C',
 'rotation-energy-01':'tr/min',

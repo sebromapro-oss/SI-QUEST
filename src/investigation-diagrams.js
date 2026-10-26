@@ -7,6 +7,8 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'three-phase-power-01':'Moteur triphasé : trois conducteurs de phase',
+'hydrostatic-column-01':'Colonne d’huile et prises de pression',
 'planetary-fixed-ring-01':'Train épicycloïdal — cercles primitifs',
 'thermal-radiation-01':'Rayonnement net d’une plaque',
 'rotation-energy-01':'Volant d’inertie — énergie de rotation',
@@ -88,6 +90,8 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+'three-phase-power-01':['Iₗ','P'],
+'hydrostatic-column-01':['h','Δp'],
 'planetary-fixed-ring-01':['nₛ','nₚ'],
 'thermal-radiation-01':['Tₛ','Pᵣ'],
 'rotation-energy-01':['n','Eᵣ'],
@@ -251,11 +255,26 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(["planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(["three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'three-phase-power-01':{
+  s+=box(265,57,205,144,'#244963');
+  for(let k=0;k<3;k++){const y=85+40*k;s+=line(95,y,265,y,'#8ddcff',4)+circle(265,y,4,'#ffd17d')+text(54,y+5,'L'+(k+1));}
+  s+=circle(369,128,44,'#315c76')+text(357,135,'M','font-size="24"');
+  s+=text(44,35,'Uₗ = 400 V ; cos φ = 0,82')+text(48,222,'Trois phases, réseau équilibré ; P active');break;
+ }
+ case 'hydrostatic-column-01':{
+  s+=box(264,67,110,134,'#143c56')+'<rect x="270" y="73" width="98" height="122" fill="#2477aa" opacity="0.55"/>';
+  s+=line(374,84,453,84,'#7ce8ae',4)+line(374,185,453,185,'#ffca7d',4);
+  s+=circle(453,84,5,'#7ce8ae')+circle(453,185,5,'#ffca7d');
+  s+=arrow(223,84,223,185,'#ffd17d',4);
+  s+=text(49,36,'ρ = 850 kg/m³ ; g = 9,81 m/s²')+text(145,141,'h = '+N(x)+' m')+text(461,91,'haut')+text(461,191,'bas');
+  s+=text(48,223,'p_bas − p_haut = ρgh ; bas plus pressurisé');break;
+ }
+
  case 'planetary-fixed-ring-01':{
   const cx=300,cy=130;s+=circle(cx,cy,90,'none','stroke-dasharray="6 5"')+circle(cx,cy,30,'#315c76');
   for(let i=0;i<3;i++){const a=i*2*Math.PI/3;s+=circle(cx+60*Math.cos(a),cy+60*Math.sin(a),30,'#254d69');}
@@ -346,7 +365,14 @@ case 'beam-stress-02':{s+=line(110,135,500,135,'#9bc9e5',10)+'<path d="M145 103 
 case 'gear-ratio-02':{const r1=45,r2=45*x/18,scale=Math.min(1,80/r2),a=r1*scale,b=r2*scale,c1=300-(a+b)/2,c2=c1+a+b;s+=circle(c1,132,a)+circle(c2,132,b)+circle(c1,132,6,'#ffd17d')+circle(c2,132,6,'#ffd17d')+text(55,85,'z₁ = 18 dents')+text(370,85,'z₂ = '+N(x)+' dents')+text(55,180,'Sens de rotation opposés');s+=text(32,40,"Engrenages extérieurs, sens opposés")+valueLabel(id,x,result);break;}
 case 'screw-lead-01':{s+=box(100,96,400,56,'#315c76');for(let k=0;k<8;k++)s+=line(125+k*48,96,155+k*48,152,'#ffca7d',4);s+=arrow(150,177,450,177)+text(70,74,'2 filets ; p = '+N(x)+' mm')+text(80,205,'Avance = '+N(result)+' mm/tr');s+=text(32,40,"Vis à deux filets et avance par tour")+valueLabel(id,x,result);break;}
 case 'hydro-cylinder-speed-02':{s+=box(130,77,320,95)+box(265,85,16,78,'#c8d8e2')+line(280,123,515,123,'#a9d9ed',14)+arrow(500,65,555,65);s+=text(32,40,"Vérin hydraulique et vitesse de tige")+valueLabel(id,x,result);break;}
-case 'hydro-annular-force-01':{s+=box(120,80,330,92,'#173f59')+box(240,86,18,80,'#c8d8e2')+line(258,126,520,126,'#c8d8e2',14)+box(280,91,160,69,'#2477aa')+arrow(400,60,310,60)+text(65,52,'Chambre annulaire sous pression')+text(65,211,'D = 80 mm ; d = 40 mm');s+=text(32,40,"Vérin différentiel, chambre annulaire")+valueLabel(id,x,result);break;}
+case 'hydro-annular-force-01':{
+  s+=box(120,80,330,92,'#173f59');
+  s+='<rect x="259" y="87" width="183" height="29" fill="#2477aa" opacity=".65" data-fluid-zone="superieure"/>';
+  s+='<rect x="259" y="138" width="183" height="27" fill="#2477aa" opacity=".65" data-fluid-zone="inferieure"/>';
+  s+=box(240,86,18,80,'#c8d8e2')+line(258,126,520,126,'#c8d8e2',14);
+  s+=arrow(400,60,310,60)+text(65,52,'Chambre annulaire sous pression')+text(65,73,'D = 80 mm ; d = 40 mm');
+  s+=valueLabel(id,x,result);break;
+ }
 case 'pneumatic-consumption-01':{
   const pistonX=140+300*x/400;
   s+=box(125,80,350,92,'#173f59');
