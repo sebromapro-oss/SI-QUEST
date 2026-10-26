@@ -140,6 +140,11 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+"gear-eff-01":["η","Pᵤ"],
+"pulley-01":["D₂","n₂"],
+"capacitor-01":["U","Q"],
+"resistance-02":["R₂","Rₑ"],
+"thermal-exp-01":["ΔT","ΔL"],
 "accumulator-polytropic-delivery-01":["p_bas","ΔV"],
 "three-phase-capacitor-sizing-01":["cos φ₂","C_Δ"],
 "pump-affinity-power-01":["n₂","P₂"],
@@ -856,11 +861,11 @@ case 'motion-01':{
 case "impulse-01":{s+=box(180,105,180,65)+arrow(65,137,170,137)+line(100,195,500,195)+text(55,40,'F = 800 N ; Δt = '+N(x)+' s');break;}
 case "friction-02":{s+=line(65,174,540,174)+box(210,114,150,60)+arrow(285,110,285,55)+arrow(285,178,285,213)+arrow(210,144,120,144)+text(55,40,'μ = '+N(x));break;}
 case "buoyancy-01":{s+=box(130,65,350,145,'#164866')+box(245,115,120,85)+arrow(305,190,305,70)+text(55,40,'V = '+N(x)+' m³');break;}
-case "gear-eff-01":{s+=circle(180,125,65)+circle(420,125,45)+line(245,125,375,125,'#d5e8f4',12)+arrow(90,125,120,125)+arrow(465,125,525,125)+text(55,40,'η = '+N(x));break;}
-case "pulley-01":{s+=circle(180,120,50)+circle(430,120,Math.max(30,Math.min(78,x/5)))+line(180,70,430,120-Math.max(30,Math.min(78,x/5)))+line(180,170,430,120+Math.max(30,Math.min(78,x/5)))+text(55,40,'D₂ = '+N(x)+' mm');break;}
-case "capacitor-01":{s+=line(100,110,270,110)+line(270,65,270,155,'#ffd17d',6)+line(300,65,300,155,'#ffd17d',6)+line(300,110,480,110)+text(55,40,'U = '+N(x)+' V');break;}
-case "resistance-02":{s+=line(60,120,130,120)+box(130,105,100,30)+line(230,120,310,120)+box(310,105,110,30)+line(420,120,530,120)+text(55,40,'R₂ = '+N(x)+' Ω');break;}
-case "thermal-exp-01":{s+=box(100,95,370+Math.min(60,x*.5),55)+line(470,75,470,170,'#ffd17d',2,'stroke-dasharray="5 5"')+arrow(470,185,470+Math.min(60,x*.5),185)+text(55,40,'ΔT = '+N(x)+' K ; déplacement amplifié');break;}
+case "gear-eff-01":{s+=circle(180,125,65)+circle(420,125,45)+line(245,125,375,125,'#d5e8f4',12)+arrow(90,125,120,125)+arrow(465,125,525,125)+text(55,40,'η = '+N(x));s+=valueLabel(id,x,result,216);break;}
+case "pulley-01":{s+=circle(180,120,50)+circle(430,120,Math.max(30,Math.min(78,x/5)))+line(180,70,430,120-Math.max(30,Math.min(78,x/5)))+line(180,170,430,120+Math.max(30,Math.min(78,x/5)))+text(55,40,'D₂ = '+N(x)+' mm');s+=valueLabel(id,x,result,216);break;}
+case "capacitor-01":{s+=line(100,110,270,110)+line(270,65,270,155,'#ffd17d',6)+line(300,65,300,155,'#ffd17d',6)+line(300,110,480,110)+text(55,40,'U = '+N(x)+' V');s+=valueLabel(id,x,result,216);break;}
+case "resistance-02":{s+=line(60,120,130,120)+box(130,105,100,30)+line(230,120,310,120)+box(310,105,110,30)+line(420,120,530,120)+text(55,40,'R₂ = '+N(x)+' Ω');s+=valueLabel(id,x,result,216);break;}
+case "thermal-exp-01":{s+=box(100,95,370+Math.min(60,x*.5),55)+line(470,75,470,170,'#ffd17d',2,'stroke-dasharray="5 5"')+arrow(470,185,470+Math.min(60,x*.5),185)+text(55,40,'ΔT = '+N(x)+' K ; déplacement amplifié');s+=valueLabel(id,x,result,216);break;}
 case "hydro-speed-01":{s+=box(100,75,350,100)+box(245,82,16,86,'#d8e8f2')+box(261,115,250,20,'#d8e8f2')+arrow(110,65,220,65)+text(55,40,'Q = '+N(x)+' L/min')+text(55,218,'v = '+N(result)+' m/s ; modèle sans pertes');break;}
 case "work-01":{s+=line(50,180,550,180)+box(210,120,120,55)+circle(235,177,12)+circle(305,177,12)+arrow(335,140,500,140)+text(55,40,'d = '+N(x)+' m ; F = 400 N')+text(55,219,'W = '+N(result)+' J ; force alignée');break;}
 case "frequency-period-01":{s+='<path d="M60 125 L130 125 L130 75 L200 75 L200 125 L270 125 L270 75 L340 75 L340 125 L410 125 L410 75 L480 75 L480 125 L550 125" fill="none" stroke="#8ddcff" stroke-width="4"/>'+text(55,40,'f = '+N(x)+' Hz')+text(55,219,'T = '+N(result)+' s ; tracé illustratif');break;}

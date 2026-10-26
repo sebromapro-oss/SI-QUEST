@@ -408,6 +408,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"gear-eff-01":"sans unité",
+"pulley-01":"mm",
+"capacitor-01":"V",
+"resistance-02":"Ω",
+"thermal-exp-01":"K",
 "accumulator-polytropic-delivery-01":"bar abs",
 "three-phase-capacitor-sizing-01":"sans unité",
 "pump-affinity-power-01":"tr/min",

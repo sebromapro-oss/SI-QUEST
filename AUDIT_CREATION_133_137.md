@@ -23,3 +23,7 @@ Les seuils sont pédagogiques et fictifs. Les modèles ont des scènes 2D param�
 ## Réception S/G/P/F/A
 
 S : contre-calculs V8 et tests Node à vérifier sur la révision GitHub. G : contrôles géométriques automatisables, inspection visuelle individuelle NOT RUN. P : rubriques et parcours du moteur commun, essai élève NOT RUN. F : tests Node et DOM simulé à consulter dans GitHub Actions, appareils réels NOT RUN. A : contrôles automatiques partiels ; NVDA/TalkBack/VoiceOver et audit WCAG/RGAA complet NOT RUN. Aucune conformité non testée n'est déclarée.
+
+## Contre-audit CI et correctif supplémentaire
+
+Le premier passage de la suite Node sur le commit `c32eadd21e2d00196d946269f7f4c3d5acc203d6` a exécuté **715 tests : 713 PASS, 2 FAIL**. Les deux échecs provenaient de l’absence de métadonnées d’unité d’entrée pour `gear-eff-01` (première mission de la plage 40–75). L’analyse a aussi révélé quatre autres métadonnées absentes et trois schémas sans unité de résultat (`gear-eff-01`, `pulley-01`, `thermal-exp-01`). Les cinq métadonnées et les cinq légendes ont été complétées dans le moteur commun. Le statut du nouveau commit est à vérifier dans GitHub Actions ; ne pas considérer ces tests réussis avant leur exécution.
