@@ -37,3 +37,12 @@ Ne pas déclarer conforme ni validé avant tests en navigateur, correction des d
 - Contrôles NON réalisés : ouverture réelle en navigateur, comparaison par capture avec la maquette, performance mesurée, contrôle de chevauchement mobile, réception lecteur d'écran, tests matériels.
 - Écart ART-01 / ART-02 : ambiance améliorée mais fidélité cinématographique non démontrée ; les éléments SVG procéduraux des 17 îles restent des illustrations stylisées, et les grandes îles de fond ne constituent pas des lieux interactifs individualisés.
 - Statut : **implémenté, non réceptionné**. La correction du parcours mobile et la recette visuelle demeurent ouvertes.
+
+## Recette navigateur ajoutée — 26 octobre 2026
+- Corrections : gestion du focus des dialogues et de leur fermeture ; défilement sans valeur de comportement non standard ; tailles minimales des cibles sur petits écrans ; blocage du défilement arrière-plan avec fenêtre ouverte.
+- Ajout de `tests/accueil-browser.spec.cjs` avec 4 profils de rendu : bureau 1440×900, mobile émulé Android 390×844, iPhone émulé 375×812, tablette émulée 1024×768.
+- Scénarios Playwright : 17 îles et 17 liens alternatifs, JOUER, ouverture du panneau, accès aux missions, sélection hydraulique, fermeture, capture, largeur sans débordement, Échap et restauration du focus.
+- Workflow `.github/workflows/accueil-browser.yml` : installe Chromium via Playwright, sert le projet statique, lance les tests et archive les captures.
+- **Important :** workflow ajouté au dépôt mais exécution et résultats non confirmés lors de cette opération. Les tests en émulation n'équivalent pas à Android/iPhone physiques ni à des essais NVDA/TalkBack/VoiceOver.
+- Risque ouvert : la densité des 17 îles sur écran de 375 px reste à évaluer visuellement et à corriger selon captures. Le test de débordement global ne détecte pas les collisions internes des étiquettes.
+- Statut : **tests automatisés configurés ; réception navigateur non encore démontrée**.
