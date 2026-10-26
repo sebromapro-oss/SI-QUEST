@@ -21,3 +21,13 @@ Modèles purs et domaines, schémas SVG paramétriques, unités, questions flash
 Contrôles V8 préparatoires : syntaxe, cinq valeurs par modèle, références indépendantes, domaines invalides, unités, SVG, métadonnées et invariants. Les fichiers de tests Node et de parcours DOM sont créés, mais la CI native reste dépendante des runners.
 
 S : PASS ciblé ; G : PASS structurel, visuel NOT RUN ; P : contenus présents, essai élève NOT RUN ; F : PASS V8 ciblé, CI native BLOCKED ; A : balises contrôlées, NVDA/TalkBack/VoiceOver NOT RUN. Aucun test matériel revendiqué.
+
+## Contre-audit exécuté sur le commit 17201859d99fbc9c79a0fd76ee23d13fd548697f
+
+- Catalogue : 177 entrées et 177 identifiants distincts ; 17 univers.
+- Lot 173–177 : **80 contrôles V8 préparatoires PASS**, dont contre-calculs indépendants à cinq points par modèle, bornes invalides, géométrie SVG structurelle, unités et politiques de réponse.
+- `tests/batch173-177.test.cjs` : **7/7 tests PASS en V8 avec adaptateurs**, sans exécution Node native.
+- `tests/batch173-177-flow.test.cjs` : **7/7 tests PASS en V8 avec adaptateurs DOM**, couvrant saisie invalide, trois essais, aides, corrigé conditionnel et sauvegarde. Il ne s'agit pas d'un navigateur réel.
+- Historique 40–75 : **36/36 missions**, trois points par mission, **108/108 points PASS** ; vérifications de l'identifiant, du calcul nominal, des unités et de la structure SVG. Audit visuel et manuel non réalisé.
+- CI sur le commit : quatre workflows en **FAIL avant exécution des étapes**, jobs sans runner ni étapes : `40411776161`, `40411776298`, `40411776075`, `40411776069`. Journaux de job indisponibles (404 BlobNotFound). Relance de `40411776161` (tentative 2) : même échec sans étapes. **CI native : BLOCKED**, cause d'infrastructure non déterminée.
+- S : **PASS ciblé** ; G : **PASS structurel**, inspection visuelle **NOT RUN** ; P : contenus et séquences **PASS structurel**, essais réels **NOT RUN** ; F : **PASS V8 simulé**, CI **BLOCKED**, navigateur **NOT RUN** ; A : balisage SVG et commandes présents, NVDA/TalkBack/VoiceOver **NOT RUN**. Réception globale : **BLOCKED**.
