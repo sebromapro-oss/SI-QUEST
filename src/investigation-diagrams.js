@@ -290,8 +290,8 @@ function render(id,x,result){
  let s='';
  switch(id){
 case 'hydro-motor-speed-01':{
- s+=line(90,112,206,112,'#8ddcff',8)+arrow(110,112,186,112,'#7ce8ae',4)+circle(270,135,59,'#315c76')+circle(270,135,12,'#ffd17d')+line(270,135,490,135,'#d5e8f4',10)+line(270,194,270,213,'#8ddcff',8)+line(270,213,490,213,'#8ddcff',8);
- if(x>0)s+=arrow(345,135,345+Math.min(125,result/5),135,'#ffca7d',4);
+ s+=line(90,112,206,112,'#8ddcff',8) +circle(270,135,59,'#315c76')+circle(270,135,12,'#ffd17d')+line(270,135,490,135,'#d5e8f4',10)+line(270,194,270,213,'#8ddcff',8)+line(270,213,490,213,'#8ddcff',8);
+ if(x>0){s+=arrow(110,112,186,112,'#7ce8ae',4);s+=arrow(345,135,345+Math.min(125,result/5),135,'#ffca7d',4);}
  s+=text(30,40,'Moteur : Vg = 80 cm³/tr ; ηᵥ = 0,88');
  s+='<g data-motor-rpm="'+result.toFixed(3)+'" data-flow-Lmin="'+x.toFixed(2)+'"></g>';break;}
 case 'beam-center-deflection-01':{
@@ -299,8 +299,8 @@ case 'beam-center-deflection-01':{
  const def=z=>{const a=Math.min(z,L-z);return x*a*(3*L*L-4*a*a)/(48*EI)*1000};
  const path=Array.from({length:41},(_,i)=>{const z=L*i/40;return(i?'L':'M')+(150+300*z/L).toFixed(2)+' '+(112+300*def(z)).toFixed(2)}).join(' ');
  s+=line(150,112,450,112,'#9bc9e5',2)+'<path d="'+path+'" fill="none" stroke="#ffd17d" stroke-width="5" data-deflection-mm="'+result.toFixed(6)+'"/>';
- s+='<path d="M135 151 L165 151 L150 130 Z M435 151 L465 151 L450 130 Z" fill="#315c76" stroke="#d5e8f4" stroke-width="2"/>';
- if(x>0)s+=arrow(300,56,300,100,'#ffca7d',4);
+ s+='<path d="M135 135 L165 135 L150 112 Z M435 135 L465 135 L450 112 Z" fill="#315c76" stroke="#d5e8f4" stroke-width="2"/>';
+ if(x>0)s+=arrow(300,45,300,112+300*result,'#ffca7d',4);
  s+=text(30,38,'Traverse bi-appuyée : L = 1,20 m ; E I = 1,68 MN·m²');
  s+=text(30,210,'Déformée amplifiée ×1 200 à l’écran');break;}
 case 'reactive-three-phase-01':{

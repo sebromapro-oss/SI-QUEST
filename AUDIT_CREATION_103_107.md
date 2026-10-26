@@ -19,3 +19,8 @@ Modèles distincts, hypothèses, unités, réactivation, calcul, SVG paramétriq
 ## Réception
 Contrôles préparatoires : compilation JS, contre-calculs indépendants, bornes, schémas SVG et cohérence catalogue/HTML. GitHub Actions Node : consulter les runs associés au commit distant avant toute déclaration PASS.
 S : calculs automatisés ciblés ; G : géométries contrôlées dans le code ; P : objectifs, réactivation, corrigés ; F : essais et sauvegarde via moteur commun ; A : alternatives textuelles statiques. NOT RUN : recette visuelle humaine, essais matériels Windows/Mac/Android/iPhone, NVDA, TalkBack, VoiceOver, réception RGAA/WCAG complète. Aucune réception globale déclarée.
+
+## Contre-audit graphique du lot 103–107
+- P2 : la flèche de débit du moteur était visible à Q = 0 ; affichage désormais conditionnel à Q > 0.
+- P2 : les triangles d'appui de la traverse étaient détachés de la fibre initiale ; apex replacés au niveau y = 112. Le vecteur de charge rejoint désormais le point chargé de la déformée calculée, avec amplification explicitée.
+- Tests ciblés de non-régression ajoutés ; contrôles manuels visuels toujours NOT RUN.
