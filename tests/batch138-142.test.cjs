@@ -10,7 +10,7 @@ const independent={
 "adc-voltage-step-01":x=>x*125/512,
 };
 const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-9*Math.max(1,Math.abs(b)),a+' != '+b);
-test('138–142 : catalogue unique, 17 univers, accueil protégé',()=>{assert.equal(cat.levels.length,142);assert.equal(new Set(cat.levels.map(x=>x.id)).size,142);assert.equal(cat.worlds.length,17);assert.match(fs.readFileSync('index.html','utf8'),/id="island-map"/)});
+test('138–142 : catalogue unique, 17 univers, accueil protégé',()=>{assert.ok(cat.levels.length>=142);assert.equal(new Set(cat.levels.map(x=>x.id)).size,cat.levels.length);assert.equal(cat.worlds.length,17);assert.match(fs.readFileSync('index.html','utf8'),/id="island-map"/)});
 for(const c of cases)test(c.id+' : calcul indépendant, bornes, graphique, consignes',()=>{
  const html=fs.readFileSync('missions/'+c.id+'.html','utf8'),cfg=JSON.parse(html.match(/window\.SI_MISSION=(\{.*?\})<\/script>/)[1]);
  assert.equal(cfg.unit,c.unit);assert.equal(cfg.inputUnit,c.input);near(cfg.expected,c.expected);

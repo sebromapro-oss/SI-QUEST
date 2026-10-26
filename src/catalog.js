@@ -152,6 +152,11 @@
     Object.freeze({"id":"wheel-braking-slip-01","world":"SI-01","title":"Roue freinée — Glissement longitudinal","url":"missions/wheel-braking-slip-01.html","subskill":"Glissement cinématique en freinage sans inversion"}),
     Object.freeze({"id":"lumped-cooling-time-constant-01","world":"SI-12","title":"Refroidissement — Constante de temps thermique","url":"missions/lumped-cooling-time-constant-01.html","subskill":"Identification de la constante de temps d’un solide isotherme"}),
     Object.freeze({"id":"adc-voltage-step-01","world":"SI-13","title":"Acquisition — Pas de quantification CAN","url":"missions/adc-voltage-step-01.html","subskill":"Résolution en tension d’un convertisseur idéal"}),
+    Object.freeze({"id":"combined-stress-von-mises-01","world":"SI-04","title":"État plan de contraintes — Von Mises","url":"missions/combined-stress-von-mises-01.html","subskill":"Critère de Von Mises en traction-cisaillement"}),
+    Object.freeze({"id":"pt100-linear-response-01","world":"SI-13","title":"Sonde Pt100 — Approximation linéaire","url":"missions/pt100-linear-response-01.html","subskill":"Conversion température-résistance d'une Pt100"}),
+    Object.freeze({"id":"torsional-eigenfrequency-01","world":"SI-09","title":"Transmission — Fréquence propre de torsion","url":"missions/torsional-eigenfrequency-01.html","subskill":"Oscillateur torsionnel à un degré de liberté"}),
+    Object.freeze({"id":"laminar-darcy-factor-01","world":"SI-06","title":"Conduite laminaire — Facteur de Darcy","url":"missions/laminar-darcy-factor-01.html","subskill":"Facteur de Darcy en écoulement laminaire établi"}),
+    Object.freeze({"id":"triangle-actuator-angle-01","world":"SI-01","title":"Relevage — Angle d'un triangle articulé","url":"missions/triangle-actuator-angle-01.html","subskill":"Loi des cosinus pour une articulation plane"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});

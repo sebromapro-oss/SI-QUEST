@@ -1,6 +1,11 @@
 (()=>{
 'use strict';
 const c=window.SI_MISSION,profile={
+"combined-stress-von-mises-01":["Patte d'attelage sous efforts combinés.","Calculer la contrainte équivalente.","Comparer au seuil fictif 180 MPa.","Mesurer géométrie, efforts et limite matière.","Revoir la section après dimensionnement complet."],
+"pt100-linear-response-01":["Contrôle d'une Pt100 en maintenance.","Appliquer le modèle linéaire simplifié.","Comparer au plafond fictif 140 Ω.","Mesurer la résistance à quatre fils.","Consulter la norme et contrôler le câblage."],
+"torsional-eigenfrequency-01":["Volant soumis à des oscillations de torsion.","Relier raideur et inertie à la fréquence propre.","Comparer au minimum fictif 1,8 Hz.","Relever spectre d'excitation et modes.","Adapter la transmission après analyse vibratoire."],
+"laminar-darcy-factor-01":["Conduite hydraulique en régime laminaire.","Identifier la loi fD = 64/Re.","Comparer à 0,08, seuil fictif.","Vérifier la viscosité et le régime réel.","Sélectionner la loi de pertes adaptée."],
+"triangle-actuator-angle-01":["Relevage articulé avec vérin.","Appliquer la loi des cosinus.","Comparer à 45°–100° fictifs.","Contrôler butées, jeux et course.","Réviser l'implantation après mesures."],
 "hydraulic-oil-compressibility-01":["Un circuit hydraulique présente un volume compressible lors de la mise en pression.","Distinguer volume initial, variation de pression et module volumique.","Comparer ΔV au plafond pédagogique fictif de 20 mL.","Mesurer l’air entraîné, la température et la compressibilité effective.","Réviser le volume mort ou la purge après mesures et notice constructeur."],
 "hollow-shaft-polar-inertia-01":["Un arbre de transmission tubulaire doit être comparé à une exigence de rigidité.","Distinguer moment quadratique polaire et inertie massique.","Comparer Jₚ au minimum pédagogique fictif de 80 cm⁴.","Calculer ensuite contraintes et angle de torsion avec G et la longueur.","Revoir le diamètre intérieur après vérification de la résistance réelle."],
 "wheel-braking-slip-01":["Un banc de freinage relève la vitesse d’une roue et celle du véhicule.","Convertir la vitesse angulaire en vitesse périphérique et comparer à v.","Comparer le glissement au plafond fictif de 15 %.","Mesurer les vitesses synchronisées et l’adhérence réelle.","Investiguer pneumatiques, capteurs et freinage avant toute conclusion."],

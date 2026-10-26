@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"combined-stress-von-mises-01":x=>Math.hypot(120,Math.sqrt(3)*x),
+"pt100-linear-response-01":x=>100*(1+.00385*x),
+"torsional-eigenfrequency-01":x=>Math.sqrt(x/8)/(2*Math.PI),
+"laminar-darcy-factor-01":x=>64/x,
+"triangle-actuator-angle-01":x=>Math.acos((.45**2+.65**2-x*x)/(2*.45*.65))*180/Math.PI,
 "hydraulic-oil-compressibility-01":x=>2e-3*x*1e5/1.5e9*1e6,
 "hollow-shaft-polar-inertia-01":x=>Math.PI*(60**4-x**4)/(32*1e4),
 "wheel-braking-slip-01":x=>(5-.4*x)/5*100,
@@ -139,6 +144,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"combined-stress-von-mises-01":{min:0,max:180,unit:"MPa"},
+"pt100-linear-response-01":{min:100,max:140,unit:"Ω"},
+"torsional-eigenfrequency-01":{min:1.8,max:Infinity,unit:"Hz"},
+"laminar-darcy-factor-01":{min:0,max:0.08,unit:"sans unité"},
+"triangle-actuator-angle-01":{min:45,max:100,unit:"°"},
 "hydraulic-oil-compressibility-01":{min:0,max:20,unit:"mL"},
 "hollow-shaft-polar-inertia-01":{min:80,max:Infinity,unit:"cm⁴"},
 "wheel-braking-slip-01":{min:0,max:15,unit:"%"},
@@ -277,6 +287,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"combined-stress-von-mises-01":Object.freeze({"absoluteTolerance":0.25,"relativeTolerance":0,"precision":2,"assumptions":"État de contrainte plane homogène, σx = 120 MPa, σy = 0 MPa, τxy entre 0 et 100 MPa ; matériau ductile isotrope en régime élastique, chargement statique. La limite pédagogique de 180 MPa est fictive. Le modèle ne traite ni fatigue, ni flambement, ni concentration de contrainte.","solution":"σVM² = σx² + 3τ² = 120² + 3×40² = 19 200 MPa². σVM = √19 200 = 138,56 MPa. Contrôle dimensionnel : √MPa² = MPa. À τ = 0, σVM = 120 MPa. Comparer au seuil fictif de 180 MPa puis contrôler matière, coefficients et contraintes locales."}),
+"pt100-linear-response-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":2,"assumptions":"Pt100 nominale R₀ = 100 Ω à 0 °C, approximation linéaire avec α = 0,00385 K⁻¹, température entre 0 et 150 °C. Ce modèle simplifié n'est PAS la relation normative exacte IEC 60751 : il ne convient pas pour un étalonnage de précision. Plafond fictif de 140 Ω.","solution":"ΔT = 80 K depuis 0 °C ; αΔT = 0,00385×80 = 0,308 sans unité. R = 100 Ω × (1 + 0,308) = 130,80 Ω. Contrôle : Ω×(1+K⁻¹×K) = Ω. Comparer au seuil fictif de 140 Ω ; pour une mesure réelle, utiliser la table IEC 60751 et corriger les fils."}),
+"torsional-eigenfrequency-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Oscillateur torsionnel idéal à un degré de liberté : J = 8,00 kg·m², raideur kθ de 500 à 2 000 N·m/rad. Arbre sans inertie répartie, sans amortissement ni jeu ; petites oscillations. Le seuil de 1,8 Hz est fictif et ne prouve pas l'absence de résonance réelle.","solution":"kθ/J = 1 250/8 = 156,25 s⁻². Pulsation propre ω₀ = √156,25 = 12,5 rad/s. Fréquence f₀ = 12,5/(2π) = 1,9894 Hz. Contrôle : √[(N·m)/(kg·m²)] = s⁻¹. Mesurer les excitations réelles et l'amortissement avant décision."}),
+"laminar-darcy-factor-01":Object.freeze({"absoluteTolerance":0.0005,"relativeTolerance":0,"precision":4,"assumptions":"Fluide newtonien incompressible, écoulement permanent, hydrodynamiquement établi dans une conduite circulaire ; Re entre 400 et 2 000. fD est le facteur de DARCY, quatre fois celui de Fanning. Loi non valable en turbulence ni en entrée de conduite. Plafond de 0,08 fictif.","solution":"Re = 1 000 sans unité. fD = 64/1 000 = 0,064 sans unité. Facteur de Fanning fF = fD/4 = 0,016. Contrôle : Re×fD = 64 ; doubler Re divise fD par deux. Pour Δp, il faudra aussi longueur, diamètre, masse volumique et vitesse."}),
+"triangle-actuator-angle-01":Object.freeze({"absoluteTolerance":0.15,"relativeTolerance":0,"precision":2,"assumptions":"Triangle plan rigide OBC : OB = 0,45 m, OC = 0,65 m et BC = L de 0,25 à 1,05 m. L'angle θ est au pivot O ; absence de jeu et de déformation. Le domaine satisfait |a−b| < L < a+b. Plage 45° à 100° fictive, sans valeur constructeur.","solution":"a² = 0,2025 m² ; b² = 0,4225 m² ; L² = 0,4900 m². cos θ = (0,2025+0,4225−0,4900)/(2×0,45×0,65) = 0,230769. θ = arccos(0,230769) = 76,66°. Contrôle : m²/m² sans unité ; θ augmente avec L. Vérifier butées, course et collisions."}),
 "hydraulic-oil-compressibility-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Huile homogène à température constante, V₀ = 2,00 L = 0,00200 m³, module volumique K = 1,50 GPa constant, Δp de 0 à 200 bar. Compression faible ΔV/V₀ ≤ 1,34 %, absence d’air entraîné, de dilatation du récipient et de fuite ; ΔV est une réduction positive du volume. Le critère de 20 mL est fictif.","solution":"V₀ = 2,00 L = 2,00×10⁻³ m³ ; Δp = 120 bar = 12,0×10⁶ Pa ; K = 1,50×10⁹ Pa. ΔV = V₀ Δp/K = 2,00×10⁻³×12,0×10⁶/(1,50×10⁹) = 1,60×10⁻⁵ m³ = 16,0 mL. Contrôle dimensionnel : m³×Pa/Pa = m³. ΔV/V₀ = 0,008 = 0,8 %. Il faut mesurer le module réel et rechercher l’air dissous avant toute décision."}),
 "hollow-shaft-polar-inertia-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":2,"assumptions":"Section circulaire annulaire homogène, D = 60 mm constant, diamètre intérieur d entre 20 et 50 mm, axe longitudinal au centre de la section. Moment quadratique polaire géométrique Jₚ = ∫r²dA ; ce n’est pas un moment d’inertie massique. Modèle de Saint-Venant applicable à un tube circulaire ; seuil fictif Jₚ ≥ 80 cm⁴, aucune vérification de contrainte ou de flambement.","solution":"D = 60 mm, d = 40 mm ; D⁴ = 12 960 000 mm⁴, d⁴ = 2 560 000 mm⁴. Jₚ = π(12 960 000 − 2 560 000)/32 = 1 021 017,61 mm⁴ = 102,102 cm⁴. Contrôle : mm⁴/(10⁴ mm⁴/cm⁴) = cm⁴. Si d augmente, Jₚ diminue ; Jₚ d’une section pleine serait πD⁴/32. Les contraintes de torsion et le matériau restent à contrôler."}),
 "wheel-braking-slip-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":2,"assumptions":"Vitesse longitudinale v = 5,00 m/s constante et strictement positive, rayon de roulement effectif R = 0,400 m, vitesse angulaire ω comprise entre 0 et 12,5 rad/s en freinage sans inversion. Le glissement s est positif au freinage ; absence de modèle d’adhérence pneu-sol et de transfert de charge. Le plafond de 15 % est pédagogique et fictif, pas une consigne ABS.","solution":"v = 5,00 m/s ; R = 0,400 m ; ω = 10,0 rad/s. Vitesse périphérique Rω = 0,400×10,0 = 4,00 m/s. Écart v − Rω = 1,00 m/s ; s = 1,00/5,00×100 = 20,0 %. Contrôle : (m/s)/(m/s) = 1. Pour ω = 12,5 rad/s, s = 0 % ; pour ω = 0, s = 100 %. L’adhérence réelle doit être mesurée : ce calcul ne détermine pas une distance de freinage."}),
@@ -408,7 +423,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
  if(Math.abs(value-expected)<=Math.max(10*eps,.01*Math.abs(expected)))return 'Réponse proche : vérifie les arrondis, les chiffres significatifs et la précision demandée.';
  return 'Reprends la formule, les données et les unités'+(unit?' (résultat à exprimer en '+unit+')':'')+'.';
 }
-const cycle138Domains=Object.freeze({"hydraulic-oil-compressibility-01":[0,200],"hollow-shaft-polar-inertia-01":[20,50],"wheel-braking-slip-01":[0,12.5],"lumped-cooling-time-constant-01":[10,80],"adc-voltage-step-01":[2,12]});
+const cycle138Domains=Object.freeze({"combined-stress-von-mises-01":[0,100],"pt100-linear-response-01":[0,150],"torsional-eigenfrequency-01":[500,2000],"laminar-darcy-factor-01":[400,2000],"triangle-actuator-angle-01":[0.25,1.05],"hydraulic-oil-compressibility-01":[0,200],"hollow-shaft-polar-inertia-01":[20,50],"wheel-braking-slip-01":[0,12.5],"lumped-cooling-time-constant-01":[10,80],"adc-voltage-step-01":[2,12]});
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
  const domain=cycle138Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
@@ -425,6 +440,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"combined-stress-von-mises-01":"MPa",
+"pt100-linear-response-01":"°C",
+"torsional-eigenfrequency-01":"N·m/rad",
+"laminar-darcy-factor-01":"sans unité",
+"triangle-actuator-angle-01":"m",
 "hydraulic-oil-compressibility-01":"bar",
 "hollow-shaft-polar-inertia-01":"mm",
 "wheel-braking-slip-01":"rad/s",
