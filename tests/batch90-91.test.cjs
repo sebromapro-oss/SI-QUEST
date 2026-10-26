@@ -7,3 +7,12 @@ test('90 : fréquence propre, calcul indépendant par période et propriétés',
 test('91 : moment quadratique, contre-calcul par intégration y²dA',()=>{const c=check('rectangular-tube-inertia-01');for(const [e,v] of [[4,309.0432],[6,438.1632],[12,739.1232]]){near(m.calculate(c.id,e),v);let sum=0,dy=120/12000;for(let i=0;i<12000;i++){const y=-60+(i+.5)*dy;sum+=(Math.abs(y)<60-e?2*e:80)*y*y*dy;}near(m.calculate(c.id,e),sum/10000,2e-6);}assert.equal(m.assess(c.id,6).acceptable,true);assert.equal(m.assess(c.id,4).acceptable,false);assert.throws(()=>m.calculate(c.id,0),RangeError);});
 test('Audit hydrostatique : prise basse synchronisée',()=>{for(const [x,y] of [[0,84],[2.5,126],[6,184]])assert.ok(d.render('hydrostatic-column-01',x,m.calculate('hydrostatic-column-01',x)).includes('data-depth-y="'+y+'"'));near(m.calculate('hydrostatic-column-01',0),0);});
 test('Catalogue 91 : deux missions intégrées',()=>{assert.equal(cat.levels.length,91);assert.equal(new Set(cat.levels.map(x=>x.id)).size,91);const c=fs.readFileSync('src/investigation-mission.js','utf8');for(const id of ['natural-frequency-01','rectangular-tube-inertia-01'])assert.ok(c.includes("'"+id+"'"));});
+
+test('Contrôle géométrique : tube sans arrondis et ressort raccordé',()=>{
+ const tube=d.render('rectangular-tube-inertia-01',6,m.calculate('rectangular-tube-inertia-01',6));
+ assert.match(tube,/<rect x="245" y="54" width="100" height="150"/);
+ assert.match(tube,/data-epaisseur-mm="6"/);
+ const spring=d.render('natural-frequency-01',40,m.calculate('natural-frequency-01',40));
+ assert.match(spring,/<line x1="320" y1="105" x2="332" y2="105"/);
+ assert.match(spring,/data-signal="libre"/);
+});
