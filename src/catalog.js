@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+    Object.freeze({"id":"thin-wall-hoop-stress-01","world":"SI-04","title":"Réservoir mince — Contrainte de cerclage","url":"missions/thin-wall-hoop-stress-01.html","subskill":"Membrane circonférentielle d'un cylindre mince"}),
+    Object.freeze({"id":"thermal-fourier-number-01","world":"SI-12","title":"Plaque chauffée — Nombre de Fourier","url":"missions/thermal-fourier-number-01.html","subskill":"Temps réduit de diffusion thermique"}),
+    Object.freeze({"id":"gear-mesh-frequency-01","world":"SI-05","title":"Engrenages — Fréquence d'engrènement","url":"missions/gear-mesh-frequency-01.html","subskill":"Fréquence de passage des dents en diagnostic vibratoire"}),
+    Object.freeze({"id":"jet-impact-force-01","world":"SI-02","title":"Jet d'eau — Force sur une cible","url":"missions/jet-impact-force-01.html","subskill":"Bilan axial de quantité de mouvement d'un jet arrêté"}),
+    Object.freeze({"id":"rectangular-beam-shear-01","world":"SI-04","title":"Traverse — Cisaillement maximal","url":"missions/rectangular-beam-shear-01.html","subskill":"Répartition parabolique du cisaillement d'une poutre rectangulaire"}),
     Object.freeze({"id":"accumulator-polytropic-delivery-01","world":"SI-06","title":"Accumulateur — Restitution polytropique","url":"missions/accumulator-polytropic-delivery-01.html","subskill":"Volume d’huile utile en détente polytropique"}),
     Object.freeze({"id":"three-phase-capacitor-sizing-01","world":"SI-08","title":"Compensation triphasée — Capacités en triangle","url":"missions/three-phase-capacitor-sizing-01.html","subskill":"Capacité par branche pour corriger le facteur de puissance"}),
     Object.freeze({"id":"pump-affinity-power-01","world":"SI-10","title":"Pompe centrifuge — Puissance selon la vitesse","url":"missions/pump-affinity-power-01.html","subskill":"Loi cubique de puissance en similitude hydraulique"}),
