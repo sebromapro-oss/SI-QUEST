@@ -1,6 +1,8 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'hydrostatic-gate-force-01':h=>1000*9.81*1.2*h*h/2000,
+'capstan-tension-01':mu=>200*Math.exp(mu*Math.PI),
 'bearing-l10-life-01':n=>64e6/(60*n),
 'sensor-4-20ma-01':i=>250*(i-4)/16,
 'natural-frequency-01':m=>Math.sqrt(18000/m)/(2*Math.PI),
@@ -88,6 +90,8 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'hydrostatic-gate-force-01':{min:0,max:15,unit:'kN'},
+'capstan-tension-01':{min:600,max:Infinity,unit:'N'},
 'bearing-l10-life-01':{min:1000,max:Infinity,unit:'h'},
 'sensor-4-20ma-01':{min:0,max:150,unit:'bar'},
 'natural-frequency-01':{min:0,max:4,unit:'Hz'},
@@ -175,6 +179,8 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'hydrostatic-gate-force-01':Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":4,"assumptions":"Eau au repos, ρ = 1000 kg/m³, g = 9,81 m/s², porte verticale de largeur b = 1,20 m, surface libre à z = 0, partie immergée de z = 0 à h ; pression relative p(z)=ρgz. h dans [0 ; 2,50] m, poussée horizontale de l'eau vers la porte. Vagues, effets dynamiques et résistance des appuis exclus. Seuil fictif F ≤ 15 kN.","solution":"h = 1,50 m ; p(h) = 1000×9,81×1,50 = 14 715 Pa ; pression moyenne 7 357,5 Pa ; aire immergée 1,20×1,50 = 1,80 m² ; F = 7 357,5×1,80 = 13 243,5 N = 13,2435 kN. Dimension : Pa·m² = N. Centre de poussée : zcp = 2h/3 = 1,00 m sous la surface, pour h > 0. Seuil fictif de 15 kN respecté ; charnières et structure non vérifiées."}),
+'capstan-tension-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Courroie souple sur poulie avec angle d'enroulement θ = π rad (180°), tension du brin mou 200 N, coefficient de frottement statique μ ∈ [0 ; 0,80]. Équilibre à la limite du glissement, loi T_tendu,lim/T_mou = exp(μθ). Tension limite, non tension effective ; effets centrifuges, déformation, usure, gorges et échauffement exclus. Demande fictive : 600 N.","solution":"θ = 180° = π rad ; μθ = 0,40π = 1,256637, sans unité. T_tendu,lim/T_mou = exp(1,256637) = 3,513586. T_tendu,lim = 200×3,513586 = 702,72 N. Contrôle : ln(702,72/200)/π ≈ 0,40. Demande fictive de 600 N satisfaite ; la tension effective dépend de la charge et les limites constructeur restent à vérifier."}),
 'bearing-l10-life-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Roulement à billes : capacité dynamique C = 24,0 kN, charge équivalente P = 6,0 kN constante, exposant p = 3, régime n de 400 à 1600 tr/min. L10 est une durée de vie nominale à 90 % de fiabilité, pas une date certaine de panne. Lubrification, contamination, charges variables et corrections de durée de vie exclues. Minimum fictif L10h ≥ 1000 h.","solution":"C/P = 24/6 = 4 (sans unité). L10 = (C/P)³ × 10⁶ = 64 000 000 tours. À n = 1000 tr/min : 60n = 60 000 tr/h ; L10h = 64 000 000 / 60 000 = 1066,67 h. Dimension : tours/(tours/h) = h. À charge constante, doubler n divise la durée en heures par deux. Le seuil 1000 h est fictif, pas un intervalle de maintenance constructeur."}),
 'sensor-4-20ma-01':Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Transmetteur linéaire idéal : pression manométrique 0–250 bar pour 4–20 mA. Domaine 4 ≤ I ≤ 20 mA ; absence de dérive, hystérésis, bruit et défaut de câblage. Une conversion mathématique ne valide pas l'étalonnage. Seuil fictif p ≤ 150 bar.","solution":"Étendue : 20 − 4 = 16 mA. I = 12,8 mA ; décalage 12,8 − 4 = 8,8 mA ; fraction d'échelle 8,8/16 = 0,55. Pression p = 250 × 0,55 = 137,50 bar. Unités : mA/mA × bar = bar. À 4 mA : 0 bar ; à 12 mA : 125 bar ; à 20 mA : 250 bar. Seuil fictif 150 bar respecté ; contrôler l'étalonnage réel."}),
 'natural-frequency-01':Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Oscillateur libre à un degré de liberté, masse m de 10 à 80 kg, raideur k = 18 000 N/m, amortissement négligé, petites oscillations. Seuil fictif f₀ ≤ 4 Hz ; fréquence d’excitation non connue.","solution":"m = 40 kg ; k/m = 450 s⁻² ; ω₀ = √450 = 21,2132 rad/s ; f₀ = ω₀/(2π) = 3,37619 Hz ; T₀ = 0,29619 s. (N/m)/kg = s⁻². Seuil fictif respecté ; la résonance réelle exige la mesure de l’excitation."}),
@@ -256,7 +262,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
 }
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if((id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -267,6 +273,8 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'hydrostatic-gate-force-01':'m',
+'capstan-tension-01':'sans unité',
 'bearing-l10-life-01':'tr/min',
 'sensor-4-20ma-01':'mA',
 'natural-frequency-01':'kg',

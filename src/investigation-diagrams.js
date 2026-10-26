@@ -7,6 +7,8 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'hydrostatic-gate-force-01':'Poussée hydrostatique sur une porte verticale',
+'capstan-tension-01':'Courroie sur demi-poulie et tensions tangentielles',
 'bearing-l10-life-01':'Roulement à billes : charge radiale',
 'sensor-4-20ma-01':'Capteur 4–20 mA : chaîne de mesure',
 'natural-frequency-01':'Oscillateur masse–ressort et fréquence propre',
@@ -94,6 +96,8 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+'hydrostatic-gate-force-01':['h','F'],
+'capstan-tension-01':['μ','Tlim'],
 'natural-frequency-01':['m','f₀'],
 'rectangular-tube-inertia-01':['e','I_z'],
 'three-phase-power-01':['Iₗ','P'],
@@ -261,11 +265,27 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(["natural-frequency-01","rectangular-tube-inertia-01","three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(['hydrostatic-gate-force-01','capstan-tension-01',"natural-frequency-01","rectangular-tube-inertia-01","three-phase-power-01","hydrostatic-column-01","planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'hydrostatic-gate-force-01':{
+  const depth=150*x/2.5,base=35*x,cp=55+depth*2/3;
+  s+=line(315,48,315,214,'#d5e8f4',8)+line(95,55,315,55,'#7ce8ae',2);
+  if(depth>0){s+='<rect x="95" y="55" width="216" height="'+depth.toFixed(2)+'" fill="#237c9b" opacity=".55" data-water-depth="'+depth.toFixed(2)+'"/>';
+   s+='<path d="M410 55 L410 '+(55+depth).toFixed(2)+' L'+(410+base).toFixed(2)+' '+(55+depth).toFixed(2)+' Z" fill="#ffca7d" opacity=".6" data-pressure-base="'+base.toFixed(2)+'"/>';
+   s+=arrow(315,cp,395,cp,'#ffca7d',4)+circle(315,cp,5,'#ffd17d','data-center-depth="'+(2*x/3).toFixed(4)+'"');}
+  s+=text(35,33,'Eau au repos ; b = 1,20 m')+text(330,77,'p(z) = ρgz','font-size="16"')+text(100,225,'h = '+N(x)+' m ; F = '+N(result)+' kN');break;
+ }
+ case 'capstan-tension-01':{
+  s+=circle(300,135,70,'#315c76')+circle(300,135,12,'#092236');
+  s+='<path d="M300 65 A70 70 0 0 1 300 205" fill="none" stroke="#7ce8ae" stroke-width="8" data-wrap-angle-rad="3.141592653589793"/>';
+  s+=line(95,65,300,65,'#7ce8ae',4)+line(95,205,300,205,'#7ce8ae',5);
+  s+=arrow(240,65,135,65,'#ffca7d',4)+arrow(240,205,135,205,'#ffca7d',5);
+  s+=text(35,35,'T_mou = 200 N')+text(35,230,'T_tendu,lim = '+N(result)+' N');
+  s+=text(386,114,'θ = π rad')+text(386,144,'μ = '+N(x)+' (sans unité)');break;
+ }
  case 'bearing-l10-life-01':{
   const cx=295,cy=130;
   s+=circle(cx,cy,82,'none')+circle(cx,cy,32,'#315c76');

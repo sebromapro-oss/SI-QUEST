@@ -9,6 +9,8 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+    Object.freeze({"id":"hydrostatic-gate-force-01","world":"SI-06","title":"Poussée hydrostatique — Porte verticale","url":"missions/hydrostatic-gate-force-01.html"}),
+    Object.freeze({"id":"capstan-tension-01","world":"SI-11","title":"Adhérence courroie–poulie — Limite de tension","url":"missions/capstan-tension-01.html"}),
     Object.freeze({id:'gear-01',world:'SI-05',title:'Atelier des engrenages — Réducteur',url:'missions/gear-01.html'}),
     Object.freeze({id:'hydro-01',world:'SI-06',title:'Levage hydraulique — Vérin double effet',url:'missions/hydro-01.html'}),
     Object.freeze({id:'slope-01',world:'SI-03',title:'Sécurité en pente — Retenue statique',url:'missions/slope-01.html'}),
