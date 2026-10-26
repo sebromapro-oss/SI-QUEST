@@ -269,7 +269,7 @@ function render(id,x,result){
   s+=line(110,105,160,105,'#d5e8f4',6);
   const coil=Array.from({length:17},(_,k)=>[160+k*10,105+(k===0||k===16?0:(k%2?18:-18))]);
   s+='<path d="'+coil.map((p,k)=>(k?'L':'M')+p[0]+' '+p[1]).join(' ')+'" fill="none" stroke="#8ddcff" stroke-width="4"/>';
-  s+=box(332,105-side/2,side,side,'#315c76')+text(348,112,'m');
+  s+=line(320,105,332,105,'#8ddcff',4)+box(332,105-side/2,side,side,'#315c76')+text(348,112,'m');
   const wave=Array.from({length:201},(_,k)=>{const t=k/200;return [60+470*t,188-16*Math.sin(2*Math.PI*f*t)]});
   s+=line(60,188,530,188,'#9bc9e5',1.5);
   s+='<path data-signal="libre" d="'+wave.map((p,k)=>(k?'L':'M')+p[0].toFixed(2)+' '+p[1].toFixed(2)).join(' ')+'" fill="none" stroke="#7ce8ae" stroke-width="2"/>';
@@ -277,7 +277,7 @@ function render(id,x,result){
  }
  case 'rectangular-tube-inertia-01':{
   const t=1.25*x;
-  s+=box(245,54,100,150,'#315c76');
+  s+='<rect x="245" y="54" width="100" height="150" fill="#315c76" stroke="#9bc9e5" stroke-width="2"/>';
   s+='<rect data-epaisseur-mm="'+N(x)+'" x="'+(245+t)+'" y="'+(54+t)+'" width="'+(100-2*t)+'" height="'+(150-2*t)+'" fill="#092236" stroke="#9bc9e5" stroke-width="2"/>';
   s+=line(205,129,385,129,'#ffd17d',2,'stroke-dasharray="5 5"');
   s+=text(43,37,'b = 80 mm ; h = 120 mm')+text(390,90,'e = '+N(x)+' mm')+text(390,115,'Axe z');
