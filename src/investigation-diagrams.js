@@ -443,8 +443,26 @@ function render(id,x,result){
   s+=text(38,40,'U = 12 V')+text(175,120,'R₁')+text(335,212,'R₂')+text(435,53,'Charge')+valueLabel(id,x,result);break;
  }
  case 'moment-arm-02':{s+=line(150,168,430,168,'#9bc9e5',9)+circle(150,168,11,'#ffd17d')+arrow(430,168,430+95*Math.cos(x*Math.PI/180),168-95*Math.sin(x*Math.PI/180));s+=text(145,195,'Pivot')+text(255,150,'L = 0,45 m')+text(405,60,'θ = '+N(x)+'°');s+=text(32,40,"Levier, bras de levier et force inclinée")+valueLabel(id,x,result);break;}
-case 'kinetic-friction-01':{s+=box(145,95,300,72)+arrow(320,74,470,74)+arrow(300,187,170,187);s+=text(32,40,"Patin en glissement et effort de frottement")+valueLabel(id,x,result);break;}
-case 'spring-stiffness-01':{s+=line(80,125,160,125)+Array.from({length:8},(_,k)=>line(160+k*32,125+(k%2?28:-28),192+k*32,125+(k%2?-28:28),'#9bc9e5',4)).join('')+arrow(500,125,550,125);s+=text(32,40,"Ressort sollicité axialement")+valueLabel(id,x,result);break;}
+case 'kinetic-friction-01':{
+  s+=line(80,172,520,172,'#9bc9e5',3)+box(145,95,300,72,'#315c76');
+  s+=arrow(320,74,470,74,'#7ce8ae',4);
+  s+=arrow(300,168,175,168,'#ffca7d',5);
+  s+=circle(300,168,4,'#ffd17d','data-contact-y="168"');
+  s+=text(32,40,'Patin : v vers la droite, frottement au contact vers la gauche');
+  s+=text(33,210,'Fₜ = '+N(result)+' N ; N = 80 kg × 9,81 m/s²');
+  s+=valueLabel(id,x,result);break;
+}
+case 'spring-stiffness-01':{
+  s+=line(95,80,95,173,'#d5e8f4',7)+line(95,125,145,125,'#8ddcff',4);
+  const pts=[[145,125],[160,125]];
+  for(let k=0;k<8;k++)pts.push([160+k*34+17,k%2?152:98],[160+(k+1)*34,125]);
+  pts.push([450,125],[485,125]);
+  s+='<path d="'+pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ')+'" fill="none" stroke="#8ddcff" stroke-width="4" data-ressort-continu="true"/>';
+  s+=box(485,99,37,52,'#315c76')+arrow(522,125,567,125,'#ffca7d',4);
+  s+=text(32,40,'Ressort axial : allongement fixé à 25 mm');
+  s+=text(32,215,'F = '+N(x)+' N ; k = '+N(result)+' N/m');
+  s+=valueLabel(id,x,result);break;
+}
 case 'beam-stress-02':{s+=line(110,135,500,135,'#9bc9e5',10)+'<path d="M145 103 A42 42 0 1 1 145 167" fill="none" stroke="#ffca7d" stroke-width="5" marker-end="url(#pointe)"/>'+'<path d="M465 167 A42 42 0 1 1 465 103" fill="none" stroke="#ffca7d" stroke-width="5" marker-end="url(#pointe)"/>'+text(55,65,'Couple de flexion : M = '+N(x)+' N·m')+text(350,192,'Section : b = 40 mm ; h = 80 mm');s+=text(32,40,"Poutre en flexion et moment appliqué")+valueLabel(id,x,result);break;}
 case 'gear-ratio-02':{const r1=45,r2=45*x/18,scale=Math.min(1,80/r2),a=r1*scale,b=r2*scale,c1=300-(a+b)/2,c2=c1+a+b;s+=circle(c1,132,a)+circle(c2,132,b)+circle(c1,132,6,'#ffd17d')+circle(c2,132,6,'#ffd17d')+text(55,85,'z₁ = 18 dents')+text(370,85,'z₂ = '+N(x)+' dents')+text(55,180,'Sens de rotation opposés');s+=text(32,40,"Engrenages extérieurs, sens opposés")+valueLabel(id,x,result);break;}
 case 'screw-lead-01':{s+=box(100,96,400,56,'#315c76');for(let k=0;k<8;k++)s+=line(125+k*48,96,155+k*48,152,'#ffca7d',4);s+=arrow(150,177,450,177)+text(70,74,'2 filets ; p = '+N(x)+' mm')+text(80,205,'Avance = '+N(result)+' mm/tr');s+=text(32,40,"Vis à deux filets et avance par tour")+valueLabel(id,x,result);break;}

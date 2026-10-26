@@ -23,15 +23,24 @@ test('mission hydraulique : réglages, arrêt et descriptions accessibles',()=>{
   assert.match(page,/aria-labelledby="svg-title svg-desc"/);
   assert.match(page,/prefers-reduced-motion|mission\.css/);
 });
-test('accueil ne promet pas 996 niveaux disponibles',()=>{
+test('nouvel accueil : navigation dynamique sans promesse de missions non livrées',()=>{
   const page=fs.readFileSync(path.join(root,'index.html'),'utf8');
-  assert.match(page,/niveaux visés/);
-  assert.match(page,/missions disponibles/);
+  const home=fs.readFileSync(path.join(root,'src/home.js'),'utf8');
+  assert.match(page,/id="islands"/);
+  assert.match(page,/id="world-list"/);
+  assert.match(page,/id="runtime-status"/);
+  assert.match(page,/src="src\/catalog\.js"/);
+  assert.match(page,/src="src\/home\.js"/);
+  assert.match(home,/byWorld/);
+  assert.match(home,/levels\.length\+' entrées au catalogue/);
+  assert.doesNotMatch(page,/996 missions disponibles/);
 });
 
 test('repli textuel du schéma et en-tête adaptable au mobile',()=>{
   const page=fs.readFileSync(path.join(root,'missions/hydro-01.html'),'utf8');
   const style=fs.readFileSync(path.join(root,'src/style.css'),'utf8');
   assert.match(page,/Lecture du schéma : chambre fond/);
-  assert.match(style,/header\{[^}]*flex-wrap:wrap/);
+  assert.match(style,/\.game-bar\{[^}]*display:flex/);
+  assert.match(style,/@media\(max-width:620px\)/);
+  assert.match(style,/\.skip:focus\{top:8px\}/);
 });
