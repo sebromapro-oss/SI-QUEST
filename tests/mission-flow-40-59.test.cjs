@@ -2,7 +2,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const physics=require('../src/investigations.js'),diagrams=require('../src/investigation-diagrams.js'),spatial=require('../src/scene3d.js');
 const controller=fs.readFileSync('src/investigation-mission.js','utf8');
-const ids=['circular-02','angular-accel-01','brake-torque-01','incline-force-01','resultant-01','torsion-01','axial-strain-01','gear-mesh-01','belt-speed-01','hydro-power-01','hydro-volume-01','pneumatic-force-01','electric-power-02','joule-heat-01','rc-time-01','sampling-01','efficiency-chain-01','rolling-load-01','heat-transfer-01','measurement-relative-01'];
+const ids=['circular-02','angular-accel-01','brake-torque-01','incline-force-01','resultant-01','torsion-01','axial-strain-01','gear-mesh-01','belt-speed-01','hydro-power-01','hydro-volume-01','pneumatic-force-01','electric-power-02','joule-heat-01','rc-time-01','sampling-01','efficiency-chain-01','rolling-load-01','heat-transfer-01','measurement-relative-01','double-shear-pin-01','hydraulic-reynolds-01','composite-wall-01','combined-uncertainty-01','stability-overturn-angle-01'];
 function harness(id,storage={}){
  const html=fs.readFileSync('missions/'+id+'.html','utf8'),cfg=JSON.parse(html.match(/window\.SI_MISSION=(\{[^<]+\})<\/script>/)[1]),elements={};
  const get=name=>elements[name]||(elements[name]=new El(name));
@@ -60,4 +60,16 @@ test('persistance et reprise locale versionnée',()=>{
  const storage={};const a=harness('gear-mesh-01',storage);a.submit(90);
  const b=harness('gear-mesh-01',storage);assert.equal(b.get('rewardStars').textContent,'★★★');assert.equal(b.get('graph').style.display,'block');
  b.get('reset').fire('click');assert.equal(storage['siquest:gear-mesh-01:v2.1'],undefined);
+});
+
+const newIds=['double-shear-pin-01','hydraulic-reynolds-01','composite-wall-01','combined-uncertainty-01','stability-overturn-angle-01'];
+for(const id of newIds)test(id+' : sauvegarde, reprise et investigation au seuil',()=>{
+ const storage={},a=harness(id,storage);a.submit(a.cfg.expected);
+ assert.equal(JSON.parse(storage['siquest:'+id+':v2.1']).mastered,true);
+ const b=harness(id,storage);assert.equal(b.get('graph').style.display,'block');
+ assert.equal(b.get('rewardStars').textContent,'★★★');
+ b.get('trialValue').value=String(b.cfg.max);b.get('trialValue').fire('input');b.get('trial').fire('click');
+ const log=JSON.parse(storage['siquest:'+id+':v2.1']).log;
+ assert.ok(log.some(x=>x.includes('Essai :')),id+' essai non sauvegardé');
+ b.get('reset').fire('click');assert.equal(storage['siquest:'+id+':v2.1'],undefined);
 });
