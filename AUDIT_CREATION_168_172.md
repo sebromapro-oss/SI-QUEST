@@ -23,3 +23,12 @@ Cinq modèles indépendants, hypothèses, unités, flash, aides, trois essais, c
 - S : PASS ciblé ; G : PASS structurel, inspection visuelle NOT RUN ; P : PASS structure, essais pédagogiques réels NOT RUN ; F : PASS ciblé, navigateur réel NOT RUN ; A : PASS structure SVG, NVDA/TalkBack/VoiceOver NOT RUN.
 - CI GitHub : BLOCKED si runner absent ; la réception complète n'est pas acquise.
 - Catalogue : 172 entrées codées, aucune affirmation de 172 missions validées.
+
+## Contre-audit complémentaire — 26 octobre 2026
+
+- 36 missions historiques 40–75 : 3 passages par mission (minimum, nominal, maximum), vérification des unités, des résultats nominaux, de la finitude et des SVG : **432 assertions ciblées PASS**, 0 anomalie numérique supplémentaire. Ce contrôle n'est pas une inspection visuelle.
+- `tests/batch168-172.test.cjs` : **8 tests PASS** en exécution V8 avec adaptateurs, sans exécution native Node.
+- `tests/batch168-172-flow.test.cjs` : une erreur de génération initiale (sélecteur d'éléments DOM remplacé par des identifiants de missions) a été détectée et corrigée dans le commit `c75c955d3912696c7df81056ac990559323ecc18`. **49 assertions de parcours DOM simulé PASS** sur sept missions ; la correction a été contre-testée.
+- Les workflows GitHub Actions déclenchés sur `eb197c1473305310f5feb7de72908bb38c7c2b14` et `c75c955d3912696c7df81056ac990559323ecc18` ont échoué **avant toute étape observable** : jobs sans `steps`, journaux 404. Une relance de la recette Node a échoué à nouveau. Statut CI : **BLOCKED** ; aucune affirmation de tests Node natifs réussis.
+- Statuts S/G/P/F/A : **S PASS ciblé ; G PASS structurel, visuel NOT RUN ; P PASS présence des contenus, essai élève NOT RUN ; F PASS DOM simulé, CI BLOCKED ; A PASS balises SVG, tests NVDA/TalkBack/VoiceOver NOT RUN**.
+- La réception complète reste ouverte ; les 172 entrées du catalogue ne sont pas 172 missions validées.
