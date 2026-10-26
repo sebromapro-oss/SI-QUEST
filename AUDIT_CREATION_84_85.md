@@ -14,11 +14,21 @@ Date : 26 octobre 2026. Dépôt privé `sebromapro-oss/SI-QUEST`, branche `main`
 ## Registre de preuves S / G / P / F / A
 | Axe | Preuve ou contrôle | État |
 |---|---|---|
-| S | Tests indépendants à 3 points, propriété quadratique et moment massique, domaine négatif et seuils, `tests/batch84-85.test.cjs` | À confirmer par CI sur le commit final |
+| S | Tests indépendants à 3 points, propriété quadratique et moment massique, domaine négatif et seuils, `tests/batch84-85.test.cjs` | Confirmé : CI réussie sur le commit de production 496f3e4f80391f7cbb1f647d0f72d1627d33f556 |
 | G | SVG paramétrique et positions de piston, unités et labels contrôlés par tests de code | Partiel ; rendu navigateur réel non testé |
 | P | Situation métier, hypothèses, calcul, aides, corrigé, critère fictif et remédiation | Codé ; réception élève non effectuée |
-| F | Catalogue et configuration, moteur commun, tests Node automatisés | À confirmer par CI ; navigateur réel non testé |
+| F | Catalogue et configuration, moteur commun, tests Node automatisés | CI Node et contrôle catalogue réussis ; navigateur réel non testé |
 | A | Titres, descriptions SVG, labels, annonces textuelles, moteur commun | Partiel ; NVDA, TalkBack, VoiceOver, zoom et clavier réels non testés |
 
 ## Réserves
 Aucune scène 3D manipulable créée pour ces missions ; les deux problèmes sont modélisés dans un plan et leur interprétation peut se faire en 2D. Aucun test réel sur Android, iPhone, Windows ou Mac n'est revendiqué. Aucune publication GitHub Pages, aucune refonte de l'accueil ni changement de visibilité.
+
+## Preuves CI du commit de production
+
+Révision `496f3e4f80391f7cbb1f647d0f72d1627d33f556` : les trois workflows GitHub Actions ont terminé avec la conclusion **success** le 26 octobre 2026 (heure UTC) :
+
+- `SI QUEST scientific quality` : exécution `40248221314`, étapes syntaxe JavaScript et tests scientifiques réussies.
+- `Contrôles scientifiques SI QUEST` : exécution `40248221245`, syntaxe, tests indépendants et contrôle des pages du catalogue réussis.
+- `Recette automatisée SI QUEST` : exécution `40248221240`, syntaxe JavaScript et `node --test` réussis.
+
+Ces preuves attestent des contrôles automatiques effectivement exécutés, **pas** d'une validation graphique visuelle, mobile, lecteur d'écran ou matérielle. Aucun décompte exact de tests individuels n'est avancé sans lecture des journaux correspondants.
