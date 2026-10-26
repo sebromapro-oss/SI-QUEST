@@ -1,6 +1,8 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'rotation-energy-01':n=>0.5*12*(2*Math.PI*n/60)**2/1000,
+'center-mass-01':m2=>(120*0.4+2*m2)/(120+m2),
 'torsion-angle-01':x=>180/Math.PI*x*1.2/(80e9*(Math.PI*.04**4/32)),
 'hydro-motor-torque-01':x=>x*1e5*80e-6*.9/(2*Math.PI),
 
@@ -78,6 +80,8 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'rotation-energy-01':{min:0,max:8,unit:'kJ'},
+'center-mass-01':{min:0,max:1.2,unit:'m'},
 'torsion-angle-01':{min:0,max:1,unit:'°'},
 'hydro-motor-torque-01':{min:160,max:Infinity,unit:'N·m'},
 
@@ -155,6 +159,8 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'rotation-energy-01':Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Volant d'inertie rigide en rotation autour d'un axe fixe, moment d'inertie massique J = 12 kg·m² constant, vitesse n positive de 100 à 450 tr/min ; aucun glissement ni déformation. L'énergie calculée est l'énergie cinétique du volant seul ; seuil de 8 kJ fictif.","solution":"J = 12 kg·m² ; n = 300 tr/min = 5 tr/s. ω = 2πn/60 = 10π rad/s = 31,4159 rad/s. E = ½Jω² = ½ × 12 kg·m² × (31,4159 rad/s)² = 5 921,76 J = 5,922 kJ. Contrôle dimensionnel : kg·m²/s² = J ; le radian est sans dimension. Le seuil pédagogique de 8 kJ est respecté à 300 tr/min, mais l'énergie à dissiper croît avec le carré du régime. Pour un freinage réel, vérifier les autres inerties et le système de freinage."}),
+'center-mass-01':Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Bâti horizontal rigide, masses ponctuelles m₁ = 120 kg en x₁ = 0,40 m et m₂ variable de 20 à 180 kg en x₂ = 2,00 m, origine A ; axe x orienté vers la droite. Les autres masses sont exclues du modèle. Seule l'abscisse du centre de masse est calculée ; le seuil de 1,20 m est fictif et ne constitue pas une validation de stabilité.","solution":"m₁ = 120 kg, x₁ = 0,40 m ; m₂ = 80 kg, x₂ = 2,00 m. Masse totale M = 120 + 80 = 200 kg. Moment massique par rapport à A : Σmx = 120 × 0,40 + 80 × 2,00 = 48 + 160 = 208 kg·m. xG = Σmx/M = 208 kg·m / 200 kg = 1,040 m depuis A. Le centre de masse est situé entre les deux masses et se rapproche de la masse ajoutée lorsque m₂ augmente. Le seuil fictif de 1,20 m est respecté, mais la stabilité réelle exige la géométrie du polygone de sustentation et les autres masses."}),
 'torsion-angle-01':Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Arbre circulaire homogène, torsion uniforme, petites déformations élastiques, G constant, couple pur, encastrement idéal ; effets de clavette, fatigue et concentration de contraintes exclus. Seuil de 1,00° uniquement pédagogique.","solution":"d = 40 mm = 0,040 m ; Jp = π(0,040 m)⁴/32 = 2,51327×10⁻⁷ m⁴. G = 80×10⁹ Pa = 80×10⁹ N/m². À T = 250 N·m, θ = (250 N·m × 1,20 m)/(80×10⁹ N/m² × 2,51327×10⁻⁷ m⁴) = 0,0149208 rad = 0,85490°. L'unité radian est sans dimension. Le seuil pédagogique de 1,00° est respecté ; la résistance et les concentrations de contraintes restent à vérifier."}),
 'hydro-motor-torque-01':Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Moteur hydraulique volumétrique idéal à cylindrée constante, rendement mécanique constant 0,90 ; pression différentielle réelle aux orifices, régime établi, inertie et pertes transitoires négligées. Le rendement volumétrique influe sur la vitesse et le débit, pas directement sur cette relation couple/Δp. Seuil de 160 N·m fictif.","solution":"Δp = 150 bar = 15,0×10⁶ Pa ; Vg = 80 cm³/tr = 80×10⁻⁶ m³/tr ; ηm = 0,90. Cth = (15,0×10⁶ Pa × 80×10⁻⁶ m³)/(2π) = 190,99 N·m. Cu = 0,90 × 190,99 = 171,89 N·m. Contrôle : Pa × m³ = N·m ; 2π rad/tr est sans dimension. Le seuil pédagogique de 160 N·m est atteint ; confirmer la pression différentielle et les limites constructeur."}),
 
@@ -237,6 +243,8 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'rotation-energy-01':'tr/min',
+'center-mass-01':'kg',
 'torsion-angle-01':"N·m",
 'hydro-motor-torque-01':"bar",
 

@@ -91,7 +91,9 @@
     Object.freeze({id:'accumulator-isothermal-01',world:'SI-06',title:'Accumulateur hydraulique — Volume restitué isotherme',url:'missions/accumulator-isothermal-01.html'}),
     Object.freeze({id:'wheatstone-bridge-01',world:'SI-08',title:'Pont de Wheatstone — Tension différentielle',url:'missions/wheatstone-bridge-01.html'}),
     Object.freeze({"id":"torsion-angle-01","world":"SI-04","title":"Angle de torsion — Arbre de transmission","url":"missions/torsion-angle-01.html"}),
-    Object.freeze({"id":"hydro-motor-torque-01","world":"SI-06","title":"Couple d’un moteur hydraulique","url":"missions/hydro-motor-torque-01.html"})
+    Object.freeze({"id":"hydro-motor-torque-01","world":"SI-06","title":"Couple d’un moteur hydraulique","url":"missions/hydro-motor-torque-01.html"}),
+    Object.freeze({id:"rotation-energy-01",world:"SI-02",title:"Énergie cinétique d’un volant d’inertie",url:"missions/rotation-energy-01.html"}),
+    Object.freeze({id:"center-mass-01",world:"SI-03",title:"Centre de masse longitudinal d’un châssis",url:"missions/center-mass-01.html"})
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});

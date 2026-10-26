@@ -7,6 +7,8 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'rotation-energy-01':'Volant d’inertie — énergie de rotation',
+'center-mass-01':'Barycentre longitudinal de deux masses',
 'torsion-angle-01':"Arbre en torsion et angle élastique",
 'hydro-motor-torque-01':"Moteur hydraulique et couple de sortie",
 
@@ -84,6 +86,8 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+'rotation-energy-01':['n','Eᵣ'],
+'center-mass-01':['m₂','xG'],
 'torsion-angle-01':["T","θ"],
 'hydro-motor-torque-01':["Δp","Cu"],
 
@@ -243,11 +247,29 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(["torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(["rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'rotation-energy-01':{
+  const angle=0.25+1.5*x/450,ex=300+72*Math.cos(angle),ey=129-72*Math.sin(angle);
+  s+=circle(300,129,72,'#315c76')+circle(300,129,8,'#ffd17d')+line(300,129,363,129,'#8ddcff',3);
+  s+='<path d="M372 129 A72 72 0 0 0 '+ex.toFixed(2)+' '+ey.toFixed(2)+'" fill="none" stroke="#ffca7d" stroke-width="5" marker-end="url(#pointe)"/>';
+  s+=text(45,43,'J = 12 kg·m² ; n = '+N(x)+' tr/min')+text(50,204,'Vue axiale ; sens anti-horaire ; ω = '+N(2*Math.PI*x/60)+' rad/s');
+  break;
+ }
+ case 'center-mass-01':{
+  const g=(120*.4+2*x)/(120+x),gx=90+420*g/2.4;
+  s+=line(90,160,510,160,'#9bc9e5',7)+line(90,146,90,175,'#9bc9e5',3)+line(510,146,510,175,'#9bc9e5',3);
+  s+=circle(160,160,16,'#315c76')+circle(440,160,16,'#315c76')+circle(gx,160,7,'#ffd17d');
+  s+=arrow(gx,173,gx,209,'#ffca7d',4);
+  s+=text(45,42,'A : x = 0 m ; x₁ = 0,40 m ; x₂ = 2,00 m');
+  s+=text(95,89,'m₁ = 120 kg')+text(405,89,'m₂ = '+N(x)+' kg');
+  s+=text(gx-42,133,'G : '+N(g)+' m')+text(gx+12,205,'P');
+  break;
+ }
+
  case 'torsion-angle-01':{
   const a=result*Math.PI/180*20;
   s+=box(140,103,310,46,'#315c76')+line(140,126,450,126,'#d5e8f4',3,'stroke-dasharray="8 5"')+circle(450,126,30,'#315c76');
@@ -310,7 +332,17 @@ case 'gear-ratio-02':{const r1=45,r2=45*x/18,scale=Math.min(1,80/r2),a=r1*scale,
 case 'screw-lead-01':{s+=box(100,96,400,56,'#315c76');for(let k=0;k<8;k++)s+=line(125+k*48,96,155+k*48,152,'#ffca7d',4);s+=arrow(150,177,450,177)+text(70,74,'2 filets ; p = '+N(x)+' mm')+text(80,205,'Avance = '+N(result)+' mm/tr');s+=text(32,40,"Vis à deux filets et avance par tour")+valueLabel(id,x,result);break;}
 case 'hydro-cylinder-speed-02':{s+=box(130,77,320,95)+box(265,85,16,78,'#c8d8e2')+line(280,123,515,123,'#a9d9ed',14)+arrow(500,65,555,65);s+=text(32,40,"Vérin hydraulique et vitesse de tige")+valueLabel(id,x,result);break;}
 case 'hydro-annular-force-01':{s+=box(120,80,330,92,'#173f59')+box(240,86,18,80,'#c8d8e2')+line(258,126,520,126,'#c8d8e2',14)+box(280,91,160,69,'#2477aa')+arrow(400,60,310,60)+text(65,52,'Chambre annulaire sous pression')+text(65,211,'D = 80 mm ; d = 40 mm');s+=text(32,40,"Vérin différentiel, chambre annulaire")+valueLabel(id,x,result);break;}
-case 'pneumatic-consumption-01':{s+=box(130,77,320,95)+box(265,85,16,78,'#c8d8e2')+line(280,123,515,123,'#a9d9ed',14)+arrow(500,65,555,65);s+=text(32,40,"Vérin pneumatique et volume balayé")+valueLabel(id,x,result);break;}
+case 'pneumatic-consumption-01':{
+  const pistonX=140+300*x/400;
+  s+=box(125,80,350,92,'#173f59');
+  s+='<rect x="137" y="87" width="'+(pistonX-137).toFixed(2)+'" height="78" fill="#2477aa" opacity="0.55"/>';
+  s+=line(140,72,140,177,'#7ce8ae',2,'stroke-dasharray="5 5"');
+  s+=box(pistonX,87,12,78,'#c8d8e2','data-piston-x="'+pistonX.toFixed(2)+'"');
+  s+=line(pistonX+12,126,537,126,'#c8d8e2',12);
+  s+=line(140,190,pistonX,190,'#ffd17d',3);
+  s+=text(35,42,'Volume balayé côté plein : D = 50 mm ; course = '+N(x)+' mm');
+  s+=valueLabel(id,x,result);break;
+ }
 case 'electrical-series-01':{s+=line(110,125,205,125)+box(205,105,85,40,'#315c76')+line(290,125,320,125)+box(320,105,85,40,'#315c76')+line(405,125,500,125)+text(200,96,'R₁ = 12 Ω')+text(355,96,'R₂ = '+N(x)+' Ω');s+=text(32,40,"Résistances en série")+valueLabel(id,x,result);break;}
 case 'electrical-parallel-01':{s+=line(115,82,115,169)+line(485,82,485,169)+line(115,82,205,82)+box(205,62,175,40,'#315c76')+line(380,82,485,82)+line(115,169,205,169)+box(205,149,175,40,'#315c76')+line(380,169,485,169)+text(225,55,'R₁ = 12 Ω')+text(235,213,'R₂ = '+N(x)+' Ω');s+=text(32,40,"Résistances en parallèle")+valueLabel(id,x,result);break;}
 case 'inductor-energy-01':{s+=line(90,132,180,132);for(let k=0;k<6;k++)s+='<path d="M'+(180+k*40)+' 132 A20 32 0 0 1 '+(220+k*40)+' 132" fill="none" stroke="#ffca7d" stroke-width="4"/>';s+=line(420,132,510,132)+text(85,80,'L = 0,20 H')+text(340,80,'I = '+N(x)+' A');s+=text(32,40,"Bobine et énergie magnétique")+valueLabel(id,x,result);break;}
