@@ -7,6 +7,8 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+'planetary-fixed-ring-01':'Train épicycloïdal — cercles primitifs',
+'thermal-radiation-01':'Rayonnement net d’une plaque',
 'rotation-energy-01':'Volant d’inertie — énergie de rotation',
 'center-mass-01':'Barycentre longitudinal de deux masses',
 'torsion-angle-01':"Arbre en torsion et angle élastique",
@@ -86,6 +88,8 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+'planetary-fixed-ring-01':['nₛ','nₚ'],
+'thermal-radiation-01':['Tₛ','Pᵣ'],
 'rotation-energy-01':['n','Eᵣ'],
 'center-mass-01':['m₂','xG'],
 'torsion-angle-01':["T","θ"],
@@ -247,11 +251,22 @@ function valueLabel(id,x,result,y=215){
  if(!model||!symbols||!model.inputUnits||!model.criteria[id])throw new Error('Métadonnées scientifiques et unités manquantes : '+id);
  return text(32,y,symbols[0]+' = '+N(x)+' '+model.inputUnits[id]+' ; '+symbols[1]+' ≈ '+N(result)+' '+model.criteria[id].unit);
 }
-const legacyFooterIds=new Set(["rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
+const legacyFooterIds=new Set(["planetary-fixed-ring-01","thermal-radiation-01","rotation-energy-01","center-mass-01","torsion-angle-01","hydro-motor-torque-01","accumulator-isothermal-01","wheatstone-bridge-01","hydro-backpressure-01","euler-buckling-01","circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01","torsion-01","axial-strain-01","gear-mesh-01","belt-speed-01","hydro-power-01","hydro-volume-01","pneumatic-force-01","electric-power-02","joule-heat-01","rc-time-01","sampling-01","efficiency-chain-01","rolling-load-01","heat-transfer-01","measurement-relative-01"]);
 function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+ case 'planetary-fixed-ring-01':{
+  const cx=300,cy=130;s+=circle(cx,cy,90,'none','stroke-dasharray="6 5"')+circle(cx,cy,30,'#315c76');
+  for(let i=0;i<3;i++){const a=i*2*Math.PI/3;s+=circle(cx+60*Math.cos(a),cy+60*Math.sin(a),30,'#254d69');}
+  s+=circle(cx,cy,6,'#ffd17d')+line(cx,cy,cx+60,cy,'#7ce8ae',3);
+  s+=text(40,40,'zₛ = 24 ; zᵣ = 72 ; zₚ = 24 dents')+text(40,204,'Couronne fixe : nᵣ = 0 tr/min')+text(40,224,'Cercles primitifs, sans denture');break;
+ }
+ case 'thermal-radiation-01':{
+  const frac=Math.max(0,Math.min(1,result/400));s+=box(235,74,130,120,'#975b3c')+line(235,74,235,194,'#ffd17d',5);
+  for(let i=0;i<3;i++){const y=92+i*36;s+=arrow(372,y,372+40+80*frac,y,'#ffca7d',3);}
+  s+=text(45,40,'A = 0,50 m² ; ε = 0,85')+text(45,115,'Tₛ = '+N(x)+' °C')+text(440,180,'Tₐ = 20 °C')+text(40,218,'Flèches : flux net sortant');break;
+ }
  case 'rotation-energy-01':{
   const angle=0.25+1.5*x/450,ex=300+72*Math.cos(angle),ey=129-72*Math.sin(angle);
   s+=circle(300,129,72,'#315c76')+circle(300,129,8,'#ffd17d')+line(300,129,363,129,'#8ddcff',3);
@@ -469,7 +484,15 @@ case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,1
  case 'electric-power-02':{s+=line(120,90,250,90)+box(250,75,115,30)+line(365,90,475,90)+line(475,90,475,175)+line(475,175,120,175)+line(120,175,120,143)+line(120,120,120,90)+line(100,120,140,120,'#fff',5)+line(109,143,131,143,'#fff',5)+arrow(390,90,430,90,'#7ce8ae')+text(55,42,'U = 24 V ; I = '+N(x)+' A')+text(55,222,'P = '+N(result)+' W ; circuit continu');break;}
  case 'joule-heat-01':{s+=line(120,115,230,115)+box(230,95,150,40,'#9b6748')+line(380,115,500,115)+arrow(145,115,210,115)+text(55,42,'I = '+N(x));break;}
  case 'rc-time-01':{s+=line(95,105,185,105)+box(185,90,100,30)+line(285,105,340,105)+line(340,65,340,145,'#ffd17d',5)+line(365,65,365,145,'#ffd17d',5)+line(365,105,510,105)+line(510,105,510,185)+line(510,185,95,185)+line(95,185,95,147)+line(95,122,95,105)+line(75,122,115,122,'#fff',5)+line(84,147,106,147,'#fff',5)+text(55,42,'C = 470 µF ; R = '+N(x)+' Ω')+text(55,223,'τ = '+N(result)+' s ; RC série idéal');break;}
- case 'sampling-01':{s+=line(75,185,525,185)+line(75,185,75,65);for(let i=0;i<7;i++){const xx=100+i*65,yy=122-35*Math.sin(i*.8);s+=line(xx,185,xx,yy,'#7ce8ae',2)+circle(xx,yy,4,'#ffd17d')}s+=text(55,42,'T = '+N(x)+' ms')+text(55,220,'fₑ = '+N(result)+' Hz ; échantillons réguliers');break;}
+ case 'sampling-01':{
+  const T=x,tMax=60,origin=90,scale=420/tMax,signal=t=>125-40*Math.sin(2*Math.PI*t/50);
+  const waveform=Array.from({length:121},(_,k)=>{const t=k/2;return (k?'L':'M')+(origin+t*scale).toFixed(2)+' '+signal(t).toFixed(2)}).join(' ');
+  s+=line(origin,185,510,185,'#9bc9e5',2)+line(origin,65,origin,185,'#9bc9e5',2);
+  s+='<path d="'+waveform+'" fill="none" stroke="#8ddcff" stroke-width="2"/>';
+  const count=Math.floor(tMax/T+1e-9)+1;s+='<g data-sample-count="'+count+'">';
+  for(let k=0;k<count;k++){const t=k*T,px=origin+t*scale,py=signal(t);s+=line(px,185,px,py,'#7ce8ae',1.5)+circle(px,py,3,'#ffd17d','data-sample-t="'+N(t)+'"');}
+  s+='</g>'+text(35,39,'T = '+N(T)+' ms ; fₑ = '+N(result)+' Hz')+text(110,215,'Signal témoin 20 Hz ; fenêtre 60 ms');break;
+ }
  case 'efficiency-chain-01':{s+=box(100,95,145,65)+box(350,95,145,65)+arrow(245,127,345,127)+text(55,42,'η₂ = '+N(x));break;}
  case 'rolling-load-01':{s+=line(60,190,540,190)+circle(275,130,60)+circle(275,130,7,'#ffd17d')+arrow(275,130,275,205,'#ffca7d')+arrow(275,190,275,115,'#7ce8ae')+arrow(275,190,165,190,'#ff9999')+arrow(350,130,445,130,'#8ddcff')+text(55,42,'N = 8 000 N ; cᵣ = '+N(x))+text(55,224,'Fᵣ = '+N(result)+' N ; opposition au roulement');break;}
  case 'heat-transfer-01':{s+=box(245,65,110,140,'#9c7157')+arrow(110,105,230,105)+arrow(370,105,490,105)+text(55,42,'ΔT = '+N(x));break;}

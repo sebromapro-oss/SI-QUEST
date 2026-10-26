@@ -1,6 +1,8 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+'planetary-fixed-ring-01':n=>n*24/96,
+'thermal-radiation-01':t=>0.85*5.670374419e-8*0.5*((t+273.15)**4-293.15**4),
 'rotation-energy-01':n=>0.5*12*(2*Math.PI*n/60)**2/1000,
 'center-mass-01':m2=>(120*0.4+2*m2)/(120+m2),
 'torsion-angle-01':x=>180/Math.PI*x*1.2/(80e9*(Math.PI*.04**4/32)),
@@ -80,6 +82,8 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+'planetary-fixed-ring-01':{min:0,max:250,unit:'tr/min'},
+'thermal-radiation-01':{min:0,max:250,unit:'W'},
 'rotation-energy-01':{min:0,max:8,unit:'kJ'},
 'center-mass-01':{min:0,max:1.2,unit:'m'},
 'torsion-angle-01':{min:0,max:1,unit:'°'},
@@ -159,6 +163,8 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+'planetary-fixed-ring-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Train épicycloïdal idéal à couronne intérieure fixe, nᵣ = 0 tr/min, zₛ = 24 dents, zᵣ = 72 dents, trois satellites zₚ = 24 dents. Régime solaire positif 400 à 1 200 tr/min, axes parallèles, pas de glissement. Cinématique seule, ni couple ni rendement. Seuil de 250 tr/min fictif.","solution":"Willis : (nₛ − nₚ)/(nᵣ − nₚ) = −zᵣ/zₛ = −72/24 = −3. Couronne fixe : nᵣ = 0 tr/min. Donc nₛ − nₚ = 3nₚ et nₛ = 4nₚ. À nₛ = 900 tr/min : nₚ = 900/4 = 225 tr/min, de même sens que le soleil. Satellites : zₚ = (72 − 24)/2 = 24 dents ; entraxe soleil/satellite = m(24+24)/2 = 24m ; entraxe couronne/satellite = m(72−24)/2 = 24m. Contrôler la couronne réellement immobilisée et les limites constructeur."}),
+'thermal-radiation-01':Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":2,"assumptions":"Plaque grise diffuse isotherme de surface A = 0,50 m², émissivité ε = 0,85 constante ; échange radiatif net avec une enceinte très grande à Tₐ = 20 °C (293,15 K), facteur de forme 1. Tₛ de 40 à 120 °C. Ni convection ni conduction. Flux positif vers l’enceinte ; seuil 250 W fictif.","solution":"Tₛ = 80 °C = 353,15 K ; Tₐ = 20 °C = 293,15 K ; σ = 5,670374419×10⁻⁸ W·m⁻²·K⁻⁴. Pᵣ = εσA(Tₛ⁴−Tₐ⁴) = 0,85 × 5,670374419×10⁻⁸ × 0,50 × [(353,15)⁴−(293,15)⁴] = 196,86 W. Contrôle dimensionnel : W·m⁻²·K⁻⁴ × m² × K⁴ = W. À Tₛ = Tₐ, le flux net est nul ; convection et conduction restent à étudier."}),
 'rotation-energy-01':Object.freeze({"absoluteTolerance":0.01,"relativeTolerance":0,"precision":3,"assumptions":"Volant d'inertie rigide en rotation autour d'un axe fixe, moment d'inertie massique J = 12 kg·m² constant, vitesse n positive de 100 à 450 tr/min ; aucun glissement ni déformation. L'énergie calculée est l'énergie cinétique du volant seul ; seuil de 8 kJ fictif.","solution":"J = 12 kg·m² ; n = 300 tr/min = 5 tr/s. ω = 2πn/60 = 10π rad/s = 31,4159 rad/s. E = ½Jω² = ½ × 12 kg·m² × (31,4159 rad/s)² = 5 921,76 J = 5,922 kJ. Contrôle dimensionnel : kg·m²/s² = J ; le radian est sans dimension. Le seuil pédagogique de 8 kJ est respecté à 300 tr/min, mais l'énergie à dissiper croît avec le carré du régime. Pour un freinage réel, vérifier les autres inerties et le système de freinage."}),
 'center-mass-01':Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Bâti horizontal rigide, masses ponctuelles m₁ = 120 kg en x₁ = 0,40 m et m₂ variable de 20 à 180 kg en x₂ = 2,00 m, origine A ; axe x orienté vers la droite. Les autres masses sont exclues du modèle. Seule l'abscisse du centre de masse est calculée ; le seuil de 1,20 m est fictif et ne constitue pas une validation de stabilité.","solution":"m₁ = 120 kg, x₁ = 0,40 m ; m₂ = 80 kg, x₂ = 2,00 m. Masse totale M = 120 + 80 = 200 kg. Moment massique par rapport à A : Σmx = 120 × 0,40 + 80 × 2,00 = 48 + 160 = 208 kg·m. xG = Σmx/M = 208 kg·m / 200 kg = 1,040 m depuis A. Le centre de masse est situé entre les deux masses et se rapproche de la masse ajoutée lorsque m₂ augmente. Le seuil fictif de 1,20 m est respecté, mais la stabilité réelle exige la géométrie du polygone de sustentation et les autres masses."}),
 'torsion-angle-01':Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Arbre circulaire homogène, torsion uniforme, petites déformations élastiques, G constant, couple pur, encastrement idéal ; effets de clavette, fatigue et concentration de contraintes exclus. Seuil de 1,00° uniquement pédagogique.","solution":"d = 40 mm = 0,040 m ; Jp = π(0,040 m)⁴/32 = 2,51327×10⁻⁷ m⁴. G = 80×10⁹ Pa = 80×10⁹ N/m². À T = 250 N·m, θ = (250 N·m × 1,20 m)/(80×10⁹ N/m² × 2,51327×10⁻⁷ m⁴) = 0,0149208 rad = 0,85490°. L'unité radian est sans dimension. Le seuil pédagogique de 1,00° est respecté ; la résistance et les concentrations de contraintes restent à vérifier."}),
@@ -232,7 +238,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
 }
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- if((id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
+ if((id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  const value=models[id](x);
  if(!Number.isFinite(value))throw new RangeError('Résultat invalide');
  return value;
@@ -243,6 +249,8 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+'planetary-fixed-ring-01':'tr/min',
+'thermal-radiation-01':'°C',
 'rotation-energy-01':'tr/min',
 'center-mass-01':'kg',
 'torsion-angle-01':"N·m",
