@@ -8,7 +8,7 @@ function mockPage(c){
   append(...xs){this.children.push(...xs)},replaceChildren(...xs){this.children=xs},
   insertBefore(){},insertAdjacentElement(){},addEventListener(name,fn){this.events[name]=fn},
   querySelectorAll(){return []},querySelector(){return el()}}}
- const ids=["thinwall-bredt-shear-01","threephase-power-factor-pq-01","battery-internal-joule-heat-01","sensor-two-point-sensitivity-01","cylinder-critical-insulation-radius-01"];
+ const ids=["main","curve","point","graphic","trialLabel","trialValue","trial","solution","log","calc","answer","feedback","hint","hintText","solutionText","reset"];
  const nodes=Object.fromEntries(ids.map(id=>[id,el(id)]));
  const graph=el('graph'),model=el('model');graph.querySelectorAll=()=>[el('text'),el('text')];
  nodes.calc.previousElementSibling=el('p');nodes.curve.closest=sel=>sel==='svg'?graph:model;
