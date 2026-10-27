@@ -913,7 +913,7 @@ case 'adiabatic-compressor-01':{
 case 'kinetic-friction-01':{
   s+=line(80,172,520,172,'#9bc9e5',3)+box(145,95,300,72,'#315c76');
   s+=arrow(320,74,470,74,'#7ce8ae',4);
-  if(x>0)s+=arrow(300,168,175,168,'#ffca7d',5);
+  if(x>0){const longueur=130*x/.7;s+=arrow(300,168,Number((300-longueur).toFixed(3)),168,'#ffca7d',5)+'<g data-frottement-longueur-px="'+longueur.toFixed(3)+'"></g>';}
   s+=circle(300,168,4,'#ffd17d','data-contact-y="168"');
   s+=text(32,40,'Patin : v vers la droite, frottement au contact vers la gauche');
   s+=text(33,210,'Fₜ = '+N(result)+' N ; N = 80 kg × 9,81 m/s²');

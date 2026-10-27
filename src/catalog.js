@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"shaft-key-bearing-pressure-01","world":"SI-04","title":"Clavette — Pression moyenne de matage","url":"missions/shaft-key-bearing-pressure-01.html","subskill":"Pression de contact sur le flanc d'une clavette"}),
+Object.freeze({"id":"ultrasonic-time-of-flight-01","world":"SI-13","title":"Capteur ultrasonore — Distance par écho","url":"missions/ultrasonic-time-of-flight-01.html","subskill":"Mesure de distance par temps de vol ultrasonore aller-retour"}),
+Object.freeze({"id":"square-screw-lead-angle-01","world":"SI-05","title":"Vis de levage — Angle d'hélice idéal","url":"missions/square-screw-lead-angle-01.html","subskill":"Angle d'hélice d'un filet carré et autoblocage théorique"}),
+Object.freeze({"id":"capillary-rise-water-01","world":"SI-06","title":"Tube capillaire — Hauteur d'ascension","url":"missions/capillary-rise-water-01.html","subskill":"Équilibre capillaire selon la loi de Jurin"}),
+Object.freeze({"id":"sample-hold-phase-lag-01","world":"SI-09","title":"Commande numérique — Déphasage du maintien","url":"missions/sample-hold-phase-lag-01.html","subskill":"Phase fréquentielle d'un bloqueur d'ordre zéro idéal"}),
 Object.freeze({"id":"shaft-key-shear-stress-01","world":"SI-04","title":"Clavette d'arbre — Contrainte de cisaillement","url":"missions/shaft-key-shear-stress-01.html","subskill":"Cisaillement moyen d'une clavette transmettant un couple"}),
 Object.freeze({"id":"transformer-winding-copper-loss-01","world":"SI-08","title":"Transformateur triphasé — Pertes cuivre","url":"missions/transformer-winding-copper-loss-01.html","subskill":"Pertes Joule dans trois enroulements équilibrés"}),
 Object.freeze({"id":"straight-fin-efficiency-01","world":"SI-12","title":"Ailette thermique — Efficacité d'une ailette","url":"missions/straight-fin-efficiency-01.html","subskill":"Rendement thermique d'une ailette droite à extrémité isolée"}),

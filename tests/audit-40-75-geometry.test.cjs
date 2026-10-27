@@ -7,8 +7,8 @@ test('Audit 40–75 : force de frottement appliquée au contact, sens opposé à
   const F=physics.calculate('kinetic-friction-01',mu);
   const svg=diagrams.render('kinetic-friction-01',mu,F);
   assert.match(svg,/data-contact-y="168"/);
-  if(mu===0)assert.doesNotMatch(svg,/x1="300" y1="168" x2="175" y2="168"/);
-  else assert.match(svg,/x1="300" y1="168" x2="175" y2="168"/);
+  if(mu===0)assert.doesNotMatch(svg,/data-frottement-longueur-px=/);
+  else {const m=svg.match(/data-frottement-longueur-px="([0-9.]+)"/);assert.ok(m);assert.ok(Math.abs(Number(m[1])-130*mu/.7)<.001);}
   assert.match(svg,/x1="320" y1="74" x2="470" y2="74"/);
   assert.ok(Math.abs(F-mu*80*9.81)<1e-9);
  }
