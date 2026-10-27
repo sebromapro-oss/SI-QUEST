@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"slider-crank-position-01","world":"SI-01","title":"Bielle-manivelle — Position du coulisseau","url":"missions/slider-crank-position-01.html","subskill":"Fermeture géométrique exacte d'un mécanisme bielle-manivelle sans excentration"}),
+Object.freeze({"id":"gear-base-circle-diameter-01","world":"SI-05","title":"Engrenage — Diamètre du cercle de base","url":"missions/gear-base-circle-diameter-01.html","subskill":"Géométrie du cercle de base d'une denture involute par angle de pression"}),
+Object.freeze({"id":"acoustic-time-leq-01","world":"SI-13","title":"Acoustique — Niveau équivalent sur deux phases","url":"missions/acoustic-time-leq-01.html","subskill":"Moyenne énergétique temporelle de niveaux sonores A-pondérés sur deux durées"}),
+Object.freeze({"id":"pneumatic-choked-massflow-01","world":"SI-07","title":"Buse pneumatique — Débit massique étranglé","url":"missions/pneumatic-choked-massflow-01.html","subskill":"Débit massique maximal d'un gaz parfait au col sonique d'une buse convergente"}),
+Object.freeze({"id":"resistor-johnson-noise-01","world":"SI-08","title":"Résistance — Bruit thermique efficace","url":"missions/resistor-johnson-noise-01.html","subskill":"Tension efficace de bruit de Johnson-Nyquist sur une bande passante idéale"}),
 Object.freeze({"id":"radiation-net-power-01","world":"SI-12","title":"Rayonnement — Puissance nette échangée","url":"missions/radiation-net-power-01.html","subskill":"Bilan radiatif gris diffus avec milieu isotherme"}),
 Object.freeze({"id":"rc-series-phase-angle-01","world":"SI-08","title":"Circuit RC — Déphasage de l'impédance","url":"missions/rc-series-phase-angle-01.html","subskill":"Argument de l'impédance complexe d'un RC série"}),
 Object.freeze({"id":"thinwall-cylinder-axial-stress-01","world":"SI-04","title":"Réservoir fermé — Contrainte longitudinale","url":"missions/thinwall-cylinder-axial-stress-01.html","subskill":"Contrainte membranaire longitudinale d'un cylindre mince fermé"}),
