@@ -20,7 +20,7 @@ function mockPage(c){
  new Function('window','document','localStorage','SIInvestigations','SIInvestigationDiagrams',ui)(window,document,localStorage,physics,diagrams);
  return {nodes,graph,model,store};
 }
-const ids=["bearing-static-safety-01","vibration-critical-damping-01","material-thermal-effusivity-01","metrology-worstcase-stack-01","hydraulic-wave-roundtrip-01"];
+const ids=["thinwall-bredt-shear-01","threephase-power-factor-pq-01","battery-internal-joule-heat-01","sensor-two-point-sensitivity-01","cylinder-critical-insulation-radius-01"];
 for(const id of ids)test(id+' : parcours clavier simulé, saisie invalide, trois essais, trois aides, corrigé et sauvegarde',()=>{
  const html=fs.readFileSync('missions/'+id+'.html','utf8');const cfg=JSON.parse(html.split('window.SI_MISSION=')[1].split('</script>')[0]);
  const a=mockPage(cfg),n=a.nodes;assert.equal(a.graph.style.display,'none');assert.equal(n.trial.disabled,true);assert.equal(n.solution.disabled,true);

@@ -31,12 +31,19 @@ test('propriétés physiques indépendantes',()=>{
  near(M.calculate(cases[2].id,100),4*M.calculate(cases[2].id,50));
  near(M.calculate(cases[3].id,4.5)-M.calculate(cases[3].id,3.5),10);
  near(M.calculate(cases[4].id,20),M.calculate(cases[4].id,10)/2);
- for(const q of cases)assert.equal(M.assess(q.id,q.x).acceptable,true); 
+ for(const q of cases.slice(0,4))assert.equal(M.assess(q.id,q.x).acceptable,true);
+ assert.equal(M.assess(cases[4].id,cases[4].x).acceptable,false); // Rayon critique supérieur au rayon nu : cas volontairement défavorable. 
  assert.equal(M.assess(cases[0].id,1).acceptable,false);
  assert.equal(M.assess(cases[1].id,20).acceptable,false);
  assert.equal(M.assess(cases[2].id,150).acceptable,false);
  assert.equal(M.assess(cases[3].id,2).acceptable,false);
  assert.equal(M.assess(cases[4].id,5).acceptable,false);
+});
+test('étalonnage : tension croissante vers le haut du graphique',()=>{
+ const id='sensor-two-point-sensitivity-01';
+ const a=D.render(id,2,M.calculate(id,2)),b=D.render(id,5,M.calculate(id,5));
+ const y=s=>Number(s.match(/data-v2-ord-px="([0-9.]+)"/)[1]);
+ assert.ok(y(b)<y(a));assert.ok(y(a)<188); // V₂ > V₁, donc ordonnée visuelle au-dessus du point initial.
 });
 test('historique 40–75 : rendement de chaîne avec étages et résultat identifiés',()=>{
  const B=require('../src/investigations.js'),G=require('../src/investigation-diagrams.js');

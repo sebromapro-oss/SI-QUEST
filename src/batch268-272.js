@@ -40,7 +40,7 @@ case 'battery-internal-joule-heat-01':{
  s+=line(150,150,150+a,150,'#ffb68a',4,'marker-end="url(#arr)" data-courant-longueur-px="'+a+'"');
  s+=label(22,40,'Rᵢ = 0,050 Ω ; I = '+n(x)+' A')+label(250,96,'Rᵢ')+label(22,224,'P pertes = '+n(y)+' W ; I²R');break;}
 case 'sensor-two-point-sensitivity-01':{
- const yy=Number((192-(x-2)*33).toFixed(3));
+ const yy=Number((174-(x-2)*30).toFixed(3));
  s+=line(130,202,505,202,'#b8cbd9',2)+line(130,202,130,70,'#b8cbd9',2);
  s+=line(165,188,445,yy,'#7ce8ae',4)+
  '<circle cx="165" cy="188" r="6" fill="#ffd17d"/><circle cx="445" cy="'+yy+'" r="6" fill="#ffd17d" data-v2-ord-px="'+yy+'"/>';
