@@ -22,3 +22,7 @@ HEAD initial : `3d629d1a5f4cbcedc7a1ad2c29e6853e43de224c` ; dépôt privé `main
 
 ## Protection et limites
 `index.html`, `src/style.css`, `src/home.js`, `assets/archipelago-cinematic.svg` non modifiés. Scènes 2D, pas de revendication 3D ou d'animation temporelle. Aucun ZIP, GitHub Pages ni changement de visibilité.
+
+## Contre-audit du lot (correctif additionnel)
+- P1 fonctionnel : le banc DOM 203–207 avait remplacé la liste des identifiants de nœuds au lieu de la liste des missions ; rétablie et testée.
+- P2 graphique : tige du vérin tronquée à V = 10 L ; largeur maintenant bornée par x = 540 px. Test géométrique ajouté.
