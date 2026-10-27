@@ -24,3 +24,6 @@ Chaque mission a un contexte métier, objectif, prérequis, trois questions flas
 - CI native : **BLOCKED** historiquement avant attribution du runner ; recontrôle nécessaire sur le commit publié.
 
 Les contrôles structurels ne prouvent pas la conformité graphique, pédagogique ou d'accessibilité sur appareil réel. Les 262 missions sont intégrées, non intégralement réceptionnées.
+
+## Contre-audit de la décision vis–écrou
+Le plafond initial de marge angulaire (10°) n'était pas justifié par la seule condition d'autoblocage. Il a été retiré du critère : `m≥0°` ; le moteur conserve une borne numérique haute de 20° couvrant son domaine d'entrée, mais ne prétend pas qu'une marge supérieure à 10° supprime l'autoblocage. Tests supplémentaires aux deux bornes. Ce correctif ne dispense pas d'une analyse des pertes et de la sécurité de levage.

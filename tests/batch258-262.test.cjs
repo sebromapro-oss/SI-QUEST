@@ -19,7 +19,7 @@ test('propriétés et décisions physiques',()=>{
  near(M.calculate(cases[0].id,Math.tan(Math.PI/30)),0);
  near(M.calculate(cases[1].id,0),0);near(M.calculate(cases[2].id,2),2*Math.PI/3);
  near(M.calculate(cases[3].id,20),57);near(M.calculate(cases[4].id,0),230);
- for(const q of cases){assert.equal(M.assess(q.id,q.x).acceptable,true);assert.equal(M.assess(q.id,q.max).acceptable,false);}
+ for(const q of cases){assert.equal(M.assess(q.id,q.x).acceptable,true);assert.equal(M.assess(q.id,q.max).acceptable,q.id===cases[0].id);}assert.equal(M.assess(cases[0].id,cases[0].min).acceptable,false);
 });
 test('historique 40–75 : instantané cinématique explicitement daté',()=>{
  const B=require('../src/investigations.js'),G=require('../src/investigation-diagrams.js');
