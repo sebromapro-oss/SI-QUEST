@@ -25,3 +25,14 @@
 - Aucune intervention réelle autorisée par les critères fictifs.
 
 **Accueil protégé :** `index.html`, `src/home.js`, `src/style.css`, `assets/archipelago-cinematic.svg` exclus des modifications ; aucun ZIP ni GitHub Pages.
+
+## Contre-audit complémentaire réellement exécuté — 27 octobre 2026
+
+- **Révision testée :** `cfd16477744668aec54e28981ed2d8094114fcae`.
+- **Historique 40–75 :** 36/36 missions PASS sur les valeurs minimales, nominales et maximales, avec vérification du caractère fini, des unités dans les SVG, de la cohérence de la valeur de référence et de l'absence de NaN/Infinity. **108 états calcul/SVG** contrôlés ; ce n'est pas un audit visuel complet.
+- **Missions 188–192 :** 5/5 parcours DOM simulés PASS en V8 : saisie invalide non comptée, trois erreurs, verrouillage du corrigé, déverrouillage après trois essais, réussite au premier essai, trois étoiles et sauvegarde locale. Aucun navigateur réel n'a été exécuté.
+- **Catalogue :** 192 identifiants uniques, 95 sous-savoirs explicitement distincts, **15 univers effectivement peuplés sur 17**. Les univers SI-16 et SI-17 sont encore vides ; 97 entrées n'ont pas de sous-savoir explicite.
+- **GitHub Actions : FAIL / BLOCKED** sur quatre workflows du commit `cfd1647`. La relance du workflow de recette Node (run `40431734670`, tentative 2) a encore échoué avec **runner_id = 0, zéro étape exécutée**. Le journal du job `121950872206` est indisponible (HTTP 404 BlobNotFound). Aucune conclusion sur la réussite des tests Node natifs n'est possible.
+- **S : PASS ciblé**, **G : PASS structurel / visuel NOT RUN**, **P : PASS structurel / essai élève NOT RUN**, **F : PASS V8 simulé / CI BLOCKED**, **A : structure partielle / NVDA, TalkBack, VoiceOver NOT RUN**.
+
+La nouvelle page d'accueil, ses liens et sa carte restent hors du périmètre de modification. Les missions sont **codées**, non « validées » au sens de la réception complète.
