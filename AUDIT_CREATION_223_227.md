@@ -16,3 +16,11 @@ Modèles purs séparés des vues. Hypothèses, unités, limites, tolérances, d�
 - S : PASS ciblé dans l'exécution V8 locale de génération ; G : PASS structurel, inspection visuelle NOT RUN ; P : PASS structurel, essai élève NOT RUN ; F : tests V8 ciblés PASS, Node CI à contrôler ; A : NOT RUN sur matériels et lecteurs d'écran.
 - La CI GitHub Actions avait échoué avant toute étape sur les cycles précédents ; ce registre ne préjuge pas du résultat de la CI sur le nouveau SHA. Pas de preuve de navigateur réel, NVDA, TalkBack ou VoiceOver.
 - Aucun ZIP, Pages, force push, suppression d'archive ou modification de visibilité.
+
+## Contre-audit après publication du premier commit
+- Première publication : `eb8446092fcdb696e40c4b256956eccbefd4a13f`. Catalogue vérifié : **227 identifiants uniques**, **227 HTML**, **17 univers**, **130 sous-savoirs distincts explicités** et **97 entrées historiques non classées**.
+- **P2 pédagogique détectée et corrigée** : la mission 224 limitait la pression à 15 MPa et ne permettait pas de dépasser le seuil fictif de 35 MPa. Domaine étendu à 20 MPa ; contre-test d'acceptation à 8 MPa et de rejet à 20 MPa. Le modèle de Lamé reste identique.
+- Contrôles historiques 40–75 exécutés en V8 sur les 36 missions × 3 états = **108/108 PASS** ; contrôles numériques et structurels SVG, pas une réception visuelle indépendante.
+- Parcours DOM simulés des cinq nouvelles missions sur le code publié : **5/5 PASS** (saisie invalide, trois essais, trois aides, corrigé conditionnel, succès, étoiles et sauvegarde).
+- Quatre workflows GitHub Actions du premier commit : `40472620762` (Node), `40472620833` (navigateur), `40472620769` (scientifique), `40472620796` (qualité) : **FAIL avant toute étape observable**. Étapes vides, journaux 404 BlobNotFound. Relances Node et scientifique : deuxième tentative **FAIL** identique. CI native **BLOCKED** ; cause précise non établie.
+- Statuts fin de cycle : S PASS ciblé ; G PASS structurel / inspection visuelle NOT RUN ; P PASS structurel et DOM simulé / essai élève NOT RUN ; F PASS V8 simulé / CI BLOCKED ; A NOT RUN sur matériel et lecteurs d'écran. Aucune réception complète.
