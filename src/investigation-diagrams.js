@@ -1050,7 +1050,13 @@ case "resistance-02":{s+=line(60,120,130,120)+box(130,105,100,30)+line(230,120,3
 case "thermal-exp-01":{s+=box(100,95,370+Math.min(60,x*.5),55)+line(470,75,470,170,'#ffd17d',2,'stroke-dasharray="5 5"')+arrow(470,185,470+Math.min(60,x*.5),185)+text(55,40,'ΔT = '+N(x)+' K ; déplacement amplifié');s+=valueLabel(id,x,result,216);break;}
 case "hydro-speed-01":{s+=box(100,75,350,100)+box(245,82,16,86,'#d8e8f2')+box(261,115,250,20,'#d8e8f2')+(x>0?arrow(110,65,220,65):'')+text(55,40,'Q = '+N(x)+' L/min')+text(55,218,'v = '+N(result)+' m/s ; modèle sans pertes');break;}
 case "work-01":{s+=line(50,180,550,180)+box(210,120,120,55)+circle(235,177,12)+circle(305,177,12)+arrow(335,140,500,140)+text(55,40,'d = '+N(x)+' m ; F = 400 N')+text(55,219,'W = '+N(result)+' J ; force alignée');break;}
-case "frequency-period-01":{s+='<path d="M60 125 L130 125 L130 75 L200 75 L200 125 L270 125 L270 75 L340 75 L340 125 L410 125 L410 75 L480 75 L480 125 L550 125" fill="none" stroke="#8ddcff" stroke-width="4"/>'+text(55,40,'f = '+N(x)+' Hz')+text(55,219,'T = '+N(result)+' s ; tracé illustratif');break;}
+case "frequency-period-01":{
+ const windowS=.20,halfPeriod=.5/x,edges=Math.floor(windowS/halfPeriod+1e-9);
+ let d='M60 155',level=155;
+ for(let k=1;k<=edges;k++){const xx=60+480*(k*halfPeriod/windowS);const next=level===155?95:155;d+=' L'+xx.toFixed(3)+' '+level+' L'+xx.toFixed(3)+' '+next;level=next;}
+ d+=' L540 '+level;
+ s+='<path d="'+d+'" fill="none" stroke="#8ddcff" stroke-width="3" data-frequence-hz="'+x.toFixed(4)+'" data-fenetre-s="0.20" data-cycles="'+(x*windowS).toFixed(4)+'" data-periode-s="'+result.toFixed(6)+'"/>';
+ s+=line(60,184,540,184,'#9bc9e5',2)+text(55,40,'f = '+N(x)+' Hz ; signal carré idéal')+text(425,207,'0,20 s')+text(55,219,'T = '+N(result)+' s ; fenêtre fixe de 0,20 s');break;}
 case "hydro-force-02":{s+=box(110,75,350,100)+box(250,83,18,85,'#d8e8f2')+box(268,115,250,20,'#d8e8f2')+(x>0?arrow(515,145,565,145):'')+text(55,40,'p = '+N(x)+' bar ; D = 80 mm')+text(55,219,'F = '+N(result)+' N ; effort théorique');break;}
 case "beam-defl-01":{s+=box(85,60,28,145,'#a2b5c2')+'<path d="M113 110 Q320 115 510 '+(110+Math.min(55,x*.25))+'" fill="none" stroke="#8ddcff" stroke-width="12"/>'+(x>0?arrow(510,60,510,100+Math.min(55,x*.25)):'')+text(55,40,'F = '+N(x)+' N ; flèche amplifiée')+text(55,219,'δ = '+N(result)+' mm ; amplification graphique');break;}
 case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,126,340,126,'#8ddcff',5)+arrow(340,126,290,126)+arrow(340,126,340,56,'#7ce8ae')+text(50,45,'r = 0,5 m ; v = '+N(x)+' m/s');break;}

@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"bearing-static-safety-01","world":"SI-05","title":"Roulement — Coefficient de sécurité statique","url":"missions/bearing-static-safety-01.html","subskill":"Rapport de capacité statique C₀ à la charge statique équivalente P₀"}),
+Object.freeze({"id":"vibration-critical-damping-01","world":"SI-09","title":"Support antivibratoire — Amortissement critique","url":"missions/vibration-critical-damping-01.html","subskill":"Coefficient d'amortissement critique d'un oscillateur masse-ressort linéaire"}),
+Object.freeze({"id":"material-thermal-effusivity-01","world":"SI-14","title":"Matériau — Effusivité thermique","url":"missions/material-thermal-effusivity-01.html","subskill":"Capacité d'échange thermique transitoire par effusivité √(λρcₚ)"}),
+Object.freeze({"id":"metrology-worstcase-stack-01","world":"SI-13","title":"Montage — Jeu minimal en pire cas","url":"missions/metrology-worstcase-stack-01.html","subskill":"Chaîne de cotes en pire cas par cumul des tolérances extrêmes"}),
+Object.freeze({"id":"hydraulic-wave-roundtrip-01","world":"SI-06","title":"Conduite — Temps aller-retour d'une onde","url":"missions/hydraulic-wave-roundtrip-01.html","subskill":"Temps de propagation aller-retour d'une onde de pression réfléchie"}),
 Object.freeze({"id":"screw-jack-self-locking-01","world":"SI-05","title":"Vis de levage — Marge d'autoblocage","url":"missions/screw-jack-self-locking-01.html","subskill":"Condition d'autoblocage d'une vis carrée par comparaison des angles de frottement et d'hélice"}),
 Object.freeze({"id":"sensor-hysteresis-fullscale-01","world":"SI-13","title":"Capteur — Hystérésis sur pleine échelle","url":"missions/sensor-hysteresis-fullscale-01.html","subskill":"Écart maximal montée-descente rapporté à l'étendue d'un signal 4–20 mA"}),
 Object.freeze({"id":"gear-backlash-pitch-01","world":"SI-05","title":"Engrenage — Jeu au cercle primitif","url":"missions/gear-backlash-pitch-01.html","subskill":"Conversion d'un jeu angulaire en longueur d'arc tangentielle au cercle primitif"}),
