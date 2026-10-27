@@ -6,7 +6,7 @@
 - HEAD distant initial : `20a2c160689f059d840c283b4bd6d60e71d1304f`.
 - Documents lus : `CAHIER_DES_CHARGES_MAITRE.md` (V2.3), `EXIGENCES.md`, `PRODUCTION.md`, modèle de mission, catalogue, tests et workflow de recette.
 - Dépendances de l'accueil : `index.html` charge `src/catalog.js` et `src/home.js`. Seul le catalogue est enrichi pour les liens ; `index.html`, `src/home.js`, `src/style.css`, `assets/*` et la carte restent intacts.
-- SHA final : à relever après publication depuis `refs/heads/main`.
+- Commit de production vérifié sur `main` : `75992b96b17a3c3909ed7ce2b415da8f9c3db1c9` ; rapport complété dans un commit ultérieur.
 
 ## Nouvelles investigations (238–242)
 | Mission | Identifiant | Sous-savoir distinct | Résultat nominal |
@@ -35,7 +35,7 @@ Aucune P0 identifiée par ces contrôles ciblés ; aucune absence globale d'anom
 | F fonctionnel | **PASS V8 simulé / BLOCKED CI native** | 8 tests scientifiques et structurels + 5 parcours DOM simulés PASS ; Node natif non attesté |
 | A accessibilité | **NOT RUN manuel** | NVDA, TalkBack, VoiceOver, appareils et zoom 400 % non testés |
 
-Les tests DOM simulés vérifient les saisies invalides, trois essais, aides, corrigé conditionnel, étoiles et persistance. L'exécution GitHub Actions doit être inspectée après publication ; un job sans étapes ne peut être déclaré PASS.
+Les tests DOM simulés vérifient les saisies invalides, trois essais, aides, corrigé conditionnel, étoiles et persistance. GitHub Actions sur le commit de production : quatre workflows en échec avant toute étape observable. Runs `40495615790` (scientifique), `40495615796` (accueil), `40495615681` (Node) et `40495615791` (contrôles scientifiques). Jobs sans étapes ni runner attribué ; journal Node HTTP 404 `BlobNotFound`. Deux relances (`40495615681` et `40495615790`) ont échoué de la même manière. **CI native BLOCKED**, cause exacte non déterminée. Aucun test Node, navigateur ou matériel revendiqué PASS.
 
 ## Catalogue et réception
 **242 identifiants uniques, 242 HTML, 17 univers**, 145 sous-savoirs explicitement distincts si les 140 antérieurs sont conservés ; 97 missions historiques restent à classifier. Les cinq missions sont codées et testées de manière ciblée, **non validées en réception complète**.
