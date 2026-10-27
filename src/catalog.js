@@ -228,6 +228,12 @@ Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage
     Object.freeze({"id":"torsional-eigenfrequency-01","world":"SI-09","title":"Transmission — Fréquence propre de torsion","url":"missions/torsional-eigenfrequency-01.html","subskill":"Oscillateur torsionnel à un degré de liberté"}),
     Object.freeze({"id":"laminar-darcy-factor-01","world":"SI-06","title":"Conduite laminaire — Facteur de Darcy","url":"missions/laminar-darcy-factor-01.html","subskill":"Facteur de Darcy en écoulement laminaire établi"}),
     Object.freeze({"id":"triangle-actuator-angle-01","world":"SI-01","title":"Relevage — Angle d'un triangle articulé","url":"missions/triangle-actuator-angle-01.html","subskill":"Loi des cosinus pour une articulation plane"}),
+
+    Object.freeze({"id":"stokes-sphere-drag-01","world":"SI-11","title":"Bille dans une huile — Traînée de Stokes","url":"missions/stokes-sphere-drag-01.html","subskill":"Traînée visqueuse linéaire à faible Reynolds autour d'une sphère"}),
+    Object.freeze({"id":"magnetic-airgap-force-01","world":"SI-08","title":"Électroaimant — Force d'attraction idéale","url":"missions/magnetic-airgap-force-01.html","subskill":"Pression magnétique dans un entrefer uniforme"}),
+    Object.freeze({"id":"gear-tooth-tangential-force-01","world":"SI-05","title":"Engrenage — Effort tangentiel sur dent","url":"missions/gear-tooth-tangential-force-01.html","subskill":"Équilibre du couple et de l'effort tangentiel au diamètre primitif"}),
+    Object.freeze({"id":"pendulum-small-angle-period-01","world":"SI-09","title":"Pendule d'essai — Période aux petits angles","url":"missions/pendulum-small-angle-period-01.html","subskill":"Période propre du pendule simple linéarisé"}),
+    Object.freeze({"id":"radial-insulation-resistance-01","world":"SI-12","title":"Conduite isolée — Résistance thermique radiale","url":"missions/radial-insulation-resistance-01.html","subskill":"Conduction cylindrique stationnaire dans une couche annulaire"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
