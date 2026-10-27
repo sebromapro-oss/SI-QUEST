@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"planetary-carrier-speed-01","world":"SI-05","title":"Train épicycloïdal — Vitesse du porte-satellites","url":"missions/planetary-carrier-speed-01.html","subskill":"Relation de Willis à deux éléments moteurs"}),
+Object.freeze({"id":"capacitor-stored-energy-01","world":"SI-08","title":"Condensateur — Énergie électrique stockée","url":"missions/capacitor-stored-energy-01.html","subskill":"Énergie électrostatique d'un condensateur idéal"}),
+Object.freeze({"id":"sensor-temperature-drift-01","world":"SI-13","title":"Capteur — Dérive thermique du signal","url":"missions/sensor-temperature-drift-01.html","subskill":"Erreur de gain par coefficient thermique en ppm/K"}),
+Object.freeze({"id":"belt-centrifugal-tension-01","world":"SI-05","title":"Courroie — Contribution centrifuge à la tension","url":"missions/belt-centrifugal-tension-01.html","subskill":"Effet de la masse linéique et de la vitesse sur la tension centrifuge"}),
+Object.freeze({"id":"thermal-penetration-length-01","world":"SI-12","title":"Paroi — Longueur caractéristique de diffusion thermique","url":"missions/thermal-penetration-length-01.html","subskill":"Échelle de pénétration transitoire en racine du temps"}),
 Object.freeze({"id":"shaft-key-bearing-pressure-01","world":"SI-04","title":"Clavette — Pression moyenne de matage","url":"missions/shaft-key-bearing-pressure-01.html","subskill":"Pression de contact sur le flanc d'une clavette"}),
 Object.freeze({"id":"ultrasonic-time-of-flight-01","world":"SI-13","title":"Capteur ultrasonore — Distance par écho","url":"missions/ultrasonic-time-of-flight-01.html","subskill":"Mesure de distance par temps de vol ultrasonore aller-retour"}),
 Object.freeze({"id":"square-screw-lead-angle-01","world":"SI-05","title":"Vis de levage — Angle d'hélice idéal","url":"missions/square-screw-lead-angle-01.html","subskill":"Angle d'hélice d'un filet carré et autoblocage théorique"}),
