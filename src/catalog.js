@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"welding-linear-energy-01","world":"SI-14","title":"Soudage — Énergie linéique utile","url":"missions/welding-linear-energy-01.html","subskill":"Énergie linéique de soudage avec rendement"}),
+Object.freeze({"id":"dc-motor-back-emf-01","world":"SI-08","title":"Moteur CC — Force contre-électromotrice","url":"missions/dc-motor-back-emf-01.html","subskill":"Force contre-électromotrice d'un moteur CC en régime permanent"}),
+Object.freeze({"id":"first-order-95-response-time-01","world":"SI-09","title":"Automatique — Temps d'atteinte de 95 %","url":"missions/first-order-95-response-time-01.html","subskill":"Temps d'atteinte de 95 % d'une réponse indicielle du premier ordre"}),
+Object.freeze({"id":"fourbar-grashof-margin-01","world":"SI-05","title":"Quatre barres — Marge de Grashof","url":"missions/fourbar-grashof-margin-01.html","subskill":"Marge signée du critère de Grashof d'une chaîne articulée"}),
+Object.freeze({"id":"copper-temperature-resistance-01","world":"SI-08","title":"Cuivre — Résistance et température","url":"missions/copper-temperature-resistance-01.html","subskill":"Correction thermique linéaire de résistance électrique"}),
 Object.freeze({"id":"differential-outer-wheel-speed-01","world":"SI-01","title":"Virage — Vitesse de la roue extérieure","url":"missions/differential-outer-wheel-speed-01.html","subskill":"Cinématique des vitesses des roues d'un essieu en virage"}),
 Object.freeze({"id":"repeatability-sample-std-01","world":"SI-13","title":"Métrologie — Écart-type de répétabilité","url":"missions/repeatability-sample-std-01.html","subskill":"Estimation de l'écart-type expérimental corrigé sur cinq mesures"}),
 Object.freeze({"id":"maintenance-mttr-four-jobs-01","world":"SI-15","title":"Maintenance — Temps moyen de réparation","url":"missions/maintenance-mttr-four-jobs-01.html","subskill":"Estimation descriptive du MTTR à partir de quatre réparations"}),
