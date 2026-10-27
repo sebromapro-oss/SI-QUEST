@@ -23,3 +23,12 @@ Trois questions flash, hypothèses, domaine, unités, modèle pur, contre-calcul
 - GitHub Actions du HEAD précédent : échec avant exécution de job ; CI du nouveau commit à contrôler séparément. Les tests Node natifs et tests navigateur ne sont pas déclarés exécutés.
 
 Statut : **codées et contrôlées automatiquement de manière ciblée, non validées en recette complète**.
+
+## Contre-audit après publication du commit `c6269a16262c89b191738e654b4831116e9029d4`
+
+- Catalogue GitHub vérifié : **187 fichiers de mission**, 187 identifiants uniques, 17 univers, 90 sous-savoirs renseignés et distincts ; **97 métadonnées de sous-savoir restent absentes**.
+- Parcours DOM simulé du lot 178–182 réparé : **25 assertions V8 PASS** supplémentaires (cinq missions, saisie invalide, trois essais, corrigé et sauvegarde).
+- GitHub Actions sur `c6269a16262c89b191738e654b4831116e9029d4` : quatre workflows **FAIL/BLOCKED** avant l'exécution des étapes : recette Node `40425273059`, contrôles scientifiques `40425273030`, qualité scientifique `40425272881`, recette accueil `40425272778`. Jobs sans étapes et sans runner identifié. Les deux premiers ont été relancés (tentative 2) et ont de nouveau échoué avant toute étape. Téléchargement des journaux : erreur HTTP 404 BlobNotFound. **Aucun test Node natif ni Playwright n'a été exécuté dans ces runs.** La cause exacte du blocage d'infrastructure reste indéterminée ; ne pas interpréter ce FAIL comme un résultat scientifique.
+- Réception manuelle NVDA, TalkBack, VoiceOver, zoom, appareils et inspection visuelle : **NOT RUN**.
+
+Les fichiers de l'accueil protégés ont conservé leurs SHA de blobs Git après intégration.
