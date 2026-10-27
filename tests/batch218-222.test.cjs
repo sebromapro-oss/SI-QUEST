@@ -22,3 +22,5 @@ test('P2 historique : piston et volume cohérents avec la course',()=>{
 const B=require('../src/investigations.js'),G=require('../src/investigation-diagrams.js');const a=G.render('hydro-volume-01',0,B.calculate('hydro-volume-01',0)),b=G.render('hydro-volume-01',600,B.calculate('hydro-volume-01',600));assert.match(a,/data-piston-x="110.00"/);assert.match(b,/data-piston-x="422.00"/);assert.match(a,/V = 0 L/);assert.match(b,/V = 3 L/);assert.match(a,/L = 0 mm/);
 });
 test('catalogue : identifiants uniques et 17 univers',()=>{assert.equal(C.levels.length,222);assert.equal(new Set(C.levels.map(x=>x.id)).size,222);assert.equal(new Set(C.levels.map(x=>x.world)).size,17);});
+
+test('P1 scientifique : valeur numérique du corrigé radial',()=>{near(M.calculate('radial-insulation-resistance-01',50),2.4515066683627955);assert.match(M.answerPolicy['radial-insulation-resistance-01'].solution,/2,45151 K\/W/);});

@@ -27,3 +27,6 @@ HEAD initial : `9e9b550a8dc3bad12449bbabf23769d5c74591d9` ; dépôt privé, bran
 - GitHub Actions au premier commit : `40466046234` (scientifique), `40466046263` (qualité), `40466046314` (recette Node) et `40466046269` (navigateur) : **FAIL avant toute étape exécutée**. Les quatre journaux des jobs ont répondu HTTP 404 `BlobNotFound` ; les étapes sont vides. Deux relances demandées : `40466046314` et `40466046234`, échec reproduit. Cause précise du défaut d'attribution de runner : non démontrée.
 - Statut de la CI native : **BLOCKED**. Tests Node natifs, navigateur réel, NVDA, TalkBack, VoiceOver : **NOT RUN**. Aucun de ces contrôles n'est revendiqué comme réussi.
 - Aucune réception complète S/G/P/F/A. Les preuves automatisées V8 ne remplacent ni les navigateurs ni les lecteurs d'écran.
+
+## Contre-audit scientifique complémentaire
+- **P1 scientifique détectée et corrigée avant clôture** : le corrigé de l'isolant cylindrique annonçait 2,45178 K/W, alors que le calcul non arrondi donne 2,451506668 K/W. Corrigé remplacé par **2,45151 K/W** ; test numérique indépendant et assertion sur la rédaction ajoutés. Le modèle de calcul et le résultat attendu dans la page étaient déjà corrects.
