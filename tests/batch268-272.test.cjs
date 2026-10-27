@@ -44,6 +44,17 @@ test('étalonnage : tension croissante vers le haut du graphique',()=>{
  const a=D.render(id,2,M.calculate(id,2)),b=D.render(id,5,M.calculate(id,5));
  const y=s=>Number(s.match(/data-v2-ord-px="([0-9.]+)"/)[1]);
  assert.ok(y(b)<y(a));assert.ok(y(a)<188); // V₂ > V₁, donc ordonnée visuelle au-dessus du point initial.
+ assert.ok(Math.abs((188-y(a))/1.5-(188-y(b))/4.5)<1e-8); // même échelle verticale en V.
+});
+test('rayon critique et courant : échelles et états nuls cohérents',()=>{
+ const a='cylinder-critical-insulation-radius-01',b='battery-internal-joule-heat-01';
+ const r=40/3,svg=D.render(a,r,M.calculate(a,r));
+ const v=Number(svg.match(/data-rayon-critique-px="([0-9.]+)"/)[1]);
+ assert.ok(Math.abs(v-32)<.001); // rcrit = rnu = 3 mm
+ assert.doesNotMatch(D.render(b,0,M.calculate(b,0)),/data-courant-longueur-px=/);
+ for(const x of [30,60,120]){const s=D.render(b,x,M.calculate(b,x));
+ const l=Number(s.match(/data-courant-longueur-px="([0-9.]+)"/)[1]);
+ assert.ok(Math.abs(l-130*x/150)<.001);}
 });
 test('historique 40–75 : rendement de chaîne avec étages et résultat identifiés',()=>{
  const B=require('../src/investigations.js'),G=require('../src/investigation-diagrams.js');

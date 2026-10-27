@@ -34,19 +34,19 @@ case 'threephase-power-factor-pq-01':{
  s+=line(210,188,390,188,'#7ce8ae',4)+line(390,188,390,188-q,'#ffb68a',4)+line(210,188,390,188-q,'#8ddcff',4);
  s+=label(235,208,'P = 12 kW')+label(400,180,'Q')+label(22,40,'Q = '+n(x)+' kvar ; P = 12 kW')+label(22,65,'S² = P² + Q² ; charge sinusoïdale')+label(22,224,'cos φ = '+n(y)+' (sans unité)');break;}
 case 'battery-internal-joule-heat-01':{
- const a=Number((40+130*x/150).toFixed(3));
+ const a=Number((130*x/150).toFixed(3));
  s+=line(130,115,235,115)+line(235,115,235,90)+line(235,90,380,90)+line(380,90,380,115)+line(380,115,480,115);
  s+='<rect x="235" y="75" width="145" height="30" fill="#406b7d" stroke="#ffd17d" stroke-width="3"/>';
- s+=line(150,150,150+a,150,'#ffb68a',4,'marker-end="url(#arr)" data-courant-longueur-px="'+a+'"');
+ if(x>0)s+=line(150,150,150+a,150,'#ffb68a',4,'marker-end="url(#arr)" data-courant-longueur-px="'+a+'"');
  s+=label(22,40,'Rᵢ = 0,050 Ω ; I = '+n(x)+' A')+label(250,96,'Rᵢ')+label(22,224,'P pertes = '+n(y)+' W ; I²R');break;}
 case 'sensor-two-point-sensitivity-01':{
- const yy=Number((174-(x-2)*30).toFixed(3));
+ const yy=Number((188-24*(x-.5)).toFixed(3));
  s+=line(130,202,505,202,'#b8cbd9',2)+line(130,202,130,70,'#b8cbd9',2);
  s+=line(165,188,445,yy,'#7ce8ae',4)+
  '<circle cx="165" cy="188" r="6" fill="#ffd17d"/><circle cx="445" cy="'+yy+'" r="6" fill="#ffd17d" data-v2-ord-px="'+yy+'"/>';
  s+=label(145,214,'0 bar')+label(435,214,'100 bar')+label(22,40,'V₁ = 0,50 V ; V₂ = '+n(x)+' V')+label(22,65,'Étalonnage linéaire à deux points')+label(22,235,'S = '+n(y)+' mV/bar');break;}
 case 'cylinder-critical-insulation-radius-01':{
- const rr=Number((13+8*y).toFixed(3));
+ const rr=Number(((32/3)*y).toFixed(3));
  s+='<circle cx="350" cy="145" r="32" fill="#335a72" stroke="#ffd17d" stroke-width="4"/>';
  s+='<circle cx="350" cy="145" r="'+rr+'" fill="none" stroke="#7ce8ae" stroke-dasharray="6 4" stroke-width="3" data-rayon-critique-px="'+rr+'"/>';
  s+=line(350,145,350+rr,145,'#ffb68a',3,'marker-end="url(#arr)"');
