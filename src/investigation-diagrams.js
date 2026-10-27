@@ -1082,10 +1082,10 @@ case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,1
  case 'heat-transfer-01':{s+=box(245,65,110,140,'#9c7157')+text(55,42,'|ΔT| = '+N(x)+' K')+text(45,224,'Sens du flux non orienté : faces chaude/froide inconnues');break;}
  case 'measurement-relative-01':{const xp=300+(x-80)*75;s+=line(85,155,525,155,'#d5e8f4',5)+box(150,120,310,32)+line(300,90,300,195,'#7ce8ae',3)+line(xp,85,xp,200,'#ffca7d',4)+text(55,42,'x₀ = 80 mm ; x = '+N(x)+' mm')+text(55,223,'Écart relatif = '+N(result)+' %');break;}
  case 'frequency-01':{
-  const a=2*Math.PI*x/60*.07;
+  const t=0.07, a=2*Math.PI*x/60*t;
   s+=circle(260,119,68)+circle(260,119,9,'#ffd17d')+line(260,119,260+62*Math.cos(a),119-62*Math.sin(a),'#ffd17d',7);
   s+=box(354,92,60,45,'#446d87')+line(414,115,515,115,'#7ce8ae',4);
-  s+=text(55,45,'1/tr')+text(55,211,'f = '+N(result)+' Hz ; n = '+N(x)+' tr/min');
+  s+=text(55,45,'Instantané t = 0,07 s')+text(55,211,'f = '+N(result)+' Hz ; n = '+N(x)+' tr/min')+'<g data-instant-s="0.07" data-angle-rad="'+a.toFixed(6)+'"></g>';
   break;
  }
  }

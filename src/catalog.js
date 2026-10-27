@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"screw-jack-self-locking-01","world":"SI-05","title":"Vis de levage — Marge d'autoblocage","url":"missions/screw-jack-self-locking-01.html","subskill":"Condition d'autoblocage d'une vis carrée par comparaison des angles de frottement et d'hélice"}),
+Object.freeze({"id":"sensor-hysteresis-fullscale-01","world":"SI-13","title":"Capteur — Hystérésis sur pleine échelle","url":"missions/sensor-hysteresis-fullscale-01.html","subskill":"Écart maximal montée-descente rapporté à l'étendue d'un signal 4–20 mA"}),
+Object.freeze({"id":"gear-backlash-pitch-01","world":"SI-05","title":"Engrenage — Jeu au cercle primitif","url":"missions/gear-backlash-pitch-01.html","subskill":"Conversion d'un jeu angulaire en longueur d'arc tangentielle au cercle primitif"}),
+Object.freeze({"id":"hydraulic-filter-captured-mass-01","world":"SI-15","title":"Filtre hydraulique — Masse de particules retenues","url":"missions/hydraulic-filter-captured-mass-01.html","subskill":"Bilan massique de contamination captée à concentration et efficacité constantes"}),
+Object.freeze({"id":"transformer-load-voltage-01","world":"SI-08","title":"Transformateur — Tension en charge simplifiée","url":"missions/transformer-load-voltage-01.html","subskill":"Tension secondaire dans un modèle équivalent de Thévenin purement résistif"}),
 Object.freeze({"id":"bearing-pv-factor-01","world":"SI-15","title":"Palier lisse — Facteur PV","url":"missions/bearing-pv-factor-01.html","subskill":"Produit de la pression projetée par la vitesse périphérique d'un palier"}),
 Object.freeze({"id":"three-phase-cable-voltage-drop-01","world":"SI-08","title":"Câble triphasé — Chute de tension résistive","url":"missions/three-phase-cable-voltage-drop-01.html","subskill":"Estimation de chute de tension composée en triphasé équilibré sans réactance"}),
 Object.freeze({"id":"hydraulic-throttle-heat-01","world":"SI-06","title":"Étrangleur hydraulique — Puissance dissipée","url":"missions/hydraulic-throttle-heat-01.html","subskill":"Conversion d'une perte de pression hydraulique en puissance thermique"}),
