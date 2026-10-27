@@ -29,6 +29,7 @@ assert.doesNotMatch(D.render(cases[0].id,0,0),/marker-end=/);
 assert.doesNotMatch(D.render(cases[1].id,0,0),/marker-end=/);
 assert.doesNotMatch(D.render(cases[4].id,0,0),/marker-end=/);
 });
+test('corrigé ailette : arrondi conforme au contre-calcul',()=>{const q=cases[2],y=refs[q.id](q.x);assert.ok(Math.abs(y-0.760)<0.0005);assert.match(M.answerPolicy[q.id].solution,/≈0,760/);});
 test('catalogue extensible et 17 univers, sous-savoirs distincts',()=>{assert.ok(C.levels.length>=237);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.equal(new Set(C.levels.map(x=>x.world)).size,17);assert.equal(new Set(cases.map(q=>C.byId(q.id).subskill)).size,5)});
 test('pneumatique historique 40–75 : pression avec unité bar',()=>{const B=require('../src/investigations.js'),G=require('../src/investigation-diagrams.js');const x=4;const svg=G.render('pneumatic-force-01',x,B.calculate('pneumatic-force-01',x));assert.match(svg,/p = 4 bar/);});
 test('profil pédagogique individualisé pour les nouveaux identifiants',()=>{const ui=fs.readFileSync('src/investigation-mission.js','utf8');assert.match(ui,/c\.prerequisites\|\|/);assert.match(ui,/c\.objective\|\|/);assert.match(ui,/c\.decision\|\|/);assert.match(ui,/c\.error\|\|/);for(const q of cases){const h=fs.readFileSync('missions/'+q.id+'.html','utf8');const c=JSON.parse(h.split('window.SI_MISSION=')[1].split('</script>')[0]);for(const k of ['prerequisites','objective','decision','error'])assert.ok(c[k].length>40)}});
