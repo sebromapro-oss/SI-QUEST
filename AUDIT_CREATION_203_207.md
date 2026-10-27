@@ -26,3 +26,10 @@ HEAD initial : `3d629d1a5f4cbcedc7a1ad2c29e6853e43de224c` ; dépôt privé `main
 ## Contre-audit du lot (correctif additionnel)
 - P1 fonctionnel : le banc DOM 203–207 avait remplacé la liste des identifiants de nœuds au lieu de la liste des missions ; rétablie et testée.
 - P2 graphique : tige du vérin tronquée à V = 10 L ; largeur maintenant bornée par x = 540 px. Test géométrique ajouté.
+
+## Audit physique des schémas et preuve historique
+- P2 graphique : flèches de flux supprimées pour Biot, car aucun signe de ΔT n'est donné.
+- P2 graphique : sens horaire du champ supprimé, car l'ordre des phases n'est pas renseigné.
+- Missions historiques 40–75 : 36/36 contrôlées, 108/108 états minimum/nominal/maximum PASS en V8 (calcul, unité, structure SVG).
+- Lot 203–207 : 14 tests Node-like exécutés dans V8 avec mocks, PASS ; la CI native reste BLOCKED (run 40448762124, relance échouée sans étape).
+- Catalogue : 207 missions uniques, 17 univers, 110 sous-savoirs explicitement distincts, 97 sous-savoirs non renseignés.
