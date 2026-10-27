@@ -23,3 +23,8 @@ P2 G/S `axial-strain-01` : suppression des deux flèches d'effort non calculées
 - **36/36 missions** : 612 assertions ciblées V8 PASS (configuration, modèle nominal, trois états min/nominal/max, unités et structure SVG). Il ne s'agit pas d'une recette visuelle ou d'un contre-calcul indépendant exhaustif.
 - **P2 pédagogique** : 28 missions historiques sans questions flash dans leur HTML ; ajout de trois questions scientifiques individualisées par mission via le contrôleur partagé `src/investigation-mission.js`. Les 8 autres missions de la plage disposent déjà d'une réactivation dans leur page. Aucun fichier d'accueil modifié.
 - Contrôles : syntaxe du contrôleur en V8, 28 entrées × 3 questions distinctes ; test automatisé `tests/historical-flash-40-75.test.cjs`. Recette élève réelle NOT RUN.
+
+## Contre-audit graphique et CI
+- **P2 graphique supplémentaire corrigé** : les cinq scènes 213–217 affichaient le nom de l'unité à la place du symbole de la grandeur. Étiquettes désormais R, t, η, Erec, Kp, u, ζ, Δp, μ et Cpk, avec unités distinctes. Test de non-régression ajouté.
+- **CI native BLOCKED** : workflows du commit `422b7e9ffa40ced9b0019ffb60aa997444d559d2` en échec avant toute étape observable, jobs sans étapes ni URL de journal. Journal demandé pour job `122042851383` : HTTP 404 `BlobNotFound`. Relance de la recette Node `40460244786` (tentative 2) également FAIL sans étape ; relance de `40460244766` demandée. Ce blocage ne vaut pas réussite des tests Node.
+- Tests navigateur réel, NVDA, TalkBack, VoiceOver : NOT RUN ; réception complète non validée.
