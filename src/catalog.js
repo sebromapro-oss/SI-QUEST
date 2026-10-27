@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"shaft-key-shear-stress-01","world":"SI-04","title":"Clavette d'arbre — Contrainte de cisaillement","url":"missions/shaft-key-shear-stress-01.html","subskill":"Cisaillement moyen d'une clavette transmettant un couple"}),
+Object.freeze({"id":"transformer-winding-copper-loss-01","world":"SI-08","title":"Transformateur triphasé — Pertes cuivre","url":"missions/transformer-winding-copper-loss-01.html","subskill":"Pertes Joule dans trois enroulements équilibrés"}),
+Object.freeze({"id":"straight-fin-efficiency-01","world":"SI-12","title":"Ailette thermique — Efficacité d'une ailette","url":"missions/straight-fin-efficiency-01.html","subskill":"Rendement thermique d'une ailette droite à extrémité isolée"}),
+Object.freeze({"id":"brake-pad-sector-pressure-01","world":"SI-11","title":"Plaquette de frein — Pression sur secteur annulaire","url":"missions/brake-pad-sector-pressure-01.html","subskill":"Aire d'un secteur annulaire et pression moyenne de contact"}),
+Object.freeze({"id":"hydrostatic-wheel-traction-01","world":"SI-17","title":"Transmission hydrostatique — Effort à la roue","url":"missions/hydrostatic-wheel-traction-01.html","subskill":"Chaîne pression-couple-réducteur-effort de traction"}),
 Object.freeze({"id":"series-spring-stiffness-01","world":"SI-04","title":"Deux ressorts en série — Raideur équivalente","url":"missions/series-spring-stiffness-01.html","subskill":"Association en série de deux raideurs élastiques"}),
 Object.freeze({"id":"poisson-lateral-contraction-01","world":"SI-14","title":"Éprouvette tendue — Contraction de Poisson","url":"missions/poisson-lateral-contraction-01.html","subskill":"Déformation transversale signée par effet de Poisson"}),
 Object.freeze({"id":"differential-thermal-clearance-01","world":"SI-12","title":"Assemblage bimétallique — Jeu thermique","url":"missions/differential-thermal-clearance-01.html","subskill":"Évolution d'un jeu par dilatation différentielle"}),
