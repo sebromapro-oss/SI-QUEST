@@ -30,3 +30,6 @@ Chaque mission comporte situation métier, objectifs, prérequis, trois question
 - **CI native : BLOCKED jusqu'à preuve contraire.** Les workflows précédents échouaient avant toute étape ; consulter les jobs et les journaux du commit final et documenter la situation sans déclarer de succès.
 
 Catalogue : **302 HTML, 302 identifiants uniques, 17 univers représentés, 205 sous-savoirs explicitement renseignés et distincts, 97 entrées non classifiées**. Intégration ≠ réception. Les erreurs restantes non détectées par ces tests restent ouvertes à l'audit scientifique, graphique, pédagogique, fonctionnel et d'accessibilité.
+
+## Vérification GitHub Actions après publication
+Commit de production `73229de0480ab4099bc817d590fd261a81972d95` : quatre workflows ont été déclenchés. **4/4 FAIL** avant toute étape observable ; jobs Node, scientifique et navigateur sans étapes ni runner déclaré. Les quatre workflows ont été relancés : **4/4 FAIL à la tentative 2**. Les journaux Node et scientifique renvoient HTTP 404 `BlobNotFound`. Des annotations de check-run existent mais leur contenu n'a pas été accessible par le connecteur. **CI native : BLOCKED ; cause exacte indéterminée.** Aucun test Node, navigateur, NVDA, TalkBack ou VoiceOver n'est déclaré exécuté par ces workflows.
