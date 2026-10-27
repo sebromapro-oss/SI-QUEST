@@ -23,3 +23,10 @@ Modèles déterministes, domaines finis, hypothèses, unités, questions flash, 
 - A : contrat sémantique présent ; NVDA/TalkBack/VoiceOver et matériels NOT RUN.
 
 Le catalogue contient 252 entrées uniques, 17 univers et 155 sous-savoirs explicitement renseignés ; 97 entrées historiques à classer. La présence au catalogue ne constitue pas une validation complète.
+
+## Contre-audit après publication — SHA de production `71757924c24fad6fd394f583dcdb1d581aa51b39`
+- **F / DOM simulé : PASS 5/5**, contrôleur réel exécuté en JavaScript V8 avec DOM et stockage simulés : saisie invalide, trois essais, corrigé conditionnel, réponse exacte, trois étoiles et sauvegarde. Il ne s'agit pas d'un navigateur réel.
+- **Intégration Git : PASS**, 252 pages HTML dans `missions/`, 252 identifiants uniques, 17 univers, 155 sous-savoirs explicitement distincts. Les signatures des fichiers protégés `index.html`, `src/home.js`, `src/style.css`, `assets/archipelago-cinematic.svg` sont inchangées.
+- **CI native : BLOCKED**, les quatre workflows du SHA de production ont échoué avant toute étape observable : `40510747240` (accueil), `40510747310` (scientifique), `40510747360` (science), `40510747459` (Node). Relances Node et science : tentative 2, échec confirmé ; aucun runner/étape exploitable. Journaux : HTTP 404 `BlobNotFound`. Cause précise indéterminée ; aucun PASS natif déclaré.
+- **G / rendu navigateur : NOT RUN** ; **A / NVDA, TalkBack, VoiceOver : NOT RUN** ; **P / essai élève : NOT RUN**. Ces absences empêchent toute réception complète.
+- **Anomalies ouvertes :** P1 infrastructure CI (cause inconnue), P2 réception visuelle/accessibilité non réalisée ; aucun défaut scientifique P0 révélé par les contrôles ciblés, sans garantie d'exhaustivité.
