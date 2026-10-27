@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"radiation-net-power-01","world":"SI-12","title":"Rayonnement — Puissance nette échangée","url":"missions/radiation-net-power-01.html","subskill":"Bilan radiatif gris diffus avec milieu isotherme"}),
+Object.freeze({"id":"rc-series-phase-angle-01","world":"SI-08","title":"Circuit RC — Déphasage de l'impédance","url":"missions/rc-series-phase-angle-01.html","subskill":"Argument de l'impédance complexe d'un RC série"}),
+Object.freeze({"id":"thinwall-cylinder-axial-stress-01","world":"SI-04","title":"Réservoir fermé — Contrainte longitudinale","url":"missions/thinwall-cylinder-axial-stress-01.html","subskill":"Contrainte membranaire longitudinale d'un cylindre mince fermé"}),
+Object.freeze({"id":"pneumatic-choked-flow-margin-01","world":"SI-07","title":"Buse pneumatique — Marge d'étranglement","url":"missions/pneumatic-choked-flow-margin-01.html","subskill":"Rapport critique isentropique et condition de débit étranglé"}),
+Object.freeze({"id":"elastic-strain-energy-density-01","world":"SI-04","title":"Élasticité — Densité d'énergie de déformation","url":"missions/elastic-strain-energy-density-01.html","subskill":"Énergie élastique volumique en traction uniaxiale linéaire"}),
 Object.freeze({"id":"welding-linear-energy-01","world":"SI-14","title":"Soudage — Énergie linéique utile","url":"missions/welding-linear-energy-01.html","subskill":"Énergie linéique de soudage avec rendement"}),
 Object.freeze({"id":"dc-motor-back-emf-01","world":"SI-08","title":"Moteur CC — Force contre-électromotrice","url":"missions/dc-motor-back-emf-01.html","subskill":"Force contre-électromotrice d'un moteur CC en régime permanent"}),
 Object.freeze({"id":"first-order-95-response-time-01","world":"SI-09","title":"Automatique — Temps d'atteinte de 95 %","url":"missions/first-order-95-response-time-01.html","subskill":"Temps d'atteinte de 95 % d'une réponse indicielle du premier ordre"}),
