@@ -7,6 +7,11 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+"rotor-centripetal-acceleration-01":"Rotor — Accélération centripète",
+"parallel-thermal-bridges-01":"Paroi — Ponts thermiques en parallèle",
+"sampling-alias-frequency-01":"Échantillonnage — Repliement spectral",
+"regenerative-cylinder-speed-01":"Vérin différentiel — Avance régénérative",
+"buoyancy-immersed-volume-01":"Immersion — Poussée d'Archimède",
 "safety-stop-separation-01":"Arrêt protecteur — Distance d'approche",
 "safety-proof-test-pfd-01":"Fonction de sécurité — Indisponibilité moyenne",
 "production-bottleneck-01":"Ligne de production — Goulot de capacité",
@@ -201,6 +206,11 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+"rotor-centripetal-acceleration-01":["tr/min","m/s²"],
+"parallel-thermal-bridges-01":["W/(m·K)","W"],
+"sampling-alias-frequency-01":["Hz","Hz"],
+"regenerative-cylinder-speed-01":["L/min","m/s"],
+"buoyancy-immersed-volume-01":["L","N"],
 "cantilever-strain-energy-01":["kN","J"],
 "gas-polytropic-temperature-01":["bar abs","°C"],
 "battery-discharge-c-rate-01":["A","h⁻¹"],
@@ -424,6 +434,12 @@ function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+
+case "rotor-centripetal-acceleration-01":{const a=2*Math.PI*x/60; s+=circle(290,135,76,'#315c76')+circle(290,135,9,'#ffd17d')+line(290,135,365,135,'#d5e8f4',3)+circle(365,135,7,'#ffca7d');if(x>0)s+=arrow(361,135,304,135,'#ffca7d',4);s+=text(30,38,'r = 0,180 m ; n = '+N(x)+' tr/min')+text(30,217,'aₙ = '+N(result)+' m/s² ; vers l’axe')+'<g data-omega-rads="'+a.toFixed(6)+'" data-acceleration-ms2="'+result.toFixed(6)+'"></g>';break;}
+case "parallel-thermal-bridges-01":{const p1=6.4,p2=40*x;s+=box(155,79,285,48,'#315c76')+box(155,143,285,48,'#9b7151')+text(170,108,'A₁ = 0,80 m²')+text(170,171,'A₂ = 0,20 m²');s+=arrow(310,109,310+1.5*p1,109,'#7ce8ae',3)+arrow(310,172,310+1.5*p2,172,'#ffca7d',3);s+=text(30,38,'λ₂ = '+N(x)+' W/(m·K) ; ΔT = 20 K')+text(30,217,'Φ₁ = 6,4 W ; Φ₂ = '+N(p2)+' W ; total = '+N(result)+' W')+'<g data-zone1-w="'+p1.toFixed(5)+'" data-zone2-w="'+p2.toFixed(5)+'" data-total-w="'+result.toFixed(5)+'"></g>';break;}
+case "sampling-alias-frequency-01":{const fs=x,origin=75,span=80,scale=5.4,signal=t=>135-42*Math.sin(2*Math.PI*75*t/1000);const wave=Array.from({length:161},(_,i)=>{const t=i*.5;return(i?'L':'M')+(origin+t*scale).toFixed(2)+' '+signal(t).toFixed(2)}).join(' ');s+=line(75,185,520,185,'#9bc9e5',2)+line(75,70,75,185,'#9bc9e5',2)+'<path d="'+wave+'" fill="none" stroke="#8ddcff" stroke-width="2"/>';let count=0;for(let k=0;k*1000/fs<=span;k++){const t=k*1000/fs;s+=circle(Number((origin+t*scale).toFixed(2)),Number(signal(t).toFixed(2)),4,'#ffd17d');count++;}s+=text(30,38,'Signal = 75 Hz ; fₑ = '+N(fs)+' Hz')+text(30,217,'Fréquence apparente = '+N(result)+' Hz')+'<g data-samples="'+count+'" data-alias-hz="'+result.toFixed(5)+'"></g>';break;}
+case "regenerative-cylinder-speed-01":{s+=box(145,92,275,88,'#315c76')+box(315,98,17,76,'#d5e8f4')+box(332,124,180,24,'#d5e8f4')+line(175,92,175,66,'#8ddcff',6)+line(405,92,405,66,'#8ddcff',6)+line(175,66,405,66,'#8ddcff',6)+line(290,66,290,43,'#8ddcff',6);if(x>0)s+=arrow(290,42,290,61,'#7ce8ae',4)+arrow(425,136,490,136,'#ffca7d',4);s+=text(30,38,'Qₚ = '+N(x)+' L/min ; D = 80 mm ; d = 40 mm')+text(30,217,'Chambres reliées ; v = '+N(result)+' m/s')+'<g data-flow-lmin="'+x.toFixed(5)+'" data-rod-area-m2="'+(Math.PI*.04**2/4).toFixed(9)+'" data-speed-ms="'+result.toFixed(7)+'"></g>';break;}
+case "buoyancy-immersed-volume-01":{s+=box(150,84,300,126,'#235e80')+line(150,84,450,84,'#8ddcff',4);if(x>0){const h=75*x/100,cy=184-h/2;s+=box(275,184-h,70,h,'#b28a56')+arrow(310,cy,310,cy-45,'#7ce8ae',4)+circle(310,cy,4,'#ffd17d');}s+=text(30,38,'Eau : ρ = 1 000 kg/m³ ; Vᵢ = '+N(x)+' L')+text(30,217,'Fₐ = '+N(result)+' N ; verticale ascendante')+'<g data-volume-l="'+x.toFixed(5)+'" data-buoyancy-n="'+result.toFixed(5)+'"></g>';break;}
 case "safety-stop-separation-01":{s+=box(350,89,110,90,'#315c76')+box(80,115,54,62,'#82664c')+line(134,185,350,185,'#8ddcff',2)+(x>0?arrow(142,146,220+60*x/2,146,'#ffca7d'):'')+text(35,40,'v = '+N(x)+' m/s ; T = 0,45 s')+text(35,218,'S = '+N(result)+' m ; C = 0,12 m')+'<g data-speed-ms="'+x.toFixed(5)+'" data-separation-m="'+result.toFixed(7)+'"></g>';break;}
 case "safety-proof-test-pfd-01":{const w=350*x/8760;s+=box(95,103,405,72,'#173f59')+'<rect x="110" y="122" width="'+w.toFixed(2)+'" height="34" fill="#ffca7d" data-period-bar="'+w.toFixed(2)+'"/>'+text(35,40,'T = '+N(x)+' h ; λ_DU = 2×10⁻⁶ h⁻¹')+text(35,218,'PFD_moy ≈ '+N(result)+' %')+'<g data-period-h="'+x.toFixed(5)+'" data-pfd-percent="'+result.toFixed(7)+'"></g>';break;}
 case "production-bottleneck-01":{const cap=[60,x,75],b=Math.min(...cap);for(let k=0;k<3;k++){const bx=75+k*170;s+=box(bx,91,130,88,cap[k]===b?'#79512c':'#27566d')+text(bx+18,125,'P'+(k+1))+text(bx+12,158,N(cap[k])+' p/h');if(k<2)s+=arrow(bx+133,135,bx+165,135,'#7ce8ae',3)}s+=text(35,40,'Q₂ = '+N(x)+' pièces/h')+text(35,218,'Q_ligne = '+N(result)+' pièces/h')+'<g data-poste2-rate="'+x.toFixed(5)+'" data-line-rate="'+result.toFixed(7)+'"></g>';break;}
@@ -1010,7 +1026,7 @@ case "beam-defl-01":{s+=box(85,60,28,145,'#a2b5c2')+'<path d="M113 110 Q320 115 
 case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,126,340,126,'#8ddcff',5)+arrow(340,126,290,126)+arrow(340,126,340,56,'#7ce8ae')+text(50,45,'r = 0,5 m ; v = '+N(x)+' m/s');break;}
  case 'angular-accel-01':{s+=circle(270,125,74)+line(270,125,335,125,'#ffd17d',6)+'<path d="M345 85 A90 90 0 0 1 355 145" fill="none" stroke="#ffca7d" stroke-width="4" marker-end="url(#pointe)"/>'+text(55,42,'Δω = 120 rad/s ; Δt = '+N(x)+' s')+text(55,214,'α = '+N(result)+' rad/s²');break;}
  case 'brake-torque-01':{s+=circle(250,125,74)+box(320,85,35,80,'#ab7156')+'<path d="M177 115 A74 74 0 0 1 260 51" fill="none" stroke="#7ce8ae" stroke-width="4" marker-end="url(#pointe)"/>'+(x>0?'<path d="M322 174 A88 88 0 0 1 238 213" fill="none" stroke="#ffca7d" stroke-width="4" marker-end="url(#pointe)"/>':'')+text(55,42,'J = 8 kg·m² ; |α| = '+N(x)+' rad/s²')+text(55,220,'Couple résistant : '+N(result)+' N·m');break;}
- case 'incline-force-01':{const a=x*Math.PI/180,ux=Math.cos(a),uy=-Math.sin(a),bx=145,by=193,L=280,cx=bx+140*ux,cy=by+140*uy; s+=line(bx,by,bx+L*ux,by+L*uy,'#d4e8f2',7)+'<g transform="translate('+cx.toFixed(2)+' '+cy.toFixed(2)+') rotate('+(-x).toFixed(2)+')"><rect x="-48" y="-52" width="96" height="52" rx="4" fill="#376984" stroke="#9bc9e5" stroke-width="2"/></g>'+arrow(cx,cy-25,cx,cy+72,'#ffd17d')+(x>0?arrow(cx,cy-25,cx-90*ux,cy-25-90*uy,'#7ce8ae'):'')+text(55,42,'m = 600 kg ; θ = '+N(x)+'°')+text(55,224,'F∥ = '+N(result)+' N ; vers le bas de la pente');break;}
+ case 'incline-force-01':{const a=x*Math.PI/180,ux=Math.cos(a),uy=-Math.sin(a),bx=145,by=193,L=280,cx=bx+140*ux,cy=by+140*uy; s+=line(bx,by,bx+L*ux,by+L*uy,'#d4e8f2',7)+'<g transform="translate('+cx.toFixed(2)+' '+cy.toFixed(2)+') rotate('+(-x).toFixed(2)+')"><rect x="-48" y="-52" width="96" height="52" rx="4" fill="#376984" stroke="#9bc9e5" stroke-width="2"/></g>'+arrow(cx,cy-25,cx,cy+72,'#ffd17d')+(x>0?arrow(cx,cy-25,cx-90*Math.sin(a)*ux,cy-25-90*Math.sin(a)*uy,'#7ce8ae'):'')+text(55,42,'m = 600 kg ; θ = '+N(x)+'°')+text(55,224,'F∥ = '+N(result)+' N ; vers le bas de la pente')+'<g data-force-parallel-n="'+result.toFixed(5)+'" data-vector-length-px="'+(90*Math.sin(a)).toFixed(5)+'"></g>';break;}
  case 'resultant-01':{const scale=120/Math.max(300,x),fx=300*scale,fy=x*scale,x0=160,y0=190,x1=x0+fx,y1=y0-fy;s+=arrow(x0,y0,x1,y0,'#8ddcff',4)+(x>0?arrow(x1,y0,x1,y1,'#7ce8ae',4)+arrow(x0,y0,x1,y1,'#ffca7d',4):'')+text(35,42,'Fₓ = 300 N ; Fᵧ = '+N(x)+' N')+text(35,218,'R = '+N(result)+' N ; vecteurs à échelle commune')+'<g data-fx-n="300" data-fy-n="'+x.toFixed(5)+'" data-resultant-n="'+result.toFixed(7)+'"></g>';break;}
  case 'torsion-01':{s+=box(120,100,350,55,'#527d94')+circle(120,128,29)+circle(470,128,29)+'<path d="M489 92 A46 46 0 0 1 510 142" fill="none" stroke="#ffca7d" stroke-width="5" marker-end="url(#pointe)"/>'+text(55,42,'Arbre plein Ø 30 mm ; C = '+N(x)+' N·m')+text(55,218,'τmax = '+N(result)+' MPa (surface)');break;}
  case 'axial-strain-01':{const ext=45*Math.min(1,x/1.2);s+=box(110,110,355+ext,42)+line(465,95,465,180,'#ffd17d',2,'stroke-dasharray="5 4"')+arrow(110,130,55,130)+arrow(465+ext,130,535,130)+arrow(465,188,465+ext,188,'#7ce8ae')+text(55,42,'L₀ = 1 200 mm ; ΔL = '+N(x)+' mm')+text(55,221,'ε = '+result.toFixed(6)+' ; allongement amplifié');break;}

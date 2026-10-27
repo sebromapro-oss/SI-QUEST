@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"rotor-centripetal-acceleration-01","world":"SI-01","title":"Rotor — Accélération centripète","url":"missions/rotor-centripetal-acceleration-01.html","subskill":"Accélération normale d'un point d'un rotor en rotation uniforme"}),
+Object.freeze({"id":"parallel-thermal-bridges-01","world":"SI-12","title":"Paroi — Ponts thermiques en parallèle","url":"missions/parallel-thermal-bridges-01.html","subskill":"Somme des conductances de deux chemins thermiques parallèles"}),
+Object.freeze({"id":"sampling-alias-frequency-01","world":"SI-09","title":"Échantillonnage — Repliement spectral","url":"missions/sampling-alias-frequency-01.html","subskill":"Fréquence apparente d'une sinusoïde après échantillonnage uniforme"}),
+Object.freeze({"id":"regenerative-cylinder-speed-01","world":"SI-06","title":"Vérin différentiel — Avance régénérative","url":"missions/regenerative-cylinder-speed-01.html","subskill":"Vitesse d'extension d'un vérin différentiel en circuit régénératif idéal"}),
+Object.freeze({"id":"buoyancy-immersed-volume-01","world":"SI-02","title":"Immersion — Poussée d'Archimède","url":"missions/buoyancy-immersed-volume-01.html","subskill":"Poussée hydrostatique à partir du volume immergé"}),
 Object.freeze({"id":"safety-stop-separation-01","world":"SI-16","title":"Arrêt protecteur — Distance d'approche","url":"missions/safety-stop-separation-01.html","subskill":"Distance parcourue pendant un délai total d'arrêt protecteur"}),
 Object.freeze({"id":"safety-proof-test-pfd-01","world":"SI-16","title":"Fonction de sécurité — Indisponibilité moyenne","url":"missions/safety-proof-test-pfd-01.html","subskill":"Probabilité moyenne de défaillance dangereuse en faible sollicitation"}),
 Object.freeze({"id":"production-bottleneck-01","world":"SI-17","title":"Ligne de production — Goulot de capacité","url":"missions/production-bottleneck-01.html","subskill":"Débit soutenable de postes en série limité par le goulot"}),
