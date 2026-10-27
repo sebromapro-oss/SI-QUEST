@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"damped-natural-frequency-01","world":"SI-09","title":"Oscillateur — Pulsation amortie","url":"missions/damped-natural-frequency-01.html","subskill":"Pulsation d'oscillation libre d'un second ordre sous-amorti"}),
+Object.freeze({"id":"rl-series-impedance-phase-01","world":"SI-08","title":"Circuit RL — Angle de l'impédance","url":"missions/rl-series-impedance-phase-01.html","subskill":"Argument de l'impédance d'un RL série sinusoïdal"}),
+Object.freeze({"id":"maintenance-mtbf-operating-hours-01","world":"SI-15","title":"Maintenance — MTBF observé","url":"missions/maintenance-mtbf-operating-hours-01.html","subskill":"Estimation du MTBF par heures de fonctionnement cumulées"}),
+Object.freeze({"id":"sensor-midscale-linearity-error-01","world":"SI-13","title":"Capteur — Écart local de linéarité","url":"missions/sensor-midscale-linearity-error-01.html","subskill":"Écart local à mi-échelle rapporté à l'étendue 4–20 mA"}),
+Object.freeze({"id":"isotropic-shear-modulus-01","world":"SI-14","title":"Matériau isotrope — Module de cisaillement","url":"missions/isotropic-shear-modulus-01.html","subskill":"Relation entre E, ν et G en élasticité linéaire isotrope"}),
 Object.freeze({"id":"plane-stress-principal-max-01","world":"SI-04","title":"Contraintes planes — Contrainte principale maximale","url":"missions/plane-stress-principal-max-01.html","subskill":"Valeurs propres du tenseur des contraintes planes par cercle de Mohr"}),
 Object.freeze({"id":"rlc-series-quality-factor-01","world":"SI-08","title":"Circuit RLC série — Facteur de qualité","url":"missions/rlc-series-quality-factor-01.html","subskill":"Facteur de qualité d'un résonateur RLC série à pertes résistives"}),
 Object.freeze({"id":"exchanger-ntu-zero-capacity-ratio-01","world":"SI-12","title":"Échangeur — Efficacité limite NTU","url":"missions/exchanger-ntu-zero-capacity-ratio-01.html","subskill":"Efficacité limite ε=1−exp(−NTU) pour rapport de capacités nul"}),
