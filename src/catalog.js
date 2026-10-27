@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"differential-outer-wheel-speed-01","world":"SI-01","title":"Virage — Vitesse de la roue extérieure","url":"missions/differential-outer-wheel-speed-01.html","subskill":"Cinématique des vitesses des roues d'un essieu en virage"}),
+Object.freeze({"id":"repeatability-sample-std-01","world":"SI-13","title":"Métrologie — Écart-type de répétabilité","url":"missions/repeatability-sample-std-01.html","subskill":"Estimation de l'écart-type expérimental corrigé sur cinq mesures"}),
+Object.freeze({"id":"maintenance-mttr-four-jobs-01","world":"SI-15","title":"Maintenance — Temps moyen de réparation","url":"missions/maintenance-mttr-four-jobs-01.html","subskill":"Estimation descriptive du MTTR à partir de quatre réparations"}),
+Object.freeze({"id":"ice-latent-fusion-energy-01","world":"SI-12","title":"Thermique — Énergie de fusion de glace","url":"missions/ice-latent-fusion-energy-01.html","subskill":"Bilan d'énergie d'une fusion isotherme par chaleur latente massique"}),
+Object.freeze({"id":"proportional-loop-static-error-01","world":"SI-09","title":"Régulation — Erreur statique en boucle fermée","url":"missions/proportional-loop-static-error-01.html","subskill":"Erreur permanente d'une boucle unitaire à action proportionnelle"}),
 Object.freeze({"id":"thinwall-bredt-shear-01","world":"SI-04","title":"Profilé fermé — Cisaillement de Bredt","url":"missions/thinwall-bredt-shear-01.html","subskill":"Flux de cisaillement d'une section fermée mince par la formule de Bredt"}),
 Object.freeze({"id":"threephase-power-factor-pq-01","world":"SI-08","title":"Tableau triphasé — Facteur de puissance P/Q","url":"missions/threephase-power-factor-pq-01.html","subskill":"Facteur de puissance par triangle des puissances actives et réactives en régime sinusoïdal"}),
 Object.freeze({"id":"battery-internal-joule-heat-01","world":"SI-10","title":"Batterie — Pertes internes par effet Joule","url":"missions/battery-internal-joule-heat-01.html","subskill":"Puissance dissipée dans la résistance interne d'une batterie par I²R"}),
