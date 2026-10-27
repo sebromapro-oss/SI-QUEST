@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"safety-stop-separation-01","world":"SI-16","title":"Arrêt protecteur — Distance d'approche","url":"missions/safety-stop-separation-01.html","subskill":"Distance parcourue pendant un délai total d'arrêt protecteur"}),
+Object.freeze({"id":"safety-proof-test-pfd-01","world":"SI-16","title":"Fonction de sécurité — Indisponibilité moyenne","url":"missions/safety-proof-test-pfd-01.html","subskill":"Probabilité moyenne de défaillance dangereuse en faible sollicitation"}),
+Object.freeze({"id":"production-bottleneck-01","world":"SI-17","title":"Ligne de production — Goulot de capacité","url":"missions/production-bottleneck-01.html","subskill":"Débit soutenable de postes en série limité par le goulot"}),
+Object.freeze({"id":"electrohydraulic-drive-current-01","world":"SI-17","title":"Groupe électrohydraulique — Courant idéal","url":"missions/electrohydraulic-drive-current-01.html","subskill":"Couplage de puissance hydraulique et courant continu avec rendement global"}),
+Object.freeze({"id":"material-thermal-diffusivity-01","world":"SI-14","title":"Matériau — Diffusivité thermique","url":"missions/material-thermal-diffusivity-01.html","subskill":"Diffusivité thermique à partir de conductivité et capacité volumique"}),
 Object.freeze({"id":"bearing-projected-pressure-01","world":"SI-04","title":"Palier lisse — Pression projetée","url":"missions/bearing-projected-pressure-01.html","subskill":"Pression moyenne projetée d'un palier cylindrique lisse"}),
 Object.freeze({"id":"inductor-reactance-frequency-01","world":"SI-08","title":"Bobine — Réactance inductive","url":"missions/inductor-reactance-frequency-01.html","subskill":"Réactance d'une inductance idéale en régime sinusoïdal"}),
 Object.freeze({"id":"coolant-thermal-power-01","world":"SI-12","title":"Refroidissement — Puissance emportée","url":"missions/coolant-thermal-power-01.html","subskill":"Puissance thermique transportée par un débit massique de liquide"}),

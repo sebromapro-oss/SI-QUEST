@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"safety-stop-separation-01":x=>.45*x+.12,
+"safety-proof-test-pfd-01":x=>100*2e-6*x/2,
+"production-bottleneck-01":x=>Math.min(60,x,75),
+"electrohydraulic-drive-current-01":x=>x*1e5*(12/60000)/(.8*48),
+"material-thermal-diffusivity-01":x=>x*1e6/(7800*500),
 "bearing-projected-pressure-01":x=>x*1000/(.03*.045)/1e6,
 "inductor-reactance-frequency-01":x=>2*Math.PI*x*.08,
 "coolant-thermal-power-01":x=>998*(x/60000)*4180*6/1000,
@@ -190,6 +195,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"safety-stop-separation-01":{min:0,max:0.85,unit:"m"},
+"safety-proof-test-pfd-01":{min:0,max:0.5,unit:"%"},
+"production-bottleneck-01":{min:50,max:Infinity,unit:"pièces/h"},
+"electrohydraulic-drive-current-01":{min:0,max:60,unit:"A"},
+"material-thermal-diffusivity-01":{min:8,max:20,unit:"mm²/s"},
 "bearing-projected-pressure-01":{"min":0,"max":16,"unit":"MPa"},
 "inductor-reactance-frequency-01":{"min":0,"max":50,"unit":"Ω"},
 "coolant-thermal-power-01":{"min":2.5,"max":6,"unit":"kW"},
@@ -379,6 +389,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"safety-stop-separation-01":Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Approche rectiligne à vitesse constante v de 0 à 2 m/s, délai total T = 0,45 s, marge pédagogique C = 0,12 m. Il ne s'agit pas d'un calcul normatif de distance de sécurité ; aucune conformité d'une machine réelle n'en découle.","solution":"1. v = 1,4 m/s ; T = 450 ms = 0,450 s ; C = 120 mm = 0,120 m.\n2. Distance pendant le délai : d = vT = 1,4 m/s × 0,450 s = 0,630 m.\n3. Distance illustrative : S = d + C = 0,630 + 0,120 = 0,750 m.\n4. Homogénéité : (m/s) × s + m = m ; à v = 0, S = C.\n5. Comparer au seuil fictif 0,85 m. Cette valeur ne démontre aucune conformité réglementaire."}),
+"safety-proof-test-pfd-01":Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Composant unique, faible sollicitation, taux dangereux non détecté constant λ_DU = 2 × 10⁻⁶ h⁻¹, période T de 0 à 8 760 h, essai parfait, réparation et causes communes négligées. Approximation valable si λ_DU T ≪ 1 ; ni SIL ni niveau de performance ne sont calculés.","solution":"1. λ_DU = 2 × 10⁻⁶ h⁻¹ ; T = 4 380 h.\n2. λ_DU T = 0,00876, grandeur sans dimension.\n3. Probabilité moyenne de premier ordre : PFD_moy ≈ 0,00876/2 = 0,00438.\n4. Conversion en pourcentage : PFD_moy = 0,438 %.\n5. La valeur est sous le seuil fictif 0,50 %. Elle ne certifie ni SIL, ni PL, ni la conformité d'une fonction réelle."}),
+"production-bottleneck-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":1,"assumptions":"Trois postes sans dérivation, capacités moyennes Q₁ = 60 pièces/h, Q₂ entre 10 et 100 pièces/h et Q₃ = 75 pièces/h. Flux à long terme, stocks tampons suffisants ; pannes, rebuts et changements de série négligés.","solution":"1. Capacités : Q₁ = 60 pièces/h ; Q₂ = 55 pièces/h ; Q₃ = 75 pièces/h.\n2. Un poste en série ne peut traiter plus que sa capacité soutenable.\n3. Q_ligne = min(60 ; 55 ; 75) = 55 pièces/h.\n4. Homogénéité : les trois débits sont en pièces/h ; si Q₂ = 80 pièces/h, la ligne reste limitée à 60 pièces/h.\n5. Le poste 2 est le goulot nominal ; l'objectif fictif de 50 pièces/h est atteint."}),
+"electrohydraulic-drive-current-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Groupe fictif établi : Q = 12 L/min = 0,0002 m³/s, rendement global η = 0,80, U = 48 V continu, Δp de 0 à 200 bar. Courant de démarrage, ondulation, pertes variables et protections non modélisés.","solution":"1. Δp = 100 bar = 10 000 000 Pa ; Q = 12 L/min = 0,0002 m³/s.\n2. P_h = ΔpQ = 2 000 W.\n3. P_e = P_h/η = 2 000 W / 0,80 = 2 500 W.\n4. I = P_e/U = 2 500 W / 48 V = 52,083 A.\n5. Homogénéité : Pa·m³/s = W et W/V = A. Le seuil fictif 60 A est respecté, sans valider l'installation réelle."}),
+"material-thermal-diffusivity-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":3,"assumptions":"Solide homogène isotrope, λ de 5 à 100 W/(m·K), ρ = 7 800 kg/m³, c_p = 500 J/(kg·K), propriétés constantes, sans changement de phase. La diffusivité n'est pas une vitesse de front thermique.","solution":"1. λ = 45 W/(m·K) ; ρ = 7 800 kg/m³ ; c_p = 500 J/(kg·K).\n2. ρc_p = 3 900 000 J/(m³·K).\n3. α = 45 / 3 900 000 = 1,153846 × 10⁻⁵ m²/s.\n4. 1 m² = 10⁶ mm² ; α = 11,538 mm²/s. Dimension : [W/(m·K)]/[J/(m³·K)] = m²/s.\n5. La plage fictive 8 à 20 mm²/s est respectée ; comparer avec les données réelles."}),
 "bearing-projected-pressure-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Charge radiale centrée F de 0 à 30 kN, diamètre d = 30 mm et longueur L = 45 mm. Pression moyenne conventionnelle sur l'aire projetée dL, pas une distribution de Hertz ; pas de prise en compte de la vitesse, du film lubrifiant ni de l'échauffement.","solution":"1. Conversion : F = 18 kN = 18 000 N ; d = 0,030 m ; L = 0,045 m.\n2. Aire projetée : A_p = dL = 0,00135 m².\n3. Pression moyenne : p_m = F/A_p = 18 000 N / 0,00135 m² = 13 333 333 Pa = 13,333 MPa.\n4. Homogénéité : N/m² = Pa ; la pression est nulle si F = 0.\n5. La valeur ne représente pas la pression locale maximale ni une limite constructeur. Comparer au seuil pédagogique fictif de 16 MPa."}),
 "inductor-reactance-frequency-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":3,"assumptions":"Bobine idéale L = 80 mH = 0,080 H, fréquence f de 0 à 400 Hz, régime sinusoïdal établi. Résistance ohmique, saturation, capacités parasites et pertes fer négligées ; X_L est le module de la partie inductive de l'impédance, pas la puissance consommée.","solution":"1. Convertir L = 80 mH = 0,080 H.\n2. Pulsation : ω = 2πf = 2π × 50 Hz = 314,159 rad/s.\n3. Réactance : X_L = ωL = 314,159 rad/s × 0,080 H = 25,133 Ω.\n4. Homogénéité : s⁻¹ × H = Ω ; X_L tend vers 0 Ω pour f = 0 Hz.\n5. Cette réactance n'est pas la résistance de la bobine réelle ; comparer au seuil fictif de 50 Ω."}),
 "coolant-thermal-power-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Eau liquide monophasique, ρ = 998 kg/m³, c_p = 4 180 J/(kg·K), écart constant de température entrée-sortie ΔT = 6 K. Débit Q_v de 0 à 20 L/min ; régime permanent sans pertes vers l'environnement. Ce modèle ne calcule ni la température d'équilibre ni les pertes de charge.","solution":"1. Débit : Q_v = 8 L/min = 8 × 10⁻³/60 m³/s = 1,33333 × 10⁻⁴ m³/s.\n2. Débit massique : ṁ = ρQ_v = 998 × 1,33333 × 10⁻⁴ = 0,133067 kg/s.\n3. Puissance : P_th = ṁc_pΔT = 0,133067 kg/s × 4 180 J/(kg·K) × 6 K = 3 337,312 W = 3,337 kW.\n4. Homogénéité : (kg/s) × J/(kg·K) × K = J/s = W ; P_th = 0 si Q_v = 0.\n5. Seuil fictif : 2,5 à 6 kW. Vérifier ensuite les débits et températures réels."}),
@@ -561,6 +576,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
  if(Math.abs(value-expected)<=Math.max(10*eps,.01*Math.abs(expected)))return 'Réponse proche : vérifie les arrondis, les chiffres significatifs et la précision demandée.';
  return 'Reprends la formule, les données et les unités'+(unit?' (résultat à exprimer en '+unit+')':'')+'.';
 }
+const cycle193Domains=Object.freeze({"safety-stop-separation-01":[0,2],"safety-proof-test-pfd-01":[0,8760],"production-bottleneck-01":[10,100],"electrohydraulic-drive-current-01":[0,200],"material-thermal-diffusivity-01":[5,100]});
 const cycle188Domains=Object.freeze({"bearing-projected-pressure-01":[0,30],"inductor-reactance-frequency-01":[0,400],"coolant-thermal-power-01":[0,20],"brake-disc-adiabatic-rise-01":[0,72],"encoder-linear-resolution-01":[20,300]});
 const cycle183Domains=Object.freeze({"tank-gravity-drain-01":[0.4,2],"water-mixing-temperature-01":[1,20],"copper-cable-resistance-01":[5,80],"pump-volumetric-efficiency-01":[20,37.5],"belt-transverse-wave-speed-01":[50,400]});
 const cycle178Domains=Object.freeze({"braking-distance-friction-01":[0,72],"heat-exchanger-lmtd-01":[10,50],"column-slenderness-01":[600,1800],"acoustic-distance-loss-01":[2,10],"beam-central-moment-01":[0,12]});
@@ -572,7 +588,7 @@ const cycle153Domains=Object.freeze({"cantilever-strain-energy-01":[0,6],"gas-po
 const cycle138Domains=Object.freeze({"thin-wall-hoop-stress-01":[0,36],"thermal-fourier-number-01":[0,60],"gear-mesh-frequency-01":[600,1800],"jet-impact-force-01":[0,40],"rectangular-beam-shear-01":[0,12],"combined-stress-von-mises-01":[0,100],"pt100-linear-response-01":[0,150],"torsional-eigenfrequency-01":[500,2000],"laminar-darcy-factor-01":[400,2000],"triangle-actuator-angle-01":[0.25,1.05],"hydraulic-oil-compressibility-01":[0,200],"hollow-shaft-polar-inertia-01":[20,50],"wheel-braking-slip-01":[0,12.5],"lumped-cooling-time-constant-01":[10,80],"adc-voltage-step-01":[2,12]});
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- const domain=cycle188Domains[id]||cycle183Domains[id]||cycle178Domains[id]||cycle173Domains[id]||cycle168Domains[id]||cycle163Domains[id]||cycle158Domains[id]||cycle138Domains[id]||cycle153Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
+ const domain=cycle193Domains[id]||cycle188Domains[id]||cycle183Domains[id]||cycle178Domains[id]||cycle173Domains[id]||cycle168Domains[id]||cycle163Domains[id]||cycle158Domains[id]||cycle138Domains[id]||cycle153Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
  if(id==='transformer-turns-ratio-01'&&!Number.isInteger(x))throw new RangeError('Le nombre de spires doit être entier');
  if((id==="stepped-bar-extension-01"&&(x<0||x>35))||(id==="motor-slip-01"&&(x<48||x>60))||(id==="log-decrement-01"&&(x<5||x>19))||(id==="exchanger-effectiveness-01"&&(x<0||x>110))||(id==="darcy-pipe-loss-01"&&(x<20||x>60))||(id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||(id==='flywheel-angular-momentum-01'&&x>1500)||(id==='rc-charge-threshold-01'&&(x<1||x>22))||(id==='thermal-clearance-01'&&x>120)||(id==='venturi-pressure-01'&&x>60)||(id==='spring-series-01'&&(x<5000||x>40000))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  if((id==="cylinder-stroke-time-01"&&(x<0||x>600))||(id==="gas-isothermal-work-01"&&(x<1||x>4))||(id==="symmetric-sling-tension-01"&&(x<20||x>70))||(id==="voltage-divider-sensor-01"&&(x<0.5||x>5))||(id==="restrained-thermal-stress-01"&&(x<0||x>80)))throw new RangeError('Paramètre hors domaine physique');
@@ -587,6 +603,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"safety-stop-separation-01":"m/s",
+"safety-proof-test-pfd-01":"h",
+"production-bottleneck-01":"pièces/h",
+"electrohydraulic-drive-current-01":"bar",
+"material-thermal-diffusivity-01":"W/(m·K)",
 "bearing-projected-pressure-01":"kN",
 "inductor-reactance-frequency-01":"Hz",
 "coolant-thermal-power-01":"L/min",
