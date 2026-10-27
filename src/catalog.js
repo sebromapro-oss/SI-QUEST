@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"thinwall-bredt-shear-01","world":"SI-04","title":"Profilé fermé — Cisaillement de Bredt","url":"missions/thinwall-bredt-shear-01.html","subskill":"Flux de cisaillement d'une section fermée mince par la formule de Bredt"}),
+Object.freeze({"id":"threephase-power-factor-pq-01","world":"SI-08","title":"Tableau triphasé — Facteur de puissance P/Q","url":"missions/threephase-power-factor-pq-01.html","subskill":"Facteur de puissance par triangle des puissances actives et réactives en régime sinusoïdal"}),
+Object.freeze({"id":"battery-internal-joule-heat-01","world":"SI-10","title":"Batterie — Pertes internes par effet Joule","url":"missions/battery-internal-joule-heat-01.html","subskill":"Puissance dissipée dans la résistance interne d'une batterie par I²R"}),
+Object.freeze({"id":"sensor-two-point-sensitivity-01","world":"SI-13","title":"Capteur — Sensibilité par étalonnage deux points","url":"missions/sensor-two-point-sensitivity-01.html","subskill":"Pente de calibration d'un capteur de pression à partir de deux points de mesure"}),
+Object.freeze({"id":"cylinder-critical-insulation-radius-01","world":"SI-12","title":"Conduite isolée — Rayon critique d'isolation","url":"missions/cylinder-critical-insulation-radius-01.html","subskill":"Rayon critique d'isolation cylindrique par équilibre conduction-convection"}),
 Object.freeze({"id":"bearing-static-safety-01","world":"SI-05","title":"Roulement — Coefficient de sécurité statique","url":"missions/bearing-static-safety-01.html","subskill":"Rapport de capacité statique C₀ à la charge statique équivalente P₀"}),
 Object.freeze({"id":"vibration-critical-damping-01","world":"SI-09","title":"Support antivibratoire — Amortissement critique","url":"missions/vibration-critical-damping-01.html","subskill":"Coefficient d'amortissement critique d'un oscillateur masse-ressort linéaire"}),
 Object.freeze({"id":"material-thermal-effusivity-01","world":"SI-14","title":"Matériau — Effusivité thermique","url":"missions/material-thermal-effusivity-01.html","subskill":"Capacité d'échange thermique transitoire par effusivité √(λρcₚ)"}),
