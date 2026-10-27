@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"tank-gravity-drain-01","world":"SI-06","title":"Cuve — Vidange gravitaire","url":"missions/tank-gravity-drain-01.html","subskill":"Durée de vidange d'une cuve à section constante par loi de Torricelli"}),
+Object.freeze({"id":"water-mixing-temperature-01","world":"SI-12","title":"Mélange — Température d'équilibre","url":"missions/water-mixing-temperature-01.html","subskill":"Bilan enthalpique de mélange adiabatique de deux masses d'eau"}),
+Object.freeze({"id":"copper-cable-resistance-01","world":"SI-08","title":"Cuivre — Résistance du conducteur","url":"missions/copper-cable-resistance-01.html","subskill":"Résistance d'un conducteur homogène par résistivité et section"}),
+Object.freeze({"id":"pump-volumetric-efficiency-01","world":"SI-06","title":"Pompe — Rendement volumétrique","url":"missions/pump-volumetric-efficiency-01.html","subskill":"Rendement volumétrique d'une pompe à cylindrée fixe par débit mesuré"}),
+Object.freeze({"id":"belt-transverse-wave-speed-01","world":"SI-01","title":"Courroie — Célérité d'une onde","url":"missions/belt-transverse-wave-speed-01.html","subskill":"Célérité d'une petite onde transversale sur un élément tendu souple"}),
 Object.freeze({"id":"braking-distance-friction-01","world":"SI-02","title":"Freinage — Distance idéale","url":"missions/braking-distance-friction-01.html","subskill":"Distance de freinage à décélération constante par adhérence"}),
 Object.freeze({"id":"heat-exchanger-lmtd-01","world":"SI-12","title":"Échangeur — Écart logarithmique","url":"missions/heat-exchanger-lmtd-01.html","subskill":"Écart logarithmique moyen de température d'un échangeur"}),
 Object.freeze({"id":"column-slenderness-01","world":"SI-04","title":"Tige — Élancement","url":"missions/column-slenderness-01.html","subskill":"Élancement géométrique d'une tige circulaire pleine articulée"}),

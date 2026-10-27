@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"tank-gravity-drain-01":x=>2*.5*(Math.sqrt(x)-Math.sqrt(.2))/(.62*(Math.PI*.012**2/4)*Math.sqrt(2*9.81)),
+"water-mixing-temperature-01":x=>(8*70+x*20)/(8+x),
+"copper-cable-resistance-01":x=>.0175*x/2.5,
+"pump-volumetric-efficiency-01":x=>100*x/(.025*1500),
+"belt-transverse-wave-speed-01":x=>Math.sqrt(x/.08),
 "braking-distance-friction-01":x=>(x/3.6)**2/(2*.6*9.81),
 "heat-exchanger-lmtd-01":x=>(60-x)/Math.log(60/x),
 "column-slenderness-01":x=>4*x/25,
@@ -179,6 +184,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"tank-gravity-drain-01":{min:0,max:2400,unit:"s"},
+"water-mixing-temperature-01":{min:45,max:55,unit:"°C"},
+"copper-cable-resistance-01":{min:0,max:0.3,unit:"Ω"},
+"pump-volumetric-efficiency-01":{min:80,max:100,unit:"%"},
+"belt-transverse-wave-speed-01":{min:40,max:80,unit:"m/s"},
 "braking-distance-friction-01":{min:0,max:12,unit:"m"},
 "heat-exchanger-lmtd-01":{min:40,max:Infinity,unit:"K"},
 "column-slenderness-01":{min:0,max:180,unit:"sans unité"},
@@ -357,6 +367,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"tank-gravity-drain-01":Object.freeze({"absoluteTolerance":5,"relativeTolerance":0,"precision":1,"assumptions":"Cuve ouverte, section A = 0,50 m² constante, orifice de diamètre d = 0,012 m, coefficient de débit C_d = 0,62, g = 9,81 m/s², niveau final h_f = 0,20 m. Hauteur initiale h₀ entre 0,40 et 2,00 m ; fluide incompressible, régime quasi stationnaire et C_d constant. Ce calcul ne décrit pas les manœuvres de sécurité réelles.","solution":"1. a = πd²/4 = 1,13097 × 10⁻⁴ m².\n2. Q = C_d a √(2gh) en m³/s ; A dh/dt = −Q.\n3. Intégrer entre h₀ = 1,20 m et h_f = 0,20 m : t = 2A(√h₀ − √h_f)/(C_d a √(2g)).\n4. Le résultat est positif et tend vers 0 s lorsque h₀ tend vers h_f.\n5. Homogénéité : (m²/m²) × √(m)/(√(m/s²)) = s.\n6. Comparer au seuil fictif de 2 400 s, puis contrôler les données réelles."}),
+"water-mixing-temperature-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":3,"assumptions":"Mélanger 8 kg d'eau chaude à 70 °C avec une masse m_c de 1 à 20 kg d'eau froide à 20 °C. Même capacité thermique massique constante, aucune perte, aucun changement de phase ni évaporation ; équilibre uniforme. La loi calcule un état final, pas la vitesse du mélange.","solution":"1. Écrire le bilan : m_h c (T_h − T_eq) = m_c c (T_eq − T_c).\n2. Simplifier c identique puis isoler T_eq.\n3. Numérateur : 8 kg × 70 °C + 5 kg × 20 °C = 660 kg·°C.\n4. Masse totale : 8 + 5 = 13 kg ; T_eq = 660/13 = 50,7692 °C.\n5. Le résultat doit être entre 20 °C et 70 °C, sans création d'énergie.\n6. Comparer à la plage fictive 45–55 °C et mesurer avant intervention."}),
+"copper-cable-resistance-01":Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Un seul conducteur cuivre à 20 °C de section S = 2,5 mm², résistivité ρ = 0,0175 Ω·mm²/m, longueur L entre 5 et 80 m. Section et température constantes, contacts et aller-retour du circuit exclus. Ce calcul n'est pas un test d'isolement ni une autorisation de mise sous tension.","solution":"1. ρ = 0,0175 Ω·mm²/m = 1,75 × 10⁻⁸ Ω·m.\n2. S = 2,5 mm² = 2,5 × 10⁻⁶ m².\n3. R = (1,75 × 10⁻⁸ Ω·m × 20 m)/(2,5 × 10⁻⁶ m²).\n4. R = 0,140 Ω pour un seul conducteur.\n5. Unité : Ω·m × m / m² = Ω ; R croît avec L.\n6. Seuil fictif 0,30 Ω ; vérifier la longueur réelle et les connexions."}),
+"pump-volumetric-efficiency-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":3,"assumptions":"Pompe à cylindrée fixe V_g = 25 cm³/tr, vitesse n = 1 500 tr/min, débit théorique Q_th = 37,5 L/min. Débit mesuré Q_m de 20 à 37,5 L/min ; écoulement stationnaire et fuites globales. Ce rendement ne renseigne pas le rendement mécanique ni la pression et ne valide aucune réparation réelle.","solution":"1. V_g = 25 cm³/tr = 0,025 L/tr.\n2. Q_th = 0,025 L/tr × 1 500 tr/min = 37,5 L/min.\n3. Q_m = 32 L/min ; quotient = 32/37,5.\n4. η_v = 100 × 32/37,5 = 85,3333 %.\n5. Les unités de débit s'annulent ; le rendement reste dans [0 ; 100] %.\n6. Seuil fictif 80 % ; vérifier température, pression et débitmètre."}),
+"belt-transverse-wave-speed-01":Object.freeze({"absoluteTolerance":0.2,"relativeTolerance":0,"precision":3,"assumptions":"Courroie immobilisée assimilée à une corde parfaitement souple de masse linéique μ_l = 0,080 kg/m, tension F_t de 50 à 400 N. Petites ondes transversales, tension uniforme, sans rigidité de flexion ni dispersion. La célérité de l'onde n'est pas la vitesse de défilement de la courroie en service.","solution":"1. Isoler un élément tendu de masse linéique μ_l = 0,080 kg/m.\n2. Pour une petite onde transverse, c² = F_t/μ_l.\n3. À F_t = 200 N, c² = 200 N/(0,080 kg/m) = 2 500 m²/s².\n4. c = √(2 500 m²/s²) = 50,00 m/s.\n5. Contrôle dimensionnel : N/(kg/m) = m²/s² ; c croît avec √F_t.\n6. Comparer à la plage fictive 40–80 m/s, sans confondre avec la vitesse de la courroie."}),
 "braking-distance-friction-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":3,"assumptions":"Sol horizontal ; μ = 0,60 ; g = 9,81 m/s² ; décélération constante, roues sans blocage ; vitesse de 0 à 72 km/h. Temps de réaction, pente, résistance au roulement, aérodynamique et ABS réel exclus. Ne pas employer comme distance de sécurité réelle.","solution":"1. v₀ = 36 km/h = 10 m/s.\n2. |a| = μg = 0,60 × 9,81 = 5,886 m/s².\n3. d = v₀²/(2|a|) = 100/11,772 = 8,4947 m.\n4. Unités : (m²/s²)/(m/s²) = m.\n5. À vitesse nulle, d = 0 ; doubler la vitesse quadruple d.\n6. Comparer au seuil fictif de 12 m sans décision de sécurité réelle."}),
 "heat-exchanger-lmtd-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":3,"assumptions":"ΔT₁ = 60 K ; ΔT₂ de 10 à 50 K, écarts positifs aux deux extrémités du même échangeur. Régime permanent, écoulements idéalisés sans changement de phase. La relation seule ne donne ni le flux thermique ni la puissance sans surface et coefficient global.","solution":"1. ΔT₁ = 60 K et ΔT₂ = 30 K.\n2. Rapport 60/30 = 2 sans dimension.\n3. ln(2) = 0,693147.\n4. ΔTₘₗ = (60 − 30)/0,693147 = 43,2809 K.\n5. Vérification : 30 K < 43,2809 K < 60 K ; logarithme sans dimension.\n6. Seuil fictif de 40 K ; contrôler les mesures et les débits réels."}),
 "column-slenderness-01":Object.freeze({"absoluteTolerance":0.5,"relativeTolerance":0,"precision":3,"assumptions":"Tige circulaire pleine de diamètre d = 25 mm ; longueur entre articulations L de 600 à 1 800 mm ; coefficient de longueur efficace K = 1. Barre droite homogène, sans défaut initial. L'élancement géométrique ne fournit ni charge critique ni résistance réelle au flambement.","solution":"1. A = πd²/4 ; I = πd⁴/64.\n2. Rayon de giration i = √(I/A) = d/4 = 6,25 mm.\n3. Lₑ = K L = 1 × 1 200 = 1 200 mm.\n4. λ = 1 200/6,25 = 192 sans unité.\n5. Rapport mm/mm ; doubler L double λ.\n6. Seuil fictif λ ≤ 180 ; vérifier la charge, le matériau et les appuis."}),
@@ -528,6 +543,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
  if(Math.abs(value-expected)<=Math.max(10*eps,.01*Math.abs(expected)))return 'Réponse proche : vérifie les arrondis, les chiffres significatifs et la précision demandée.';
  return 'Reprends la formule, les données et les unités'+(unit?' (résultat à exprimer en '+unit+')':'')+'.';
 }
+const cycle183Domains=Object.freeze({"tank-gravity-drain-01":[0.4,2],"water-mixing-temperature-01":[1,20],"copper-cable-resistance-01":[5,80],"pump-volumetric-efficiency-01":[20,37.5],"belt-transverse-wave-speed-01":[50,400]});
 const cycle178Domains=Object.freeze({"braking-distance-friction-01":[0,72],"heat-exchanger-lmtd-01":[10,50],"column-slenderness-01":[600,1800],"acoustic-distance-loss-01":[2,10],"beam-central-moment-01":[0,12]});
 const cycle173Domains=Object.freeze({"water-hammer-joukowsky-01":[0,1.5],"thermal-contact-resistance-01":[200,2000],"noise-level-addition-01":[60,100],"machine-availability-01":[1,20],"filter-beta-efficiency-01":[1,200]});
 const cycle168Domains=Object.freeze({"bearing-friction-power-01":[0,1800],"poiseuille-microtube-flow-01":[0,100],"ultrasonic-doppler-shift-01":[0,2],"ntc-beta-resistance-01":[0,80],"fracture-critical-crack-01":[100,350]});
@@ -537,7 +553,7 @@ const cycle153Domains=Object.freeze({"cantilever-strain-energy-01":[0,6],"gas-po
 const cycle138Domains=Object.freeze({"thin-wall-hoop-stress-01":[0,36],"thermal-fourier-number-01":[0,60],"gear-mesh-frequency-01":[600,1800],"jet-impact-force-01":[0,40],"rectangular-beam-shear-01":[0,12],"combined-stress-von-mises-01":[0,100],"pt100-linear-response-01":[0,150],"torsional-eigenfrequency-01":[500,2000],"laminar-darcy-factor-01":[400,2000],"triangle-actuator-angle-01":[0.25,1.05],"hydraulic-oil-compressibility-01":[0,200],"hollow-shaft-polar-inertia-01":[20,50],"wheel-braking-slip-01":[0,12.5],"lumped-cooling-time-constant-01":[10,80],"adc-voltage-step-01":[2,12]});
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- const domain=cycle178Domains[id]||cycle173Domains[id]||cycle168Domains[id]||cycle163Domains[id]||cycle158Domains[id]||cycle138Domains[id]||cycle153Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
+ const domain=cycle183Domains[id]||cycle178Domains[id]||cycle173Domains[id]||cycle168Domains[id]||cycle163Domains[id]||cycle158Domains[id]||cycle138Domains[id]||cycle153Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
  if(id==='transformer-turns-ratio-01'&&!Number.isInteger(x))throw new RangeError('Le nombre de spires doit être entier');
  if((id==="stepped-bar-extension-01"&&(x<0||x>35))||(id==="motor-slip-01"&&(x<48||x>60))||(id==="log-decrement-01"&&(x<5||x>19))||(id==="exchanger-effectiveness-01"&&(x<0||x>110))||(id==="darcy-pipe-loss-01"&&(x<20||x>60))||(id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||(id==='flywheel-angular-momentum-01'&&x>1500)||(id==='rc-charge-threshold-01'&&(x<1||x>22))||(id==='thermal-clearance-01'&&x>120)||(id==='venturi-pressure-01'&&x>60)||(id==='spring-series-01'&&(x<5000||x>40000))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  if((id==="cylinder-stroke-time-01"&&(x<0||x>600))||(id==="gas-isothermal-work-01"&&(x<1||x>4))||(id==="symmetric-sling-tension-01"&&(x<20||x>70))||(id==="voltage-divider-sensor-01"&&(x<0.5||x>5))||(id==="restrained-thermal-stress-01"&&(x<0||x>80)))throw new RangeError('Paramètre hors domaine physique');
@@ -552,6 +568,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"tank-gravity-drain-01":"m",
+"water-mixing-temperature-01":"kg",
+"copper-cable-resistance-01":"m",
+"pump-volumetric-efficiency-01":"L/min",
+"belt-transverse-wave-speed-01":"N",
 "braking-distance-friction-01":"km/h",
 "heat-exchanger-lmtd-01":"K",
 "column-slenderness-01":"mm",
