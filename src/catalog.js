@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"plane-stress-principal-max-01","world":"SI-04","title":"Contraintes planes — Contrainte principale maximale","url":"missions/plane-stress-principal-max-01.html","subskill":"Valeurs propres du tenseur des contraintes planes par cercle de Mohr"}),
+Object.freeze({"id":"rlc-series-quality-factor-01","world":"SI-08","title":"Circuit RLC série — Facteur de qualité","url":"missions/rlc-series-quality-factor-01.html","subskill":"Facteur de qualité d'un résonateur RLC série à pertes résistives"}),
+Object.freeze({"id":"exchanger-ntu-zero-capacity-ratio-01","world":"SI-12","title":"Échangeur — Efficacité limite NTU","url":"missions/exchanger-ntu-zero-capacity-ratio-01.html","subskill":"Efficacité limite ε=1−exp(−NTU) pour rapport de capacités nul"}),
+Object.freeze({"id":"second-order-step-overshoot-01","world":"SI-09","title":"Automatique — Dépassement du second ordre","url":"missions/second-order-step-overshoot-01.html","subskill":"Dépassement maximal d'une réponse indicielle sous-amortie du second ordre"}),
+Object.freeze({"id":"asymmetric-sling-tension-01","world":"SI-03","title":"Élingage — Tension d'un brin asymétrique","url":"missions/asymmetric-sling-tension-01.html","subskill":"Équilibre plan de deux élingues d'angles différents sous charge verticale"}),
 Object.freeze({"id":"slider-crank-position-01","world":"SI-01","title":"Bielle-manivelle — Position du coulisseau","url":"missions/slider-crank-position-01.html","subskill":"Fermeture géométrique exacte d'un mécanisme bielle-manivelle sans excentration"}),
 Object.freeze({"id":"gear-base-circle-diameter-01","world":"SI-05","title":"Engrenage — Diamètre du cercle de base","url":"missions/gear-base-circle-diameter-01.html","subskill":"Géométrie du cercle de base d'une denture involute par angle de pression"}),
 Object.freeze({"id":"acoustic-time-leq-01","world":"SI-13","title":"Acoustique — Niveau équivalent sur deux phases","url":"missions/acoustic-time-leq-01.html","subskill":"Moyenne énergétique temporelle de niveaux sonores A-pondérés sur deux durées"}),
