@@ -10,7 +10,7 @@ for(const x of [q.min,(q.min+q.x)/2,q.x,(q.x+q.max)/2,q.max]){
 const y=M.calculate(q.id,x),svg=D.render(q.id,x,y);near(y,refs[q.id](x));assert.match(svg,/<title/);assert.match(svg,/<desc/);assert.match(svg,/data-parameter=/);assert.ok(svg.includes(q.iu)&&svg.includes(q.u));assert.doesNotMatch(svg,/NaN|Infinity|undefined/)}
 for(const x of [q.min-.001,q.max+.001,NaN,Infinity])assert.throws(()=>M.calculate(q.id,x),RangeError);
 assert.ok(M.answerPolicy[q.id].solution.length>300);assert.equal(M.validateAnswer(String(q.expected).replace('.',','),q.expected,q.tol).correct,true);
-assert.match(h,/Questions flash/);assert.equal((h.match(/<li>/g)||[]).length,3);assert.match(h,/sans animation temporelle artificielle/);
+assert.match(h,/Questions flash/);assert.equal((h.match(/<li>/g)||[]).length,3);assert.match(h,/(aucune|sans) animation temporelle artificielle/);
 assert.throws(()=>D.render(q.id,q.x,q.expected+100),RangeError);
 });
 test('invariants et seuils pédagogiques indépendants',()=>{
