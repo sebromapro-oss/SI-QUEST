@@ -8,7 +8,7 @@ function mockPage(c){
   append(...xs){this.children.push(...xs)},replaceChildren(...xs){this.children=xs},
   insertBefore(){},insertAdjacentElement(){},addEventListener(name,fn){this.events[name]=fn},
   querySelectorAll(){return []},querySelector(){return el()}}}
- const ids=["safety-stop-separation-01","safety-proof-test-pfd-01","production-bottleneck-01","electrohydraulic-drive-current-01","material-thermal-diffusivity-01"];
+ const ids=['main','curve','point','graphic','trialLabel','trialValue','trial','solution','log','calc','answer','feedback','hint','hintText','solutionText','reset'];
  const nodes=Object.fromEntries(ids.map(id=>[id,el(id)]));
  const graph=el('graph'),model=el('model');graph.querySelectorAll=()=>[el('text'),el('text')];
  nodes.calc.previousElementSibling=el('p');nodes.curve.closest=sel=>sel==='svg'?graph:model;
@@ -20,7 +20,7 @@ function mockPage(c){
  new Function('window','document','localStorage','SIInvestigations','SIInvestigationDiagrams',ui)(window,document,localStorage,physics,diagrams);
  return {nodes,graph,model,store};
 }
-const ids=["bearing-projected-pressure-01","inductor-reactance-frequency-01","coolant-thermal-power-01","brake-disc-adiabatic-rise-01","encoder-linear-resolution-01"];
+const ids=["safety-stop-separation-01","safety-proof-test-pfd-01","production-bottleneck-01","electrohydraulic-drive-current-01","material-thermal-diffusivity-01"];
 for(const id of ids)test(id+' : parcours clavier simulé, saisie invalide, trois essais, trois aides, corrigé et sauvegarde',()=>{
  const html=fs.readFileSync('missions/'+id+'.html','utf8');const cfg=JSON.parse(html.split('window.SI_MISSION=')[1].split('</script>')[0]);
  const a=mockPage(cfg),n=a.nodes;assert.equal(a.graph.style.display,'none');assert.equal(n.trial.disabled,true);assert.equal(n.solution.disabled,true);
