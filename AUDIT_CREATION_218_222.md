@@ -21,3 +21,9 @@ HEAD initial : `9e9b550a8dc3bad12449bbabf23769d5c74591d9` ; dépôt privé, bran
 - S PASS ciblé ; G PASS structurel, visuel NOT RUN ; P PASS structurel et DOM simulé, essai élève NOT RUN ; F PASS V8 simulé, CI native à vérifier ; A NOT RUN sur appareils et lecteurs d'écran.
 - Scènes 2D stationnaires et graphes paramétriques synchronisés après déverrouillage, aucune simulation 3D ni animation temporelle revendiquée.
 - Aucun ZIP, Pages, force push, suppression d'archive ou changement de visibilité.
+
+## Résultat de publication et CI observée
+- Premier commit de production : `d4662ef5a0835e4984fdb1b53f1a3affcc12ca56` ; 11 fichiers modifiés ou créés ; contrôle distant : 222 pages de missions, 222 identifiants uniques, 17 univers, 125 sous-savoirs explicitement distincts et 97 entrées historiques non classées.
+- GitHub Actions au premier commit : `40466046234` (scientifique), `40466046263` (qualité), `40466046314` (recette Node) et `40466046269` (navigateur) : **FAIL avant toute étape exécutée**. Les quatre journaux des jobs ont répondu HTTP 404 `BlobNotFound` ; les étapes sont vides. Deux relances demandées : `40466046314` et `40466046234`, échec reproduit. Cause précise du défaut d'attribution de runner : non démontrée.
+- Statut de la CI native : **BLOCKED**. Tests Node natifs, navigateur réel, NVDA, TalkBack, VoiceOver : **NOT RUN**. Aucun de ces contrôles n'est revendiqué comme réussi.
+- Aucune réception complète S/G/P/F/A. Les preuves automatisées V8 ne remplacent ni les navigateurs ni les lecteurs d'écran.
