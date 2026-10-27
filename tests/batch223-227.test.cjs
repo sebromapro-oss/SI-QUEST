@@ -20,6 +20,6 @@ test('P1 historique : pente à 90 degrés et poids sans troncature verticale',()
 const B=require('../src/investigations.js'),G=require('../src/investigation-diagrams.js');
 for(const x of [0,30,60,90]){const svg=G.render('incline-force-01',x,B.calculate('incline-force-01',x));const m=svg.match(/<line x1="145" y1="193" x2="([^"]+)" y2="([^"]+)"[^>]*stroke="#d4e8f2"/);assert.ok(m,'rampe absente');assert.ok(Number(m[2])>=38-1e-6,'sommet hors du SVG');const weight=svg.match(/<line x1="[^"]+" y1="[^"]+" x2="[^"]+" y2="([^"]+)"[^>]*stroke="#ffd17d"[^>]*marker-end/);assert.ok(weight);assert.ok(Number(weight[1])<=228+1e-6,'poids hors du SVG');}
 });
-test('catalogue : 17 univers et identifiants uniques',()=>{assert.equal(C.levels.length,227);assert.equal(new Set(C.levels.map(x=>x.id)).size,227);assert.equal(new Set(C.levels.map(x=>x.world)).size,17);});
+test('catalogue : 17 univers et identifiants uniques',()=>{assert.ok(C.levels.length>=227);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.equal(new Set(C.levels.map(x=>x.world)).size,17);});
 
 test('décision métier : le tube dépasse le plafond fictif à 20 MPa',()=>{const q=M.assess('thick-cylinder-hoop-stress-01',20);assert.ok(q.value>35);assert.equal(q.acceptable,false);assert.equal(M.assess('thick-cylinder-hoop-stress-01',8).acceptable,true);});

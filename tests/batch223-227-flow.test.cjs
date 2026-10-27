@@ -8,7 +8,7 @@ function mockPage(c){
   append(...xs){this.children.push(...xs)},replaceChildren(...xs){this.children=xs},
   insertBefore(){},insertAdjacentElement(){},addEventListener(name,fn){this.events[name]=fn},
   querySelectorAll(){return []},querySelector(){return el()}}}
- const ids=["sinusoidal-vibration-rms-01","thick-cylinder-hoop-stress-01","three-phase-neutral-imbalance-01","source-matched-load-power-01","couette-viscous-shear-01"];
+ const ids=['main','curve','point','graphic','trialLabel','trialValue','trial','solution','log','calc','answer','feedback','hint','hintText','solutionText','reset'];
  const nodes=Object.fromEntries(ids.map(id=>[id,el(id)]));
  const graph=el('graph'),model=el('model');graph.querySelectorAll=()=>[el('text'),el('text')];
  nodes.calc.previousElementSibling=el('p');nodes.curve.closest=sel=>sel==='svg'?graph:model;

@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"series-spring-stiffness-01","world":"SI-04","title":"Deux ressorts en série — Raideur équivalente","url":"missions/series-spring-stiffness-01.html","subskill":"Association en série de deux raideurs élastiques"}),
+Object.freeze({"id":"poisson-lateral-contraction-01","world":"SI-14","title":"Éprouvette tendue — Contraction de Poisson","url":"missions/poisson-lateral-contraction-01.html","subskill":"Déformation transversale signée par effet de Poisson"}),
+Object.freeze({"id":"differential-thermal-clearance-01","world":"SI-12","title":"Assemblage bimétallique — Jeu thermique","url":"missions/differential-thermal-clearance-01.html","subskill":"Évolution d'un jeu par dilatation différentielle"}),
+Object.freeze({"id":"three-phase-voltage-unbalance-01","world":"SI-08","title":"Tableau triphasé — Déséquilibre de tension","url":"missions/three-phase-voltage-unbalance-01.html","subskill":"Taux de déséquilibre des tensions composées"}),
+Object.freeze({"id":"vibration-base-transmissibility-01","world":"SI-09","title":"Machine isolée — Transmissibilité vibratoire","url":"missions/vibration-base-transmissibility-01.html","subskill":"Transmissibilité en déplacement d'un oscillateur amorti excité par la base"}),
 Object.freeze({"id":"sinusoidal-vibration-rms-01","world":"SI-09","title":"Banc vibratoire — Accélération efficace","url":"missions/sinusoidal-vibration-rms-01.html","subskill":"Accélération efficace d'une vibration harmonique de déplacement"}),
 Object.freeze({"id":"thick-cylinder-hoop-stress-01","world":"SI-04","title":"Tube épais — Contrainte circonférentielle","url":"missions/thick-cylinder-hoop-stress-01.html","subskill":"Contrainte de cerclage à l'alésage selon les équations de Lamé"}),
 Object.freeze({"id":"three-phase-neutral-imbalance-01","world":"SI-08","title":"Réseau triphasé — Courant de neutre","url":"missions/three-phase-neutral-imbalance-01.html","subskill":"Somme vectorielle de trois courants sinusoïdaux déphasés de 120°"}),
