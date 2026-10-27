@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"beam-uniform-load-deflection-01","world":"SI-04","title":"Traverse — Flèche sous charge répartie","url":"missions/beam-uniform-load-deflection-01.html","subskill":"Flèche maximale d'une poutre bi-appuyée sous charge répartie"}),
+Object.freeze({"id":"hydraulic-fluid-stiffness-01","world":"SI-06","title":"Vérin — Raideur hydraulique","url":"missions/hydraulic-fluid-stiffness-01.html","subskill":"Raideur de compression d'une chambre hydraulique"}),
+Object.freeze({"id":"motor-synchronous-speed-01","world":"SI-08","title":"Moteur — Vitesse synchrone","url":"missions/motor-synchronous-speed-01.html","subskill":"Vitesse du champ tournant selon fréquence et paires de pôles"}),
+Object.freeze({"id":"biot-number-plate-01","world":"SI-12","title":"Plaque — Nombre de Biot","url":"missions/biot-number-plate-01.html","subskill":"Nombre de Biot d'une plaque soumise à convection"}),
+Object.freeze({"id":"basquin-fatigue-life-01","world":"SI-04","title":"Fatigue — Loi de Basquin","url":"missions/basquin-fatigue-life-01.html","subskill":"Cycles à rupture selon une loi S–N fictive calibrée"}),
 Object.freeze({"id":"rotor-centripetal-acceleration-01","world":"SI-01","title":"Rotor — Accélération centripète","url":"missions/rotor-centripetal-acceleration-01.html","subskill":"Accélération normale d'un point d'un rotor en rotation uniforme"}),
 Object.freeze({"id":"parallel-thermal-bridges-01","world":"SI-12","title":"Paroi — Ponts thermiques en parallèle","url":"missions/parallel-thermal-bridges-01.html","subskill":"Somme des conductances de deux chemins thermiques parallèles"}),
 Object.freeze({"id":"sampling-alias-frequency-01","world":"SI-09","title":"Échantillonnage — Repliement spectral","url":"missions/sampling-alias-frequency-01.html","subskill":"Fréquence apparente d'une sinusoïde après échantillonnage uniforme"}),

@@ -1,6 +1,11 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"beam-uniform-load-deflection-01":x=>5*(x*1000)*16/(384*210e9*8e-6)*1000,
+"hydraulic-fluid-stiffness-01":x=>1.4e9*.01**2/(x/1000)/1e6,
+"motor-synchronous-speed-01":x=>60*x/2,
+"biot-number-plate-01":x=>x*.01/15,
+"basquin-fatigue-life-01":x=>1e6*(200/x)**5,
 "rotor-centripetal-acceleration-01":x=>.18*(2*Math.PI*x/60)**2,
 "parallel-thermal-bridges-01":x=>(.04*.8+x*.2)*20/.1,
 "sampling-alias-frequency-01":x=>Math.abs(75-Math.round(75/x)*x),
@@ -200,6 +205,11 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"beam-uniform-load-deflection-01":{min:0,max:0.8,unit:"mm"},
+"hydraulic-fluid-stiffness-01":{min:20,max:Infinity,unit:"MN/m"},
+"motor-synchronous-speed-01":{min:0,max:1800,unit:"tr/min"},
+"biot-number-plate-01":{min:0,max:0.1,unit:"sans unité"},
+"basquin-fatigue-life-01":{min:300000,max:Infinity,unit:"cycles"},
 "rotor-centripetal-acceleration-01":{"min":0,"max":800,"unit":"m/s²"},
 "parallel-thermal-bridges-01":{"min":0,"max":50,"unit":"W"},
 "sampling-alias-frequency-01":{"min":75,"max":75,"unit":"Hz"},
@@ -399,6 +409,11 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"beam-uniform-load-deflection-01":Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Poutre bi-appuyée, L = 2,00 m, E = 210 GPa, I = 8,00 × 10⁻⁶ m⁴, q entre 0 et 8 kN/m ; élasticité linéaire et petites déformations. Flèche positive vers le bas ; appuis idéaux.","solution":"1. q = 4 kN/m = 4 000 N/m ; E = 210 × 10⁹ N/m² ; I = 8 × 10⁻⁶ m⁴ ; L = 2 m.\n2. EI = 1,68 × 10⁶ N·m² ; L⁴ = 16 m⁴.\n3. δ = 5 × 4 000 × 16/(384 × 1,68 × 10⁶) = 0,000496032 m = 0,496032 mm.\n4. Dimensions : (N/m)×m⁴/(N·m²) = m. Si q double, δ double.\n5. Seuil fictif 0,80 mm respecté ; vérifier les appuis et les charges réels."}),
+"hydraulic-fluid-stiffness-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":3,"assumptions":"Huile sans air ni fuite ; β = 1,40 GPa constant, A = 0,0100 m², V entre 1 et 10 L ; petites compressions, structure et flexibles rigides ; une seule chambre, pas le vérin complet.","solution":"1. β = 1,40 × 10⁹ Pa ; A = 0,0100 m² ; V = 4 L = 0,004 m³.\n2. A² = 0,000100 m⁴ ; βA² = 140 000 N·m.\n3. k = 140 000/0,004 = 35 000 000 N/m = 35,0 MN/m.\n4. Dimensions : (N/m²)×m⁴/m³ = N/m ; V doublé donne k divisé par deux.\n5. Seuil fictif 20 MN/m respecté ; contrôler air, conduites et volume réel."}),
+"motor-synchronous-speed-01":Object.freeze({"absoluteTolerance":1,"relativeTolerance":0,"precision":3,"assumptions":"Champ triphasé équilibré, p = 2 paires de pôles, f entre 10 et 70 Hz ; calcul du champ tournant uniquement, sans glissement ni vitesse mécanique réelle.","solution":"1. f = 50 Hz = 50 s⁻¹ ; p = 2 paires de pôles.\n2. Champ : f/p = 25 tours/s.\n3. nₛ = 25 × 60 = 1 500 tr/min.\n4. Dimensions : s⁻¹ × 60 s/min = tr/min ; doubler f double nₛ.\n5. Seuil fictif 1 800 tr/min respecté ; mesurer le glissement réel."}),
+"biot-number-plate-01":Object.freeze({"absoluteTolerance":0.0005,"relativeTolerance":0,"precision":3,"assumptions":"Plaque homogène, λ = 15 W/(m·K), Lc = V/As = 0,0100 m, h de 5 à 100 W/(m²·K) ; Bi ≤ 0,1 est un critère indicatif, pas une garantie de modèle réel.","solution":"1. h = 30 W/(m²·K) ; Lc = 0,0100 m ; λ = 15 W/(m·K).\n2. hLc = 0,300 W/(m·K).\n3. Bi = 0,300/15 = 0,0200 sans unité.\n4. Dimensions : [W/(m²·K)]×m/[W/(m·K)] = 1.\n5. Bi < 0,1 : hypothèse interne uniforme plausible ; vérifier géométrie et conditions réelles."}),
+"basquin-fatigue-life-01":Object.freeze({"absoluteTolerance":500,"relativeTolerance":0,"precision":3,"assumptions":"Éprouvette fictive : σr = 200 MPa à Nr = 1 000 000 cycles, m = 5 ; σa entre 150 et 300 MPa ; sollicitation alternée R = −1 ; aucun effet d'entaille, de corrosion, de contrainte moyenne ou de dispersion.","solution":"1. σr = 200 MPa ; σa = 250 MPa ; Nr = 1 000 000 cycles ; m = 5.\n2. Rapport σr/σa = 200/250 = 0,800 sans unité.\n3. (0,800)⁵ = 0,32768.\n4. N = 1 000 000 × 0,32768 = 327 680 cycles ; dimension : cycles × (MPa/MPa)⁵ = cycles.\n5. Seuil fictif 300 000 cycles atteint ; aucune prédiction constructeur ne découle de ce modèle."}),
 "rotor-centripetal-acceleration-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Rotation uniforme autour d'un axe fixe ; rayon r = 0,180 m ; n de 0 à 1 800 tr/min ; point matériel lié au rotor. Le modèle calcule l'accélération normale, pas une force appliquée à une pièce.","solution":"1. n = 600 tr/min = 600/60 = 10 tr/s. \n2. ω = 2π × 10 = 62,832 rad/s.\n3. aₙ = rω² = 0,180 m × (62,832 rad/s)² = 710,612 m/s².\n4. Dimensions : m × s⁻² = m/s² ; à n = 0 tr/min, aₙ = 0 m/s² ; quand n double, aₙ est multipliée par quatre.\n5. Le seuil pédagogique fictif 800 m/s² est respecté ; il ne qualifie ni l'équilibrage ni la résistance mécanique réelle."}),
 "parallel-thermal-bridges-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":2,"assumptions":"Conduction stationnaire unidimensionnelle dans deux zones sans échange latéral : e = 0,10 m ; A₁ = 0,80 m², λ₁ = 0,040 W/(m·K) ; A₂ = 0,20 m², λ₂ variable ; ΔT = 20 K, contacts parfaits.","solution":"1. Deux zones soumises à ΔT = 20 K et à la même épaisseur e = 0,10 m.\n2. Zone 1 : Φ₁ = λ₁A₁ΔT/e = 0,040 × 0,80 × 20/0,10 = 6,40 W.\n3. Zone 2 : Φ₂ = λ₂A₂ΔT/e = 0,80 × 0,20 × 20/0,10 = 32,00 W.\n4. Somme : Φ = 6,40 + 32,00 = 38,40 W. Dimension : [W/(m·K)]×m²×K/m = W.\n5. Seuil fictif 50 W respecté ; des ponts thermiques réels peuvent nécessiter un modèle 2D/3D et des mesures."}),
 "sampling-alias-frequency-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":2,"assumptions":"Sinusoïde pure à 75 Hz, échantillonnage uniforme idéal fₑ de 110 à 240 Hz, sans bruit ni jitter. Fréquence apparente dans [0 ; fₑ/2] par repliement spectral ; à fₑ = 150 Hz la phase peut rendre les échantillons ambigus, d'où l'exigence stricte fₑ > 150 Hz.","solution":"1. Fréquence du signal : f = 75 Hz ; fréquence d'échantillonnage : fₑ = 120 Hz.\n2. Rapport f/fₑ = 75/120 = 0,625 ; entier le plus proche : k = 1.\n3. Repliement : fₐ = |f − kfₑ| = |75 − 120| = 45 Hz.\n4. Homogénéité : Hz − Hz = Hz ; la fréquence apparente est dans [0 ; fₑ/2] = [0 ; 60] Hz.\n5. Pour éviter le repliement idéal, exiger fₑ > 2f = 150 Hz ; le cas d'égalité est exclu. Une chaîne réelle exige aussi un filtre anti-repliement."}),
@@ -591,6 +606,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
  if(Math.abs(value-expected)<=Math.max(10*eps,.01*Math.abs(expected)))return 'Réponse proche : vérifie les arrondis, les chiffres significatifs et la précision demandée.';
  return 'Reprends la formule, les données et les unités'+(unit?' (résultat à exprimer en '+unit+')':'')+'.';
 }
+const cycle203Domains=Object.freeze({"beam-uniform-load-deflection-01":[0,8],"hydraulic-fluid-stiffness-01":[1,10],"motor-synchronous-speed-01":[10,70],"biot-number-plate-01":[5,100],"basquin-fatigue-life-01":[150,300]});
 const cycle198Domains=Object.freeze({"rotor-centripetal-acceleration-01":[0,1800],"parallel-thermal-bridges-01":[0.1,2],"sampling-alias-frequency-01":[110,240],"regenerative-cylinder-speed-01":[2,20],"buoyancy-immersed-volume-01":[0,100]});
 const cycle193Domains=Object.freeze({"safety-stop-separation-01":[0,2],"safety-proof-test-pfd-01":[0,8760],"production-bottleneck-01":[10,100],"electrohydraulic-drive-current-01":[0,200],"material-thermal-diffusivity-01":[5,100]});
 const cycle188Domains=Object.freeze({"bearing-projected-pressure-01":[0,30],"inductor-reactance-frequency-01":[0,400],"coolant-thermal-power-01":[0,20],"brake-disc-adiabatic-rise-01":[0,72],"encoder-linear-resolution-01":[20,300]});
@@ -604,7 +620,7 @@ const cycle153Domains=Object.freeze({"cantilever-strain-energy-01":[0,6],"gas-po
 const cycle138Domains=Object.freeze({"thin-wall-hoop-stress-01":[0,36],"thermal-fourier-number-01":[0,60],"gear-mesh-frequency-01":[600,1800],"jet-impact-force-01":[0,40],"rectangular-beam-shear-01":[0,12],"combined-stress-von-mises-01":[0,100],"pt100-linear-response-01":[0,150],"torsional-eigenfrequency-01":[500,2000],"laminar-darcy-factor-01":[400,2000],"triangle-actuator-angle-01":[0.25,1.05],"hydraulic-oil-compressibility-01":[0,200],"hollow-shaft-polar-inertia-01":[20,50],"wheel-braking-slip-01":[0,12.5],"lumped-cooling-time-constant-01":[10,80],"adc-voltage-step-01":[2,12]});
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- const domain=cycle198Domains[id]||cycle193Domains[id]||cycle188Domains[id]||cycle183Domains[id]||cycle178Domains[id]||cycle173Domains[id]||cycle168Domains[id]||cycle163Domains[id]||cycle158Domains[id]||cycle138Domains[id]||cycle153Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
+ const domain=cycle203Domains[id]||cycle198Domains[id]||cycle193Domains[id]||cycle188Domains[id]||cycle183Domains[id]||cycle178Domains[id]||cycle173Domains[id]||cycle168Domains[id]||cycle163Domains[id]||cycle158Domains[id]||cycle138Domains[id]||cycle153Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
  if(id==='transformer-turns-ratio-01'&&!Number.isInteger(x))throw new RangeError('Le nombre de spires doit être entier');
  if((id==="stepped-bar-extension-01"&&(x<0||x>35))||(id==="motor-slip-01"&&(x<48||x>60))||(id==="log-decrement-01"&&(x<5||x>19))||(id==="exchanger-effectiveness-01"&&(x<0||x>110))||(id==="darcy-pipe-loss-01"&&(x<20||x>60))||(id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||(id==='flywheel-angular-momentum-01'&&x>1500)||(id==='rc-charge-threshold-01'&&(x<1||x>22))||(id==='thermal-clearance-01'&&x>120)||(id==='venturi-pressure-01'&&x>60)||(id==='spring-series-01'&&(x<5000||x>40000))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  if((id==="cylinder-stroke-time-01"&&(x<0||x>600))||(id==="gas-isothermal-work-01"&&(x<1||x>4))||(id==="symmetric-sling-tension-01"&&(x<20||x>70))||(id==="voltage-divider-sensor-01"&&(x<0.5||x>5))||(id==="restrained-thermal-stress-01"&&(x<0||x>80)))throw new RangeError('Paramètre hors domaine physique');
@@ -619,6 +635,11 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"beam-uniform-load-deflection-01":"kN/m",
+"hydraulic-fluid-stiffness-01":"L",
+"motor-synchronous-speed-01":"Hz",
+"biot-number-plate-01":"W/(m²·K)",
+"basquin-fatigue-life-01":"MPa",
 "rotor-centripetal-acceleration-01":"tr/min",
 "parallel-thermal-bridges-01":"W/(m·K)",
 "sampling-alias-frequency-01":"Hz",
