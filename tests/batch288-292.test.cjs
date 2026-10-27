@@ -4,3 +4,10 @@ const refs=[x=>50*Math.cos(x*Math.PI/180)+Math.sqrt(180**2-(50*Math.sin(x*Math.P
 const near=(a,b)=>assert.ok(Math.abs(a-b)<=1e-9*Math.max(1,Math.abs(b)),a+' != '+b);
 for(const [i,c] of cases.entries())test(c.id+' : cinq contre-calculs, SVG et invalides',()=>{const html=fs.readFileSync('missions/'+c.id+'.html','utf8'),cfg=JSON.parse(html.split('window.SI_MISSION=')[1].split('</script>')[0]);near(cfg.expected,c.expected);assert.equal(M.inputUnits[c.id],c.iu);assert.equal(M.criteria[c.id].unit,c.u);assert.equal(C.byId(c.id).subskill,c.subskill);assert.equal((html.match(/<li>/g)||[]).length,3);assert.ok(M.answerPolicy[c.id].solution.length>300);for(const x of [c.min,(c.min+c.initial)/2,c.initial,(c.initial+c.max)/2,c.max]){const y=M.calculate(c.id,x),s=D.render(c.id,x,y);near(y,refs[i](x));assert.match(s,/<title/);assert.match(s,/<desc/);assert.ok(s.includes(c.u));assert.doesNotMatch(s,/NaN|Infinity|undefined/);}for(const x of [c.min-.01,c.max+.01,NaN,Infinity])assert.throws(()=>M.calculate(c.id,x),RangeError);assert.throws(()=>D.render(c.id,c.initial,c.expected+100),RangeError);assert.equal(M.validateAnswer(String(c.expected).replace('.',','),c.expected,c.tol).correct,true);assert.equal(M.validateAnswer(String(c.expected+1.2*c.tol),c.expected,c.tol,0).correct,false);});
 test('invariants et catalogue',()=>{near(M.calculate(cases[0].id,0)-M.calculate(cases[0].id,180),100);near(M.calculate(cases[1].id,20)/120,Math.cos(Math.PI/9));near(M.calculate(cases[2].id,80),80);near(M.calculate(cases[3].id,8),2*M.calculate(cases[3].id,4));near(M.calculate(cases[4].id,40),2*M.calculate(cases[4].id,10));assert.equal(C.levels.length,292);assert.equal(new Set(C.levels.map(x=>x.id)).size,292);assert.equal(new Set(C.levels.map(x=>x.world)).size,17);});
+
+test('buse convergente : section de col constante sans divergence',()=>{
+ const x=6,s=D.render('pneumatic-choked-massflow-01',x,M.calculate('pneumatic-choked-massflow-01',x));
+ assert.match(s,/data-nozzle-profile="convergent-constant-throat"/);
+ assert.match(s,/M130 85 L275 118 L455 118 L455 168 L275 168 L130 200 Z/);
+ assert.doesNotMatch(s,/L455 85 L455 200/);
+});

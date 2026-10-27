@@ -24,3 +24,10 @@ A : NVDA, TalkBack, VoiceOver, zoom et appareils NOT RUN.
 Sources : NASA Glenn (https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/mass-flow-rate-equations/) ; NIST CODATA (https://physics.nist.gov/cgi-bin/cuu/Value?k) ; CDC/NIOSH (https://www.cdc.gov/niosh/noise/prevent/understand.html).
 
 Accueil et carte intacts : aucun changement de index.html, src/home.js, src/style.css ou assets/archipelago-cinematic.svg. Aucun ZIP, publication publique ou modification d'archive.
+## Contre-audit graphique et état CI (même cycle)
+
+P1 graphique identifié et corrigé avant clôture : la première buse SVG présentait une partie divergente, contradictoire avec l'hypothèse de buse **convergente**. Profil corrigé : convergence suivie d'un col de section constante, sans divergence. Test de non-régression ajouté.
+
+Exécutions ciblées JavaScript V8 sur le code du lot : 25/25 contre-calculs scientifiques indépendants, 20/20 paramètres invalides rejetés, 25/25 SVG structurels, 5/5 propriétés, 5/5 SVG désynchronisés rejetés ; 3/3 états du schéma historique PASS. Les 36 missions historiques 40–75 ont été testées sur leurs trois états (108/108 PASS), en trois groupes de 12 missions. Cinq parcours DOM simulés sur le contrôleur réel : 5/5 PASS (trois essais, aides, corrigé, succès, sauvegarde). Il s'agit de tests V8 et DOM simulés, non de tests navigateur réel.
+
+GitHub Actions au SHA `49f644f11094747f6217866b65319ac09ebf02f0` : quatre workflows en échec avant étape observable ; jobs sans steps ni runner attribué. Relances des workflows Node (40585903954) et scientifique (40585903990) : deuxièmes tentatives également en échec sans étapes. **CI native BLOCKED** ; aucune assertion de réussite Node native. Tests visuels navigateur et matériels NVDA/TalkBack/VoiceOver **NOT RUN**.
