@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"bearing-projected-pressure-01","world":"SI-04","title":"Palier lisse — Pression projetée","url":"missions/bearing-projected-pressure-01.html","subskill":"Pression moyenne projetée d'un palier cylindrique lisse"}),
+Object.freeze({"id":"inductor-reactance-frequency-01","world":"SI-08","title":"Bobine — Réactance inductive","url":"missions/inductor-reactance-frequency-01.html","subskill":"Réactance d'une inductance idéale en régime sinusoïdal"}),
+Object.freeze({"id":"coolant-thermal-power-01","world":"SI-12","title":"Refroidissement — Puissance emportée","url":"missions/coolant-thermal-power-01.html","subskill":"Puissance thermique transportée par un débit massique de liquide"}),
+Object.freeze({"id":"brake-disc-adiabatic-rise-01","world":"SI-10","title":"Frein à disque — Échauffement idéal","url":"missions/brake-disc-adiabatic-rise-01.html","subskill":"Élévation de température adiabatique par dissipation de l'énergie cinétique"}),
+Object.freeze({"id":"encoder-linear-resolution-01","world":"SI-13","title":"Codeur — Résolution linéaire","url":"missions/encoder-linear-resolution-01.html","subskill":"Pas linéaire d'un codeur incrémental par roue de mesure"}),
+
 Object.freeze({"id":"tank-gravity-drain-01","world":"SI-06","title":"Cuve — Vidange gravitaire","url":"missions/tank-gravity-drain-01.html","subskill":"Durée de vidange d'une cuve à section constante par loi de Torricelli"}),
 Object.freeze({"id":"water-mixing-temperature-01","world":"SI-12","title":"Mélange — Température d'équilibre","url":"missions/water-mixing-temperature-01.html","subskill":"Bilan enthalpique de mélange adiabatique de deux masses d'eau"}),
 Object.freeze({"id":"copper-cable-resistance-01","world":"SI-08","title":"Cuivre — Résistance du conducteur","url":"missions/copper-cable-resistance-01.html","subskill":"Résistance d'un conducteur homogène par résistivité et section"}),

@@ -1,6 +1,12 @@
 (function(root){
 'use strict';
 const models=Object.freeze({
+"bearing-projected-pressure-01":x=>x*1000/(.03*.045)/1e6,
+"inductor-reactance-frequency-01":x=>2*Math.PI*x*.08,
+"coolant-thermal-power-01":x=>998*(x/60000)*4180*6/1000,
+"brake-disc-adiabatic-rise-01":x=>(1200*(x/3.6)**2/2)/(4*8*460),
+"encoder-linear-resolution-01":x=>Math.PI*x/4096,
+
 "tank-gravity-drain-01":x=>2*.5*(Math.sqrt(x)-Math.sqrt(.2))/(.62*(Math.PI*.012**2/4)*Math.sqrt(2*9.81)),
 "water-mixing-temperature-01":x=>(8*70+x*20)/(8+x),
 "copper-cable-resistance-01":x=>.0175*x/2.5,
@@ -184,6 +190,12 @@ const models=Object.freeze({
 "measurement-uncertainty-01":x=>2*x
 });
 const criteria=Object.freeze({
+"bearing-projected-pressure-01":{"min":0,"max":16,"unit":"MPa"},
+"inductor-reactance-frequency-01":{"min":0,"max":50,"unit":"Ω"},
+"coolant-thermal-power-01":{"min":2.5,"max":6,"unit":"kW"},
+"brake-disc-adiabatic-rise-01":{"min":0,"max":20,"unit":"K"},
+"encoder-linear-resolution-01":{"min":0,"max":0.15,"unit":"mm/compte"},
+
 "tank-gravity-drain-01":{min:0,max:2400,unit:"s"},
 "water-mixing-temperature-01":{min:45,max:55,unit:"°C"},
 "copper-cable-resistance-01":{min:0,max:0.3,unit:"Ω"},
@@ -367,6 +379,12 @@ const criteria=Object.freeze({
 "measurement-uncertainty-01":{min:0,max:1,unit:"%"}
 });
 const answerPolicy=Object.freeze({
+"bearing-projected-pressure-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Charge radiale centrée F de 0 à 30 kN, diamètre d = 30 mm et longueur L = 45 mm. Pression moyenne conventionnelle sur l'aire projetée dL, pas une distribution de Hertz ; pas de prise en compte de la vitesse, du film lubrifiant ni de l'échauffement.","solution":"1. Conversion : F = 18 kN = 18 000 N ; d = 0,030 m ; L = 0,045 m.\n2. Aire projetée : A_p = dL = 0,00135 m².\n3. Pression moyenne : p_m = F/A_p = 18 000 N / 0,00135 m² = 13 333 333 Pa = 13,333 MPa.\n4. Homogénéité : N/m² = Pa ; la pression est nulle si F = 0.\n5. La valeur ne représente pas la pression locale maximale ni une limite constructeur. Comparer au seuil pédagogique fictif de 16 MPa."}),
+"inductor-reactance-frequency-01":Object.freeze({"absoluteTolerance":0.05,"relativeTolerance":0,"precision":3,"assumptions":"Bobine idéale L = 80 mH = 0,080 H, fréquence f de 0 à 400 Hz, régime sinusoïdal établi. Résistance ohmique, saturation, capacités parasites et pertes fer négligées ; X_L est le module de la partie inductive de l'impédance, pas la puissance consommée.","solution":"1. Convertir L = 80 mH = 0,080 H.\n2. Pulsation : ω = 2πf = 2π × 50 Hz = 314,159 rad/s.\n3. Réactance : X_L = ωL = 314,159 rad/s × 0,080 H = 25,133 Ω.\n4. Homogénéité : s⁻¹ × H = Ω ; X_L tend vers 0 Ω pour f = 0 Hz.\n5. Cette réactance n'est pas la résistance de la bobine réelle ; comparer au seuil fictif de 50 Ω."}),
+"coolant-thermal-power-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Eau liquide monophasique, ρ = 998 kg/m³, c_p = 4 180 J/(kg·K), écart constant de température entrée-sortie ΔT = 6 K. Débit Q_v de 0 à 20 L/min ; régime permanent sans pertes vers l'environnement. Ce modèle ne calcule ni la température d'équilibre ni les pertes de charge.","solution":"1. Débit : Q_v = 8 L/min = 8 × 10⁻³/60 m³/s = 1,33333 × 10⁻⁴ m³/s.\n2. Débit massique : ṁ = ρQ_v = 998 × 1,33333 × 10⁻⁴ = 0,133067 kg/s.\n3. Puissance : P_th = ṁc_pΔT = 0,133067 kg/s × 4 180 J/(kg·K) × 6 K = 3 337,312 W = 3,337 kW.\n4. Homogénéité : (kg/s) × J/(kg·K) × K = J/s = W ; P_th = 0 si Q_v = 0.\n5. Seuil fictif : 2,5 à 6 kW. Vérifier ensuite les débits et températures réels."}),
+"brake-disc-adiabatic-rise-01":Object.freeze({"absoluteTolerance":0.02,"relativeTolerance":0,"precision":3,"assumptions":"Véhicule m_v = 1 200 kg ; quatre disques identiques de 8 kg chacun, c_p = 460 J/(kg·K). Vitesse initiale de 0 à 72 km/h, arrêt complet, énergie cinétique intégralement répartie et absorbée à parts égales par les quatre disques, sans pertes. Modèle adiabatique volontairement simplifié : il ne prédit pas la température de surface ni la tenue du frein réel.","solution":"1. Convertir v = 36 km/h = 10 m/s.\n2. Énergie cinétique à dissiper : E_c = ½m_vv² = 0,5 × 1 200 kg × (10 m/s)² = 60 000 J.\n3. Répartition sur quatre disques : E_d = 60 000/4 = 15 000 J par disque.\n4. Capacité thermique d'un disque : m_dc_p = 8 kg × 460 J/(kg·K) = 3 680 J/K.\n5. ΔT = E_d/(m_dc_p) = 15 000/3 680 = 4,076 K. Homogénéité : J/(J/K) = K ; ΔT = 0 si v = 0.\n6. Ne pas utiliser cette température moyenne fictive comme température de surface ou limite réelle."}),
+"encoder-linear-resolution-01":Object.freeze({"absoluteTolerance":0.0005,"relativeTolerance":0,"precision":5,"assumptions":"Roue de mesure de diamètre D entre 20 et 300 mm, roulement sans glissement, codeur 1 024 impulsions par tour, décodage quadrature ×4 donnant 4 096 comptes par tour. Le pas δ est une résolution théorique en mm/compte, pas une incertitude métrologique ni une précision garantie.","solution":"1. Nombre de comptes par tour : N_c = 4 × 1 024 = 4 096 comptes/tr.\n2. Circonférence de la roue : C = πD = π × 120 mm = 376,991 mm/tr.\n3. Déplacement par compte : δ = C/N_c = 376,991/4 096 = 0,09204 mm/compte.\n4. Homogénéité : (mm/tr)/(comptes/tr) = mm/compte. Doubler D double le pas et diminue la résolution.\n5. Le glissement, l'excentricité et la qualité du décodage peuvent dégrader la mesure réelle ; seuil fictif 0,15 mm/compte."}),
+
 "tank-gravity-drain-01":Object.freeze({"absoluteTolerance":5,"relativeTolerance":0,"precision":1,"assumptions":"Cuve ouverte, section A = 0,50 m² constante, orifice de diamètre d = 0,012 m, coefficient de débit C_d = 0,62, g = 9,81 m/s², niveau final h_f = 0,20 m. Hauteur initiale h₀ entre 0,40 et 2,00 m ; fluide incompressible, régime quasi stationnaire et C_d constant. Ce calcul ne décrit pas les manœuvres de sécurité réelles.","solution":"1. a = πd²/4 = 1,13097 × 10⁻⁴ m².\n2. Q = C_d a √(2gh) en m³/s ; A dh/dt = −Q.\n3. Intégrer entre h₀ = 1,20 m et h_f = 0,20 m : t = 2A(√h₀ − √h_f)/(C_d a √(2g)).\n4. Le résultat est positif et tend vers 0 s lorsque h₀ tend vers h_f.\n5. Homogénéité : (m²/m²) × √(m)/(√(m/s²)) = s.\n6. Comparer au seuil fictif de 2 400 s, puis contrôler les données réelles."}),
 "water-mixing-temperature-01":Object.freeze({"absoluteTolerance":0.1,"relativeTolerance":0,"precision":3,"assumptions":"Mélanger 8 kg d'eau chaude à 70 °C avec une masse m_c de 1 à 20 kg d'eau froide à 20 °C. Même capacité thermique massique constante, aucune perte, aucun changement de phase ni évaporation ; équilibre uniforme. La loi calcule un état final, pas la vitesse du mélange.","solution":"1. Écrire le bilan : m_h c (T_h − T_eq) = m_c c (T_eq − T_c).\n2. Simplifier c identique puis isoler T_eq.\n3. Numérateur : 8 kg × 70 °C + 5 kg × 20 °C = 660 kg·°C.\n4. Masse totale : 8 + 5 = 13 kg ; T_eq = 660/13 = 50,7692 °C.\n5. Le résultat doit être entre 20 °C et 70 °C, sans création d'énergie.\n6. Comparer à la plage fictive 45–55 °C et mesurer avant intervention."}),
 "copper-cable-resistance-01":Object.freeze({"absoluteTolerance":0.005,"relativeTolerance":0,"precision":3,"assumptions":"Un seul conducteur cuivre à 20 °C de section S = 2,5 mm², résistivité ρ = 0,0175 Ω·mm²/m, longueur L entre 5 et 80 m. Section et température constantes, contacts et aller-retour du circuit exclus. Ce calcul n'est pas un test d'isolement ni une autorisation de mise sous tension.","solution":"1. ρ = 0,0175 Ω·mm²/m = 1,75 × 10⁻⁸ Ω·m.\n2. S = 2,5 mm² = 2,5 × 10⁻⁶ m².\n3. R = (1,75 × 10⁻⁸ Ω·m × 20 m)/(2,5 × 10⁻⁶ m²).\n4. R = 0,140 Ω pour un seul conducteur.\n5. Unité : Ω·m × m / m² = Ω ; R croît avec L.\n6. Seuil fictif 0,30 Ω ; vérifier la longueur réelle et les connexions."}),
@@ -543,6 +561,7 @@ function diagnoseAnswer(value,expected,tolerance,unit){
  if(Math.abs(value-expected)<=Math.max(10*eps,.01*Math.abs(expected)))return 'Réponse proche : vérifie les arrondis, les chiffres significatifs et la précision demandée.';
  return 'Reprends la formule, les données et les unités'+(unit?' (résultat à exprimer en '+unit+')':'')+'.';
 }
+const cycle188Domains=Object.freeze({"bearing-projected-pressure-01":[0,30],"inductor-reactance-frequency-01":[0,400],"coolant-thermal-power-01":[0,20],"brake-disc-adiabatic-rise-01":[0,72],"encoder-linear-resolution-01":[20,300]});
 const cycle183Domains=Object.freeze({"tank-gravity-drain-01":[0.4,2],"water-mixing-temperature-01":[1,20],"copper-cable-resistance-01":[5,80],"pump-volumetric-efficiency-01":[20,37.5],"belt-transverse-wave-speed-01":[50,400]});
 const cycle178Domains=Object.freeze({"braking-distance-friction-01":[0,72],"heat-exchanger-lmtd-01":[10,50],"column-slenderness-01":[600,1800],"acoustic-distance-loss-01":[2,10],"beam-central-moment-01":[0,12]});
 const cycle173Domains=Object.freeze({"water-hammer-joukowsky-01":[0,1.5],"thermal-contact-resistance-01":[200,2000],"noise-level-addition-01":[60,100],"machine-availability-01":[1,20],"filter-beta-efficiency-01":[1,200]});
@@ -553,7 +572,7 @@ const cycle153Domains=Object.freeze({"cantilever-strain-energy-01":[0,6],"gas-po
 const cycle138Domains=Object.freeze({"thin-wall-hoop-stress-01":[0,36],"thermal-fourier-number-01":[0,60],"gear-mesh-frequency-01":[600,1800],"jet-impact-force-01":[0,40],"rectangular-beam-shear-01":[0,12],"combined-stress-von-mises-01":[0,100],"pt100-linear-response-01":[0,150],"torsional-eigenfrequency-01":[500,2000],"laminar-darcy-factor-01":[400,2000],"triangle-actuator-angle-01":[0.25,1.05],"hydraulic-oil-compressibility-01":[0,200],"hollow-shaft-polar-inertia-01":[20,50],"wheel-braking-slip-01":[0,12.5],"lumped-cooling-time-constant-01":[10,80],"adc-voltage-step-01":[2,12]});
 function calculate(id,x){
  if(!Object.prototype.hasOwnProperty.call(models,id)||!Number.isFinite(x))throw new RangeError('Paramètre invalide');
- const domain=cycle183Domains[id]||cycle178Domains[id]||cycle173Domains[id]||cycle168Domains[id]||cycle163Domains[id]||cycle158Domains[id]||cycle138Domains[id]||cycle153Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
+ const domain=cycle188Domains[id]||cycle183Domains[id]||cycle178Domains[id]||cycle173Domains[id]||cycle168Domains[id]||cycle163Domains[id]||cycle158Domains[id]||cycle138Domains[id]||cycle153Domains[id];if(domain&&(x<domain[0]||x>domain[1]))throw new RangeError('Paramètre hors domaine physique');
  if(id==='transformer-turns-ratio-01'&&!Number.isInteger(x))throw new RangeError('Le nombre de spires doit être entier');
  if((id==="stepped-bar-extension-01"&&(x<0||x>35))||(id==="motor-slip-01"&&(x<48||x>60))||(id==="log-decrement-01"&&(x<5||x>19))||(id==="exchanger-effectiveness-01"&&(x<0||x>110))||(id==="darcy-pipe-loss-01"&&(x<20||x>60))||(id==='stability-overturn-angle-01'&&(x<.5||x>2))||(id==='hydraulic-reynolds-01'&&x>80)||(id==='double-shear-pin-01'&&x>30)||(id==='composite-wall-01'&&x>60)||(id==='combined-uncertainty-01'&&x>.2)||(id==="hydro-motor-speed-01"&&(x>50))||(id==="beam-center-deflection-01"&&(x>8000))||(id==="reactive-three-phase-01"&&(x>1||x<0.5))||(id==="rl-step-current-01"&&(x>50))||(id==="npsh-available-01"&&(x>6))||(id==='hydraulic-relief-setpoint-01'&&x>25)||(id==='beam-support-reaction-01'&&x>2)||(id==='lc-resonance-01'&&(x<10||x>100))||(id==='screw-efficiency-01'&&x>.3)||(id==='adiabatic-compressor-01'&&(x<1||x>8))||(id==='convective-heat-flux-01'&&(x<5||x>60))||(id==='orifice-flow-01'&&x>40)||(id==='hydrostatic-gate-force-01'&&x>2.5)||(id==='capstan-tension-01'&&x>.8)||(id==='bearing-l10-life-01'&&x<=0)||(id==='sensor-4-20ma-01'&&(x<4||x>20))||((id==='natural-frequency-01'||id==='rectangular-tube-inertia-01')&&x===0)||(id==='rectangular-tube-inertia-01'&&x>=40)||(id==='accumulator-isothermal-01'&&(x<=80||x>=200))||(id==='wheatstone-bridge-01'&&x<=0)||(id==='gear-ratio-02'&&(!Number.isInteger(x)||x<=0))||(id==='thermal-resistance-01'&&x<=0)||(id==='thermal-radiation-01'&&x<20)||(id==='mechanical-efficiency-02'&&x>1)||(id==='gear-mesh-01'&&(!Number.isInteger(x)||x<=0))||(id==='incline-force-01'&&x>90)||(id==='hydraulic-pump-shaft-01'&&(x<0||x>250))||(id==='braking-stop-time-01'&&(x<0||x>90))||(id==='beam-curvature-01'&&(x<500||x>3000))||(id==='battery-autonomy-01'&&(x<0||x>150))||(id==='strain-gauge-bridge-01'&&(x<0||x>1500))||(id==='flywheel-angular-momentum-01'&&x>1500)||(id==='rc-charge-threshold-01'&&(x<1||x>22))||(id==='thermal-clearance-01'&&x>120)||(id==='venturi-pressure-01'&&x>60)||(id==='spring-series-01'&&(x<5000||x>40000))||x<0||((id==='flow-01'||id==='ohm-01'||id==='density-01'||id==='pulley-01'||id==='frequency-period-01'||id==='angular-accel-01'||id==='sampling-01')&&x===0)||((id==='gear-eff-01'||id==='efficiency-chain-01')&&x>1))throw new RangeError('Paramètre hors domaine physique');
  if((id==="cylinder-stroke-time-01"&&(x<0||x>600))||(id==="gas-isothermal-work-01"&&(x<1||x>4))||(id==="symmetric-sling-tension-01"&&(x<20||x>70))||(id==="voltage-divider-sensor-01"&&(x<0.5||x>5))||(id==="restrained-thermal-stress-01"&&(x<0||x>80)))throw new RangeError('Paramètre hors domaine physique');
@@ -568,6 +587,12 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+"bearing-projected-pressure-01":"kN",
+"inductor-reactance-frequency-01":"Hz",
+"coolant-thermal-power-01":"L/min",
+"brake-disc-adiabatic-rise-01":"km/h",
+"encoder-linear-resolution-01":"mm",
+
 "tank-gravity-drain-01":"m",
 "water-mixing-temperature-01":"kg",
 "copper-cable-resistance-01":"m",
