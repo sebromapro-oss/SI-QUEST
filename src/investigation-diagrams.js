@@ -938,7 +938,9 @@ case 'hydro-annular-force-01':{
   s+='<rect x="259" y="87" width="183" height="29" fill="#2477aa" opacity=".65" data-fluid-zone="superieure"/>';
   s+='<rect x="259" y="138" width="183" height="27" fill="#2477aa" opacity=".65" data-fluid-zone="inferieure"/>';
   s+=box(240,86,18,80,'#c8d8e2')+line(258,126,520,126,'#c8d8e2',14);
-  if(x>0)s+=arrow(400,60,310,60);s+=text(65,52,'Chambre annulaire sous pression')+text(65,73,'D = 80 mm ; d = 40 mm');
+  const longueur=Number((120*x/180).toFixed(3));
+  if(x>0)s+=arrow(450,200,Number((450-longueur).toFixed(3)),200,'#ffca7d',4)+'<g data-effort-annulaire-fleche-px="'+longueur.toFixed(3)+'" data-pression-bar="'+x.toFixed(3)+'"></g>';
+  s+=text(65,52,'Chambre annulaire : p = '+N(x)+' bar')+text(65,73,'D = 80 mm ; d = 40 mm')+text(55,226,'Effort sur la tige vers la gauche');
   s+=valueLabel(id,x,result);break;
  }
 case 'pneumatic-consumption-01':{const pistonX=137+155*x/400,rodEnd=pistonX+267;s+=box(125,80,280,92,'#173f59')+'<rect x="137" y="87" width="'+(pistonX-137).toFixed(2)+'" height="78" fill="#2477aa" opacity=".55"/>'+line(137,72,137,177,'#7ce8ae',2,'stroke-dasharray="5 5"')+box(pistonX,87,12,78,'#c8d8e2','data-piston-x="'+pistonX.toFixed(2)+'"')+line(pistonX+12,126,rodEnd,126,'#c8d8e2',12)+line(137,190,pistonX,190,'#ffd17d',3)+text(35,42,'Volume balayé côté plein : D = 50 mm ; course = '+N(x)+' mm')+valueLabel(id,x,result);s+='<g data-rod-length-px="255" data-rod-end-x="'+rodEnd.toFixed(3)+'" data-piston-x="'+pistonX.toFixed(3)+'"></g>';break;}
