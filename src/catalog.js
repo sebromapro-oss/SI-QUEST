@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"dc-bus-discharge-time-01","world":"SI-16","title":"Bus continu — Temps de décharge","url":"missions/dc-bus-discharge-time-01.html","subskill":"Décroissance RC d'une tension résiduelle"}),
+Object.freeze({"id":"regenerative-braking-energy-01","world":"SI-17","title":"Freinage régénératif — Énergie récupérable","url":"missions/regenerative-braking-energy-01.html","subskill":"Bilan d'énergie cinétique récupérée avec rendement"}),
+Object.freeze({"id":"proportional-saturation-01","world":"SI-09","title":"Régulation — Sortie proportionnelle saturée","url":"missions/proportional-saturation-01.html","subskill":"Commande proportionnelle statique avec saturation"}),
+Object.freeze({"id":"hydraulic-local-loss-01","world":"SI-06","title":"Hydraulique — Perte de charge singulière","url":"missions/hydraulic-local-loss-01.html","subskill":"Perte locale de pression à travers un raccord"}),
+Object.freeze({"id":"process-capability-cpk-01","world":"SI-13","title":"Métrologie — Indice de capabilité Cpk","url":"missions/process-capability-cpk-01.html","subskill":"Capabilité par position moyenne et dispersion"}),
 Object.freeze({"id":"shaft-torsional-shear-stress-01","world":"SI-04","title":"Arbre plein — Contrainte de torsion","url":"missions/shaft-torsional-shear-stress-01.html","subskill":"Contrainte tangentielle maximale dans un arbre circulaire plein"}),
 Object.freeze({"id":"series-rl-impedance-01","world":"SI-08","title":"Circuit RL — Module de l'impédance","url":"missions/series-rl-impedance-01.html","subskill":"Module de l'impédance d'une résistance et d'une inductance en série"}),
 Object.freeze({"id":"series-system-reliability-01","world":"SI-15","title":"Fiabilité — Trois composants en série","url":"missions/series-system-reliability-01.html","subskill":"Fiabilité exponentielle d'une chaîne de trois composants indépendants"}),
