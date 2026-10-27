@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"shaft-torsional-shear-stress-01","world":"SI-04","title":"Arbre plein — Contrainte de torsion","url":"missions/shaft-torsional-shear-stress-01.html","subskill":"Contrainte tangentielle maximale dans un arbre circulaire plein"}),
+Object.freeze({"id":"series-rl-impedance-01","world":"SI-08","title":"Circuit RL — Module de l'impédance","url":"missions/series-rl-impedance-01.html","subskill":"Module de l'impédance d'une résistance et d'une inductance en série"}),
+Object.freeze({"id":"series-system-reliability-01","world":"SI-15","title":"Fiabilité — Trois composants en série","url":"missions/series-system-reliability-01.html","subskill":"Fiabilité exponentielle d'une chaîne de trois composants indépendants"}),
+Object.freeze({"id":"dry-air-ideal-density-01","world":"SI-07","title":"Air sec — Masse volumique idéale","url":"missions/dry-air-ideal-density-01.html","subskill":"Masse volumique de l'air sec par l'équation d'état des gaz parfaits"}),
+Object.freeze({"id":"parallel-spring-stiffness-01","world":"SI-04","title":"Ressorts parallèles — Raideur équivalente","url":"missions/parallel-spring-stiffness-01.html","subskill":"Raideur équivalente de deux ressorts linéaires en parallèle"}),
 Object.freeze({"id":"beam-uniform-load-deflection-01","world":"SI-04","title":"Traverse — Flèche sous charge répartie","url":"missions/beam-uniform-load-deflection-01.html","subskill":"Flèche maximale d'une poutre bi-appuyée sous charge répartie"}),
 Object.freeze({"id":"hydraulic-fluid-stiffness-01","world":"SI-06","title":"Vérin — Raideur hydraulique","url":"missions/hydraulic-fluid-stiffness-01.html","subskill":"Raideur de compression d'une chambre hydraulique"}),
 Object.freeze({"id":"motor-synchronous-speed-01","world":"SI-08","title":"Moteur — Vitesse synchrone","url":"missions/motor-synchronous-speed-01.html","subskill":"Vitesse du champ tournant selon fréquence et paires de pôles"}),

@@ -7,6 +7,11 @@ const circle=(x,y,r,fill='#173f59',extra='')=>'<circle cx="'+x+'" cy="'+y+'" r="
 const text=(x,y,s,extra='')=>'<text x="'+x+'" y="'+y+'" fill="#fff" font-size="17" '+extra+'>'+s+'</text>';
 const arrow=(x1,y1,x2,y2,c='#ffca7d',w=5)=>line(x1,y1,x2,y2,c,w,'marker-end="url(#pointe)"');
 const titles=Object.freeze({
+"shaft-torsional-shear-stress-01":"Arbre plein — Contrainte de torsion",
+"series-rl-impedance-01":"Circuit RL — Module de l'impédance",
+"series-system-reliability-01":"Fiabilité — Trois composants en série",
+"dry-air-ideal-density-01":"Air sec — Masse volumique idéale",
+"parallel-spring-stiffness-01":"Ressorts parallèles — Raideur équivalente",
 "beam-uniform-load-deflection-01":"Traverse — Flèche sous charge répartie",
 "hydraulic-fluid-stiffness-01":"Vérin — Raideur hydraulique",
 "motor-synchronous-speed-01":"Moteur — Vitesse synchrone",
@@ -211,6 +216,11 @@ const titles=Object.freeze({
 "measurement-relative-01":"Mesure et référence"
 });
 const scientificLabels=Object.freeze({
+"shaft-torsional-shear-stress-01":["N·m","MPa"],
+"series-rl-impedance-01":["Hz","Ω"],
+"series-system-reliability-01":["h","%"],
+"dry-air-ideal-density-01":["bar abs","kg/m³"],
+"parallel-spring-stiffness-01":["N/mm","N/mm"],
 "beam-uniform-load-deflection-01":["kN/m","mm"],
 "hydraulic-fluid-stiffness-01":["L","MN/m"],
 "motor-synchronous-speed-01":["Hz","tr/min"],
@@ -444,6 +454,11 @@ function render(id,x,result){
  if(!Object.prototype.hasOwnProperty.call(titles,id)||!Number.isFinite(x)||!Number.isFinite(result))throw new RangeError('Dessin invalide');
  let s='';
  switch(id){
+case "shaft-torsional-shear-stress-01":{s+=circle(290,135,72,'#315c76')+circle(290,135,7,'#ffd17d')+line(290,135,290,63,'#8ddcff',3);if(x>0)s+=arrow(290,63,Math.min(490,330+x/4),63,'#ffca7d',4);s+=text(30,38,'Arbre plein : d = 40 mm ; T = '+N(x)+' N·m')+text(30,216,'τmax = '+N(result)+' MPa ; à la surface')+'<g data-torque-nm="'+x.toFixed(5)+'" data-shear-mpa="'+result.toFixed(6)+'"></g>';break;}
+case "series-rl-impedance-01":{s+=line(65,133,165,133)+box(165,111,92,44,'#315c76')+line(257,133,305,133);for(let k=0;k<4;k++)s+='<path d="M'+(305+36*k)+' 133 A18 29 0 0 1 '+(341+36*k)+' 133" fill="none" stroke="#8ddcff" stroke-width="4"/>';s+=line(449,133,535,133)+text(175,102,'R = 20 Ω')+text(360,102,'L = 0,1 H')+text(30,38,'f = '+N(x)+' Hz ; éléments en série')+text(30,217,'|Z| = '+N(result)+' Ω ; phase non dessinée')+'<g data-frequency-hz="'+x.toFixed(5)+'" data-impedance-ohm="'+result.toFixed(6)+'"></g>';break;}
+case "series-system-reliability-01":{for(let k=0;k<3;k++){const xx=105+145*k;s+=box(xx,97,112,66,'#315c76')+text(xx+25,137,'Bloc '+(k+1));if(k<2)s+=line(xx+112,130,xx+145,130,'#8ddcff',3)}s+=text(35,38,'Trois organes en série fonctionnelle')+text(35,216,'t = '+N(x)+' h ; Rsys = '+N(result)+' %')+'<g data-horizon-h="'+x.toFixed(5)+'" data-reliability-percent="'+result.toFixed(6)+'"></g>';break;}
+case "dry-air-ideal-density-01":{s+=box(170,79,275,110,'#315c76')+line(240,85,240,182,'#d5e8f4',6)+text(265,126,'Air sec')+text(265,154,'T = 293,15 K')+text(35,38,'p absolue = '+N(x)+' bar abs')+text(35,217,'ρ = '+N(result)+' kg/m³ ; gaz parfait')+'<g data-pressure-bar-abs="'+x.toFixed(5)+'" data-density-kgm3="'+result.toFixed(6)+'"></g>';break;}
+case "parallel-spring-stiffness-01":{s+=line(105,77,105,190,'#d5e8f4',7)+line(475,77,475,190,'#d5e8f4',7);for(const yy0 of [105,160]){s+=line(105,yy0,150,yy0,'#8ddcff',3);let path='M150 '+yy0;for(let k=0;k<8;k++)path+=' L'+(166+k*32)+' '+(yy0+(k%2?-13:13))+' L'+(182+k*32)+' '+yy0;s+='<path d="'+path+'" fill="none" stroke="#8ddcff" stroke-width="3"/>'+line(406,yy0,475,yy0,'#8ddcff',3)}s+=text(30,38,'Deux ressorts : déplacement commun')+text(30,218,'k1 = 40 N/mm ; k2 = '+N(x)+' N/mm ; keq = '+N(result)+' N/mm')+'<g data-spring2-nmm="'+x.toFixed(5)+'" data-equivalent-nmm="'+result.toFixed(6)+'"></g>';break;}
 case "beam-uniform-load-deflection-01":{const sag=Math.min(24,Math.max(0,result*35));s+='<path d="M135 130 Q300 '+(130+2*sag).toFixed(2)+' 465 130" fill="none" stroke="#8ddcff" stroke-width="9"/>'+'<path d="M120 165 L150 165 L135 135 Z M450 165 L480 165 L465 135 Z" fill="#9ac5d7"/>';if(x>0)for(const px of [185,260,335,410])s+=arrow(px,73,px,111,'#ffca7d',3);s+=text(30,38,'q = '+N(x)+' kN/m ; L = 2,00 m')+text(30,219,'δ = '+N(result)+' mm ; flèche amplifiée')+'<g data-deflection-mm="'+result.toFixed(6)+'" data-load-knm="'+x.toFixed(5)+'"></g>';break;}
 case "hydraulic-fluid-stiffness-01":{const px=190+17*x;s+=box(150,82,310,95,'#315c76')+box(px,88,14,83,'#d5e8f4')+box(px+14,119,540-(px+14),20,'#d5e8f4')+text(30,38,'β = 1,40 GPa ; A = 0,0100 m²')+text(30,216,'V = '+N(x)+' L ; k = '+N(result)+' MN/m')+'<g data-volume-l="'+x.toFixed(5)+'" data-stiffness-mnm="'+result.toFixed(6)+'"></g>';break;}
 case "motor-synchronous-speed-01":{s+=circle(290,132,80,'#315c76')+circle(290,132,51,'#122f47')+circle(290,132,12,'#ffd17d')+text(30,38,'p = 2 paires ; f = '+N(x)+' Hz')+text(30,217,'nₛ = '+N(result)+' tr/min ; sens non déterminé')+'<g data-frequency-hz="'+x.toFixed(5)+'" data-synchronous-rpm="'+result.toFixed(5)+'"></g>';break;}
@@ -932,7 +947,7 @@ case 'electrical-parallel-01':{s+=line(115,82,115,169)+line(485,82,485,169)+line
 case 'inductor-energy-01':{s+=line(90,132,180,132);for(let k=0;k<6;k++)s+='<path d="M'+(180+k*40)+' 132 A20 32 0 0 1 '+(220+k*40)+' 132" fill="none" stroke="#ffca7d" stroke-width="4"/>';s+=line(420,132,510,132)+text(85,80,'L = 0,20 H')+text(340,80,'I = '+N(x)+' A');s+=text(32,40,"Bobine et énergie magnétique")+valueLabel(id,x,result);break;}
 case 'mechanical-efficiency-02':{s+=box(145,95,300,72)+arrow(320,74,470,74)+arrow(300,187,170,187);s+=text(32,40,"Chaîne de transmission et rendement")+valueLabel(id,x,result);break;}
 case 'rolling-torque-01':{s+=line(100,190,520,190,'#9bc9e5',5)+circle(305,129,61)+circle(305,129,8,'#ffd17d')+arrow(305,190,305,129,'#7ce8ae',4)+arrow(305,129,305,175,'#ff9999',3)+'<path d="M 366 129 A 61 61 0 0 0 305 68" fill="none" stroke="#ffd17d" stroke-width="4" marker-end="url(#pointe)"/>'+text(32,38,'R = 0,35 m ; force résistante équivalente = '+N(x)+' N')+text(32,223,'Cᵣ = '+N(result)+' N·m ; couple opposé à la rotation horaire');s+='<g data-rolling-torque-nm="'+result.toFixed(6)+'" data-moment-sense="antihoraire"></g>';break;}
-case 'thermal-resistance-01':{s+=box(240,80,110,120,'#315c76')+arrow(95,135,230,135)+arrow(360,135,500,135)+text(32,38,'Conduction 1D ; S = 2 m²')+text(32,64,'e = 0,12 m ; λ = '+N(x)+' W/(m·K)')+text(95,112,'Chaud')+text(452,112,'Froid')+valueLabel(id,x,result,223);s+='<g data-wall-thickness-m="0.12" data-conductivity="'+x.toFixed(4)+'"></g>';break;}
+case 'thermal-resistance-01':{s+=box(240,80,110,120,'#315c76')+text(32,38,'Conduction 1D ; S = 2 m²')+text(32,64,'e = 0,12 m ; λ = '+N(x)+' W/(m·K)')+text(65,112,'T₁ ?')+text(425,112,'T₂ ?')+text(35,165,'ΔT inconnu')+text(390,165,'Sens indéterminé')+valueLabel(id,x,result,223);s+='<g data-wall-thickness-m="0.12" data-conductivity="'+x.toFixed(4)+'"></g>';break;}
 case 'measurement-uncertainty-01':{s+=line(110,135,490,135,'#9bc9e5',4)+box(245,90,110,85)+arrow(300,65,300,90);s+=text(32,40,"Mesure et incertitude relative")+valueLabel(id,x,result);break;}
 case 'motion-01':{
   const p=65+430*Math.min(1,Math.max(0,x/30));
