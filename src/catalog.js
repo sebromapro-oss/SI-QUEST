@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"hydrostatic-center-pressure-01","world":"SI-06","title":"Porte immergée — Centre de poussée hydrostatique","url":"missions/hydrostatic-center-pressure-01.html","subskill":"Position du centre de pression d'une surface plane verticale immergée"}),
+Object.freeze({"id":"induction-rotor-frequency-01","world":"SI-08","title":"Moteur asynchrone — Fréquence rotorique","url":"missions/induction-rotor-frequency-01.html","subskill":"Fréquence des courants rotoriques selon le glissement"}),
+Object.freeze({"id":"fillet-weld-double-shear-01","world":"SI-04","title":"Deux cordons d'angle — Cisaillement moyen","url":"missions/fillet-weld-double-shear-01.html","subskill":"Contrainte nominale sur deux gorges de soudure d'angle"}),
+Object.freeze({"id":"parallel-plate-capacitance-01","world":"SI-08","title":"Condensateur plan — Capacité géométrique","url":"missions/parallel-plate-capacitance-01.html","subskill":"Capacité d'un condensateur plan par permittivité et entrefer"}),
+Object.freeze({"id":"isotropic-volume-expansion-01","world":"SI-12","title":"Réservoir libre — Dilatation volumique","url":"missions/isotropic-volume-expansion-01.html","subskill":"Approximation volumique β≈3α pour un solide isotrope libre"}),
 Object.freeze({"id":"planetary-carrier-speed-01","world":"SI-05","title":"Train épicycloïdal — Vitesse du porte-satellites","url":"missions/planetary-carrier-speed-01.html","subskill":"Relation de Willis à deux éléments moteurs"}),
 Object.freeze({"id":"capacitor-stored-energy-01","world":"SI-08","title":"Condensateur — Énergie électrique stockée","url":"missions/capacitor-stored-energy-01.html","subskill":"Énergie électrostatique d'un condensateur idéal"}),
 Object.freeze({"id":"sensor-temperature-drift-01","world":"SI-13","title":"Capteur — Dérive thermique du signal","url":"missions/sensor-temperature-drift-01.html","subskill":"Erreur de gain par coefficient thermique en ppm/K"}),
