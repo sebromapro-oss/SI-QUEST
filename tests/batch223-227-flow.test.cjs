@@ -20,7 +20,7 @@ function mockPage(c){
  new Function('window','document','localStorage','SIInvestigations','SIInvestigationDiagrams',ui)(window,document,localStorage,physics,diagrams);
  return {nodes,graph,model,store};
 }
-const ids=["stokes-sphere-drag-01","magnetic-airgap-force-01","gear-tooth-tangential-force-01","pendulum-small-angle-period-01","radial-insulation-resistance-01"];
+const ids=["sinusoidal-vibration-rms-01","thick-cylinder-hoop-stress-01","three-phase-neutral-imbalance-01","source-matched-load-power-01","couette-viscous-shear-01"];
 for(const id of ids)test(id+' : parcours clavier simulé, saisie invalide, trois essais, trois aides, corrigé et sauvegarde',()=>{
  const html=fs.readFileSync('missions/'+id+'.html','utf8');const cfg=JSON.parse(html.split('window.SI_MISSION=')[1].split('</script>')[0]);
  const a=mockPage(cfg),n=a.nodes;assert.equal(a.graph.style.display,'none');assert.equal(n.trial.disabled,true);assert.equal(n.solution.disabled,true);

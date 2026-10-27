@@ -15,3 +15,9 @@ HEAD initial : `3bf75468b6b641302e78f25aa8e23eb4dba35a63`.
 - S : PASS ciblé, 25 états et 20 entrées invalides ; G : PASS structurel, visuel NOT RUN ; P : questions et corrigés présents, essai élève NOT RUN ; F : V8 ciblé PASS, tests Node et DOM natifs NOT RUN ; A : lecteurs d'écran et matériels NOT RUN.
 - Workflows du SHA initial : échecs avant toute étape observable ; journaux 404 BlobNotFound ; CI native BLOCKED.
 - Accueil/carte/styles/scripts/assets non modifiés ; aucun ZIP, Pages, force push, ni suppression d'archive.
+
+## Contre-audit après premier commit
+- Détection P1 supplémentaire : les cinq parcours du banc DOM 223–227 visaient encore les identifiants 218–222 malgré la réparation des nœuds. Corrigé ; **5/5 parcours DOM simulés PASS** en V8 sur les véritables missions 223–227.
+- Contre-tests V8 sur le premier commit : 12 tests ciblés PASS (7 scientifiques/propriétés et 5 DOM simulés) pour les missions 228–232.
+- Correction P2 géométrique : jeu axial illustré depuis une origine commune, espace variable conforme au paramètre. Correction P2 lisibilité : suppression d'une seconde légende à 10 px sous la première dans le SVG de transmissibilité.
+- Les tests Node natifs, navigateur réel et lecteurs d'écran ne sont pas revendiqués.

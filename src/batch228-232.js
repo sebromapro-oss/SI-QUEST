@@ -25,8 +25,8 @@ const h=56-14*x/180,top=135-h/2,bot=135+h/2;s+=rect(178,top,265,h,'#477e9b')+lin
 if(x>0){let len=15+35*x/180;s+=arrow(160,135,160-len,135)+arrow(461,135,461+len,135)+arrow(311,top-28,311,top-4)+arrow(311,bot+28,311,bot+4)}
 s+=txt(34,39,'σ = '+n(x)+' MPa ; E = 210 GPa')+txt(34,211,'Δd = '+n(y)+' µm ; contraction signée')+txt(34,230,'Déformation dessinée amplifiée');break}
 case 'differential-thermal-clearance-01':{
-const gap=6+28*y/.25;s+=rect(145,91,322,82,'#54768a')+rect(159,103,294-gap,58,'#477e9b');
-s+=line(453-gap,180,453-gap,193,'#ffd17d',2)+line(467,180,467,193,'#ffd17d',2)+line(453-gap,190,467,190,'#ffd17d',2);
+const gap=6+28*y/.25;s+=rect(145,91,322,82,'#54768a')+rect(147,103,320-gap,58,'#477e9b');
+s+=line(467-gap,180,467-gap,193,'#ffd17d',2)+line(467,180,467,193,'#ffd17d',2)+line(467-gap,190,467,190,'#ffd17d',2);
 s+=txt(34,39,'ΔT = '+n(x)+' K ; acier / aluminium')+txt(34,219,'Jeu j = '+n(y)+' mm ; schéma amplifié');break}
 case 'three-phase-voltage-unbalance-01':{
 const vals=[x,400,410],colors=['#7ce8ae','#ffd17d','#8ddcff'];for(let i=0;i<3;i++){let yy=75+48*i;s+=line(170,yy,170+vals[i]*.68,yy,colors[i],11)+txt(36,yy+5,'U'+(i+1)+' = '+n(vals[i])+' V')}
@@ -34,7 +34,7 @@ s+=txt(34,39,'Tensions composées efficaces')+txt(34,219,'D = '+n(y)+' % ; écar
 case 'vibration-base-transmissibility-01':{
 s+=rect(190,180,240,15,'#54768a')+rect(240,75,140,35,'#477e9b')+line(255,110,255,180,'#8ddcff',4,'stroke-dasharray="6 5"')+line(350,110,350,180,'#ffd17d',4);
 const amp=Math.min(95,28*y);s+=line(440,172,468,172,'#8ddcff',6)+line(440,147,440+amp,147,'#7ce8ae',6);
-s+=txt(34,39,'r = '+n(x)+' ; ζ = 0,20')+txt(34,219,'T = '+n(y)+' sans unité ; Y bleu, X vert')+txt(34,229,'Amplitudes schématiquement amplifiées');break}
+s+=txt(34,39,'r = '+n(x)+' ; ζ = 0,20')+txt(34,219,'T = '+n(y)+' sans unité ; Y bleu, X vert');break}
 }
 return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 235" role="img" aria-labelledby="schema-titre schema-description" class="machine"><title id="schema-titre">'+titles[id]+'</title><desc id="schema-description">Schéma paramétrique 2D non à l’échelle ; valeurs et unités disponibles en texte ; déformations et jeux amplifiés.</desc><defs><marker id="pointe" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#7ce8ae"/></marker></defs><rect x="1" y="1" width="598" height="232" rx="12" fill="#092236" stroke="#507895"/>'+s+'<g data-parameter="'+x.toFixed(6)+'" data-result="'+y.toFixed(6)+'"></g></svg>';
 }
