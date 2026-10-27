@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"bearing-pv-factor-01","world":"SI-15","title":"Palier lisse — Facteur PV","url":"missions/bearing-pv-factor-01.html","subskill":"Produit de la pression projetée par la vitesse périphérique d'un palier"}),
+Object.freeze({"id":"three-phase-cable-voltage-drop-01","world":"SI-08","title":"Câble triphasé — Chute de tension résistive","url":"missions/three-phase-cable-voltage-drop-01.html","subskill":"Estimation de chute de tension composée en triphasé équilibré sans réactance"}),
+Object.freeze({"id":"hydraulic-throttle-heat-01","world":"SI-06","title":"Étrangleur hydraulique — Puissance dissipée","url":"missions/hydraulic-throttle-heat-01.html","subskill":"Conversion d'une perte de pression hydraulique en puissance thermique"}),
+Object.freeze({"id":"pneumatic-receiver-fill-time-01","world":"SI-07","title":"Réservoir pneumatique — Remplissage idéal","url":"missions/pneumatic-receiver-fill-time-01.html","subskill":"Bilan isotherme de masse d'air avec débit d'air libre constant"}),
+Object.freeze({"id":"half-power-damping-ratio-01","world":"SI-09","title":"Banc vibratoire — Amortissement par demi-puissance","url":"missions/half-power-damping-ratio-01.html","subskill":"Estimation de l'amortissement réduit par bande passante à demi-puissance"}),
 Object.freeze({"id":"hydrostatic-center-pressure-01","world":"SI-06","title":"Porte immergée — Centre de poussée hydrostatique","url":"missions/hydrostatic-center-pressure-01.html","subskill":"Position du centre de pression d'une surface plane verticale immergée"}),
 Object.freeze({"id":"induction-rotor-frequency-01","world":"SI-08","title":"Moteur asynchrone — Fréquence rotorique","url":"missions/induction-rotor-frequency-01.html","subskill":"Fréquence des courants rotoriques selon le glissement"}),
 Object.freeze({"id":"fillet-weld-double-shear-01","world":"SI-04","title":"Deux cordons d'angle — Cisaillement moyen","url":"missions/fillet-weld-double-shear-01.html","subskill":"Contrainte nominale sur deux gorges de soudure d'angle"}),

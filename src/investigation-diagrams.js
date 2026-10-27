@@ -1079,7 +1079,7 @@ case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,1
  }
  case 'efficiency-chain-01':{s+=box(100,95,145,65)+box(350,95,145,65)+arrow(245,127,345,127)+text(55,42,'η₂ = '+N(x));break;}
  case 'rolling-load-01':{s+=line(60,190,540,190)+circle(275,130,60)+circle(275,130,7,'#ffd17d')+arrow(275,130,275,177,'#ffca7d')+arrow(275,190,275,132,'#7ce8ae')+(x>0?line(275,190,Number((275-110*x/.05).toFixed(3)),190,'#ff9999',5,'marker-end="url(#pointe)" data-roulement-longueur-px="'+Number((110*x/.05).toFixed(3))+'"'):'')+text(55,42,'N = 8 000 N ; cᵣ = '+N(x))+text(55,224,'Fᵣ = '+N(result)+' N ; P vers le bas, N vers le haut');break;}
- case 'heat-transfer-01':{s+=box(245,65,110,140,'#9c7157')+(x>0?arrow(110,105,230,105)+arrow(370,105,490,105):'')+text(55,42,'ΔT = '+N(x));break;}
+ case 'heat-transfer-01':{s+=box(245,65,110,140,'#9c7157')+text(55,42,'|ΔT| = '+N(x)+' K')+text(45,224,'Sens du flux non orienté : faces chaude/froide inconnues');break;}
  case 'measurement-relative-01':{const xp=300+(x-80)*75;s+=line(85,155,525,155,'#d5e8f4',5)+box(150,120,310,32)+line(300,90,300,195,'#7ce8ae',3)+line(xp,85,xp,200,'#ffca7d',4)+text(55,42,'x₀ = 80 mm ; x = '+N(x)+' mm')+text(55,223,'Écart relatif = '+N(result)+' %');break;}
  case 'frequency-01':{
   const a=2*Math.PI*x/60*.07;
