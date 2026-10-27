@@ -27,3 +27,11 @@ Les contrôles structurels ne prouvent pas la conformité graphique, pédagogiqu
 
 ## Contre-audit de la décision vis–écrou
 Le plafond initial de marge angulaire (10°) n'était pas justifié par la seule condition d'autoblocage. Il a été retiré du critère : `m≥0°` ; le moteur conserve une borne numérique haute de 20° couvrant son domaine d'entrée, mais ne prétend pas qu'une marge supérieure à 10° supprime l'autoblocage. Tests supplémentaires aux deux bornes. Ce correctif ne dispense pas d'une analyse des pertes et de la sécurité de levage.
+
+## Contre-tests après publication et CI (27 octobre 2026)
+- Révision applicative testée : `fc5b0e6b09bd19e0801854fce3aa25256fe56061`.
+- V8 avec adaptateurs : **13/13 tests PASS** en exécutant le code réel des deux nouveaux fichiers de tests ; 8 tests scientifiques/structurels et 5 parcours DOM simulés. Cela ne prouve pas une exécution Node native.
+- Catalogue : **262/262 identifiants uniques**, 17 univers ; fichiers d'accueil inchangés dans la comparaison Git.
+- Audit historique 40–75 : **36 missions, 108/108 états PASS en V8** sur bornes et nominal, en trois groupes de 12 ; contrôle ciblé des résultats et SVG, non audit exhaustif S/G/P/F/A.
+- GitHub Actions, commit `fc5b0e6b09bd19e0801854fce3aa25256fe56061` : recette Node `40529380433`, qualité scientifique `40529380591`, contrôles scientifiques `40529380666` : échec avant toute étape observable ; relance Node tentative 2 également échouée, relance scientifique demandée. Le job Node `122277673685` n'a aucune étape ni runner exploitable. Lecture du journal : HTTP 404 `BlobNotFound`.
+- **CI native BLOCKED** ; tests navigateurs et lecteurs d'écran **NOT RUN** ; réception complète non acquise. Investiguer la configuration/autorisation de runners et les paramètres GitHub Actions plutôt que de supposer une erreur du code.
