@@ -33,3 +33,5 @@ HEAD initial : `3d629d1a5f4cbcedc7a1ad2c29e6853e43de224c` ; dépôt privé `main
 - Missions historiques 40–75 : 36/36 contrôlées, 108/108 états minimum/nominal/maximum PASS en V8 (calcul, unité, structure SVG).
 - Lot 203–207 : 14 tests Node-like exécutés dans V8 avec mocks, PASS ; la CI native reste BLOCKED (run 40448762124, relance échouée sans étape).
 - Catalogue : 207 missions uniques, 17 univers, 110 sous-savoirs explicitement distincts, 97 sous-savoirs non renseignés.
+
+- Cohérence pédagogique : la notice du moteur précise désormais que le sens de rotation exige l'ordre des phases ; aucun sens arbitraire n'est représenté.
