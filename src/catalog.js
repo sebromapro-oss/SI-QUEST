@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"sinusoidal-vibration-rms-01","world":"SI-09","title":"Banc vibratoire — Accélération efficace","url":"missions/sinusoidal-vibration-rms-01.html","subskill":"Accélération efficace d'une vibration harmonique de déplacement"}),
+Object.freeze({"id":"thick-cylinder-hoop-stress-01","world":"SI-04","title":"Tube épais — Contrainte circonférentielle","url":"missions/thick-cylinder-hoop-stress-01.html","subskill":"Contrainte de cerclage à l'alésage selon les équations de Lamé"}),
+Object.freeze({"id":"three-phase-neutral-imbalance-01","world":"SI-08","title":"Réseau triphasé — Courant de neutre","url":"missions/three-phase-neutral-imbalance-01.html","subskill":"Somme vectorielle de trois courants sinusoïdaux déphasés de 120°"}),
+Object.freeze({"id":"source-matched-load-power-01","world":"SI-10","title":"Source continue — Puissance maximale transférée","url":"missions/source-matched-load-power-01.html","subskill":"Adaptation résistive d'une charge à une source de Thévenin"}),
+Object.freeze({"id":"couette-viscous-shear-01","world":"SI-11","title":"Film lubrifiant — Effort de cisaillement","url":"missions/couette-viscous-shear-01.html","subskill":"Force de cisaillement visqueux d'un écoulement de Couette plan"}),
 Object.freeze({"id":"dc-bus-discharge-time-01","world":"SI-16","title":"Bus continu — Temps de décharge","url":"missions/dc-bus-discharge-time-01.html","subskill":"Décroissance RC d'une tension résiduelle"}),
 Object.freeze({"id":"regenerative-braking-energy-01","world":"SI-17","title":"Freinage régénératif — Énergie récupérable","url":"missions/regenerative-braking-energy-01.html","subskill":"Bilan d'énergie cinétique récupérée avec rendement"}),
 Object.freeze({"id":"proportional-saturation-01","world":"SI-09","title":"Régulation — Sortie proportionnelle saturée","url":"missions/proportional-saturation-01.html","subskill":"Commande proportionnelle statique avec saturation"}),
