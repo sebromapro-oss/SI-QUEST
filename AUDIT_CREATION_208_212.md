@@ -20,3 +20,13 @@ HEAD initial : `f0bf16846242ed079a68ae58cd603e0de5ff4a7d` ; dépôt privé, bran
 
 ## Dépôt
 Accueil protégé : index.html, src/style.css, src/home.js, assets/archipelago-cinematic.svg inchangés. Aucun ZIP, GitHub Pages, changement de visibilité, force push ou suppression de branche d'archive.
+
+## Contre-audit et publication vérifiés
+
+- **S, G, P, F ciblés** : 153 assertions préparatoires en JavaScript V8, puis 12 tests Node-like exécutés dans V8 avec adaptateurs (303 assertions PASS), couvrant cinq modèles, cas nominaux/bornes/invalides, unités, SVG, trois essais, aides, corrigé conditionnel et sauvegarde. Ce ne sont **pas** des tests Node natifs ni des essais navigateur.
+- **Historique 40–75** : 36 identifiants, 108/108 états calcul + structure SVG PASS en V8 sur le HEAD initial. Correctif thermique contre-testé à trois conductivités. Audit visuel individuel non réalisé.
+- **Catalogue publié** : 212 identifiants uniques, 212 HTML, 17 univers peuplés, 115 sous-savoirs explicitement distincts, 97 entrées historiques sans sous-savoir explicite (P2 ouvert).
+- **CI GitHub Actions sur commit de production `1e0d92251441f22db5cd33cb2206465e71804d5b`** : quatre workflows échoués avant toute étape de test observable : `40454684332` (qualité scientifique), `40454684385` (recette Node), `40454684431` (contrôles scientifiques), `40454684306` (recette accueil). Jobs sans liste d'étapes et sans URL de logs. La récupération du journal du job `122025146056` a échoué HTTP 404 `BlobNotFound`.
+- **Relances réelles** : `40454684385` et `40454684332`, tentative 2, de nouveau FAIL sans étape exécutée. Cause exacte du défaut de lancement non établie. **CI native : BLOCKED**.
+- **Preuves S/G/P/F/A** : S = PASS ciblé V8 ; G = PASS structurel SVG, inspection visuelle NOT RUN ; P = PASS structurel/parcours simulé, essai élève NOT RUN ; F = PASS DOM simulé V8, CI native BLOCKED ; A = NOT RUN (NVDA, TalkBack, VoiceOver et appareils réels). Réception complète NON VALIDÉE.
+- **Protection** : les quatre SHA des fichiers de l'accueil sont identiques avant/après le commit de production ; dépôt privé et branche archive conservés. Aucun déploiement GitHub Pages.
