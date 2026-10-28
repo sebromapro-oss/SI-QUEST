@@ -43,6 +43,7 @@ Avant correction, **19** missions de ce groupe n'avaient pas trois questions fla
 | SVG avec valeur volontairement désynchronisée | **5/5 rejetés PASS** (V8) |
 | Invariants physiques des cinq modèles | **15/15 PASS** (V8) |
 | Deux suites CJS réelles exécutées avec adaptateurs V8 | **11/11 PASS**, dont cinq parcours DOM simulés |
+| Chargement de la chaîne de scripts réellement référencés par les cinq pages | **30/30 fichiers présents**, **30/30 évalués dans l'ordre en V8**, **5/5 modèles et SVG nominaux PASS** ; navigateur réel NOT RUN |
 | Contrôles historiques 40–75 | **108/108 calculs, 108/108 SVG, 72/72 invalides PASS** (V8 ciblé) |
 | Catalogue et liens des cinq nouvelles missions | **377/377 IDs uniques, 17/17 univers, 249 sous-savoirs** ; liens présents |
 | GitHub Actions / Node natif | **BLOCKED — preuve indisponible** |
