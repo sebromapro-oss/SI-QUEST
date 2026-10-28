@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"rectangular-beam-max-shear-01","world":"SI-04","title":"Poutre rectangulaire — Cisaillement maximal","url":"missions/rectangular-beam-max-shear-01.html","subskill":"Contrainte de cisaillement maximale d'une section rectangulaire"}),
+Object.freeze({"id":"transformer-reflected-impedance-01","world":"SI-08","title":"Transformateur idéal — Impédance ramenée","url":"missions/transformer-reflected-impedance-01.html","subskill":"Impédance résistive de charge ramenée au primaire"}),
+Object.freeze({"id":"fourier-number-slab-01","world":"SI-12","title":"Plaque chauffée — Nombre de Fourier","url":"missions/fourier-number-slab-01.html","subskill":"Nombre de Fourier à partir de la diffusivité et du temps"}),
+Object.freeze({"id":"weibull-component-reliability-01","world":"SI-15","title":"Maintenance — Fiabilité de Weibull","url":"missions/weibull-component-reliability-01.html","subskill":"Probabilité de survie sous loi de Weibull de forme deux"}),
+Object.freeze({"id":"belt-effective-tension-01","world":"SI-05","title":"Transmission par courroie — Effort utile","url":"missions/belt-effective-tension-01.html","subskill":"Différence des tensions de courroie par puissance et vitesse"}),
 Object.freeze({"id":"pitot-incompressible-speed-01","world":"SI-06","title":"Sonde de Pitot — Vitesse de l'eau","url":"missions/pitot-incompressible-speed-01.html","subskill":"Vitesse d'un écoulement incompressible par pression totale et statique"}),
 Object.freeze({"id":"dc-parallel-current-divider-01","world":"SI-08","title":"Circuit continu — Partage du courant","url":"missions/dc-parallel-current-divider-01.html","subskill":"Courant d'une branche d'un diviseur de courant résistif"}),
 Object.freeze({"id":"exchanger-ntu-equal-capacity-01","world":"SI-12","title":"Échangeur — Efficacité à capacités égales","url":"missions/exchanger-ntu-equal-capacity-01.html","subskill":"Efficacité NTU d'un échangeur à contre-courant pour Cᵣ=1"}),
