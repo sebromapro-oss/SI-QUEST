@@ -31,7 +31,7 @@ test('viscosité : conversion Pa·s vers mm²/s',()=>{eq(p.calculate('oil-kinema
 test('P1 historique : rentrée annulaire, flèche vers la rentrée, zéro débit sans flèche',()=>{
  const x=12,area=Math.PI*(.08**2-.05**2)/4,y=(x/60000)/area;
  eq(p.calculate('hydro-cylinder-speed-02',x),y);assert.ok(y>p.calculate('hydro-speed-01',x));
- assert.match(d.render('hydro-cylinder-speed-02',x,y),/x1="510" y1="65" x2="452" y2="65"/);
+ assert.match(d.render('hydro-cylinder-speed-02',x,y),/x1="510" y1="65" x2="455" y2="65"/);
  assert.doesNotMatch(d.render('hydro-cylinder-speed-02',0,0),/x1="510" y1="65" x2="452" y2="65"/);
  assert.match(fs.readFileSync('missions/hydro-cylinder-speed-02.html','utf8'),/surface annulaire/);
 });

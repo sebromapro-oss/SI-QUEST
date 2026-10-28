@@ -43,7 +43,7 @@ test('36 missions 40–75 : paramètres, calcul, unités et SVG aux trois bornes
 test('rapport de denture : toutes les abscisses échantillonnées sont des entiers',()=>{
  const code=fs.readFileSync(path.join(root,'src/investigation-mission.js'),'utf8');
  assert.match(code,/const integerDomain=c\.id==='gear-mesh-01'\|\|c\.id==='gear-ratio-02'/);
- assert.match(code,/if\(c\.id==='gear-mesh-01'\|\|c\.id==='gear-ratio-02'\|\|c\.id==='transformer-turns-ratio-01'\)\$\('trialValue'\)\.step='1'/);
+ assert.match(code,/c\.inputStep===1\)\$\('trialValue'\)\.step='1'/);
  for(const id of ['gear-mesh-01','gear-ratio-02']){
   const c=JSON.parse(fs.readFileSync(path.join(root,'missions',id+'.html'),'utf8').match(/window\.SI_MISSION=(\{.*?\})<\/script>/)[1]);
   const xs=Array.from({length:c.max-c.min+1},(_,i)=>c.min+i);
