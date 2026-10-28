@@ -19,3 +19,5 @@ for(const [x,y] of refs['weibull-component-reliability-01'])close(-Math.log(y/10
 for(const [x,y] of refs['belt-effective-tension-01'])close(x*y,3000);
 assert.ok(C.levels.length>=317);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.equal(new Set(C.levels.map(x=>x.world)).size,17);
 });
+
+test('transformateur : primaire ouvert sans court-circuit graphique',()=>{const s=D.render('transformer-reflected-impedance-01',18,72);assert.doesNotMatch(s,/x1="130" y1="90" x2="130" y2="190"/);assert.match(s,/x1="130" y1="90" x2="155" y2="90"/);assert.match(s,/x1="430" y1="155" x2="430" y2="190"/);});
