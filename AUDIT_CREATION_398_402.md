@@ -43,3 +43,6 @@ Chaque mission : contexte, sous-savoir distinct, objectifs, prérequis, trois qu
 
 Catalogue : **402/996 identifiants uniques**, **17/17 univers**, **249 sous-savoirs explicitement distincts**, **97 missions historiques à classifier**. Reste **594 missions à produire**.
 **Statut : intégré et testé automatiquement de manière ciblée ; non recetté complètement.**
+
+## Addendum de réception CI — 28 octobre 2026
+Sur le commit `b8ef1790457bbb397218172775d5b3d8d9bd0e61`, les trois workflows de qualité sont **PASS** : `Contrôles scientifiques SI QUEST` (run 40754004615), `SI QUEST scientific quality` (run 40754004279) et `Recette automatisée SI QUEST` (run 40754004581). Les 1427 tests Node natifs sont exécutés sans échec sur ce commit. Les tests de navigateur Playwright de l'accueil (run 40752828864) étaient également PASS sur le commit antérieur `dc258ba4424b0987ade170cd0eccabe1c114849b`. Les tests matériels et lecteurs d'écran demeurent NOT RUN. Un commit documentaire ultérieur doit conserver les mêmes vérifications CI avant réception.
