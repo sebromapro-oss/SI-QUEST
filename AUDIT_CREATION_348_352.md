@@ -38,3 +38,10 @@ Les cinq questions sont distinctes des modèles nominaux des missions précéden
 
 ## Correctif de contre-audit avant clôture
 Un double chargement de `batch348-352.js` a été détecté sur les cinq HTML à la relecture des dépendances. **P1 fonctionnel** : script chargé deux fois ; les cinq pages ont été corrigées et une assertion de non-régression vérifie l'unicité du chargement. Le moteur mutualisé et la nouvelle page d'accueil n'ont pas été modifiés. Les quatre workflows du commit initial de production ont échoué avant toute étape observable (jobs `steps=null`), donc les tests Node natifs restent **BLOCKED**. Les tests V8 ciblés pré-commit sont les seules preuves de calcul exécutées à ce stade.
+
+## Contre-audit effectif après publication
+- Commit de production : `6775bc00beb29b444709d0842900201ddbd6e37d` ; correction de double import : `7e3ee543449c27e5dbcea8133295df0231d2d88e` ; correction de l'expression régulière de test : `4ee5f9dba2a9cf48c52fa02e0fd3fef40606656f`.
+- Les trois fichiers de tests CJS ont été exécutés **dans un adaptateur V8 avec le moteur réel, le contrôleur réel, les HTML réels et un DOM simulé** : **12/12 tests PASS, 268 assertions PASS** (dont 5/5 parcours DOM simulés). Il ne s'agit pas d'une exécution Node native, ni d'une recette navigateur.
+- Les cinq pages importent maintenant exactement une fois le moteur `batch348-352.js`, vérifié sur les fichiers réels et par assertion de non-régression. Anomalie P1 **corrigée**.
+- CI GitHub Actions : sur `4ee5f9d...`, trois workflows déclenchés, tous **FAIL** ; relances effectives des workflows Node et scientifique, tentatives 2 **FAIL**, jobs sans étape observable (`steps=null`), journaux indisponibles HTTP 404 `BlobNotFound`. **CI native BLOCKED** ; cause non démontrée. Ne pas assimiler ce blocage à un échec de calcul scientifique.
+- Aucune preuve de recette navigateur, mobile, zoom 400 %, NVDA, TalkBack ou VoiceOver. **NOT RUN**. Réception complète non validée.
