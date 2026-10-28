@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"hertz-line-contact-pressure-01","world":"SI-04","title":"Contact de Hertz — Pression maximale","url":"missions/hertz-line-contact-pressure-01.html","subskill":"Pression de Hertz d'un contact linéique cylindre-plan"}),
+Object.freeze({"id":"sabine-room-reverberation-01","world":"SI-13","title":"Acoustique — Réverbération de Sabine","url":"missions/sabine-room-reverberation-01.html","subskill":"Estimation du temps de réverbération par aire d'absorption équivalente"}),
+Object.freeze({"id":"brinell-spherical-contact-pressure-01","world":"SI-14","title":"Empreinte sphérique — Pression moyenne","url":"missions/brinell-spherical-contact-pressure-01.html","subskill":"Aire de calotte sphérique et pression moyenne d'une empreinte"}),
+Object.freeze({"id":"prandtl-liquid-number-01","world":"SI-06","title":"Fluide — Nombre de Prandtl","url":"missions/prandtl-liquid-number-01.html","subskill":"Rapport des diffusivités visqueuse et thermique"}),
+Object.freeze({"id":"can-classic-frame-busload-01","world":"SI-17","title":"Bus CAN — Charge nominale de trames","url":"missions/can-classic-frame-busload-01.html","subskill":"Occupation théorique CAN classique 11 bits sans bourrage ni retransmission"}),
 Object.freeze({"id":"damped-natural-frequency-01","world":"SI-09","title":"Oscillateur — Pulsation amortie","url":"missions/damped-natural-frequency-01.html","subskill":"Pulsation d'oscillation libre d'un second ordre sous-amorti"}),
 Object.freeze({"id":"rl-series-impedance-phase-01","world":"SI-08","title":"Circuit RL — Angle de l'impédance","url":"missions/rl-series-impedance-phase-01.html","subskill":"Argument de l'impédance d'un RL série sinusoïdal"}),
 Object.freeze({"id":"maintenance-mtbf-operating-hours-01","world":"SI-15","title":"Maintenance — MTBF observé","url":"missions/maintenance-mtbf-operating-hours-01.html","subskill":"Estimation du MTBF par heures de fonctionnement cumulées"}),
