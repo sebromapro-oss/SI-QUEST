@@ -31,10 +31,10 @@ for(const a of meta)test(a.id+' : contre-calculs, domaine, SVG, unités et HTML'
  near(c.expected,reference(a.id,a.initial));assert.ok(M.answerPolicy[a.id].solution.includes('\n'));
 });
 test('invariants physiques et géométrie des schémas',()=>{
- for(const h of [.2,.8,2]){const cp=M.calculate(ids[0],h);assert.ok(cp>h+.6&&cp<h+1.2);const s=D.render(ids[0],h,cp);assert.match(s,/x2="460"/);assert.match(s,/M460 /);}
+ for(const h of [.2,.8,2]){const cp=M.calculate(ids[0],h);assert.ok(cp>h+.6&&cp<h+1.2);const s=D.render(ids[0],h,cp);assert.match(s,/x2="460"/);assert.match(s,/M460 /);assert.match(s,/width="48" height="72"/);near(+s.match(/x2="460" y2="([^"]+)"/)[1],90+60*cp);}
  const betaCrit=(2/2.4)**3.5;assert.ok(.6>betaCrit);
  for(const beta of [.6,.8,.95]){const mach=M.calculate(ids[1],beta);assert.ok(mach>0&&mach<1);near((1+.2*mach*mach)**(-3.5),beta);}
- for(const stress of [15,35,60])near(M.calculate(ids[2],stress)/(2*.12*.08*.003),stress*1e6);
+ for(const stress of [15,35,60]){const y=M.calculate(ids[2],stress);near(y/(2*.12*.08*.003),stress*1e6);assert.match(D.render(ids[2],stress,y),/width="240" height="160"/);}
  for(const temp of [50,90,150])assert.ok(M.calculate(ids[3],temp)>0);
  for(const temp of [20,80,120]){const p=M.calculate(ids[4],temp);near(p/(3*15**2),.8*(1+.00393*(temp-20)));}
 });
