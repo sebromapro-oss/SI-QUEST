@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"pump-npsh-available-01","world":"SI-06","title":"Pompe — NPSH disponible","url":"missions/pump-npsh-available-01.html","subskill":"Hauteur nette positive disponible à l'aspiration"}),
+Object.freeze({"id":"circular-shaft-bending-stress-01","world":"SI-04","title":"Arbre plein — Flexion maximale","url":"missions/circular-shaft-bending-stress-01.html","subskill":"Contrainte normale maximale de flexion dans une section circulaire pleine"}),
+Object.freeze({"id":"mean-type-a-uncertainty-01","world":"SI-13","title":"Métrologie — Incertitude de la moyenne","url":"missions/mean-type-a-uncertainty-01.html","subskill":"Incertitude-type A de la moyenne d'observations indépendantes"}),
+Object.freeze({"id":"induction-motor-slip-01","world":"SI-08","title":"Moteur asynchrone — Glissement","url":"missions/induction-motor-slip-01.html","subskill":"Glissement cinématique d'un moteur asynchrone en régime moteur"}),
+Object.freeze({"id":"first-order-lowpass-gain-01","world":"SI-09","title":"Passe-bas — Gain à fréquence donnée","url":"missions/first-order-lowpass-gain-01.html","subskill":"Module du gain harmonique d'un filtre passe-bas du premier ordre"}),
 Object.freeze({"id":"rectangular-beam-max-shear-01","world":"SI-04","title":"Poutre rectangulaire — Cisaillement maximal","url":"missions/rectangular-beam-max-shear-01.html","subskill":"Contrainte de cisaillement maximale d'une section rectangulaire"}),
 Object.freeze({"id":"transformer-reflected-impedance-01","world":"SI-08","title":"Transformateur idéal — Impédance ramenée","url":"missions/transformer-reflected-impedance-01.html","subskill":"Impédance résistive de charge ramenée au primaire"}),
 Object.freeze({"id":"fourier-number-slab-01","world":"SI-12","title":"Plaque chauffée — Nombre de Fourier","url":"missions/fourier-number-slab-01.html","subskill":"Nombre de Fourier à partir de la diffusivité et du temps"}),
