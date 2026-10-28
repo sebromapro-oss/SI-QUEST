@@ -16,3 +16,11 @@ V8 ciblé sur le code produit : 100 assertions réussies, dont 15 valeurs indép
 - Le contrôleur réel `src/investigation-mission.js` a été exécuté sur DOM simulé : **5/5 parcours PASS, 55 assertions PASS** (saisie invalide, trois essais, trois aides, corrigé conditionnel, réussite, trois étoiles et sauvegarde). Cela ne prouve pas la compatibilité navigateur réelle.
 - Les tests V8 directs de génération totalisent **100 assertions PASS**. Les contre-calculs ont été vérifiés par expressions indépendantes : variance de quantification, invariant Nu/Re, variance rectangulaire, torsion par J et accélération de Coriolis.
 - CI Node native : **NOT RUN avant publication** ; elle doit être vérifiée sur le SHA distant. Recette visuelle, Android/iOS, NVDA/TalkBack/VoiceOver : **NOT RUN**.
+
+## Contrôle final et CI — 28 octobre 2026
+- Production publiée sur `main` : `07f11767eb3e6db7cb05f0505b59363b0ff7f296` (12 fichiers modifiés/créés, sans fichier d'accueil ni carte).
+- Contre-audit scientifique : correction P2 de la valeur intermédiaire Re^0,8 à Re=30 000, soit **3 816,78** (au lieu de 3 811,8) dans le corrigé de Dittus-Boelter ; résultat final Nu≈191,19 inchangé.
+- Contre-audit graphique : pour ω=0, aucune flèche d'accélération de Coriolis ne doit être affichée ; ajout du cas limite et de son test de non-régression.
+- CI GitHub Actions du commit de production : quatre workflows en **FAIL/BLOCKED**, avant toute étape de test observable. Identifiants : `40637500194` (scientifique), `40637500260` (Node), `40637500239` (navigateur), `40637500245` (qualité scientifique). Les jobs renvoient `steps=[]`, et les journaux des jobs Node et scientifique renvoient HTTP 404 `BlobNotFound`.
+- Workflows scientifique et Node relancés (tentative 2) : **FAIL**, aucune étape exécutée ; cause exacte non identifiée. Ne pas confondre cette CI bloquée avec un échec prouvé des tests du code.
+- Les tests V8 adaptés et le DOM simulé ont réussi avant ces deux dernières corrections ; ils seront relancés sur le code final. Recette visuelle et lecteurs d'écran : **NOT RUN**.
