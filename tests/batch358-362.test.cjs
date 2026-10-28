@@ -22,3 +22,4 @@ const minus=D.render('threephase-compensated-line-current-01',5,M.calculate('thr
 assert.match(plus,/x1="295" y1="210" x2="295" y2="138"/);assert.match(minus,/x1="295" y1="210" x2="295" y2="228"/);
 assert.equal(C.levels.length,362);assert.equal(new Set(C.levels.map(x=>x.id)).size,362);
 });
+test('hose-pressure-drop-01 : réactivation et domaine laminaire',()=>{const h=fs.readFileSync('missions/hose-pressure-drop-01.html','utf8');assert.equal((h.match(/<li>/g)||[]).length,3);assert.match(h,/Re = 4ρQ/);const q=2e-3/60,mu=.060,d=.012,rho=850;const re=4*rho*q/(Math.PI*mu*d);assert.ok(re<2300);near(M.calculate('hose-pressure-drop-01',2),128*mu*5*q/(Math.PI*d**4)/1e5);});
