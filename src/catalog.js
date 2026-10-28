@@ -414,6 +414,11 @@ Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage
     Object.freeze({"id":"gear-tooth-tangential-force-01","world":"SI-05","title":"Engrenage — Effort tangentiel sur dent","url":"missions/gear-tooth-tangential-force-01.html","subskill":"Équilibre du couple et de l'effort tangentiel au diamètre primitif"}),
     Object.freeze({"id":"pendulum-small-angle-period-01","world":"SI-09","title":"Pendule d'essai — Période aux petits angles","url":"missions/pendulum-small-angle-period-01.html","subskill":"Période propre du pendule simple linéarisé"}),
     Object.freeze({"id":"radial-insulation-resistance-01","world":"SI-12","title":"Conduite isolée — Résistance thermique radiale","url":"missions/radial-insulation-resistance-01.html","subskill":"Conduction cylindrique stationnaire dans une couche annulaire"}),
+    Object.freeze({"id":"parallel-load-resultant-position-01","world":"SI-03","title":"Charges parallèles — Abscisse de la résultante","url":"missions/parallel-load-resultant-position-01.html","subskill":"Équilibre statique et moments"}),
+Object.freeze({"id":"floating-cylinder-draft-01","world":"SI-02","title":"Flotteur cylindrique — Tirant d'eau","url":"missions/floating-cylinder-draft-01.html","subskill":"Poussée hydrostatique à partir du volume immergé"}),
+Object.freeze({"id":"rlc-series-halfpower-bandwidth-01","world":"SI-08","title":"RLC série — Bande passante à mi-puissance","url":"missions/rlc-series-halfpower-bandwidth-01.html","subskill":"Facteur de qualité d'un résonateur RLC série à pertes résistives"}),
+Object.freeze({"id":"composite-wall-interface-temperature-01","world":"SI-12","title":"Paroi bicouche — Température d'interface","url":"missions/composite-wall-interface-temperature-01.html","subskill":"Résistances thermiques de deux couches en série"}),
+Object.freeze({"id":"quarter-bridge-strain-from-voltage-01","world":"SI-13","title":"Quart de pont — Déformation par tension","url":"missions/quarter-bridge-strain-from-voltage-01.html","subskill":"Sensibilité électrique d'un quart de pont"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
