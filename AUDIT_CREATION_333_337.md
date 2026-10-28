@@ -42,4 +42,11 @@ Chaque mission contient situation métier, objectif, prérequis, trois flash, hy
 | F | PASS V8 / BLOCKED CI | Modèles, contrôleur et sauvegarde simulée ; Node GitHub Actions non prouvé |
 | A | PASS structurel partiel / NOT RUN manuel | HTML sémantique et textes alternatifs ; lecteurs d'écran non testés |
 
-**Publication et SHA final** : renseigner à partir de `origin/main` après commit et contrôle CI. Les preuves PASS ne sont pas une réception globale.
+## Publication et vérification CI après production
+- Commit de production privé sur `main` : `9168577e858217ad4fe27bfc304843be6fb6a1c7` ; 13 fichiers modifiés ou ajoutés, sans changement des fichiers protégés de l'accueil.
+- `origin/main` relu après publication : `9168577e858217ad4fe27bfc304843be6fb6a1c7` ; 337 pages HTML de missions présentes.
+- CI sur ce commit : **4/4 workflows FAIL avant toute étape observable**, jobs sans étapes, donc **BLOCKED pour la réception Node**. Runs : Node `40643398137`, scientifique `40643398188`, qualité scientifique `40643398139`, navigateur accueil `40643398199`.
+- Deuxième tentative demandée pour Node et scientifique : **FAIL** (`run_attempt=2` pour les deux). Journaux des jobs Node et scientifique : **HTTP 404 BlobNotFound** ; diagnostic de l'infrastructure GitHub Actions non établi. Aucun succès CI revendiqué.
+- Tests navigateur, matériels et lecteurs d'écran : **NOT RUN**. Le projet reste en réception partielle.
+- La présente mise à jour documentaire génère un commit supplémentaire ; consulter `origin/main` pour son SHA final.
+
