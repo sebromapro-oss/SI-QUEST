@@ -1,0 +1,3 @@
+'use strict';const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
+test('frottement cinétique : PFS et trois flash visibles',()=>{const h=fs.readFileSync('missions/kinetic-friction-01.html','utf8');assert.equal((h.match(/<li>/g)||[]).length,3);assert.match(h,/N=mg/);assert.match(h,/opposée au glissement/);});
+test('roulement : couple équivalent distinct de la normale au contact',()=>{const h=fs.readFileSync('missions/rolling-torque-01.html','utf8');assert.match(h,/appliqué à l’axe/);assert.match(h,/distribution réelle des pressions/);assert.match(h,/N×m=N·m/);const c=JSON.parse(h.split('window.SI_MISSION=')[1].split('</script>')[0]);assert.equal(c.expected,70);assert.match(c.decision,/fictif/);});

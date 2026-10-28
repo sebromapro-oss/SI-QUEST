@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"hydraulic-pump-shaft-torque-01","world":"SI-06","title":"Pompe hydraulique — Couple théorique à l'arbre","url":"missions/hydraulic-pump-shaft-torque-01.html","subskill":"Puissance absorbée et rendement de pompe"}),
+Object.freeze({"id":"hollow-shaft-elastic-twist-01","world":"SI-04","title":"Arbre creux — Rotation élastique entre deux sections","url":"missions/hollow-shaft-elastic-twist-01.html","subskill":"Calcul de Jp pour une section annulaire"}),
+Object.freeze({"id":"hydraulic-filter-bypass-capture-01","world":"SI-15","title":"Filtration — Efficacité globale avec dérivation","url":"missions/hydraulic-filter-bypass-capture-01.html","subskill":"Efficacité de capture particulaire issue d'un rapport bêta de filtration"}),
+Object.freeze({"id":"threephase-compensated-line-current-01","world":"SI-08","title":"Tableau triphasé — Courant après compensation réactive","url":"missions/threephase-compensated-line-current-01.html","subskill":"Triangle des puissances en triphasé"}),
+Object.freeze({"id":"acoustic-energy-reflectance-01","world":"SI-07","title":"Acoustique — Fraction d'énergie réfléchie à une interface","url":"missions/acoustic-energy-reflectance-01.html","subskill":"Coefficient de réflexion de pression à incidence normale entre deux milieux"}),
 Object.freeze({"id":"helical-gear-opposed-thrust-01","world":"SI-05","title":"Denture hélicoïdale — Compensation de deux poussées axiales","url":"missions/helical-gear-opposed-thrust-01.html","subskill":"Poussée axiale d'une denture hélicoïdale"}),
 Object.freeze({"id":"hydraulic-laminar-critical-flow-01","world":"SI-06","title":"Conduite d'eau — Débit indicatif de transition laminaire","url":"missions/hydraulic-laminar-critical-flow-01.html","subskill":"Régime d'écoulement en conduite circulaire"}),
 Object.freeze({"id":"thermal-contact-heat-power-01","world":"SI-12","title":"Interface thermique — Puissance transférée par contact","url":"missions/thermal-contact-heat-power-01.html","subskill":"Résistance thermique d'interface en fonction de la conductance surfacique"}),
