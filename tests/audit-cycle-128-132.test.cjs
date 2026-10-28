@@ -59,7 +59,7 @@ test('Audit historique : vitesse du vérin, tolérance réellement appliquée',(
  const html=fs.readFileSync('missions/hydro-speed-01.html','utf8');assert.match(html,/Ta réponse \(m\/s\)/);assert.match(html,/Questions flash/);
 });
 test('Audit historique : unités réelles des 36 missions 40–75',()=>{
- const selected=catalog.levels.slice(39,75);
+ const ids=JSON.parse(fs.readFileSync('tests/historical-40-75-exact.test.cjs','utf8').split('const ids=')[1].split(';')[0]);const selected=ids.map(id=>catalog.byId(id));
  assert.equal(selected.length,36);
  for(const c of selected){const h=fs.readFileSync(c.url,'utf8'),m=h.match(/window\.SI_MISSION=(\{.*?\})<\/script>/);assert.ok(m,c.id);const cfg=JSON.parse(m[1]);assert.equal(science.inputUnits[c.id],cfg.inputUnit,c.id);assert.equal(science.criteria[c.id].unit,cfg.unit,c.id);}
 });

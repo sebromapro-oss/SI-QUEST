@@ -925,7 +925,7 @@ case 'spring-stiffness-01':{
   for(let k=0;k<8;k++)pts.push([160+k*34+17,k%2?152:98],[160+(k+1)*34,125]);
   pts.push([450,125],[485,125]);
   s+='<path d="'+pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ')+'" fill="none" stroke="#8ddcff" stroke-width="4" data-ressort-continu="true"/>';
-  const forceArrow=20+40*(x-100)/400;s+=box(485,99,37,52,'#315c76')+arrow(522,125,522+forceArrow,125,'#ffca7d',4)+'<g data-force-arrow-px="'+forceArrow.toFixed(3)+'" data-force-n="'+x.toFixed(3)+'"></g>';
+  const forceArrow=60*x/500;s+=box(485,99,37,52,'#315c76')+(x>0?arrow(522,125,522+forceArrow,125,'#ffca7d',4):'')+'<g data-force-arrow-px="'+forceArrow.toFixed(3)+'" data-force-n="'+x.toFixed(3)+'"></g>';
   s+=text(32,40,'Ressort axial : allongement fixé à 25 mm');
   s+=valueLabel(id,x,result);break;
 }
@@ -1086,14 +1086,14 @@ case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,1
   s+='</g>'+text(35,39,'T = '+N(T)+' ms ; fₑ = '+N(result)+' Hz')+text(110,215,'Signal témoin 20 Hz ; fenêtre 60 ms');break;
  }
  case 'efficiency-chain-01':{s+=box(100,95,145,65)+box(350,95,145,65)+arrow(245,127,345,127)+text(122,132,'η₁ = 0,92')+text(372,132,'η₂ = '+N(x))+text(55,42,'Deux étages en série')+text(55,223,'η global = '+N(result)+' (sans unité)');break;}
- case 'rolling-load-01':{s+=line(60,190,540,190)+circle(275,130,60)+circle(275,130,7,'#ffd17d')+arrow(275,130,275,177,'#ffca7d')+arrow(275,190,275,132,'#7ce8ae')+(x>0?line(275,130,Number((275-110*x/.05).toFixed(3)),130,'#ff9999',5,'marker-end="url(#pointe)" data-roulement-application="axe" data-roulement-longueur-px="'+Number((110*x/.05).toFixed(3))+'"'):'')+text(55,42,'N = 8 000 N ; cᵣ = '+N(x))+text(55,224,'Fᵣ = '+N(result)+' N ; résistance équivalente à l’axe');break;}
+ case 'rolling-load-01':{s+=line(60,190,540,190)+circle(275,130,60)+circle(275,130,7,'#ffd17d')+arrow(275,130,275,177,'#ffca7d')+arrow(275,190,275,132,'#7ce8ae')+(x>0?line(275,130,Number((275-Math.min(180,110*x/.05)).toFixed(3)),130,'#ff9999',5,'marker-end="url(#pointe)" data-roulement-application="axe" data-roulement-longueur-px="'+Number(Math.min(180,110*x/.05).toFixed(3))+'"'):'')+(x>.0818?text(55,70,'Échelle de flèche plafonnée à 180 px'):'')+text(55,42,'N = 8 000 N ; cᵣ = '+N(x))+text(55,224,'Fᵣ = '+N(result)+' N ; résistance équivalente à l’axe');break;}
  case 'heat-transfer-01':{s+=box(245,65,110,140,'#9c7157')+text(55,42,'|ΔT| = '+N(x)+' K')+text(45,224,'Sens du flux non orienté : faces chaude/froide inconnues');break;}
  case 'measurement-relative-01':{const xp=300+(x-80)*75;s+=line(85,155,525,155,'#d5e8f4',5)+box(150,120,310,32)+line(300,90,300,195,'#7ce8ae',3)+line(xp,85,xp,200,'#ffca7d',4)+text(55,42,'x₀ = 80 mm ; x = '+N(x)+' mm')+text(55,223,'Écart relatif = '+N(result)+' %');break;}
  case 'frequency-01':{
   const t=0.07, a=2*Math.PI*x/60*t;
   s+=circle(260,119,68)+circle(260,119,9,'#ffd17d')+line(260,119,260+62*Math.cos(a),119-62*Math.sin(a),'#ffd17d',7);
   s+=box(354,92,60,45,'#446d87')+line(414,115,515,115,'#7ce8ae',4);
-  s+=text(55,45,'Instantané t = 0,07 s')+text(55,211,'f = '+N(result)+' Hz ; n = '+N(x)+' tr/min')+'<g data-instant-s="0.07" data-angle-rad="'+a.toFixed(6)+'"></g>';
+  s+=text(55,45,'t = 0,07 s')+text(55,211,'f = '+N(result)+' Hz ; n = '+N(x)+' tr/min')+'<g data-instant-s="0.07" data-angle-rad="'+a.toFixed(6)+'"></g>';
   break;
  }
  }

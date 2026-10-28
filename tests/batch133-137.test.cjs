@@ -23,6 +23,6 @@ for(const c of cases)test(c.id+' : modèle, bornes, SVG, pédagogie',()=>{
 test('invariants et critères fictifs',()=>{const f=(id,x)=>m.calculate(id,x);assert.ok(f(cases[0].id,110)>f(cases[0].id,170));assert.ok(f(cases[1].id,.95)>f(cases[1].id,.8));near(f(cases[2].id,1200),8);near(f(cases[3].id,80),4*f(cases[3].id,40));assert.ok(f(cases[4].id,180)<f(cases[4].id,0));assert.equal(m.assess(cases[4].id,180).acceptable,false)});
 test('audit 40–75 : tige rigide, résistance thermique',()=>{
  for(const x of [50,100,200,300,400]){const s=d.render('pneumatic-consumption-01',x,m.calculate('pneumatic-consumption-01',x));assert.match(s,/data-rod-length-px="255"/);const end=Number(s.match(/data-rod-end-x="([0-9.]+)"/)[1]),p=Number(s.match(/data-piston-x="([0-9.]+)"/g).at(-1).match(/"([0-9.]+)"/)[1]);near(end-p,267);assert.ok(end>405&&end<600)}
- for(const x of [.2,.8,2]){const s=d.render('thermal-resistance-01',x,m.calculate('thermal-resistance-01',x));assert.match(s,/data-wall-thickness-m="0.12"/);assert.match(s,/Chaud/);assert.match(s,/Froid/);near(m.calculate('thermal-resistance-01',x),.12/(2*x))}
+ for(const x of [.2,.8,2]){const s=d.render('thermal-resistance-01',x,m.calculate('thermal-resistance-01',x));assert.match(s,/data-wall-thickness-m="0.12"/);assert.match(s,/T₁ \?/);assert.match(s,/T₂ \?/);assert.match(s,/Sens indéterminé/);near(m.calculate('thermal-resistance-01',x),.12/(2*x))}
  for(const id of ['pneumatic-consumption-01','thermal-resistance-01'])assert.match(fs.readFileSync('missions/'+id+'.html','utf8'),/Questions flash/);
 });

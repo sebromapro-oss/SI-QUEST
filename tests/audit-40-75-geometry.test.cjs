@@ -18,7 +18,7 @@ test('Audit 40–75 : ressort continu jusqu’à la masse et effort axial',()=>{
   const svg=diagrams.render('spring-stiffness-01',F,physics.calculate('spring-stiffness-01',F));
   assert.match(svg,/data-ressort-continu="true"/);
   assert.match(svg,/L450 125 L485 125/);
-  assert.match(svg,/x1="522" y1="125" x2="567" y2="125"/);
+  if(F===0)assert.doesNotMatch(svg,/x1="522" y1="125" x2=/);else {const len=Number(svg.match(/data-force-arrow-px="([^"]+)"/)[1]);assert.ok(Math.abs(len-60*F/500)<1e-6);}
   assert.equal(physics.calculate('spring-stiffness-01',F),F/.025);
  }
 });
