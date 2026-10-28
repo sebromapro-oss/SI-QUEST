@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"viscous-damper-cycle-energy-01","world":"SI-02","title":"Amortisseur visqueux — Énergie dissipée par cycle","url":"missions/viscous-damper-cycle-energy-01.html","subskill":"Coefficient d'amortissement critique d'un oscillateur masse-ressort linéaire"}),
+Object.freeze({"id":"series-availability-two-machines-01","world":"SI-15","title":"Ligne de production — Disponibilité de deux postes en série","url":"missions/series-availability-two-machines-01.html","subskill":"Disponibilité intrinsèque à partir des moyennes MTBF et MTTR"}),
+Object.freeze({"id":"threephase-motor-line-current-01","world":"SI-08","title":"Moteur triphasé — Courant absorbé","url":"missions/threephase-motor-line-current-01.html","subskill":"Triangle des puissances en triphasé"}),
+Object.freeze({"id":"beam-couple-support-reaction-01","world":"SI-03","title":"Traverse bi-appuyée — Réaction sous couple appliqué","url":"missions/beam-couple-support-reaction-01.html","subskill":"Équilibre statique et moments"}),
+Object.freeze({"id":"wall-convection-conduction-heatflow-01","world":"SI-12","title":"Paroi — Flux avec convection des deux côtés","url":"missions/wall-convection-conduction-heatflow-01.html","subskill":"Résistances thermiques de deux couches en série"}),
+
 Object.freeze({"id":"rc-charge-stored-energy-01","world":"SI-09","title":"Circuit RC — Énergie stockée pendant la charge","url":"missions/rc-charge-stored-energy-01.html","subskill":"Énergie électrostatique d'un condensateur idéal"}),
 Object.freeze({"id":"cylinder-required-flow-01","world":"SI-06","title":"Vérin hydraulique — Débit pour une course imposée","url":"missions/cylinder-required-flow-01.html","subskill":"Temps de parcours d'un vérin à débit imposé"}),
 Object.freeze({"id":"sling-allowable-angle-01","world":"SI-03","title":"Élingage symétrique — Angle maximal admissible","url":"missions/sling-allowable-angle-01.html","subskill":"Équilibre d'une charge suspendue par deux brins inclinés"}),
