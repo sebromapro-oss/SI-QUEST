@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"i-section-inertia-01","world":"SI-04","title":"Profilé en I — Moment quadratique","url":"missions/i-section-inertia-01.html","subskill":"Moment quadratique d'une section en I à deux semelles identiques"}),
+Object.freeze({"id":"metrology-guardband-margin-01","world":"SI-13","title":"Métrologie — Marge de conformité","url":"missions/metrology-guardband-margin-01.html","subskill":"Marge dimensionnelle avec bande de garde d'incertitude"}),
+Object.freeze({"id":"open-channel-froude-number-01","world":"SI-06","title":"Canal — Nombre de Froude","url":"missions/open-channel-froude-number-01.html","subskill":"Classification d'un écoulement à surface libre par nombre de Froude"}),
+Object.freeze({"id":"belt-slip-driven-speed-01","world":"SI-05","title":"Courroie — Vitesse avec glissement","url":"missions/belt-slip-driven-speed-01.html","subskill":"Vitesse d'une poulie menée avec glissement global de courroie"}),
+Object.freeze({"id":"semi-infinite-contact-temperature-01","world":"SI-12","title":"Contact thermique — Température initiale","url":"missions/semi-infinite-contact-temperature-01.html","subskill":"Température d'interface initiale de deux solides semi-infinis par effusivité"}),
 Object.freeze({"id":"pump-npsh-available-01","world":"SI-06","title":"Pompe — NPSH disponible","url":"missions/pump-npsh-available-01.html","subskill":"Hauteur nette positive disponible à l'aspiration"}),
 Object.freeze({"id":"circular-shaft-bending-stress-01","world":"SI-04","title":"Arbre plein — Flexion maximale","url":"missions/circular-shaft-bending-stress-01.html","subskill":"Contrainte normale maximale de flexion dans une section circulaire pleine"}),
 Object.freeze({"id":"mean-type-a-uncertainty-01","world":"SI-13","title":"Métrologie — Incertitude de la moyenne","url":"missions/mean-type-a-uncertainty-01.html","subskill":"Incertitude-type A de la moyenne d'observations indépendantes"}),
