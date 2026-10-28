@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"three-phase-cable-max-length-01","world":"SI-08","title":"Câble triphasé — Longueur limite de chute de tension","url":"missions/three-phase-cable-max-length-01.html","subskill":"Estimation de chute de tension composée en triphasé équilibré sans réactance"}),
+Object.freeze({"id":"regenerative-cylinder-net-force-01","world":"SI-06","title":"Vérin différentiel — Force en circuit régénératif","url":"missions/regenerative-cylinder-net-force-01.html","subskill":"Vitesse d'extension d'un vérin différentiel en circuit régénératif idéal"}),
+Object.freeze({"id":"slider-crank-retraction-speed-01","world":"SI-01","title":"Bielle-manivelle — Vitesse de rentrée du coulisseau","url":"missions/slider-crank-retraction-speed-01.html","subskill":"Fermeture géométrique exacte d'un mécanisme bielle-manivelle sans excentration"}),
+Object.freeze({"id":"adc-minimum-bits-01","world":"SI-09","title":"Acquisition — Nombre minimal de bits d'un CAN","url":"missions/adc-minimum-bits-01.html","subskill":"Résolution en tension d’un convertisseur idéal"}),
+Object.freeze({"id":"forced-vibration-amplitude-01","world":"SI-09","title":"Vibration forcée — Amplitude près de la résonance","url":"missions/forced-vibration-amplitude-01.html","subskill":"Coefficient d'amortissement critique d'un oscillateur masse-ressort linéaire"}),
 Object.freeze({"id":"euler-pinned-column-load-01","world":"SI-04","title":"Montant articulé — Charge critique de flambement","url":"missions/euler-pinned-column-load-01.html","subskill":"Élancement géométrique d'une tige circulaire pleine articulée"}),
 Object.freeze({"id":"sudden-expansion-loss-01","world":"SI-06","title":"Élargissement brusque — Perte de pression","url":"missions/sudden-expansion-loss-01.html","subskill":"Perte locale de pression à travers un raccord"}),
 Object.freeze({"id":"regen-braking-soc-gain-01","world":"SI-10","title":"Freinage récupératif — Gain d'état de charge","url":"missions/regen-braking-soc-gain-01.html","subskill":"Bilan d'énergie cinétique récupérée avec rendement"}),
