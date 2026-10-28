@@ -14,3 +14,9 @@ Node natif / GitHub Actions : non exécuté localement ; à vérifier sur SHA fi
 ## S/G/P/F/A
 S PASS ciblé ; G PASS structurel, visuel NOT RUN ; P PASS structurel, DOM NOT RUN ; F PASS moteur V8, CI à vérifier ; A structure partielle, manuel NOT RUN.
 Réception complète NON VALIDÉE. Accueil, carte et assets protégés.
+
+## Contre-audit complémentaire du cycle
+- 36 missions historiques 40–75 effectivement contrôlées en JavaScript V8, trois états par mission : 108/108 calculs finis et 108/108 SVG structurels conformes aux contrôles ; 72/72 entrées NaN et Infinity rejetées. Ce n'est pas une validation scientifique indépendante complète.
+- P2 pédagogique corrigé : `hose-pressure-drop-01`, ajout des objectifs, prérequis, trois questions flash et du contrôle de domaine Re≈50,1 au nominal, Re≈150,3 au maximum.
+- Correction du corrigé scientifique de `straight-fin-heat-rate-01` : Φ≈6,981 W, inférieur à la cible pédagogique fictive de 8 W ; décision de non-conformité explicite.
+- Exécution ciblée V8 après publication du premier lot : 64/64 assertions PASS (modèles, HTML, SVG, invalides, catalogue, sens du Q capacitif). Tests Node natifs et navigateurs : non démontrés.
