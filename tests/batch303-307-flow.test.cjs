@@ -8,7 +8,7 @@ function mockPage(c){
   append(...xs){this.children.push(...xs)},replaceChildren(...xs){this.children=xs},
   insertBefore(){},insertAdjacentElement(){},addEventListener(name,fn){this.events[name]=fn},
   querySelectorAll(){return []},querySelector(){return el()}}}
- const ids=["hertz-line-contact-pressure-01","sabine-room-reverberation-01","brinell-spherical-contact-pressure-01","prandtl-liquid-number-01","can-classic-frame-busload-01"];
+ const ids=["main","curve","point","graphic","trialLabel","trialValue","trial","solution","log","calc","answer","feedback","hint","hintText","solutionText","reset"];
  const nodes=Object.fromEntries(ids.map(id=>[id,el(id)]));
  const graph=el('graph'),model=el('model');graph.querySelectorAll=()=>[el('text'),el('text')];
  nodes.calc.previousElementSibling=el('p');nodes.curve.closest=sel=>sel==='svg'?graph:model;
@@ -20,7 +20,7 @@ function mockPage(c){
  new Function('window','document','localStorage','SIInvestigations','SIInvestigationDiagrams',ui)(window,document,localStorage,physics,diagrams);
  return {nodes,graph,model,store};
 }
-const ids=["damped-natural-frequency-01","rl-series-impedance-phase-01","maintenance-mtbf-operating-hours-01","sensor-midscale-linearity-error-01","isotropic-shear-modulus-01"];
+const ids=["hertz-line-contact-pressure-01","sabine-room-reverberation-01","brinell-spherical-contact-pressure-01","prandtl-liquid-number-01","can-classic-frame-busload-01"];
 for(const id of ids)test(id+' : parcours clavier simulé, saisie invalide, trois essais, trois aides, corrigé et sauvegarde',()=>{
  const html=fs.readFileSync('missions/'+id+'.html','utf8');const cfg=JSON.parse(html.split('window.SI_MISSION=')[1].split('</script>')[0]);
  const a=mockPage(cfg),n=a.nodes;assert.equal(a.graph.style.display,'none');assert.equal(n.trial.disabled,true);assert.equal(n.solution.disabled,true);

@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"pitot-incompressible-speed-01","world":"SI-06","title":"Sonde de Pitot — Vitesse de l'eau","url":"missions/pitot-incompressible-speed-01.html","subskill":"Vitesse d'un écoulement incompressible par pression totale et statique"}),
+Object.freeze({"id":"dc-parallel-current-divider-01","world":"SI-08","title":"Circuit continu — Partage du courant","url":"missions/dc-parallel-current-divider-01.html","subskill":"Courant d'une branche d'un diviseur de courant résistif"}),
+Object.freeze({"id":"exchanger-ntu-equal-capacity-01","world":"SI-12","title":"Échangeur — Efficacité à capacités égales","url":"missions/exchanger-ntu-equal-capacity-01.html","subskill":"Efficacité NTU d'un échangeur à contre-courant pour Cᵣ=1"}),
+Object.freeze({"id":"stepper-microstep-angle-01","world":"SI-17","title":"Moteur pas à pas — Résolution commandée","url":"missions/stepper-microstep-angle-01.html","subskill":"Angle de commande théorique par micropas d'un moteur pas à pas"}),
+Object.freeze({"id":"fatigue-notch-factor-01","world":"SI-14","title":"Fatigue — Sensibilité à l'entaille","url":"missions/fatigue-notch-factor-01.html","subskill":"Facteur de concentration effectif en fatigue Kf à partir de Kt et q"}),
 Object.freeze({"id":"hertz-line-contact-pressure-01","world":"SI-04","title":"Contact de Hertz — Pression maximale","url":"missions/hertz-line-contact-pressure-01.html","subskill":"Pression de Hertz d'un contact linéique cylindre-plan"}),
 Object.freeze({"id":"sabine-room-reverberation-01","world":"SI-13","title":"Acoustique — Réverbération de Sabine","url":"missions/sabine-room-reverberation-01.html","subskill":"Estimation du temps de réverbération par aire d'absorption équivalente"}),
 Object.freeze({"id":"brinell-spherical-contact-pressure-01","world":"SI-14","title":"Empreinte sphérique — Pression moyenne","url":"missions/brinell-spherical-contact-pressure-01.html","subskill":"Aire de calotte sphérique et pression moyenne d'une empreinte"}),
