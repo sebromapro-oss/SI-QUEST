@@ -35,3 +35,6 @@ Les cinq questions sont distinctes des modèles nominaux des missions précéden
 | A | Contrôles structurels partiels ; manuel NOT RUN | Libellés et SVG accessibles dans le code, sans preuve matérielle |
 
 **Réception complète NON VALIDÉE.** La création et les tests ciblés ne valent pas validation finale.
+
+## Correctif de contre-audit avant clôture
+Un double chargement de `batch348-352.js` a été détecté sur les cinq HTML à la relecture des dépendances. **P1 fonctionnel** : script chargé deux fois ; les cinq pages ont été corrigées et une assertion de non-régression vérifie l'unicité du chargement. Le moteur mutualisé et la nouvelle page d'accueil n'ont pas été modifiés. Les quatre workflows du commit initial de production ont échoué avant toute étape observable (jobs `steps=null`), donc les tests Node natifs restent **BLOCKED**. Les tests V8 ciblés pré-commit sont les seules preuves de calcul exécutées à ce stade.
