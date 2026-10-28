@@ -925,7 +925,7 @@ case 'spring-stiffness-01':{
   for(let k=0;k<8;k++)pts.push([160+k*34+17,k%2?152:98],[160+(k+1)*34,125]);
   pts.push([450,125],[485,125]);
   s+='<path d="'+pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ')+'" fill="none" stroke="#8ddcff" stroke-width="4" data-ressort-continu="true"/>';
-  s+=box(485,99,37,52,'#315c76')+arrow(522,125,567,125,'#ffca7d',4);
+  const forceArrow=20+40*(x-100)/400;s+=box(485,99,37,52,'#315c76')+arrow(522,125,522+forceArrow,125,'#ffca7d',4)+'<g data-force-arrow-px="'+forceArrow.toFixed(3)+'" data-force-n="'+x.toFixed(3)+'"></g>';
   s+=text(32,40,'Ressort axial : allongement fixé à 25 mm');
   s+=valueLabel(id,x,result);break;
 }
