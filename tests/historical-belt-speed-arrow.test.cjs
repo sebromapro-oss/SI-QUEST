@@ -1,0 +1,2 @@
+'use strict';const test=require('node:test'),assert=require('node:assert/strict'),D=require('../src/investigation-diagrams.js'),M=require('../src/investigations.js');
+test('courroie historique 40–75 : flèche proportionnelle à la vitesse',()=>{const l=[100,900,1500].map(n=>{const s=D.render('belt-speed-01',n,M.calculate('belt-speed-01',n));const m=s.match(/data-belt-speed-arrow-px="([0-9.]+)"/);assert.ok(m);return Number(m[1]);});assert.ok(l[0]>0&&l[0]<l[1]&&l[1]<l[2]);assert.ok(Math.abs(l[1]/l[2]-.6)<1e-5);});
