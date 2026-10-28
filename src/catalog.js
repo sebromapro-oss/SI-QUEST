@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"ice-fusion-duration-01","world":"SI-12","title":"Fusion de glace — Durée idéale de chauffage","url":"missions/ice-fusion-duration-01.html","subskill":"Bilan d'énergie d'une fusion isotherme par chaleur latente massique"}),
+Object.freeze({"id":"dc-motor-start-resistor-01","world":"SI-08","title":"Moteur à courant continu — Résistance de démarrage minimale","url":"missions/dc-motor-start-resistor-01.html","subskill":"Force contre-électromotrice d'un moteur CC en régime permanent"}),
+Object.freeze({"id":"shaft-min-torsion-diameter-01","world":"SI-04","title":"Arbre plein — Diamètre minimal en torsion","url":"missions/shaft-min-torsion-diameter-01.html","subskill":"Contrainte tangentielle maximale dans un arbre circulaire plein"}),
+Object.freeze({"id":"pump-apparent-leakage-flow-01","world":"SI-06","title":"Pompe volumétrique — Débit de fuite apparent","url":"missions/pump-apparent-leakage-flow-01.html","subskill":"Identification de cylindrée géométrique à partir du débit et du rendement volumétrique"}),
+Object.freeze({"id":"counterweight-limit-load-01","world":"SI-03","title":"Contrepoids — Effort limite avant basculement","url":"missions/counterweight-limit-load-01.html","subskill":"Équilibre statique et moments"}),
 Object.freeze({"id":"belt-capstan-min-tight-tension-01","world":"SI-11","title":"Courroie — Tension à la limite d’adhérence","url":"missions/belt-capstan-min-tight-tension-01.html","subskill":"Différence des tensions de courroie par puissance et vitesse"}),
 Object.freeze({"id":"heat-exchanger-hot-outlet-01","world":"SI-12","title":"Échangeur — Température de sortie chaude","url":"missions/heat-exchanger-hot-outlet-01.html","subskill":"Efficacité d'un échangeur et capacité thermique minimale"}),
 Object.freeze({"id":"adc-quantization-max-error-01","world":"SI-09","title":"CAN 12 bits — Erreur maximale de quantification","url":"missions/adc-quantization-max-error-01.html","subskill":"Résolution en tension d’un convertisseur idéal"}),
