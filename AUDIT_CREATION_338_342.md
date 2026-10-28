@@ -52,3 +52,11 @@ Chaque mission : contexte métier, objectif, prérequis, trois flash, hypothèse
 | A | NOT RUN manuel ; structure HTML contrôlée partiellement |
 
 La branche `main` reste privée ; les fichiers d'accueil/carte, les assets, la branche d'archive et GitHub Pages ne sont pas modifiés.
+
+## Complément de réception après correctif graphique (commit `e23f3bef740d3d023c7d551850c765256e949746`)
+- Tests CJS **réellement exécutés** avec adaptateur JavaScript V8 sur les fichiers `tests/batch338-342.test.cjs` et `tests/batch338-342-flow.test.cjs` : **11/11 PASS, 244 assertions**. Code scientifique, SVG et contrôleur réels ; accès aux fichiers simulé. Ce n'est pas une exécution Node native.
+- Contre-audit final du modèle : **15/15 états scientifiques PASS**, **15/15 SVG PASS**, **20/20 paramètres invalides rejetés**, **5/5 SVG désynchronisés rejetés** ; rapport des longueurs des flèches acoustiques égal à r après correction.
+- Contrôle des dépendances : **5/5 pages**, 24 scripts locaux par page (23 moteurs/lot + contrôleur), aucun chemin absent, liens retour préservés. **342/342 fichiers HTML** et **342/342 identifiants uniques** ; **17 univers** ; **245 sous-savoirs renseignés et distincts**.
+- `main` vérifié au commit `e23f3bef740d3d023c7d551850c765256e949746` avant cette mise à jour documentaire ; comparaison avec `d2da4266028e519b9abcb03bd690d6c5977228b9` : **12 fichiers créés ou modifiés**, **aucun fichier d'accueil protégé modifié**.
+- CI GitHub Actions sur `e23f3bef740d3d023c7d551850c765256e949746` : runs `40649629576` (Node), `40649629350` (scientifique), `40649629431` (qualité scientifique), tous **FAIL à la première tentative**, puis **FAIL à la deuxième tentative** malgré relance. Jobs sans étapes exploitables. Le journal Node est indisponible (HTTP 404 `BlobNotFound`). Statut **BLOCKED**, cause technique non déterminée.
+- **Aucun** essai visuel navigateur réel, Android/iPhone, NVDA, TalkBack ou VoiceOver n'a été exécuté : **NOT RUN**. Réception finale des cinq missions : **NON VALIDÉE**.
