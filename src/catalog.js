@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"helical-gear-opposed-thrust-01","world":"SI-05","title":"Denture hélicoïdale — Compensation de deux poussées axiales","url":"missions/helical-gear-opposed-thrust-01.html","subskill":"Poussée axiale d'une denture hélicoïdale"}),
+Object.freeze({"id":"hydraulic-laminar-critical-flow-01","world":"SI-06","title":"Conduite d'eau — Débit indicatif de transition laminaire","url":"missions/hydraulic-laminar-critical-flow-01.html","subskill":"Régime d'écoulement en conduite circulaire"}),
+Object.freeze({"id":"thermal-contact-heat-power-01","world":"SI-12","title":"Interface thermique — Puissance transférée par contact","url":"missions/thermal-contact-heat-power-01.html","subskill":"Résistance thermique d'interface en fonction de la conductance surfacique"}),
+Object.freeze({"id":"process-capability-cp-01","world":"SI-13","title":"Métrologie — Indice Cp d'un procédé centré ou décentré","url":"missions/process-capability-cp-01.html","subskill":"Capabilité par position moyenne et dispersion"}),
+Object.freeze({"id":"second-order-damping-from-overshoot-01","world":"SI-09","title":"Automatique — Identifier l'amortissement à partir du dépassement","url":"missions/second-order-damping-from-overshoot-01.html","subskill":"Dépassement maximal d'une réponse indicielle sous-amortie du second ordre"}),
+
 Object.freeze({"id":"hydraulic-throttle-temperature-rise-01","world":"SI-06","title":"Étranglement hydraulique — Échauffement idéal de l'huile","url":"missions/hydraulic-throttle-temperature-rise-01.html","subskill":"Élévation thermique adiabatique liée à une chute de pression d'un liquide incompressible"}),
 Object.freeze({"id":"cantilever-uniform-load-tip-deflection-01","world":"SI-04","title":"Console — Flèche sous charge uniformément répartie","url":"missions/cantilever-uniform-load-tip-deflection-01.html","subskill":"Flèche en bout d'une console d'Euler-Bernoulli sous charge répartie constante"}),
 Object.freeze({"id":"faraday-flux-rate-emf-01","world":"SI-08","title":"Induction — FEM par variation de flux","url":"missions/faraday-flux-rate-emf-01.html","subskill":"Force électromotrice induite par une variation uniforme du flux lié"}),
