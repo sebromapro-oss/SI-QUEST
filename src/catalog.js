@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"hydraulic-local-loss-coefficient-01","world":"SI-06","title":"Raccord hydraulique — Coefficient de perte locale","url":"missions/hydraulic-local-loss-coefficient-01.html","subskill":"Perte locale de pression à travers un raccord"}),
+Object.freeze({"id":"straight-fin-heat-rate-01","world":"SI-12","title":"Ailette de refroidissement — Flux dissipé","url":"missions/straight-fin-heat-rate-01.html","subskill":"Rendement thermique d'une ailette droite à extrémité isolée"}),
+Object.freeze({"id":"metrology-welch-effective-dof-01","world":"SI-13","title":"Métrologie — Degrés de liberté effectifs","url":"missions/metrology-welch-effective-dof-01.html","subskill":"Composition quadratique d'incertitudes-types indépendantes"}),
+Object.freeze({"id":"encoder-measured-travel-01","world":"SI-17","title":"Codeur incrémental — Distance par comptage","url":"missions/encoder-measured-travel-01.html","subskill":"Pas linéaire d'un codeur incrémental par roue de mesure"}),
+Object.freeze({"id":"hydraulic-pump-loss-power-01","world":"SI-10","title":"Pompe hydraulique — Puissance dissipée par pertes","url":"missions/hydraulic-pump-loss-power-01.html","subskill":"Puissance absorbée et rendement de pompe"}),
 Object.freeze({"id":"hydraulic-pump-shaft-torque-01","world":"SI-06","title":"Pompe hydraulique — Couple théorique à l'arbre","url":"missions/hydraulic-pump-shaft-torque-01.html","subskill":"Puissance absorbée et rendement de pompe"}),
 Object.freeze({"id":"hollow-shaft-elastic-twist-01","world":"SI-04","title":"Arbre creux — Rotation élastique entre deux sections","url":"missions/hollow-shaft-elastic-twist-01.html","subskill":"Calcul de Jp pour une section annulaire"}),
 Object.freeze({"id":"hydraulic-filter-bypass-capture-01","world":"SI-15","title":"Filtration — Efficacité globale avec dérivation","url":"missions/hydraulic-filter-bypass-capture-01.html","subskill":"Efficacité de capture particulaire issue d'un rapport bêta de filtration"}),
