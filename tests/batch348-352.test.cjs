@@ -5,7 +5,7 @@ const refs={"helical-gear-opposed-thrust-01":[[40,593.9658723168434],[80,459.991
 const near=(a,b)=>assert.ok(Math.abs(a-b)<=1e-9*Math.max(1,Math.abs(b)),a+' != '+b);
 for(const a of meta)test(a.id+' : références indépendantes, bornes, domaine et SVG',()=>{
  const h=fs.readFileSync('missions/'+a.id+'.html','utf8'),c=JSON.parse(h.split('window.SI_MISSION=')[1].split('</script>')[0]);
- assert.equal((h.match(/batch348-352\\.js/g)||[]).length,1,'chargement unique du moteur');assert.equal(c.id,a.id);assert.equal((h.match(/<li>/g)||[]).length,3);assert.equal(C.byId(a.id).subskill,a.subskill);
+ assert.equal((h.match(/batch348-352\.js/g)||[]).length,1,'chargement unique du moteur');assert.equal(c.id,a.id);assert.equal((h.match(/<li>/g)||[]).length,3);assert.equal(C.byId(a.id).subskill,a.subskill);
  assert.equal(M.criteria[a.id].unit,a.u);assert.equal(M.inputUnits[a.id],a.iu);
  for(const [x,ref] of refs[a.id]){near(M.calculate(a.id,x),ref);const s=D.render(a.id,x,ref);assert.match(s,/<title/);assert.match(s,/<desc/);assert.match(s,/data-geom-px/);assert.doesNotMatch(s,/NaN|Infinity|undefined/);}
  for(const x of [a.min-1,a.max+1,NaN,Infinity])assert.throws(()=>M.calculate(a.id,x),RangeError);
