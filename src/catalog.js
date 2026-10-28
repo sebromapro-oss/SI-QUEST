@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"belt-capstan-min-tight-tension-01","world":"SI-11","title":"Courroie — Tension à la limite d’adhérence","url":"missions/belt-capstan-min-tight-tension-01.html","subskill":"Différence des tensions de courroie par puissance et vitesse"}),
+Object.freeze({"id":"heat-exchanger-hot-outlet-01","world":"SI-12","title":"Échangeur — Température de sortie chaude","url":"missions/heat-exchanger-hot-outlet-01.html","subskill":"Efficacité d'un échangeur et capacité thermique minimale"}),
+Object.freeze({"id":"adc-quantization-max-error-01","world":"SI-09","title":"CAN 12 bits — Erreur maximale de quantification","url":"missions/adc-quantization-max-error-01.html","subskill":"Résolution en tension d’un convertisseur idéal"}),
+Object.freeze({"id":"pneumatic-receiver-pressure-rise-01","world":"SI-07","title":"Cuve pneumatique — Hausse de pression isotherme","url":"missions/pneumatic-receiver-pressure-rise-01.html","subskill":"Bilan isotherme de masse d'air avec débit d'air libre constant"}),
+Object.freeze({"id":"thevenin-source-efficiency-01","world":"SI-08","title":"Source de Thévenin — Rendement électrique","url":"missions/thevenin-source-efficiency-01.html","subskill":"Adaptation résistive d'une charge à une source de Thévenin"}),
+
 Object.freeze({"id":"pump-affinity-shaft-power-01","world":"SI-10","title":"Pompe centrifuge — Puissance à vitesse variable","url":"missions/pump-affinity-shaft-power-01.html","subskill":"Loi cubique de puissance en similitude hydraulique"}),
 Object.freeze({"id":"sampling-nyquist-rate-01","world":"SI-09","title":"Acquisition vibratoire — Fréquence minimale d'échantillonnage","url":"missions/sampling-nyquist-rate-01.html","subskill":"Fréquence apparente d'une sinusoïde après échantillonnage uniforme"}),
 Object.freeze({"id":"radiation-two-gray-plates-01","world":"SI-12","title":"Rayonnement — Deux plaques grises parallèles","url":"missions/radiation-two-gray-plates-01.html","subskill":"Bilan radiatif gris diffus avec milieu isotherme"}),
