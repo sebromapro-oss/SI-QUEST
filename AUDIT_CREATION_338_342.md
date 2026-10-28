@@ -32,3 +32,23 @@ Chaque mission : contexte métier, objectif, prérequis, trois flash, hypothèse
 | A | NOT RUN manuel | Sémantique HTML présente ; NVDA, TalkBack et VoiceOver non testés |
 
 **Important :** ce registre documente les fichiers créés ; les résultats d'exécution et le SHA final doivent être confirmés après publication. Aucune réception complète n'est revendiquée.
+
+## Contre-audit réellement exécuté et correction après premier commit
+- **P1 graphique corrigée avant clôture :** le schéma de la mission 341 dessinait la flèche incidente sur 160 px, mais la flèche réfléchie sur 120×r px. Le rapport des longueurs ne représentait donc pas le coefficient r. Correction à 160×r px, même échelle, et assertion de non-régression.
+- **Exécution V8 ciblée, moteur réel :** 15/15 références numériques minimum/nominal/maximum PASS, 15/15 SVG structurels PASS, 20/20 valeurs invalides rejetées, 5/5 SVG désynchronisés rejetés, 5/5 invariants numériques PASS. Syntaxe des cinq fichiers JS/CJS modifiés contrôlée.
+- **Parcours DOM simulés avec contrôleur et moteurs réels :** 5/5 PASS, 60 assertions (saisie invalide, trois essais, trois aides, corrigé conditionnel, réussite, étoiles, sauvegarde). Ces essais utilisent un faux DOM, pas un navigateur.
+- **Audit historique 40–75 V8 :** 36/36 missions, 108/108 calculs finis, 108/108 SVG structurels PASS ; vérification de la réactivation ajoutée à `hydro-volume-01`. Ce n'est pas une contre-validation indépendante exhaustive des 36 lois.
+- **Catalogue vérifié :** 342/342 fichiers HTML, 342 identifiants uniques, 17/17 univers, 245 sous-savoirs explicitement distincts, 97 entrées historiques à classifier.
+- **CI du premier commit :** quatre workflows `push` en FAIL avant toute étape observable : `40649412826`, `40649412753`, `40649412673`, `40649412695`. Les jobs retournent `steps=null`. Journal du job Node indisponible : HTTP 404 `BlobNotFound`. Cause non établie. Tests Node natifs **BLOCKED**.
+- **Réception visuelle navigateur et tests NVDA/TalkBack/VoiceOver :** **NOT RUN**. La publication de code n'est pas une validation de réception.
+
+### Statuts finaux de ce cycle
+| Domaine | Statut |
+|---|---|
+| S | PASS ciblé (15 références + 5 invariants), exhaustif NOT RUN |
+| G | PASS structurel et échelle corrigée ; inspection navigateur NOT RUN |
+| P | PASS ciblé (5 parcours DOM et réactivation historique) |
+| F | PASS V8 ciblé ; CI native BLOCKED |
+| A | NOT RUN manuel ; structure HTML contrôlée partiellement |
+
+La branche `main` reste privée ; les fichiers d'accueil/carte, les assets, la branche d'archive et GitHub Pages ne sont pas modifiés.

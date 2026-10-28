@@ -50,7 +50,7 @@ L(354,170,449,170,'#ffca7d',5,'marker-end="url(#arrow-'+id+')"')+
 '<rect x="100" y="238" width="'+width.toFixed(5)+'" height="12" fill="#7ce8ae" data-peltier-px="'+width.toFixed(5)+'"/>'+
 T(400,251,'6 px/W')+T(50,284,'Contribution réversible uniquement ; pas de bilan net');break;
 case 'acoustic-normal-reflection-01':
-width=120*y;s=T(45,40,'Onde plane à incidence normale ; Z₁=400 Rayl')+
+width=160*y;s=T(45,40,'Onde plane à incidence normale ; Z₁=400 Rayl')+
 T(45,67,'Z₂='+N(x)+' Rayl ; coefficient de pression r='+N(y))+
 '<rect x="90" y="110" width="210" height="125" fill="#17435b" opacity="0.65"/>'+
 '<rect x="300" y="110" width="210" height="125" fill="#37506b" opacity="0.75"/>'+
@@ -59,7 +59,7 @@ L(125,160,285,160,'#7ce8ae',5,'marker-end="url(#arrow-'+id+')"')+
 L(300,202,300-width,202,'#ffca7d',5,'marker-end="url(#arrow-'+id+')" data-reflection-px="'+width.toFixed(5)+'"')+
 T(105,142,'Incidente →')+T(110,229,'← Réfléchie')+
 T(360,145,'Transmise →')+
-T(48,275,'Longueur réfléchie : 120×r px (amplitude)');break;
+T(48,275,'Longueur réfléchie : 160×r px (amplitude)');break;
 case 'entropy-two-reservoirs-01':
 width=400*y/.8;s=T(50,40,'Réservoirs isothermes : Th=400 K ; Tc=300 K')+
 T(50,66,'Q='+N(x)+' J ; entropie créée='+N(y)+' J/K')+

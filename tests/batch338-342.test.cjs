@@ -18,7 +18,8 @@ for(const [q,vg] of refs['pump-displacement-from-flow-01'])close(vg*1500*.9/1000
 for(const [i,w] of refs['peltier-ideal-heat-01'])close(w/i,.04*300);
 for(const [z,r] of refs['acoustic-normal-reflection-01'])close((1-r)/(1+r),400/z);
 for(const [q,s] of refs['entropy-two-reservoirs-01'])close(s+q/400,q/300);
-const scales=[['battery-coulomb-soc-01','data-soc-px',(x,y)=>3.5*y],['pump-displacement-from-flow-01','data-displacement-px',(x,y)=>10*y],['peltier-ideal-heat-01','data-peltier-px',(x,y)=>6*y],['acoustic-normal-reflection-01','data-reflection-px',(x,y)=>120*y],['entropy-two-reservoirs-01','data-entropy-px',(x,y)=>400*y/.8]];
+const scales=[['battery-coulomb-soc-01','data-soc-px',(x,y)=>3.5*y],['pump-displacement-from-flow-01','data-displacement-px',(x,y)=>10*y],['peltier-ideal-heat-01','data-peltier-px',(x,y)=>6*y],['acoustic-normal-reflection-01','data-reflection-px',(x,y)=>160*y],['entropy-two-reservoirs-01','data-entropy-px',(x,y)=>400*y/.8]];
+assert.match(D.render('acoustic-normal-reflection-01',1000,M.calculate('acoustic-normal-reflection-01',1000)),/x1="125" y1="160" x2="285" y2="160"/);
 for(const [id,attr,scale] of scales){const a=meta.find(m=>m.id===id);for(const x of [a.min,a.initial,a.max]){const y=M.calculate(id,x),svg=D.render(id,x,y),v=Number(svg.match(new RegExp(attr+'="([^"]+)"'))[1]);assert.ok(Math.abs(v-scale(x,y))<1e-5,id+': échelle');}}
 assert.ok(C.levels.length>=342);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.equal(new Set(C.levels.map(x=>x.world)).size,17);
 });
