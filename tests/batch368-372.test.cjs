@@ -4,7 +4,7 @@ const {physics:M,diagrams:D,meta}=require('../src/batch368-372.js'),C=require('.
 const refs={
 'three-phase-cable-max-length-01':x=>12/(Math.sqrt(3)*x*.75*.85)*1000,
 'regenerative-cylinder-net-force-01':x=>x*100*Math.PI*(.03/2)**2,
-'slider-crank-retraction-speed-01':x=>{const t=x*Math.PI/180,r=.08,l=.3,w=10;return w*(r*Math.sin(t)+(r*r*Math.sin(t)*Math.cos(t))/Math.sqrt(l*l-r*r*Math.sin(t)**2));},
+'slider-crank-retraction-speed-01':x=>{const t=x*Math.PI/180,h=1e-5;const position=q=>.08*Math.cos(q)+Math.sqrt(.3**2-.08**2*Math.sin(q)**2);return -10*(position(t+h)-position(t-h))/(2*h);},
 'adc-minimum-bits-01':x=>{for(let n=1;n<=24;n++)if(5/2**n<=x/1000)return n;throw Error('résolution impossible');},
 'forced-vibration-amplitude-01':x=>{const w=2*Math.PI*x;return 20000/Math.sqrt((1e4-10*w*w)**2+(120*w)**2);}
 };
