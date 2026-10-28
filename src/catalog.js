@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"parallel-reliability-01","world":"SI-15","title":"Fiabilité — Deux organes en parallèle","url":"missions/parallel-reliability-01.html","subskill":"Fiabilité d'une redondance active indépendante à deux composants"}),
+Object.freeze({"id":"induction-rotor-copper-loss-01","world":"SI-08","title":"Moteur asynchrone — Pertes Joule rotor","url":"missions/induction-rotor-copper-loss-01.html","subskill":"Part de puissance d'entrefer dissipée au rotor par glissement"}),
+Object.freeze({"id":"ntc-beta-temperature-01","world":"SI-13","title":"Thermistance CTN — Température par loi β","url":"missions/ntc-beta-temperature-01.html","subskill":"Inversion de la loi bêta d'une thermistance NTC en température absolue"}),
+Object.freeze({"id":"cantilever-tip-slope-01","world":"SI-04","title":"Poutre encastrée — Rotation à l'extrémité","url":"missions/cantilever-tip-slope-01.html","subskill":"Pente de la ligne élastique à l'extrémité d'une console chargée"}),
+Object.freeze({"id":"ideal-gas-sound-speed-01","world":"SI-07","title":"Air parfait — Célérité du son","url":"missions/ideal-gas-sound-speed-01.html","subskill":"Célérité acoustique isentropique dans un gaz parfait"}),
+
 Object.freeze({"id":"coriolis-slider-01","world":"SI-01","title":"Coulisseau tournant — Accélération de Coriolis","url":"missions/coriolis-slider-01.html","subskill":"Accélération de Coriolis d'un coulisseau radial dans un bras tournant"}),
 Object.freeze({"id":"adc-quantization-rms-01","world":"SI-09","title":"CAN idéal — Bruit efficace de quantification","url":"missions/adc-quantization-rms-01.html","subskill":"Écart-type du bruit de quantification uniforme d'un convertisseur idéal"}),
 Object.freeze({"id":"nusselt-dittus-boelter-01","world":"SI-12","title":"Tube chauffant — Corrélation de Dittus-Boelter","url":"missions/nusselt-dittus-boelter-01.html","subskill":"Nombre de Nusselt turbulent par corrélation de Dittus-Boelter"}),
