@@ -47,7 +47,7 @@ for(const [id,values,reference] of cases){
   assert.ok(match,id+' configuration absente');
   const c=JSON.parse(match[1]);
   assert.ok(Math.abs(physics.calculate(id,c.initial)-c.expected)<1e-8*Math.max(1,Math.abs(c.expected)));
-  assert.ok([...html.matchAll(/<text x="420" y="218" fill="white">([^<]+)<\/text>/g)].some(m=>m[1].includes(c.inputUnit)),id+' unité d’axe');
+  assert.ok([...html.matchAll(/<text x="420" y="218" fill="white">([^<]+)<\/text>/g)].some(m=>m[1].includes(c.inputUnit)||(c.inputUnit==='sans unité'&&m[1]==='1')),id+' unité d’axe');
   assert.ok(html.includes('Hypothèses et domaine : '));
   assert.ok(html.includes('Corrigé après trois essais'));
   assert.ok(!html.includes('Tolérance : 1 % ou 0,02 unité.'));

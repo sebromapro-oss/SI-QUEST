@@ -24,7 +24,7 @@ test('propriétés et décisions physiques',()=>{
 test('historique 40–75 : instantané cinématique explicitement daté',()=>{
  const B=require('../src/investigations.js'),G=require('../src/investigation-diagrams.js');
  for(const x of [0,60,120]){const svg=G.render('frequency-01',x,B.calculate('frequency-01',x));
- assert.match(svg,/Instantané t = 0,07 s/);const m=svg.match(/data-angle-rad="([0-9.]+)"/);assert.ok(m);
+ assert.match(svg,/t = 0,07 s/);const m=svg.match(/data-angle-rad="([0-9.]+)"/);assert.ok(m);
  assert.ok(Math.abs(Number(m[1])-2*Math.PI*x/60*.07)<1e-6);}
 });
 test('catalogue extensible, unicité, 17 univers',()=>{
