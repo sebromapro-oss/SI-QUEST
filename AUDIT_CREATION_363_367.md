@@ -13,8 +13,14 @@ Date : 28 octobre 2026. Dépôt privé, branche main. SHA initial : 66c99e7ad389
 21 missions historiques ne possédaient pas trois questions flash natives dans leur HTML avant ce cycle (une injection du contrôleur peut exister). Corrections P2 pédagogiques de `circular-02` et `angular-accel-01` : objectifs, prérequis, critères, trois questions flash ; 19 restent à traiter sur ce critère HTML. Aucun fichier d'accueil ou de carte modifié.
 
 ## Contrôles pré-publication
-Modèles, contre-calculs indépendants, domaines, SVG et synchronisation : 55 assertions V8 ciblées PASS. Tests CJS et DOM simulé ajoutés ; tests Node natifs à exécuter en CI après publication. Tests navigateurs et matériels, NVDA/TalkBack/VoiceOver : NOT RUN. Les cinq nouveaux problèmes sont statiques ou à bilan ; aucun moteur 3D ou animation temporelle n'est revendiqué.
+Modèles, contre-calculs indépendants, domaines, SVG et synchronisation : 55 assertions V8 ciblées PASS. Tests CJS exécutés avec adaptateur JavaScript V8 : 11/11 PASS (6 tests modèles/invariants et 5 parcours DOM simulés). Les 5 parcours DOM ont contrôlé les trois essais, les aides, le corrigé conditionnel, les étoiles et la sauvegarde. Les tests Node natifs restent non validés. Tests navigateurs et matériels, NVDA/TalkBack/VoiceOver : NOT RUN. Les cinq nouveaux problèmes sont statiques ou à bilan ; aucun moteur 3D ou animation temporelle n'est revendiqué.
 
 ## Réception S/G/P/F/A
-S : PASS ciblé ; G : PASS structurel, visuel NOT RUN ; P : PASS contenu, DOM simulé à exécuter ; F : PASS moteur V8, CI à vérifier ; A : contrôles structurels partiels, manuel NOT RUN.
+S : PASS ciblé ; G : PASS structurel, visuel NOT RUN ; P : PASS contenu et DOM simulé ; F : PASS moteur V8 ciblé, CI BLOCKED ; A : contrôles structurels partiels, manuel NOT RUN.
 Réception complète : NON VALIDÉE. Les seuils de décision sont fictifs.
+
+## Publication et CI native — état constaté
+- Commit de production : `cf9aeb536af80e93c2451be28d2aa9475450c1b1` ; 12 fichiers modifiés/créés, 367 missions HTML et identifiants uniques.
+- Quatre workflows GitHub Actions déclenchés : échec avant toute étape observable (`steps=null`). Workflows Node et scientifique relancés : échec identique à la deuxième tentative. Journaux des jobs : HTTP 404 `BlobNotFound`. Cause non déterminée ; **CI native BLOCKED**.
+- Tests navigateurs Windows/Mac/Android/iOS, inspection visuelle, NVDA, TalkBack et VoiceOver : **NOT RUN**. Pas de validation complète.
+- Quatre fichiers protégés `index.html`, `src/home.js`, `src/style.css`, `assets/archipelago-cinematic.svg` : SHA inchangés ; dépôt privé ; branche d'archive conservée.
