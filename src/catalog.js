@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"coriolis-slider-01","world":"SI-01","title":"Coulisseau tournant — Accélération de Coriolis","url":"missions/coriolis-slider-01.html","subskill":"Accélération de Coriolis d'un coulisseau radial dans un bras tournant"}),
+Object.freeze({"id":"adc-quantization-rms-01","world":"SI-09","title":"CAN idéal — Bruit efficace de quantification","url":"missions/adc-quantization-rms-01.html","subskill":"Écart-type du bruit de quantification uniforme d'un convertisseur idéal"}),
+Object.freeze({"id":"nusselt-dittus-boelter-01","world":"SI-12","title":"Tube chauffant — Corrélation de Dittus-Boelter","url":"missions/nusselt-dittus-boelter-01.html","subskill":"Nombre de Nusselt turbulent par corrélation de Dittus-Boelter"}),
+Object.freeze({"id":"rectangular-typeb-uncertainty-01","world":"SI-13","title":"Métrologie — Incertitude de type B rectangulaire","url":"missions/rectangular-typeb-uncertainty-01.html","subskill":"Incertitude-type d'une erreur bornée à loi rectangulaire"}),
+Object.freeze({"id":"hollow-shaft-torsional-stress-01","world":"SI-04","title":"Arbre creux — Contrainte tangentielle de torsion","url":"missions/hollow-shaft-torsional-stress-01.html","subskill":"Contrainte tangentielle maximale en torsion d'un arbre circulaire creux"}),
 Object.freeze({"id":"i-section-inertia-01","world":"SI-04","title":"Profilé en I — Moment quadratique","url":"missions/i-section-inertia-01.html","subskill":"Moment quadratique d'une section en I à deux semelles identiques"}),
 Object.freeze({"id":"metrology-guardband-margin-01","world":"SI-13","title":"Métrologie — Marge de conformité","url":"missions/metrology-guardband-margin-01.html","subskill":"Marge dimensionnelle avec bande de garde d'incertitude"}),
 Object.freeze({"id":"open-channel-froude-number-01","world":"SI-06","title":"Canal — Nombre de Froude","url":"missions/open-channel-froude-number-01.html","subskill":"Classification d'un écoulement à surface libre par nombre de Froude"}),
