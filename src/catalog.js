@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"euler-pinned-column-load-01","world":"SI-04","title":"Montant articulé — Charge critique de flambement","url":"missions/euler-pinned-column-load-01.html","subskill":"Élancement géométrique d'une tige circulaire pleine articulée"}),
+Object.freeze({"id":"sudden-expansion-loss-01","world":"SI-06","title":"Élargissement brusque — Perte de pression","url":"missions/sudden-expansion-loss-01.html","subskill":"Perte locale de pression à travers un raccord"}),
+Object.freeze({"id":"regen-braking-soc-gain-01","world":"SI-10","title":"Freinage récupératif — Gain d'état de charge","url":"missions/regen-braking-soc-gain-01.html","subskill":"Bilan d'énergie cinétique récupérée avec rendement"}),
+Object.freeze({"id":"lumped-cooling-threshold-time-01","world":"SI-12","title":"Pièce refroidie — Temps pour atteindre une consigne","url":"missions/lumped-cooling-threshold-time-01.html","subskill":"Identification de la constante de temps d’un solide isotherme"}),
+Object.freeze({"id":"pneumatic-receiver-added-mass-01","world":"SI-07","title":"Réservoir pneumatique — Masse d'air ajoutée","url":"missions/pneumatic-receiver-added-mass-01.html","subskill":"Bilan isotherme de masse d'air avec débit d'air libre constant"}),
 Object.freeze({"id":"hydraulic-local-loss-coefficient-01","world":"SI-06","title":"Raccord hydraulique — Coefficient de perte locale","url":"missions/hydraulic-local-loss-coefficient-01.html","subskill":"Perte locale de pression à travers un raccord"}),
 Object.freeze({"id":"straight-fin-heat-rate-01","world":"SI-12","title":"Ailette de refroidissement — Flux dissipé","url":"missions/straight-fin-heat-rate-01.html","subskill":"Rendement thermique d'une ailette droite à extrémité isolée"}),
 Object.freeze({"id":"metrology-welch-effective-dof-01","world":"SI-13","title":"Métrologie — Degrés de liberté effectifs","url":"missions/metrology-welch-effective-dof-01.html","subskill":"Composition quadratique d'incertitudes-types indépendantes"}),
