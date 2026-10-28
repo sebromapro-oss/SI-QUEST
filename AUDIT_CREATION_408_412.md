@@ -21,3 +21,21 @@ S : contrôles numériques ciblés ; G : SVG structurel, visuel NOT RUN ; P : co
 - P1 : les trois conducteurs du moteur triphasé s'arrêtaient avant les points de connexion géométriques au stator ; extrémités raccordées à la circonférence, trois bornes explicites, test de non-régression.
 - P1 : réactions d'appui A et B représentées par segments sans pointe ; ajout de pointes orientées vers le haut et test de leurs coordonnées pour M = 200 N·m.
 - Tests V8 syntaxe et géométrie ajoutés ; vérification CI native à effectuer sur SHA final.
+
+## Preuves effectivement obtenues sur les sources publiées (V8 isolé)
+- Audit des **36 missions 40–75** : **108/108 calculs finis** aux états minimum/nominal/maximum ; **108/108 rendus SVG** avec structure présente et sans NaN/Infinity ; **72/72 rejets** des entrées NaN/Infinity ; **36/36 pages** avec trois questions flash. Aucun test visuel navigateur ni contre-calcul exhaustif des 36 modèles.
+- Cinq nouveaux modèles : **15/15 états numériques** minimum/nominal/maximum contrôlés avec formules de référence indépendantes ; **15/15 SVG** structurels et synchronisés ; **20/20 rejets** de paramètres hors bornes ou non finis. Contrôles d'invariants : bilan d'énergie dissipée, produit de disponibilités, puissance triphasée, PFS et résistances thermiques en série.
+- Fichier `tests/batch408-412.test.cjs` : **8/8 tests PASS exécutés en V8** avec adaptation des imports Node ; `tests/batch408-412-flow.test.cjs` : **5/5 parcours DOM simulés PASS en V8** ; `tests/historical-40-75-408-412.test.cjs` : **2/2 tests PASS en V8**. Il ne s'agit **pas** d'une exécution native `node --test`.
+- Deux corrections graphiques P1 sur les nouvelles missions : raccordements des trois phases au moteur et pointes des réactions A/B, avec assertions de coordonnées. Vérification syntaxique JavaScript V8 PASS.
+- **CI GitHub Actions : BLOCKED.** Pour le commit de code `1815e5e618ef0c92f278a7d33ff4431cc3148cb5`, les runs `40770418350` (scientifique), `40770418264` (qualité) et `40770418319` (Node) ont conclu `failure` sans aucune étape observable. Relance de chaque run (tentative 2) effectuée ; même échec sans étapes. Journaux du job Node : HTTP 404 `BlobNotFound`. **La cause n'est pas établie et aucune réussite Node native n'est revendiquée.**
+- Protection des fichiers utilisateur : blob SHA identiques avant/après pour `index.html`, `src/home.js`, `src/style.css`, `assets/archipelago-cinematic.svg`. Aucun force push, ZIP, Pages ou changement de visibilité.
+
+## Statuts de réception
+| Axe | Statut | Preuve / réserve |
+|---|---|---|
+| S | PASS ciblé | Références contradictoires sur cinq missions ; historique non contre-calculé exhaustivement |
+| G | PASS structurel ; NOT RUN visuel | SVG numériques et géométrie testés, aucune inspection navigateur |
+| P | PASS ciblé | 3 questions flash, objectifs, prérequis, aides et corrigés ; observation élèves NOT RUN |
+| F | PASS V8 ciblé ; BLOCKED CI native | DOM simulé, catalogue, sauvegarde ; CI GitHub Actions non exécutable de façon prouvée |
+| A | NOT RUN | Clavier navigateur, zoom, Android, iPhone, NVDA, TalkBack et VoiceOver non testés |
+**Verdict : 5 missions intégrées et contrôlées automatiquement de manière ciblée ; 0 mission déclarée totalement validée.**
