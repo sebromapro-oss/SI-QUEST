@@ -55,11 +55,11 @@ line(155,205,445,205,'#ffca7d',Math.max(1,1+bypass/10))+
 line(445,110,445,205,'#8ddcff',3)+line(445,150,530,150,'#8ddcff',5)+
 box(75,246,g,12,'#7ce8ae')+text(75,280,'Barre capturée : 4 px/% ; dérivation non filtrée');break;}
 case 'threephase-compensated-line-current-01':{
-g=12*y;const q=4-x,py=175-18*q;
+g=12*y;const q=4-x,py=210-18*q;
 s=text(30,34,'Réseau 400 V ; P=5 kW ; Q=4 kvar avant correction')+text(30,57,'Qc='+n(x)+' kvar ; I='+n(y)+' A')+
 line(125,210,295,210,'#8ddcff',4)+line(295,210,295,py,'#ffca7d',4)+
 line(125,210,295,py,'#7ce8ae',5)+text(190,233,'P = 5 kW')+
-text(310,195,'Q net='+n(q)+' kvar')+
+text(310,q<0?244:195,'Q net='+n(q)+' kvar')+
 box(385,236,g,13,'#7ce8ae')+text(385,273,'Courant : 12 px/A')+
 text(75,90,'Triangle P–Q–S (Q signé ; schéma de principe)');break;}
 case 'acoustic-energy-reflectance-01':{
