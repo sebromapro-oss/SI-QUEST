@@ -22,3 +22,13 @@ S PASS ciblé (modèles et contre-calculs), G PASS structurel/visuel NOT RUN, P 
 
 ## Contre-audit du banc de tests
 Correction avant clôture de deux assertions du nouveau test CJS : expression régulière de l'import (un seul échappement) et conservation du triangle des puissances en unités VA². Ajout du banc DOM simulé 353–357, à exécuter et à distinguer d'une recette navigateur. Aucun changement de l'accueil ni des modèles physiques.
+
+## Contre-audit exécuté après intégration (preuve ciblée)
+- 6 tests CJS du lot 353–357 exécutés en adaptateur **JavaScript V8** sur les vrais fichiers HTML et modèles, avec moteur historique et catalogue réels : **6/6 PASS, 164 assertions**. Deux erreurs du test initial ont été corrigées (regex et invariant triphasé) avant cette exécution. Ne pas confondre avec Node natif.
+- 5 parcours de contrôle des trois essais, trois aides, déblocage du corrigé, étoiles et sauvegarde : **5/5 PASS, 80 assertions**, dans un **DOM simulé** et avec le contrôleur réel. Ni navigateur ni appareil physique.
+- 2 tests de non-régression pédagogiques (frottement cinétique et couple de roulement) : **2/2 PASS, 8 assertions** en V8.
+- Audit historique 40–75 : **36/36 missions inspectées**, trois états par mission : **108/108 résultats finis et SVG structurels PASS**, **72/72 NaN et Infinity rejetés**. Ce contrôle n'est pas une validation scientifique indépendante des 36 modèles ni une inspection visuelle des SVG.
+- Catalogue évalué : **357/357 identifiants uniques, 17 univers, 249 sous-savoirs explicites distincts**.
+- CI native du commit de contre-audit : trois workflows en échec **avant toute étape observable** (`steps=null`). Les workflows Node et scientifique ont été relancés (tentative 2) et ont de nouveau échoué avant étapes. Les journaux antérieurs étaient indisponibles HTTP 404 `BlobNotFound`. **CI : BLOCKED** ; la cause infrastructure/permissions reste à diagnostiquer. Ne pas déclarer Node natif exécuté.
+- Recette visuelle navigateur, Android/iPhone/Windows/Mac, zoom, NVDA, TalkBack et VoiceOver : **NOT RUN**. Réception globale : **NON VALIDÉE**.
+- Les fichiers protégés `index.html`, `src/home.js`, `src/style.css`, `assets/archipelago-cinematic.svg` n'ont pas changé dans la comparaison Git. Branche d'archive conservée. Aucun ZIP, Pages, force push ou modification de visibilité.
