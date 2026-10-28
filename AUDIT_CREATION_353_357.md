@@ -19,3 +19,6 @@ P2 scientifique/pédagogique : rolling-torque-01 avec hypothèses génériques ;
 ## S/G/P/F/A
 S PASS ciblé (modèles et contre-calculs), G PASS structurel/visuel NOT RUN, P PASS structurel/usage NOT RUN, F PASS ciblé/CI BLOCKED, A contrôles HTML partiels/tests manuels NOT RUN.
 **Réception complète : NON VALIDÉE.** Aucun résultat d'Actions ou d'appareil réel n'est inventé.
+
+## Contre-audit du banc de tests
+Correction avant clôture de deux assertions du nouveau test CJS : expression régulière de l'import (un seul échappement) et conservation du triangle des puissances en unités VA². Ajout du banc DOM simulé 353–357, à exécuter et à distinguer d'une recette navigateur. Aucun changement de l'accueil ni des modèles physiques.
