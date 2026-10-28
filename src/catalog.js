@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"gate-pressure-center-depth-01","world":"SI-06","title":"Vanne immergée — Profondeur du centre de pression","url":"missions/gate-pressure-center-depth-01.html","subskill":"Position du centre de pression d'une surface plane verticale immergée"}),
+Object.freeze({"id":"nozzle-exit-mach-subsonic-01","world":"SI-07","title":"Buse convergente — Nombre de Mach de sortie","url":"missions/nozzle-exit-mach-subsonic-01.html","subskill":"Rapport critique isentropique et condition de débit étranglé"}),
+Object.freeze({"id":"bredt-closed-tube-torque-limit-01","world":"SI-04","title":"Tube fermé — Couple admissible en torsion","url":"missions/bredt-closed-tube-torque-limit-01.html","subskill":"Flux de cisaillement d'une section fermée mince par la formule de Bredt"}),
+Object.freeze({"id":"thermal-exergy-destruction-01","world":"SI-12","title":"Transfert thermique — Exergie détruite","url":"missions/thermal-exergy-destruction-01.html","subskill":"Production d'entropie lors d'un transfert entre deux réservoirs isothermes"}),
+Object.freeze({"id":"threephase-copper-loss-temperature-01","world":"SI-08","title":"Moteur triphasé — Pertes cuivre à chaud","url":"missions/threephase-copper-loss-temperature-01.html","subskill":"Pertes Joule dans trois enroulements équilibrés"}),
 Object.freeze({"id":"viscous-damper-cycle-energy-01","world":"SI-02","title":"Amortisseur visqueux — Énergie dissipée par cycle","url":"missions/viscous-damper-cycle-energy-01.html","subskill":"Coefficient d'amortissement critique d'un oscillateur masse-ressort linéaire"}),
 Object.freeze({"id":"series-availability-two-machines-01","world":"SI-15","title":"Ligne de production — Disponibilité de deux postes en série","url":"missions/series-availability-two-machines-01.html","subskill":"Disponibilité intrinsèque à partir des moyennes MTBF et MTTR"}),
 Object.freeze({"id":"threephase-motor-line-current-01","world":"SI-08","title":"Moteur triphasé — Courant absorbé","url":"missions/threephase-motor-line-current-01.html","subskill":"Triangle des puissances en triphasé"}),
@@ -343,7 +348,7 @@ Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage
     Object.freeze({id:"screw-lead-01",world:"SI-05",title:"Avance d’une vis",url:'missions/screw-lead-01.html'}),
     Object.freeze({id:"hydro-cylinder-speed-02",world:"SI-06",title:"Vitesse d’avance hydraulique",url:'missions/hydro-cylinder-speed-02.html'}),
     Object.freeze({id:"hydro-annular-force-01",world:"SI-06",title:"Effort côté tige d’un vérin",url:'missions/hydro-annular-force-01.html'}),
-    Object.freeze({id:"pneumatic-consumption-01",world:"SI-07",title:"Volume d’air d’un vérin",url:'missions/pneumatic-consumption-01.html'}),
+    Object.freeze({id:"pneumatic-consumption-01",world:"SI-07",title:"Vérin pneumatique — Volume géométrique balayé",url:'missions/pneumatic-consumption-01.html'}),
     Object.freeze({id:"electrical-series-01",world:"SI-08",title:"Résistance équivalente série",url:'missions/electrical-series-01.html'}),
     Object.freeze({id:"electrical-parallel-01",world:"SI-08",title:"Résistance équivalente parallèle",url:'missions/electrical-parallel-01.html'}),
     Object.freeze({id:"inductor-energy-01",world:"SI-09",title:"Énergie stockée dans une inductance",url:'missions/inductor-energy-01.html'}),
