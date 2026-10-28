@@ -16,3 +16,8 @@ Modèles purs à domaine contrôlé, hypothèses, trois questions flash, trois a
 ## Porte de réception
 Tests indépendants min/nominal/max, domaines invalides, invariants, SVG et DOM simulé fournis dans `tests/batch408-412*.test.cjs`. Le statut CI natif et les journaux doivent être vérifiés sur le SHA final ; ne jamais marquer PASS sans exécution observée.
 S : contrôles numériques ciblés ; G : SVG structurel, visuel NOT RUN ; P : contenu et parcours DOM simulé ; F : CI à vérifier ; A : tests manuels NVDA/TalkBack/VoiceOver NOT RUN. Réception complète NON ACQUISE.
+
+## Contre-audit graphique complémentaire
+- P1 : les trois conducteurs du moteur triphasé s'arrêtaient avant les points de connexion géométriques au stator ; extrémités raccordées à la circonférence, trois bornes explicites, test de non-régression.
+- P1 : réactions d'appui A et B représentées par segments sans pointe ; ajout de pointes orientées vers le haut et test de leurs coordonnées pour M = 200 N·m.
+- Tests V8 syntaxe et géométrie ajoutés ; vérification CI native à effectuer sur SHA final.
