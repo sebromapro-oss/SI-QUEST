@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"battery-coulomb-soc-01","world":"SI-10","title":"Batterie — État de charge par comptage de coulombs","url":"missions/battery-coulomb-soc-01.html","subskill":"État de charge idéal par intégration d'un courant constant"}),
+Object.freeze({"id":"pump-displacement-from-flow-01","world":"SI-06","title":"Pompe hydraulique — Cylindrée déduite du débit","url":"missions/pump-displacement-from-flow-01.html","subskill":"Identification de cylindrée géométrique à partir du débit et du rendement volumétrique"}),
+Object.freeze({"id":"peltier-ideal-heat-01","world":"SI-12","title":"Module thermoélectrique — Contribution Peltier idéale","url":"missions/peltier-ideal-heat-01.html","subskill":"Puissance thermique réversible de Peltier à une jonction"}),
+Object.freeze({"id":"acoustic-normal-reflection-01","world":"SI-07","title":"Acoustique — Réflexion de pression à une interface","url":"missions/acoustic-normal-reflection-01.html","subskill":"Coefficient de réflexion de pression à incidence normale entre deux milieux"}),
+Object.freeze({"id":"entropy-two-reservoirs-01","world":"SI-12","title":"Thermodynamique — Entropie créée par transfert thermique","url":"missions/entropy-two-reservoirs-01.html","subskill":"Production d'entropie lors d'un transfert entre deux réservoirs isothermes"}),
+
 Object.freeze({"id":"parallel-reliability-01","world":"SI-15","title":"Fiabilité — Deux organes en parallèle","url":"missions/parallel-reliability-01.html","subskill":"Fiabilité d'une redondance active indépendante à deux composants"}),
 Object.freeze({"id":"induction-rotor-copper-loss-01","world":"SI-08","title":"Moteur asynchrone — Pertes Joule rotor","url":"missions/induction-rotor-copper-loss-01.html","subskill":"Part de puissance d'entrefer dissipée au rotor par glissement"}),
 Object.freeze({"id":"ntc-beta-temperature-01","world":"SI-13","title":"Thermistance CTN — Température par loi β","url":"missions/ntc-beta-temperature-01.html","subskill":"Inversion de la loi bêta d'une thermistance NTC en température absolue"}),
