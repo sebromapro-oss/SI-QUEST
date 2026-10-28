@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"pump-affinity-shaft-power-01","world":"SI-10","title":"Pompe centrifuge — Puissance à vitesse variable","url":"missions/pump-affinity-shaft-power-01.html","subskill":"Loi cubique de puissance en similitude hydraulique"}),
+Object.freeze({"id":"sampling-nyquist-rate-01","world":"SI-09","title":"Acquisition vibratoire — Fréquence minimale d'échantillonnage","url":"missions/sampling-nyquist-rate-01.html","subskill":"Fréquence apparente d'une sinusoïde après échantillonnage uniforme"}),
+Object.freeze({"id":"radiation-two-gray-plates-01","world":"SI-12","title":"Rayonnement — Deux plaques grises parallèles","url":"missions/radiation-two-gray-plates-01.html","subskill":"Bilan radiatif gris diffus avec milieu isotherme"}),
+Object.freeze({"id":"shaft-key-allowable-torque-01","world":"SI-05","title":"Clavette — Couple limite au cisaillement","url":"missions/shaft-key-allowable-torque-01.html","subskill":"Cisaillement moyen d'une clavette transmettant un couple"}),
+Object.freeze({"id":"sensor-4-20ma-pressure-01","world":"SI-13","title":"Capteur 4–20 mA — Pression relative mesurée","url":"missions/sensor-4-20ma-pressure-01.html","subskill":"Pente de calibration d'un capteur de pression à partir de deux points de mesure"}),
+
 Object.freeze({"id":"rl-series-phase-angle-01","world":"SI-08","title":"Circuit RL — Déphasage courant-tension","url":"missions/rl-series-phase-angle-01.html","subskill":"Module de l'impédance d'une résistance et d'une inductance en série"}),
 Object.freeze({"id":"pump-affinity-head-01","world":"SI-10","title":"Pompe centrifuge — Hauteur manométrique en similitude","url":"missions/pump-affinity-head-01.html","subskill":"Loi cubique de puissance en similitude hydraulique"}),
 Object.freeze({"id":"metrology-expanded-uncertainty-01","world":"SI-13","title":"Métrologie — Incertitude élargie d'une mesure","url":"missions/metrology-expanded-uncertainty-01.html","subskill":"Composition quadratique d'incertitudes-types indépendantes"}),
