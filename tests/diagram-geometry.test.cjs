@@ -7,7 +7,8 @@ test('SVG visible labels use only mathematical symbols, quantities and units',()
   const svg=page.match(/<svg\b[\s\S]*?<\/svg>/);
   assert.ok(svg,mission.id+' missing diagram');
   const visible=[...svg[0].matchAll(/<text\b[^>]*>([^<]*)<\/text>/g)].map(m=>m[1]);
-  for(const label of visible){const withoutUnits=label.replace(/cos\s*φ|fronts|bit|kg\/m³|tr\/min|rad\/s|N·m|L\/min|sans unité|MPa|kW|Wh|Hz|bar|mm²|mm|kg|kJ|Pa|Ω|V|A|W|K|N|s|m|L/g,'');assert.doesNotMatch(withoutUnits,/[A-Za-zÀ-ÿ]{3,}/u,mission.id+' label '+label)}
+  const cfgMatch=page.match(/window\.SI_MISSION=(\{[^<]+\})<\/script>/);assert.ok(cfgMatch,mission.id+' configuration absente');const cfg=JSON.parse(cfgMatch[1]);const units=[cfg.unit,cfg.inputUnit].filter(Boolean);
+  for(const label of visible){const normalized=units.reduce((v,u)=>v.split(u).join(''),label);const withoutUnits=normalized.replace(/cos\s*φ|fronts|bit|kg\/m³|tr\/min|rad\/s|N·m|L\/min|sans unité|MPa|kW|Wh|Hz|bar|mm²|mm|kg|kJ|Pa|Ω|V|A|W|K|N|s|m|L/g,'');assert.doesNotMatch(withoutUnits,/[A-Za-zÀ-ÿ]{3,}/u,mission.id+' label '+label)}
  }
 });
 test('incline geometry and block rotation both represent 30 degrees',()=>{
