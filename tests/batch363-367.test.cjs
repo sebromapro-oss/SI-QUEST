@@ -23,5 +23,5 @@ for(const x of [30,60,90])near(M.calculate('regen-braking-soc-gain-01',x)/x**2,M
 for(const x of [50,60,90])near(Math.exp(-M.calculate('lumped-cooling-threshold-time-01',x)/180),(x-20)/100);
 for(const x of [3,6,9])near(M.calculate('pneumatic-receiver-added-mass-01',x)/(x-2),.05*1e5/(287.05*293.15));
 for(const id of ['circular-02','angular-accel-01']){const h=fs.readFileSync('missions/'+id+'.html','utf8');assert.equal((h.match(/<li>/g)||[]).length,3);assert.match(h,/Objectif/);assert.match(h,/Prérequis/);}
-assert.equal(C.levels.length,367);assert.equal(new Set(C.levels.map(x=>x.id)).size,367);
+assert.ok(C.levels.length >= 367);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);
 });

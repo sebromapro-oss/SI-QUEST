@@ -22,7 +22,7 @@ for(const [t,tr] of refs['planetary-fixed-ring-reaction-torque-01']){close(tr/t,
 for(const [strain,err] of refs['quarter-bridge-linearization-error-01']){const g=2*strain*1e-6,vl=5*g/4,ve=5*g/(2*(2+g));close(err,100*(vl-ve)/vl);}
 const scales=[['hydraulic-throttle-temperature-rise-01','data-rise-px',(x,y)=>30*y],['cantilever-uniform-load-tip-deflection-01','data-tip-px',(x,y)=>36*y],['faraday-flux-rate-emf-01','data-emf-px',(x,y)=>65*y],['planetary-fixed-ring-reaction-torque-01','data-reaction-px',(x,y)=>.65*y],['quarter-bridge-linearization-error-01','data-error-px',(x,y)=>450*y]];
 for(const [id,attr,fn] of scales){const a=meta.find(m=>m.id===id);for(const x of [a.min,a.initial,a.max]){const y=M.calculate(id,x),s=D.render(id,x,y),v=Number(s.match(new RegExp(attr+'="([^"]+)"'))[1]);assert.ok(Math.abs(v-fn(x,y))<1e-4,id+' échelle');}}
-assert.ok(C.levels.length>=347);assert.equal(new Set(C.levels.map(x=>x.id)).size,347);
+assert.ok(C.levels.length>=347);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);
 assert.equal(new Set(C.levels.map(x=>x.world)).size,17);
 assert.equal(new Set(C.levels.filter(x=>x.subskill).map(x=>x.subskill)).size,249);
 });

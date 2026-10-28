@@ -21,4 +21,4 @@ for(const x of [50,200,500])near(M.calculate('sampling-nyquist-rate-01',x)/(2*x)
 for(const x of [320,420,480])near(M.calculate('radiation-two-gray-plates-01',x)/(x**4-300**4),5.670374419e-8*.8/(1/.8+1/.6-1));
 for(const x of [25,40,65])near(M.calculate('shaft-key-allowable-torque-01',x)/x,9.6);
 for(const x of [4,12,20])near(M.calculate('sensor-4-20ma-pressure-01',x),25*(x-4)/16);
-assert.equal(C.levels.length,382);assert.equal(new Set(C.levels.map(x=>x.id)).size,382);assert.equal(new Set(C.levels.map(x=>x.subskill).filter(Boolean)).size,249);assert.equal(C.worlds.length,17);});
+assert.ok(C.levels.length >= 382);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.equal(new Set(C.levels.map(x=>x.subskill).filter(Boolean)).size,249);assert.equal(C.worlds.length,17);});

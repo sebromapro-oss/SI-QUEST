@@ -25,7 +25,7 @@ case 'encoder-measured-travel-01':s+='<circle cx="140" cy="160" r="60" fill="#31
 case 'hydraulic-pump-loss-power-01':s+=rect(85,115,150,80,'#315d78')+txt(110,150,'Pompe')+txt(110,175,'η='+x+' %')+line(245,151,365,151)+txt(380,155,'Putile=5 kW');break;
 }
 s+=rect(75,245,g,12,'#7ce8ae')+txt(75,278,'Barre : '+a.scale+' px par '+a.u);
-return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="t-'+id+' d-'+id+'" class="machine"><title id="t-'+id+'">'+esc(a.title)+'</title><desc id="d-'+id+'">'+esc(a.assumptions)+'</desc><rect x="1" y="1" width="598" height="298" fill="#092236" stroke="#507895"/>'+s+'<g data-parameter="'+x.toFixed(6)+'" data-result="'+y.toFixed(10)+'" data-geom-px="'+g.toFixed(6)+'"></g></svg>';
+return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="t-'+id+' d-'+id+'" class="machine"><title id="t-'+id+'">'+esc(a.title)+'</title><desc id="d-'+id+'">'+esc(a.assumptions)+'</desc><rect x="1" y="1" width="598" height="298" fill="#092236" stroke="#507895"/>'+s+'<g data-parameter="'+x.toFixed(6)+'" data-result="'+y.toFixed(10)+'" data-geom-px="'+g.toFixed(12)+'"></g></svg>';
 }
 const diagrams=Object.freeze(Object.assign({},prior,{render,titles}));root.SIInvestigations=physics;root.SIInvestigationDiagrams=diagrams;if(typeof module!=='undefined'&&module.exports)module.exports={physics,diagrams,meta};
 })(typeof window==='undefined'?globalThis:window);

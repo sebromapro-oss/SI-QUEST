@@ -23,5 +23,5 @@ test('propriétés physiques et historique',()=>{
  for(const x of [1,2,3,4,5]){const n=M.calculate('adc-minimum-bits-01',x);assert.ok(Number.isInteger(n));assert.ok(5/2**n<=x/1000);assert.ok(5/2**(n-1)>x/1000);}
  const f0=Math.sqrt(10000/10)/(2*Math.PI);assert.ok(M.calculate('forced-vibration-amplitude-01',f0)>M.calculate('forced-vibration-amplitude-01',2));
  for(const id of ['work-01','frequency-period-01']){const h=fs.readFileSync('missions/'+id+'.html','utf8');assert.equal((h.match(/<li>/g)||[]).length,3);assert.match(h,/Objectif/);assert.match(h,/Prérequis/);}
- assert.equal(C.levels.length,372);assert.equal(new Set(C.levels.map(x=>x.id)).size,372);assert.equal(new Set(C.levels.map(x=>x.subskill).filter(Boolean)).size,249);
+ assert.ok(C.levels.length >= 372);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.equal(new Set(C.levels.map(x=>x.subskill).filter(Boolean)).size,249);
 });
