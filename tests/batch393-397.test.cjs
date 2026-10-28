@@ -1,0 +1,12 @@
+'use strict';const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
+const {physics:M,diagrams:D,meta}=require('../src/batch393-397.js'),C=require('../src/catalog.js');
+const refs={
+'rc-charge-stored-energy-01':x=>.5*220e-6*(24*(1-Math.exp(-x/2.2)))**2*1000,
+'cylinder-required-flow-01':x=>Math.PI*.05**2/4*.4/x*60000,
+'sling-allowable-angle-01':x=>Math.acos(4/x)*180/Math.PI,
+'induction-developed-power-01':x=>15*(1-x/100),
+'simply-supported-beam-stiffness-01':x=>48*210e9*8e-6/x**3/1e6};
+const near=(x,y)=>assert.ok(Math.abs(x-y)<1e-8*Math.max(1,Math.abs(y)),x+' != '+y);
+for(const a of meta)test(a.id+' : références indépendantes, bornes et SVG',()=>{const h=fs.readFileSync('missions/'+a.id+'.html','utf8'),c=JSON.parse(h.split('window.SI_MISSION=')[1].split('</script>')[0]);assert.equal(c.id,a.id);assert.equal((h.match(/<li>/g)||[]).length,3);assert.equal(C.byId(a.id).subskill,a.subskill);for(const x of [a.min,a.initial,a.max]){const y=M.calculate(a.id,x),s=D.render(a.id,x,y);near(y,refs[a.id](x));assert.match(s,/<title/);assert.match(s,/<desc/);assert.doesNotMatch(s,/NaN|Infinity|undefined/);near(+s.match(/data-geom-px="([^"]+)"/)[1],a.scale*y);assert.equal(M.assess(a.id,x).acceptable,y>=a.lo&&y<=a.hi)}for(const x of [a.min-.01,a.max+.01,NaN,Infinity])assert.throws(()=>M.calculate(a.id,x),RangeError);assert.throws(()=>D.render(a.id,a.initial,M.calculate(a.id,a.initial)+1),RangeError);near(c.expected,refs[a.id](a.initial));});
+test('invariants physiques et dimensions',()=>{for(const x of [.5,5,10]){const u=24*(1-Math.exp(-x/2.2));near(M.calculate('rc-charge-stored-energy-01',x)/1000,.5*220e-6*u*u)}for(const x of [2,5,10])near(M.calculate('cylinder-required-flow-01',x)*x/60000,Math.PI*.05**2/4*.4);for(const x of [4.5,6,10])near(2*x*Math.cos(M.calculate('sling-allowable-angle-01',x)*Math.PI/180),8);for(const x of [1,4,10])near(M.calculate('induction-developed-power-01',x)+15*x/100,15);for(const x of [2,3,5])near(M.calculate('simply-supported-beam-stiffness-01',x)*1e6*x**3,48*210e9*8e-6)});
+test('catalogue et corrections historiques',()=>{assert.equal(C.levels.length,397);assert.equal(new Set(C.levels.map(x=>x.id)).size,397);assert.equal(new Set(C.levels.map(x=>x.subskill).filter(Boolean)).size,249);for(const id of ['electric-power-02','joule-heat-01','rc-time-01']){const h=fs.readFileSync('missions/'+id+'.html','utf8');assert.equal((h.match(/<li>/g)||[]).length,3);assert.match(h,/Critères de réussite/)}});
