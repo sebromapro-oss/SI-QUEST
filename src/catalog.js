@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"hydraulic-throttle-temperature-rise-01","world":"SI-06","title":"Étranglement hydraulique — Échauffement idéal de l'huile","url":"missions/hydraulic-throttle-temperature-rise-01.html","subskill":"Élévation thermique adiabatique liée à une chute de pression d'un liquide incompressible"}),
+Object.freeze({"id":"cantilever-uniform-load-tip-deflection-01","world":"SI-04","title":"Console — Flèche sous charge uniformément répartie","url":"missions/cantilever-uniform-load-tip-deflection-01.html","subskill":"Flèche en bout d'une console d'Euler-Bernoulli sous charge répartie constante"}),
+Object.freeze({"id":"faraday-flux-rate-emf-01","world":"SI-08","title":"Induction — FEM par variation de flux","url":"missions/faraday-flux-rate-emf-01.html","subskill":"Force électromotrice induite par une variation uniforme du flux lié"}),
+Object.freeze({"id":"planetary-fixed-ring-reaction-torque-01","world":"SI-05","title":"Train épicycloïdal — Réaction de couronne fixe","url":"missions/planetary-fixed-ring-reaction-torque-01.html","subskill":"Réaction de couple d'une couronne immobilisée dans un train planétaire idéal"}),
+Object.freeze({"id":"quarter-bridge-linearization-error-01","world":"SI-13","title":"Jauge — Erreur de linéarisation du quart de pont","url":"missions/quarter-bridge-linearization-error-01.html","subskill":"Sensibilité électrique d'un quart de pont"}),
 Object.freeze({"id":"battery-coulomb-soc-01","world":"SI-10","title":"Batterie — État de charge par comptage de coulombs","url":"missions/battery-coulomb-soc-01.html","subskill":"État de charge idéal par intégration d'un courant constant"}),
 Object.freeze({"id":"pump-displacement-from-flow-01","world":"SI-06","title":"Pompe hydraulique — Cylindrée déduite du débit","url":"missions/pump-displacement-from-flow-01.html","subskill":"Identification de cylindrée géométrique à partir du débit et du rendement volumétrique"}),
 Object.freeze({"id":"peltier-ideal-heat-01","world":"SI-12","title":"Module thermoélectrique — Contribution Peltier idéale","url":"missions/peltier-ideal-heat-01.html","subskill":"Puissance thermique réversible de Peltier à une jonction"}),
