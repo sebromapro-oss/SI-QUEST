@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"rl-series-phase-angle-01","world":"SI-08","title":"Circuit RL — Déphasage courant-tension","url":"missions/rl-series-phase-angle-01.html","subskill":"Module de l'impédance d'une résistance et d'une inductance en série"}),
+Object.freeze({"id":"pump-affinity-head-01","world":"SI-10","title":"Pompe centrifuge — Hauteur manométrique en similitude","url":"missions/pump-affinity-head-01.html","subskill":"Loi cubique de puissance en similitude hydraulique"}),
+Object.freeze({"id":"metrology-expanded-uncertainty-01","world":"SI-13","title":"Métrologie — Incertitude élargie d'une mesure","url":"missions/metrology-expanded-uncertainty-01.html","subskill":"Composition quadratique d'incertitudes-types indépendantes"}),
+Object.freeze({"id":"cylindrical-insulation-heat-flow-01","world":"SI-12","title":"Conduite isolée — Flux thermique radial","url":"missions/cylindrical-insulation-heat-flow-01.html","subskill":"Conduction cylindrique stationnaire dans une couche annulaire"}),
+Object.freeze({"id":"spur-gear-radial-load-01","world":"SI-05","title":"Engrenage droit — Effort radial de séparation","url":"missions/spur-gear-radial-load-01.html","subskill":"Équilibre du couple et de l'effort tangentiel au diamètre primitif"}),
 Object.freeze({"id":"three-phase-cable-max-length-01","world":"SI-08","title":"Câble triphasé — Longueur limite de chute de tension","url":"missions/three-phase-cable-max-length-01.html","subskill":"Estimation de chute de tension composée en triphasé équilibré sans réactance"}),
 Object.freeze({"id":"regenerative-cylinder-net-force-01","world":"SI-06","title":"Vérin différentiel — Force en circuit régénératif","url":"missions/regenerative-cylinder-net-force-01.html","subskill":"Vitesse d'extension d'un vérin différentiel en circuit régénératif idéal"}),
 Object.freeze({"id":"slider-crank-retraction-speed-01","world":"SI-01","title":"Bielle-manivelle — Vitesse de rentrée du coulisseau","url":"missions/slider-crank-retraction-speed-01.html","subskill":"Fermeture géométrique exacte d'un mécanisme bielle-manivelle sans excentration"}),
