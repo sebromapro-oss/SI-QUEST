@@ -419,6 +419,11 @@ Object.freeze({"id":"floating-cylinder-draft-01","world":"SI-02","title":"Flotte
 Object.freeze({"id":"rlc-series-halfpower-bandwidth-01","world":"SI-08","title":"RLC série — Bande passante à mi-puissance","url":"missions/rlc-series-halfpower-bandwidth-01.html","subskill":"Facteur de qualité d'un résonateur RLC série à pertes résistives"}),
 Object.freeze({"id":"composite-wall-interface-temperature-01","world":"SI-12","title":"Paroi bicouche — Température d'interface","url":"missions/composite-wall-interface-temperature-01.html","subskill":"Résistances thermiques de deux couches en série"}),
 Object.freeze({"id":"quarter-bridge-strain-from-voltage-01","world":"SI-13","title":"Quart de pont — Déformation par tension","url":"missions/quarter-bridge-strain-from-voltage-01.html","subskill":"Sensibilité électrique d'un quart de pont"}),
+Object.freeze({"id":"hydrostatic-rectangular-gate-force-01","world":"SI-06","title":"Vanne verticale — Résultante hydrostatique","url":"missions/hydrostatic-rectangular-gate-force-01.html","subskill":"Position du centre de pression d'une surface plane verticale immergée"}),
+Object.freeze({"id":"flywheel-kinetic-energy-01","world":"SI-02","title":"Volant d'inertie — Énergie de rotation","url":"missions/flywheel-kinetic-energy-01.html","subskill":"Moment cinétique autour d’un axe fixe"}),
+Object.freeze({"id":"convective-surface-coefficient-01","world":"SI-12","title":"Refroidissement — Coefficient de convection","url":"missions/convective-surface-coefficient-01.html","subskill":"Nombre de Biot d'une plaque soumise à convection"}),
+Object.freeze({"id":"rl-current-threshold-time-01","world":"SI-08","title":"Circuit RL — Temps d'établissement du courant","url":"missions/rl-current-threshold-time-01.html","subskill":"Module de l'impédance d'une résistance et d'une inductance en série"}),
+Object.freeze({"id":"threephase-star-capacitance-01","world":"SI-08","title":"Triphasé — Capacité d'une batterie en étoile","url":"missions/threephase-star-capacitance-01.html","subskill":"Triangle des puissances en triphasé"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
