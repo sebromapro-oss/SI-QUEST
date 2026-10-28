@@ -26,3 +26,22 @@ Date : 29 octobre 2026. Dépôt privé sebromapro-oss/SI-QUEST, branche main.
 - F : parcours DOM simulés testables ; CI GitHub Actions à contrôler.
 - A : tests NVDA/TalkBack/VoiceOver et appareils réels NOT RUN.
 - La création et les tests automatisés ne constituent pas une réception complète.
+
+## Résultats exécutés — contre-audit du 29 octobre 2026
+- Révision de code contrôlée : `cf0efb05adadaca93dc983e5d2fd50e1a77f3dc9` (le présent registre constitue un commit ultérieur).
+- **PASS scientifique ciblé** : 15 contre-calculs indépendants (3 états × 5), 15 SVG sans valeurs non finies, 15 synchronisations géométriques, 20 rejets de paramètres hors domaine et 5 rejets de SVG désynchronisés. Total 75 vérifications ciblées dans un moteur JavaScript V8 isolé avec adaptateurs, non Node natif.
+- **PASS DOM simulé** : 5/5 parcours avec le contrôleur réel, incluant saisie invalide, trois essais, aides, corrigé conditionnel, réussite, étoiles et stockage simulé. Les adaptateurs de fonctions de base ne prouvent pas une exécution navigateur.
+- **PASS historique ciblé** : 36/36 pages vérifiées, 108/108 résultats numériques finis, 108/108 SVG sans NaN/Infinity, 72/72 rejets NaN/Infinity, 36/36 séries de trois questions flash. Les tests historiques ne sont pas des contre-calculs scientifiques indépendants exhaustifs.
+- **P1 graphique corrigée après contre-audit** : affichage de la hauteur de réseau des pompes initialement calculé avec le coefficient nominal constant, désormais calculé avec le coefficient `k_r` du curseur : `H=k_r Q²`.
+- **BLOCKED CI native** : quatre workflows du premier commit de production en échec avec étapes vides ; trois workflows du commit correctif ont échoué également, puis leurs secondes tentatives ont échoué. Aucun journal de test exploitable ; téléchargement du journal d'un job : HTTP 404 `BlobNotFound`. Il est impossible d'attribuer ces échecs au code ou d'affirmer que les tests Node ont été exécutés.
+- **NOT RUN** : inspection visuelle individuelle navigateur, tests matériels Android/iPhone/Windows/Mac, NVDA, TalkBack, VoiceOver, zoom réel.
+- **P2 ouvert — taxonomie** : catalogue vérifié par évaluation du module JavaScript : **422 identifiants uniques**, **17 univers**, **254 sous-savoirs explicites distincts**, **97 entrées historiques sans sous-savoir explicite**. L'objectif contractuel reste **249 sous-savoirs**. Les cinq nouveaux modèles ont reçu des libellés scientifiques précis ; la réconciliation de la taxonomie doit éviter tout rattachement scientifiquement faux. Les 422 entrées ne sont pas 422 missions reçues complètement.
+- **Protection vérifiée** : `index.html`, `src/home.js`, `src/style.css`, `assets/archipelago-cinematic.svg` ont conservé les blob SHA de départ. Aucune refonte de l'accueil/carte, aucune publication GitHub Pages, aucun ZIP.
+### Statuts S/G/P/F/A
+| Axe | Statut | Preuve et réserve |
+|---|---|---|
+| S | PASS ciblé | 15 contre-calculs indépendants, 20 entrées invalides rejetées, 36 historiques contrôlées structurellement |
+| G | PASS structurel ; NOT RUN visuel | SVG synchronisés, correction de la hauteur des pompes ; pas de capture navigateur |
+| P | PASS ciblé | Trois questions flash, corrigés détaillés, trois essais/aides, décisions fictives ; pas d'essai en classe |
+| F | PASS DOM simulé ; BLOCKED CI | 5 parcours simulés et sauvegardes ; workflows natifs sans étapes |
+| A | NOT RUN | Aucun test matériel ni lecteur d'écran attesté |
