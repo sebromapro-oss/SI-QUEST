@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"parallel-pumps-operating-flow-01","world":"SI-06","title":"Pompes en parallèle — Débit de fonctionnement","url":"missions/parallel-pumps-operating-flow-01.html","subskill":"Intersection de deux courbes de pompes parallèles avec une courbe de réseau"}),
+Object.freeze({"id":"star-delta-starting-torque-01","world":"SI-08","title":"Démarrage étoile-triangle — Couple initial en étoile","url":"missions/star-delta-starting-torque-01.html","subskill":"Réduction du couple de démarrage en couplage étoile sous tension composée fixe"}),
+Object.freeze({"id":"carnot-engine-efficiency-01","world":"SI-12","title":"Machine thermique — Rendement maximal de Carnot","url":"missions/carnot-engine-efficiency-01.html","subskill":"Limite de rendement d'une machine thermique réversible entre deux thermostats"}),
+Object.freeze({"id":"sensor-thermal-offset-01","world":"SI-13","title":"Capteur — Dérive thermique de l'offset","url":"missions/sensor-thermal-offset-01.html","subskill":"Dérive additive de zéro d'un capteur par coefficient thermique"}),
+Object.freeze({"id":"pontoon-metacentric-height-01","world":"SI-03","title":"Ponton rectangulaire — Hauteur métacentrique initiale","url":"missions/pontoon-metacentric-height-01.html","subskill":"Stabilité initiale transversale d'un flotteur par hauteur métacentrique"}),
+
 Object.freeze({"id":"gate-pressure-center-depth-01","world":"SI-06","title":"Vanne immergée — Profondeur du centre de pression","url":"missions/gate-pressure-center-depth-01.html","subskill":"Position du centre de pression d'une surface plane verticale immergée"}),
 Object.freeze({"id":"nozzle-exit-mach-subsonic-01","world":"SI-07","title":"Buse convergente — Nombre de Mach de sortie","url":"missions/nozzle-exit-mach-subsonic-01.html","subskill":"Rapport critique isentropique et condition de débit étranglé"}),
 Object.freeze({"id":"bredt-closed-tube-torque-limit-01","world":"SI-04","title":"Tube fermé — Couple admissible en torsion","url":"missions/bredt-closed-tube-torque-limit-01.html","subskill":"Flux de cisaillement d'une section fermée mince par la formule de Bredt"}),
