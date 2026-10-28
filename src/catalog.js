@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"rc-charge-stored-energy-01","world":"SI-09","title":"Circuit RC — Énergie stockée pendant la charge","url":"missions/rc-charge-stored-energy-01.html","subskill":"Énergie électrostatique d'un condensateur idéal"}),
+Object.freeze({"id":"cylinder-required-flow-01","world":"SI-06","title":"Vérin hydraulique — Débit pour une course imposée","url":"missions/cylinder-required-flow-01.html","subskill":"Temps de parcours d'un vérin à débit imposé"}),
+Object.freeze({"id":"sling-allowable-angle-01","world":"SI-03","title":"Élingage symétrique — Angle maximal admissible","url":"missions/sling-allowable-angle-01.html","subskill":"Équilibre d'une charge suspendue par deux brins inclinés"}),
+Object.freeze({"id":"induction-developed-power-01","world":"SI-08","title":"Moteur asynchrone — Puissance mécanique développée","url":"missions/induction-developed-power-01.html","subskill":"Part de puissance d'entrefer dissipée au rotor par glissement"}),
+Object.freeze({"id":"simply-supported-beam-stiffness-01","world":"SI-04","title":"Traverse bi-appuyée — Raideur verticale équivalente","url":"missions/simply-supported-beam-stiffness-01.html","subskill":"Flexion élastique d’une poutre bi-appuyée"}),
 Object.freeze({"id":"ice-fusion-duration-01","world":"SI-12","title":"Fusion de glace — Durée idéale de chauffage","url":"missions/ice-fusion-duration-01.html","subskill":"Bilan d'énergie d'une fusion isotherme par chaleur latente massique"}),
 Object.freeze({"id":"dc-motor-start-resistor-01","world":"SI-08","title":"Moteur à courant continu — Résistance de démarrage minimale","url":"missions/dc-motor-start-resistor-01.html","subskill":"Force contre-électromotrice d'un moteur CC en régime permanent"}),
 Object.freeze({"id":"shaft-min-torsion-diameter-01","world":"SI-04","title":"Arbre plein — Diamètre minimal en torsion","url":"missions/shaft-min-torsion-diameter-01.html","subskill":"Contrainte tangentielle maximale dans un arbre circulaire plein"}),
