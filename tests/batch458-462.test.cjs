@@ -63,4 +63,6 @@ test('catalogue : 17 univers et identifiants uniques',()=>{
  assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=462);
  assert.equal(new Set(C.levels.map(v=>v.id)).size,C.levels.length);
  for(const v of meta)assert.ok(fs.existsSync('missions/'+v.id+'.html'));
+ assert.ok(C.byId('straight-fin-efficiency-01'),'ancienne mission ailette préservée');
+ assert.ok(C.byId('spherical-shell-thermal-resistance-01'),'nouvelle mission sphérique distincte');
 });
