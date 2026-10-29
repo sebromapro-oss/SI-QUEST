@@ -22,3 +22,21 @@ Accueil, carte et navigation strictement protégés : `index.html`, `src/home.js
 | P | PASS structurel |
 | F | PASS V8 ciblé ; CI à vérifier |
 | A | NOT RUN matériel/lecteurs d'écran |
+
+## Contre-audit après publication du code — révision `1dcb529f96d1d571b21386f500942d95b2b52017`
+- **PASS scientifique ciblé :** 6/6 tests V8 issus du fichier `tests/batch423-427.test.cjs` (5 missions + invariants et tangentes), et 55 contrôles directs avant commit. Trois états par modèle, 15 contre-calculs indépendants, 15 SVG synchronisés, 20 paramètres invalides rejetés et 5 résultats SVG volontairement désynchronisés rejetés.
+- **PASS fonctionnel simulé :** 5/5 tests V8 issus du fichier `tests/batch423-427-flow.test.cjs`, avec les vrais contrôleur, modèles et pages. Contrôles des trois essais, trois aides, corrigé conditionnel, réussite, étoiles et sauvegarde simulée.
+- **PASS historique structurel :** 36 missions 40–75, 108/108 états numériques/SVG, 72/72 rejets NaN/Infinity, 36/36 séries de trois questions flash. Une incohérence graphique P1 du roulement corrigée et son test mis à jour. Aucune réception scientifique indépendante exhaustive des 36 missions revendiquée.
+- **PASS catalogue :** 427/427 identifiants uniques et pages existantes, 17/17 univers ; dépôt toujours privé, branche archive conservée ; quatre SHA d'accueil inchangés.
+- **BLOCKED CI native :** quatre workflows du SHA de code ont échoué avant toute étape observable ; trois relances (Node, scientifique et qualité) ont également échoué. Job Node sans étapes, journal HTTP 404 `BlobNotFound`. Cause non attribuable au code avec ces preuves ; ne pas déclarer les tests Node exécutés.
+- **NOT RUN :** inspection visuelle individuelle sur navigateur, tests réels Android/iPhone/Windows/Mac, NVDA, TalkBack, VoiceOver et zoom réel.
+- **P2 taxonomie ouverte :** 259 libellés explicites distincts, 97 missions historiques sans sous-savoir explicite, pour une cible contractuelle de 249. Nécessité d'une taxonomie canonique sans fusion scientifique abusive. **427 intégrations ≠ 427 réceptions complètes.**
+
+### Statuts de réception mis à jour
+| Axe | Statut | Preuve |
+|---|---|---|
+| S | PASS ciblé | 6 tests et 55 contrôles V8, calculs indépendants sur 15 états |
+| G | PASS structurel ; NOT RUN visuel | SVG paramétriques, géométrie des tangentes, correction du roulement |
+| P | PASS ciblé | Trois questions flash, modèles, décisions fictives, aides et corrigés |
+| F | PASS DOM simulé ; BLOCKED CI | 5 parcours simulés ; Node natif non attesté |
+| A | NOT RUN matériel | Tests lecteurs d'écran, clavier réel et zoom non effectués |
