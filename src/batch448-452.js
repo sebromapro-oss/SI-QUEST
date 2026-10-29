@@ -10,7 +10,7 @@ const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'
 const T=(x,y,s)=>'<text x="'+x+'" y="'+y+'" font-size="15" fill="#f4f9ff">'+esc(s)+'</text>';
 const L=(x,y,X,Y,c='#b9e0ed',w=3,e='')=>'<line x1="'+x+'" y1="'+y+'" x2="'+X+'" y2="'+Y+'" stroke="'+c+'" stroke-width="'+w+'" '+e+'/>';
 const R=(x,y,w,h,c='#315c76')=>'<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+c+'" stroke="#b9e0ed" stroke-width="2"/>';
-const A=(x,y,X,Y,c='#7ce8ae')=>L(x,y,X,Y,c,4,'marker-end="url(#arrow448)"');
+const A=(x,y,X,Y,c='#7ce8ae')=>L(x,y,X,Y,c,4,'marker-end="url(#'+(c==='#ffca7d'?'arrow448o':'arrow448')+')"');
 function render(id,x,y){const i=ids[id];if(i===undefined)return prior.render(id,x,y);const v=meta[i],z=calculate(id,x);if(typeof y!=='number'||!Number.isFinite(y)||Math.abs(y-z)>1e-8*Math.max(1,Math.abs(z)))throw new RangeError('SVG désynchronisé');
 let s=T(20,30,v.title)+T(20,55,'Paramètre : '+x+' '+v.iu+' ; résultat : '+Number(y.toPrecision(8))+' '+v.u);
 switch(i){
@@ -21,7 +21,7 @@ case 3:{const star=x/(Math.sqrt(3)*24);s+=T(140,110,'ÉTOILE : Iligne='+star.toF
 case 4:{const length=25+2*x;s+='<path d="M110 160 H290 V190 H430 V160 H610 V310 H430 V280 H290 V310 H110 Z" fill="#315c76" stroke="#b9e0ed" stroke-width="3"/>'+A(110,235,110-length,235,'#ffca7d')+A(610,235,610+length,235,'#ffca7d')+L(290,190,430,190,'#ff9999',4)+L(290,280,430,280,'#ff9999',4)+T(265,135,'Section nette : 20 × 4 mm²')+T(265,340,'Kₜ=2,20 ; F='+x+' kN')+T(265,370,'σmax='+y.toFixed(1)+' MPa')+'<g data-force-arrow-px="'+length.toFixed(6)+'" data-stress-mpa="'+y.toFixed(8)+'"></g>';break}
 }
 const g=v.scale*y;if(!Number.isFinite(g)||g<0||g>600)throw new RangeError('Échelle hors domaine');s+='<rect x="80" y="418" width="'+g.toFixed(6)+'" height="9" fill="#7ce8ae"/><g data-parameter="'+x.toFixed(6)+'" data-result="'+y.toFixed(10)+'" data-geom-px="'+g.toFixed(6)+'"></g>';
-return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 445" role="img" aria-labelledby="t-'+id+' d-'+id+'" class="machine"><title id="t-'+id+'">'+esc(v.title)+'</title><desc id="d-'+id+'">'+esc('Schéma technique 2D non à l’échelle ; '+v.assumptions)+'</desc><defs><marker id="arrow448" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#7ce8ae" stroke-width="2"/></marker></defs><rect x="1" y="1" width="718" height="443" rx="8" fill="#092236" stroke="#507895"/>'+s+'</svg>'}
+return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 445" role="img" aria-labelledby="t-'+id+' d-'+id+'" class="machine"><title id="t-'+id+'">'+esc(v.title)+'</title><desc id="d-'+id+'">'+esc('Schéma technique 2D non à l’échelle ; '+v.assumptions)+'</desc><defs><marker id="arrow448" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#7ce8ae" stroke-width="2"/></marker><marker id="arrow448o" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#ffca7d" stroke-width="2"/></marker></defs><rect x="1" y="1" width="718" height="443" rx="8" fill="#092236" stroke="#507895"/>'+s+'</svg>'}
 const diagrams=Object.freeze(Object.assign({},prior,{render,titles:Object.freeze(Object.assign({},prior.titles,Object.fromEntries(meta.map(v=>[v.id,v.title]))))}));
 root.SIInvestigations=physics;root.SIInvestigationDiagrams=diagrams;if(typeof module!=='undefined'&&module.exports)module.exports={physics,diagrams,meta};
 })(typeof window==='undefined'?globalThis:window);
