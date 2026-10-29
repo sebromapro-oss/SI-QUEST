@@ -60,3 +60,12 @@ test('audit pédagogique 40–75 : trois questions flash dans chaque page',()=>{
   assert.ok((h.match(/<li>/g)||[]).length>=3,v.id+' sans trois questions flash');
  }
 });
+test('vecteur historique hydraulique : origine au centre de la tige',()=>{
+ const svg=D.render('hydro-force-02',20,M.calculate('hydro-force-02',20));
+ assert.match(svg,/x1="518" y1="125" x2="568" y2="125"/);
+});
+test('traction : pointe de flèche orange cohérente avec le vecteur',()=>{
+ const v=meta[4],svg=D.render(v.id,v.initial,M.calculate(v.id,v.initial));
+ assert.match(svg,/id="arrow448o"/);
+ assert.match(svg,/marker-end="url\(#arrow448o\)"/);
+});
