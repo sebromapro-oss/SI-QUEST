@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {physics:M,diagrams:D,meta}=require('../src/batch503-507.js'),C=require('../src/catalog.js');
-const refs=[x=>2*.072/(x*.001),x=>x/(1.2566370614359173e-6*1800*.0004)/1000,x=>10*Math.exp(-3950*(x-25)/((x+273.15)*298.15)),x=>x/3.78,x=>20*Math.exp(1.15*Math.log(5/x))];
+const refs=[x=>2*.072/(x*.001),x=>x/(1.2566370614359173e-6*1800*.0004)/1000,x=>1000*(x-5.1)/330,x=>x/3.78,x=>20*Math.exp(1.15*Math.log(5/x))];
 const near=(a,b)=>assert.ok(Math.abs(a-b)<=1e-9*Math.max(1,Math.abs(b)),a+' ≠ '+b);
 for(const [i,m] of meta.entries())test(m.id+' : calcul indépendant, domaine, SVG, pédagogie et page',()=>{
 const h=fs.readFileSync(path.join(__dirname,'../missions',m.id+'.html'),'utf8');

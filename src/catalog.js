@@ -523,9 +523,9 @@ Object.freeze({"id":"threephase-star-capacitance-01","world":"SI-08","title":"Tr
     Object.freeze({"id":"uniform-magnetic-flux-01","world":"SI-08","title":"Champ magnétique — Flux dans une surface plane","url":"missions/uniform-magnetic-flux-01.html","subskill":"Flux magnétique d'un champ uniforme normal à une surface plane"}),
     Object.freeze({"id":"capillary-meniscus-pressure-01","world":"SI-06","title":"Capillaire — Saut de pression au ménisque","url":"missions/capillary-meniscus-pressure-01.html","subskill":"Saut de pression de Laplace dans un capillaire cylindrique mouillant"}),
     Object.freeze({"id":"magnetic-core-reluctance-01","world":"SI-08","title":"Circuit magnétique — Réluctance du noyau","url":"missions/magnetic-core-reluctance-01.html","subskill":"Réluctance d'un circuit ferromagnétique linéaire sans entrefer"}),
-    Object.freeze({"id":"ntc-beta-resistance-01","world":"SI-13","title":"Thermistance NTC — Résistance à chaud","url":"missions/ntc-beta-resistance-01.html","subskill":"Loi exponentielle β d'une thermistance NTC"}),
     Object.freeze({"id":"pv-module-fill-factor-01","world":"SI-10","title":"Module photovoltaïque — Facteur de forme","url":"missions/pv-module-fill-factor-01.html","subskill":"Facteur de forme photovoltaïque à partir des mesures au point de puissance maximale"}),
     Object.freeze({"id":"battery-peukert-runtime-01","world":"SI-15","title":"Batterie — Autonomie selon Peukert","url":"missions/battery-peukert-runtime-01.html","subskill":"Autonomie d'une batterie au plomb selon la loi empirique de Peukert"}),
+    Object.freeze({"id":"zener-series-resistor-current-01","world":"SI-08","title":"Diode Zener — Courant de polarisation","url":"missions/zener-series-resistor-current-01.html","subskill":"Courant d'une diode Zener idéale polarisée par une résistance série"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
