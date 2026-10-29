@@ -42,3 +42,23 @@ assert.equal((h.match(/<li>/g)||[]).length,3);assert.doesNotMatch(h,/Réactivati
 const e=fs.readFileSync('missions/euler-buckling-01.html','utf8');
 assert.match(e,/Pcr\/A/);assert.match(e,/Aucune charge admissible/);
 });
+
+test('audit de non-régression 40–75 : calculs, SVG, synchronisation, réactivation',()=>{
+ const base=require('../src/investigations.js');
+ const diagrams=require('../src/investigation-diagrams.js');
+ const historic=C.levels.slice(-75,-39);
+ assert.equal(historic.length,36);
+ for(const v of historic){
+  const h=fs.readFileSync(v.url,'utf8');
+  assert.ok((h.match(/<li>/g)||[]).length>=3,v.id+' : trois questions flash manquantes');
+  const c=JSON.parse(h.split('window.SI_MISSION=')[1].split('</script>')[0]);
+  for(const x of [c.min,c.initial,c.max]){
+   const y=base.calculate(v.id,x);
+   assert.ok(Number.isFinite(y),v.id+' : résultat non fini');
+   const svg=diagrams.render(v.id,x,y);
+   assert.match(svg,/<svg/);
+   assert.doesNotMatch(svg,/NaN|Infinity|undefined/);
+   assert.throws(()=>diagrams.render(v.id,x,y+Math.max(1,Math.abs(y)*.1)),RangeError);
+  }
+ }
+});

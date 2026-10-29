@@ -6,3 +6,9 @@ Tests V8 indépendants avant publication : 15/15 calculs sur min/nominal/max ; 1
 Réception : S PASS ciblé ; G PASS structurel / visuel NOT RUN ; P PASS structurel / classe NOT RUN ; F PASS ciblé / CI BLOCKED jusqu'à preuve ; A NOT RUN (NVDA, TalkBack, VoiceOver et appareils).
 Blocages ouverts : CI GitHub Actions échoue avant les étapes sur le HEAD de départ (logs 404 BlobNotFound) ; taxonomie non réconciliée avec les 249 sous-savoirs canoniques.
 Aucun fichier d'accueil/carte modifié ; pas de GitHub Pages, pas de ZIP, branche d'archive conservée. Publication ≠ réception complète.
+
+## Contre-audit post-publication du premier commit
+SHA contrôlé : `c86e402870f28fbc1eed7e03bd6964f6504e107a`.
+Les **36 missions historiques 40–75** ont été relues en trois lots (40–51, 52–63, 64–75) depuis le code distant. Pour chaque mission : trois états (minimum, nominal, maximum), calcul fini, SVG structuré, rejet d'une désynchronisation volontaire, trois questions flash. Résultat **108/108 PASS ciblés** ; contrôle scientifique indépendant exhaustif **NOT RUN**.
+Les cinq nouvelles pages ont été relues depuis GitHub : **230 références de scripts vérifiées, 0 lien de script absent** ; syntaxe des deux nouveaux fichiers JavaScript/CJS vérifiée dans V8. Catalogue **457 entrées, 457 identifiants uniques, 17 univers**, **289 libellés explicites de sous-savoirs** et **97 entrées sans champ explicite**.
+Les quatre workflows du SHA `c86e402870f28fbc1eed7e03bd6964f6504e107a` ont échoué avant toute étape visible ; quatre relances également en échec, journaux indisponibles (404 BlobNotFound). **CI native : BLOCKED**, et non PASS.
