@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"maintenance-alarm-bayes-01","world":"SI-15","title":"Diagnostic — Probabilité après une alarme","url":"missions/maintenance-alarm-bayes-01.html","subskill":"Probabilité conditionnelle d'une défaillance après une alarme"}),
+Object.freeze({"id":"threephase-two-wattmeter-pf-01","world":"SI-08","title":"Triphasé — Facteur de puissance par deux wattmètres","url":"missions/threephase-two-wattmeter-pf-01.html","subskill":"Mesure du facteur de puissance triphasé par deux wattmètres"}),
+Object.freeze({"id":"hydraulic-critical-reynolds-flow-01","world":"SI-06","title":"Conduite — Débit au seuil de Reynolds","url":"missions/hydraulic-critical-reynolds-flow-01.html","subskill":"Débit de transition estimé à partir du nombre de Reynolds"}),
+Object.freeze({"id":"incline-towing-friction-01","world":"SI-03","title":"Treuil — Effort de traction en montée","url":"missions/incline-towing-friction-01.html","subskill":"Équilibre d'une charge sur pente avec frottement cinétique"}),
+Object.freeze({"id":"correlated-uncertainty-sum-01","world":"SI-13","title":"Métrologie — Incertitudes corrélées","url":"missions/correlated-uncertainty-sum-01.html","subskill":"Propagation d'incertitude d'une somme de mesures corrélées"}),
 Object.freeze({"id":"fft-frequency-bin-width-01","world":"SI-09","title":"Analyse vibratoire — Pas fréquentiel FFT","url":"missions/fft-frequency-bin-width-01.html","subskill":"Résolution fréquentielle d'une transformée discrète sur N échantillons"}),
 Object.freeze({"id":"humid-air-dew-point-01","world":"SI-12","title":"Air humide — Température de rosée","url":"missions/humid-air-dew-point-01.html","subskill":"Estimation du point de rosée par pression de vapeur saturante"}),
 Object.freeze({"id":"porous-filter-darcy-flow-01","world":"SI-06","title":"Filtre poreux — Débit de Darcy","url":"missions/porous-filter-darcy-flow-01.html","subskill":"Écoulement de Darcy à travers un milieu poreux homogène"}),
