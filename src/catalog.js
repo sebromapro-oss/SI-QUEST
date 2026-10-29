@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"fft-frequency-bin-width-01","world":"SI-09","title":"Analyse vibratoire — Pas fréquentiel FFT","url":"missions/fft-frequency-bin-width-01.html","subskill":"Résolution fréquentielle d'une transformée discrète sur N échantillons"}),
+Object.freeze({"id":"humid-air-dew-point-01","world":"SI-12","title":"Air humide — Température de rosée","url":"missions/humid-air-dew-point-01.html","subskill":"Estimation du point de rosée par pression de vapeur saturante"}),
+Object.freeze({"id":"porous-filter-darcy-flow-01","world":"SI-06","title":"Filtre poreux — Débit de Darcy","url":"missions/porous-filter-darcy-flow-01.html","subskill":"Écoulement de Darcy à travers un milieu poreux homogène"}),
+Object.freeze({"id":"star-delta-line-current-01","world":"SI-08","title":"Moteur — Courant de ligne en triangle","url":"missions/star-delta-line-current-01.html","subskill":"Relations courant de ligne et courant de phase en étoile et triangle"}),
+Object.freeze({"id":"notch-elastic-stress-factor-01","world":"SI-04","title":"Barre entaillée — Contrainte locale maximale","url":"missions/notch-elastic-stress-factor-01.html","subskill":"Concentration élastique de contrainte dans une section entaillée"}),
 Object.freeze({"id":"bearing-equivalent-dynamic-load-01","world":"SI-15","title":"Roulement — Charge dynamique équivalente","url":"missions/bearing-equivalent-dynamic-load-01.html","subskill":"Charge dynamique équivalente sous efforts radial et axial"}),
 Object.freeze({"id":"proportional-loop-steady-error-01","world":"SI-09","title":"Régulation proportionnelle — Erreur statique","url":"missions/proportional-loop-steady-error-01.html","subskill":"Erreur permanente d'une boucle proportionnelle à retour unitaire"}),
 Object.freeze({"id":"battery-loaded-terminal-voltage-01","world":"SI-08","title":"Batteries en série — Tension sous charge","url":"missions/battery-loaded-terminal-voltage-01.html","subskill":"Chute de tension interne d'une chaîne de batteries en décharge"}),
