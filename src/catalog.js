@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"bearing-equivalent-dynamic-load-01","world":"SI-15","title":"Roulement — Charge dynamique équivalente","url":"missions/bearing-equivalent-dynamic-load-01.html","subskill":"Charge dynamique équivalente sous efforts radial et axial"}),
+Object.freeze({"id":"proportional-loop-steady-error-01","world":"SI-09","title":"Régulation proportionnelle — Erreur statique","url":"missions/proportional-loop-steady-error-01.html","subskill":"Erreur permanente d'une boucle proportionnelle à retour unitaire"}),
+Object.freeze({"id":"battery-loaded-terminal-voltage-01","world":"SI-08","title":"Batteries en série — Tension sous charge","url":"missions/battery-loaded-terminal-voltage-01.html","subskill":"Chute de tension interne d'une chaîne de batteries en décharge"}),
+Object.freeze({"id":"compressor-isentropic-efficiency-outlet-temperature-01","world":"SI-12","title":"Compresseur — Température réelle de refoulement","url":"missions/compressor-isentropic-efficiency-outlet-temperature-01.html","subskill":"Température de compression avec rendement isentropique"}),
+Object.freeze({"id":"helical-compression-spring-deflection-01","world":"SI-04","title":"Ressort hélicoïdal — Flèche sous charge","url":"missions/helical-compression-spring-deflection-01.html","subskill":"Déflexion géométrique d'un ressort hélicoïdal en compression"}),
 Object.freeze({"id":"bolt-elastic-preload-extension-01","world":"SI-04","title":"Assemblage boulonné — Allongement élastique","url":"missions/bolt-elastic-preload-extension-01.html","subskill":"Allongement élastique d'une tige filetée sous précharge"}),
 Object.freeze({"id":"triangular-load-right-reaction-01","world":"SI-03","title":"Traverse — Réaction sous charge triangulaire","url":"missions/triangular-load-right-reaction-01.html","subskill":"Réaction d'appui sous charge linéique triangulaire"}),
 Object.freeze({"id":"electrochemical-iron-loss-faraday-01","world":"SI-14","title":"Corrosion — Masse de fer dissoute","url":"missions/electrochemical-iron-loss-faraday-01.html","subskill":"Perte de masse électrochimique par loi de Faraday"}),
