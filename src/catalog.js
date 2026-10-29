@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"chain-drive-pitch-speed-01","world":"SI-05","title":"Transmission par chaîne — Vitesse moyenne","url":"missions/chain-drive-pitch-speed-01.html","subskill":"Vitesse moyenne d'une chaîne à rouleaux à partir du pas et de la denture"}),
+Object.freeze({"id":"trapezoid-plate-centroid-01","world":"SI-03","title":"Plaque trapézoïdale — Position du centre de surface","url":"missions/trapezoid-plate-centroid-01.html","subskill":"Centre de surface d'un trapèze à largeur linéaire variable"}),
+Object.freeze({"id":"pwm-ideal-average-voltage-01","world":"SI-08","title":"Commande PWM — Tension moyenne idéale","url":"missions/pwm-ideal-average-voltage-01.html","subskill":"Valeur moyenne d'une tension rectangulaire unipolaire modulée en largeur d'impulsion"}),
+Object.freeze({"id":"parallel-redundancy-reliability-01","world":"SI-15","title":"Maintenance — Fiabilité de deux organes redondants","url":"missions/parallel-redundancy-reliability-01.html","subskill":"Fiabilité d'un système parallèle à deux composants indépendants"}),
+Object.freeze({"id":"annular-rotor-polar-inertia-01","world":"SI-02","title":"Rotor annulaire — Moment d'inertie massique axial","url":"missions/annular-rotor-polar-inertia-01.html","subskill":"Moment d'inertie massique d'un disque annulaire homogène"}),
 Object.freeze({"id":"electrostatic-parallel-plate-force-01","world":"SI-08","title":"Condensateur plan — Force électrostatique","url":"missions/electrostatic-parallel-plate-force-01.html","subskill":"Force d'attraction des armatures à tension imposée"}),
 Object.freeze({"id":"solid-shaft-torsion-energy-01","world":"SI-04","title":"Arbre plein — Énergie élastique de torsion","url":"missions/solid-shaft-torsion-energy-01.html","subskill":"Énergie de déformation d'un arbre cylindrique en torsion uniforme"}),
 Object.freeze({"id":"type1-ramp-steady-error-01","world":"SI-09","title":"Asservissement — Erreur de poursuite d'une rampe","url":"missions/type1-ramp-steady-error-01.html","subskill":"Erreur statique de vitesse d'une boucle de type 1"}),
