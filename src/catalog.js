@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"braking-front-axle-load-01","world":"SI-02","title":"Freinage — Charge dynamique de l'essieu avant","url":"missions/braking-front-axle-load-01.html","subskill":"Transfert longitudinal de charge pendant un freinage"}),
+Object.freeze({"id":"pneumatic-doubleacting-freeair-01","world":"SI-07","title":"Vérin double effet — Air libre par cycle","url":"missions/pneumatic-doubleacting-freeair-01.html","subskill":"Consommation d'air libre d'un vérin double effet"}),
+Object.freeze({"id":"rectangular-plastic-bending-moment-01","world":"SI-04","title":"Section rectangulaire — Moment plastique","url":"missions/rectangular-plastic-bending-moment-01.html","subskill":"Module plastique d'une section rectangulaire en flexion"}),
+Object.freeze({"id":"series-capacitors-voltage-division-01","world":"SI-08","title":"Condensateurs en série — Tension de C1","url":"missions/series-capacitors-voltage-division-01.html","subskill":"Répartition des tensions sur condensateurs en série"}),
+Object.freeze({"id":"steam-condensation-latent-power-01","world":"SI-12","title":"Condensation — Puissance thermique latente","url":"missions/steam-condensation-latent-power-01.html","subskill":"Bilan enthalpique de condensation de vapeur saturée"}),
 Object.freeze({"id":"relief-valve-spring-cracking-01","world":"SI-06","title":"Soupape à ressort — Pression d'ouverture","url":"missions/relief-valve-spring-cracking-01.html","subskill":"Équilibre d'un clapet précontraint par un ressort"}),
 Object.freeze({"id":"buck-ideal-duty-ratio-01","world":"SI-08","title":"Hacheur abaisseur — Rapport cyclique","url":"missions/buck-ideal-duty-ratio-01.html","subskill":"Conversion DC/DC idéale en conduction continue par PWM"}),
 Object.freeze({"id":"two-support-eccentric-reaction-01","world":"SI-03","title":"Traverse sur deux appuis — Réaction excentrée","url":"missions/two-support-eccentric-reaction-01.html","subskill":"Réactions d'une poutre bi-appuyée sous charge ponctuelle excentrée"}),
