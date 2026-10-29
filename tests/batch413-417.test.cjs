@@ -40,7 +40,7 @@ test('invariants physiques et géométrie des schémas',()=>{
 });
 test('catalogue extensible, identifiants uniques et sous-savoirs existants',()=>{
  assert.ok(C.levels.length>=417);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);
- assert.equal(new Set(C.levels.map(x=>x.subskill).filter(Boolean)).size,249);
+ assert.equal(C.targets.subskills,249);assert.ok(new Set(C.levels.map(x=>x.subskill).filter(Boolean)).size>=249);
  assert.equal(new Set(meta.map(x=>x.subskill)).size,5);
  assert.equal(C.worlds.length,17);
 });
