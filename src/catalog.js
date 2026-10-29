@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"laser-michelson-fringe-displacement-01","world":"SI-13","title":"Interféromètre laser — Déplacement par franges","url":"missions/laser-michelson-fringe-displacement-01.html","subskill":"Mesure de déplacement par comptage de franges dans un Michelson à double passage"}),
+Object.freeze({"id":"photodiode-shot-noise-rms-01","world":"SI-08","title":"Photodiode — Bruit de grenaille efficace","url":"missions/photodiode-shot-noise-rms-01.html","subskill":"Courant de bruit de grenaille d'une photodiode en bande passante définie"}),
+Object.freeze({"id":"gear-involute-base-pitch-01","world":"SI-05","title":"Engrenage droit — Pas de base de développante","url":"missions/gear-involute-base-pitch-01.html","subskill":"Pas de base d'une denture droite à développante à partir du module et de l'angle de pression"}),
+Object.freeze({"id":"thin-steel-tube-hoop-strain-01","world":"SI-04","title":"Tube acier — Déformation circonférentielle élastique","url":"missions/thin-steel-tube-hoop-strain-01.html","subskill":"Déformation de cerclage d'un tube mince à contrainte axiale négligeable"}),
+Object.freeze({"id":"pv-module-temperature-derating-01","world":"SI-10","title":"Module photovoltaïque — Perte de puissance à chaud","url":"missions/pv-module-temperature-derating-01.html","subskill":"Correction linéaire de la puissance photovoltaïque par coefficient thermique"}),
+
 Object.freeze({"id":"blasius-smooth-pipe-factor-01","world":"SI-06","title":"Conduite lisse — Coefficient de Blasius","url":"missions/blasius-smooth-pipe-factor-01.html","subskill":"Coefficient de frottement de Darcy selon Blasius en turbulence lisse"}),
 Object.freeze({"id":"laplace-straight-wire-force-01","world":"SI-08","title":"Conducteur — Force magnétique de Laplace","url":"missions/laplace-straight-wire-force-01.html","subskill":"Force de Laplace sur un conducteur rectiligne en champ uniforme"}),
 Object.freeze({"id":"pneumatic-tank-ideal-gas-mass-01","world":"SI-07","title":"Réservoir d'air — Masse de gaz idéale","url":"missions/pneumatic-tank-ideal-gas-mass-01.html","subskill":"Masse d'air sec dans une enceinte rigide par pV=mRT"}),
