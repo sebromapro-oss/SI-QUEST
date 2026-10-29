@@ -29,3 +29,10 @@
 | A | NOT RUN | Contrats HTML présents ; NVDA/TalkBack/VoiceOver et matériel non testés |
 
 Aucune mission déclarée totalement reçue ; animations temporelles et 3D non revendiquées. Publication privée uniquement, sans GitHub Pages ni ZIP.
+
+## Publication et CI vérifiées
+- Commit de production : `020c058db0ce87da7a1c26c1a839a51f71ce038d` ; main distant confirmé, descendant direct du SHA initial ; 14 fichiers modifiés ou créés.
+- Catalogue vérifié sur ce commit : **522 entrées, 522 identifiants uniques, 17 univers** ; 56 entrées sans sous-savoir explicite au catalogue et 399 libellés distincts (taxonomie canonique 249 non réconciliée).
+- GitHub Actions, première tentative et relance : **4/4 FAIL** à chaque fois. Runs : [scientific-quality](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/40938881505), [recette-node](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/40938881806), [scientific-tests](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/40938881448), [accueil-browser](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/40938881212).
+- Job scientifique sans étapes exécutées, runner non renseigné ; journal HTTP 404 `BlobNotFound`. Cause exacte **non établie**. Aucun test Node ni navigateur revendiqué comme exécuté. Blocage CI : **BLOCKED** pour la réception, échecs de workflows observés : **FAIL**.
+- SHA de la page d'accueil et de ses composants protégés inchangés après publication ; aucune activation Pages, aucun ZIP ni suppression d'archive.
