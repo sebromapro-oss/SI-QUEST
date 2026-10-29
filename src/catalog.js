@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"electrostatic-parallel-plate-force-01","world":"SI-08","title":"Condensateur plan — Force électrostatique","url":"missions/electrostatic-parallel-plate-force-01.html","subskill":"Force d'attraction des armatures à tension imposée"}),
+Object.freeze({"id":"solid-shaft-torsion-energy-01","world":"SI-04","title":"Arbre plein — Énergie élastique de torsion","url":"missions/solid-shaft-torsion-energy-01.html","subskill":"Énergie de déformation d'un arbre cylindrique en torsion uniforme"}),
+Object.freeze({"id":"type1-ramp-steady-error-01","world":"SI-09","title":"Asservissement — Erreur de poursuite d'une rampe","url":"missions/type1-ramp-steady-error-01.html","subskill":"Erreur statique de vitesse d'une boucle de type 1"}),
+Object.freeze({"id":"rotating-liquid-radial-pressure-01","world":"SI-06","title":"Fluide en rotation — Surpression radiale","url":"missions/rotating-liquid-radial-pressure-01.html","subskill":"Gradient de pression radial d'un liquide en rotation solide"}),
+Object.freeze({"id":"induction-rotor-current-frequency-01","world":"SI-08","title":"Moteur asynchrone — Fréquence rotorique","url":"missions/induction-rotor-current-frequency-01.html","subskill":"Fréquence des courants rotoriques à partir du glissement"}),
 Object.freeze({"id":"coriolis-radial-slider-01","world":"SI-02","title":"Coulisseau tournant — Accélération de Coriolis","url":"missions/coriolis-radial-slider-01.html","subskill":"Accélération de Coriolis d'un coulisseau radial"}),
 Object.freeze({"id":"copper-skin-depth-01","world":"SI-08","title":"Cuivre — Profondeur de peau","url":"missions/copper-skin-depth-01.html","subskill":"Profondeur de pénétration électromagnétique en conducteur cuivre"}),
 Object.freeze({"id":"parallel-key-bearing-pressure-01","world":"SI-05","title":"Clavette — Pression de matage","url":"missions/parallel-key-bearing-pressure-01.html","subskill":"Pression de contact latérale d'une clavette parallèle"}),
@@ -381,11 +386,11 @@ Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage
     Object.freeze({id:"frequency-period-01",world:"SI-09",title:"Période d'un signal",url:'missions/frequency-period-01.html'}),
     Object.freeze({id:"hydro-force-02",world:"SI-06",title:"Effort d'un vérin",url:'missions/hydro-force-02.html'}),
     Object.freeze({id:"beam-defl-01",world:"SI-04",title:"Flèche d'une poutre",url:'missions/beam-defl-01.html'}),
-    Object.freeze({id:"circular-02",world:"SI-01",title:"Accélération centripète",url:'missions/circular-02.html'}),
-    Object.freeze({id:"angular-accel-01",world:"SI-01",title:"Accélération angulaire",url:'missions/angular-accel-01.html'}),
-    Object.freeze({id:"brake-torque-01",world:"SI-02",title:"Couple de freinage",url:'missions/brake-torque-01.html'}),
-    Object.freeze({id:"incline-force-01",world:"SI-03",title:"Composante du poids sur pente",url:'missions/incline-force-01.html'}),
-    Object.freeze({id:"resultant-01",world:"SI-03",title:"Résultante orthogonale",url:'missions/resultant-01.html'}),
+    Object.freeze({id:"circular-02",world:"SI-01",title:"Accélération centripète",url:'missions/circular-02.html',subskill:"Accélération normale d'un point en mouvement circulaire uniforme"}),
+    Object.freeze({id:"angular-accel-01",world:"SI-01",title:"Accélération angulaire",url:'missions/angular-accel-01.html',subskill:"Accélération angulaire à variation de vitesse uniforme"}),
+    Object.freeze({id:"brake-torque-01",world:"SI-02",title:"Couple de freinage",url:'missions/brake-torque-01.html',subskill:"Couple résistant de freinage par dynamique de rotation"}),
+    Object.freeze({id:"incline-force-01",world:"SI-03",title:"Composante du poids sur pente",url:'missions/incline-force-01.html',subskill:"Projection tangentielle du poids sur un plan incliné"}),
+    Object.freeze({id:"resultant-01",world:"SI-03",title:"Résultante orthogonale",url:'missions/resultant-01.html',subskill:"Résultante de deux forces orthogonales"}),
     Object.freeze({id:"torsion-01",world:"SI-04",title:"Contrainte de torsion",url:'missions/torsion-01.html'}),
     Object.freeze({id:"axial-strain-01",world:"SI-04",title:"Déformation unitaire",url:'missions/axial-strain-01.html'}),
     Object.freeze({id:"gear-mesh-01",world:"SI-05",title:"Entraxe d'engrenages",url:'missions/gear-mesh-01.html'}),
