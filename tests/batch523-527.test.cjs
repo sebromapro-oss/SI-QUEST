@@ -16,6 +16,6 @@ for(const [i,m] of meta.entries())test(m.id+' : calcul contradictoire, bornes, S
 test('catalogue et traçabilité des cinq missions historiques corrigées',()=>{
  assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=527);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);
  for(const id of ['torsion-01','axial-strain-01','gear-mesh-01','belt-speed-01','hydro-power-01']){const h=fs.readFileSync('missions/'+id+'.html','utf8'),cfg=JSON.parse(h.split('window.SI_MISSION=')[1].split('</script>')[0]);assert.equal(cfg.subskill,C.byId(id).subskill)}
- const angle=8*Math.PI/180,angle2=M.calculate('ultrasonic-snell-refraction-01',8)*Math.PI/180;near(Math.sin(angle2)/Math.sin(angle),5900/1480);
+ assert.match(meta[2].detail,/0,554812/);const angle=8*Math.PI/180,angle2=M.calculate('ultrasonic-snell-refraction-01',8)*Math.PI/180;near(Math.sin(angle2)/Math.sin(angle),5900/1480);
  const na=M.calculate('fiber-numerical-aperture-01',1.48);near(na*na+1.45*1.45,1.48*1.48);
 });
