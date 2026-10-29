@@ -436,7 +436,7 @@ Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage
     Object.freeze({id:"mechanical-efficiency-02",world:"SI-10",title:"Puissance utile d’une transmission",url:'missions/mechanical-efficiency-02.html',subskill:"Puissance utile d'une transmission à rendement donné"}),
     Object.freeze({id:"rolling-torque-01",world:"SI-11",title:"Couple résistant au roulement",url:'missions/rolling-torque-01.html',subskill:"Couple résistant équivalent à l'axe d'une roue en roulement"}),
     Object.freeze({id:"thermal-resistance-01",world:"SI-12",title:"Résistance thermique plane",url:'missions/thermal-resistance-01.html',subskill:"Résistance thermique d'une paroi plane par conduction stationnaire"}),
-    Object.freeze({id:"measurement-uncertainty-01",world:"SI-13",title:"Incertitude relative",url:'missions/measurement-uncertainty-01.html'}),
+    Object.freeze({id:"measurement-uncertainty-01",world:"SI-13",title:"Incertitude relative",url:'missions/measurement-uncertainty-01.html',subskill:"Conversion d’une incertitude absolue en incertitude relative"}),
     Object.freeze({id:'hose-pressure-drop-01',world:'SI-06',title:'Diagnostic hydraulique — Pertes de charge laminaires',url:'missions/hose-pressure-drop-01.html'}),
     Object.freeze({id:'dc-voltage-drop-01',world:'SI-08',title:'Diagnostic électrique — Chute de tension des câbles',url:'missions/dc-voltage-drop-01.html'}),
     Object.freeze({id:'hydro-backpressure-01',world:'SI-06',title:'Vérin double effet — Influence de la contre-pression',url:'missions/hydro-backpressure-01.html',subskill:"Résultante axiale d'un vérin double effet sous contre-pression"}),
@@ -531,6 +531,11 @@ Object.freeze({"id":"threephase-star-capacitance-01","world":"SI-08","title":"Tr
     Object.freeze({"id":"copper-electroplating-thickness-01","world":"SI-14","title":"Cuivrage — Épaisseur déposée par électrolyse","url":"missions/copper-electroplating-thickness-01.html","subskill":"Épaisseur de dépôt électrolytique par la loi de Faraday"}),
     Object.freeze({"id":"clutch-synchronization-heat-01","world":"SI-05","title":"Embrayage — Énergie dissipée à la synchronisation","url":"missions/clutch-synchronization-heat-01.html","subskill":"Perte d'énergie cinétique lors du couplage de deux inerties en rotation"}),
     Object.freeze({"id":"rectangular-channel-critical-depth-01","world":"SI-06","title":"Canal rectangulaire — Hauteur critique","url":"missions/rectangular-channel-critical-depth-01.html","subskill":"Profondeur critique d'un écoulement à surface libre en canal rectangulaire"}),
+    Object.freeze({"id":"mutual-inductance-emf-01","world":"SI-08","title":"Induction mutuelle — Tension efficace induite","url":"missions/mutual-inductance-emf-01.html","subskill":"Force électromotrice efficace induite par une inductance mutuelle sinusoïdale"}),
+    Object.freeze({"id":"fick-membrane-diffusion-01","world":"SI-14","title":"Membrane — Débit molaire par diffusion","url":"missions/fick-membrane-diffusion-01.html","subskill":"Débit molaire stationnaire selon la première loi de Fick dans une membrane plane"}),
+    Object.freeze({"id":"centrifugal-clutch-threshold-01","world":"SI-05","title":"Embrayage centrifuge — Vitesse d'engagement idéale","url":"missions/centrifugal-clutch-threshold-01.html","subskill":"Seuil de vitesse d'un masselotte centrifuge équilibrée par un ressort préchargé"}),
+    Object.freeze({"id":"three-phase-current-thd-01","world":"SI-08","title":"Courant triphasé — Distorsion harmonique totale","url":"missions/three-phase-current-thd-01.html","subskill":"THD du courant à partir des composantes harmoniques efficaces"}),
+    Object.freeze({"id":"hydraulic-intensifier-pressure-01","world":"SI-06","title":"Multiplicateur hydraulique — Pression de sortie idéale","url":"missions/hydraulic-intensifier-pressure-01.html","subskill":"Multiplication de pression par équilibre des forces de deux pistons solidaires"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
