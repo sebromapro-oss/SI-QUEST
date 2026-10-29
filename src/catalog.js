@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"coriolis-radial-slider-01","world":"SI-02","title":"Coulisseau tournant — Accélération de Coriolis","url":"missions/coriolis-radial-slider-01.html","subskill":"Accélération de Coriolis d'un coulisseau radial"}),
+Object.freeze({"id":"copper-skin-depth-01","world":"SI-08","title":"Cuivre — Profondeur de peau","url":"missions/copper-skin-depth-01.html","subskill":"Profondeur de pénétration électromagnétique en conducteur cuivre"}),
+Object.freeze({"id":"parallel-key-bearing-pressure-01","world":"SI-05","title":"Clavette — Pression de matage","url":"missions/parallel-key-bearing-pressure-01.html","subskill":"Pression de contact latérale d'une clavette parallèle"}),
+Object.freeze({"id":"peltier-cold-side-heat-01","world":"SI-12","title":"Module Peltier — Puissance frigorifique","url":"missions/peltier-cold-side-heat-01.html","subskill":"Bilan thermique côté froid d'un module thermoélectrique"}),
+Object.freeze({"id":"gear-tangential-backlash-angle-01","world":"SI-05","title":"Engrenage — Jeu angulaire","url":"missions/gear-tangential-backlash-angle-01.html","subskill":"Conversion du jeu tangentiel en jeu angulaire au cercle primitif"}),
 Object.freeze({"id":"gyro-rotor-precession-torque-01","world":"SI-02","title":"Rotor — Couple gyroscopique de précession","url":"missions/gyro-rotor-precession-torque-01.html","subskill":"Moment gyroscopique vectoriel d’un rotor"}),
 Object.freeze({"id":"rl-series-voltage-phase-01","world":"SI-08","title":"Circuit RL — Déphasage tension-courant","url":"missions/rl-series-voltage-phase-01.html","subskill":"Déphasage inductif par triangle des tensions"}),
 Object.freeze({"id":"triangular-gate-hydrostatic-force-01","world":"SI-06","title":"Vanne triangulaire — Résultante hydrostatique","url":"missions/triangular-gate-hydrostatic-force-01.html","subskill":"Intégration hydrostatique sur une surface triangulaire"}),
@@ -414,11 +419,11 @@ Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage
     Object.freeze({id:"measurement-uncertainty-01",world:"SI-13",title:"Incertitude relative",url:'missions/measurement-uncertainty-01.html'}),
     Object.freeze({id:'hose-pressure-drop-01',world:'SI-06',title:'Diagnostic hydraulique — Pertes de charge laminaires',url:'missions/hose-pressure-drop-01.html'}),
     Object.freeze({id:'dc-voltage-drop-01',world:'SI-08',title:'Diagnostic électrique — Chute de tension des câbles',url:'missions/dc-voltage-drop-01.html'}),
-    Object.freeze({id:'hydro-backpressure-01',world:'SI-06',title:'Vérin double effet — Influence de la contre-pression',url:'missions/hydro-backpressure-01.html'}),
-    Object.freeze({id:'euler-buckling-01',world:'SI-04',title:'Flambement élastique — Charge critique d’une tige',url:'missions/euler-buckling-01.html'}),
-    Object.freeze({id:'accumulator-isothermal-01',world:'SI-06',title:'Accumulateur hydraulique — Volume restitué isotherme',url:'missions/accumulator-isothermal-01.html'}),
-    Object.freeze({id:'wheatstone-bridge-01',world:'SI-08',title:'Pont de Wheatstone — Tension différentielle',url:'missions/wheatstone-bridge-01.html'}),
-    Object.freeze({"id":"torsion-angle-01","world":"SI-04","title":"Angle de torsion — Arbre de transmission","url":"missions/torsion-angle-01.html"}),
+    Object.freeze({id:'hydro-backpressure-01',world:'SI-06',title:'Vérin double effet — Influence de la contre-pression',url:'missions/hydro-backpressure-01.html',subskill:"Résultante axiale d'un vérin double effet sous contre-pression"}),
+    Object.freeze({id:'euler-buckling-01',world:'SI-04',title:'Flambement élastique — Charge critique d’une tige',url:'missions/euler-buckling-01.html',subskill:"Charge critique d'Euler d'une tige articulée"}),
+    Object.freeze({id:'accumulator-isothermal-01',world:'SI-06',title:'Accumulateur hydraulique — Volume restitué isotherme',url:'missions/accumulator-isothermal-01.html',subskill:"Volume utile restitué par détente isotherme d'un gaz"}),
+    Object.freeze({id:'wheatstone-bridge-01',world:'SI-08',title:'Pont de Wheatstone — Tension différentielle',url:'missions/wheatstone-bridge-01.html',subskill:"Tension différentielle d'un pont résistif"}),
+    Object.freeze({"id":"torsion-angle-01","world":"SI-04","title":"Angle de torsion — Arbre de transmission","url":"missions/torsion-angle-01.html",subskill:"Rotation élastique d'un arbre circulaire en torsion"}),
     Object.freeze({"id":"hydro-motor-torque-01","world":"SI-06","title":"Couple d’un moteur hydraulique","url":"missions/hydro-motor-torque-01.html"}),
     Object.freeze({id:"rotation-energy-01",world:"SI-02",title:"Énergie cinétique d’un volant d’inertie",url:"missions/rotation-energy-01.html"}),
     Object.freeze({id:"center-mass-01",world:"SI-03",title:"Centre de masse longitudinal d’un châssis",url:"missions/center-mass-01.html"}),
