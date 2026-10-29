@@ -27,6 +27,8 @@ for(const [i,m] of meta.entries())test(m.id+' : physique indépendante, domaine,
 });
 test('invariants et cohérence des géométries',()=>{
  const [a,b,c,d,e]=meta;
+ const coriolis=D.render(a.id,12,M.calculate(a.id,12));assert.ok(coriolis.includes('x1="360" y1="235" x2="360"'));
+
  near(M.calculate(a.id,16)/M.calculate(a.id,8),2);
  near(M.calculate(b.id,200)/M.calculate(b.id,800),2);
  near(M.calculate(c.id,200)/M.calculate(c.id,100),2);
