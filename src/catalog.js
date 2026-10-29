@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"elbow-minor-pressure-loss-01","world":"SI-06","title":"Coude hydraulique — Perte de charge singulière","url":"missions/elbow-minor-pressure-loss-01.html","subskill":"Perte de charge locale par coefficient de singularité"}),
+Object.freeze({"id":"spherical-shell-thermal-resistance-01","world":"SI-12","title":"Enceinte sphérique — Résistance thermique","url":"missions/spherical-shell-thermal-resistance-01.html","subskill":"Conduction radiale stationnaire dans une coque sphérique"}),
+Object.freeze({"id":"mohr-plane-principal-stress-01","world":"SI-04","title":"État plan de contraintes — Contrainte principale","url":"missions/mohr-plane-principal-stress-01.html","subskill":"Contraintes principales par cercle de Mohr"}),
+Object.freeze({"id":"transformer-shortcircuit-current-01","world":"SI-08","title":"Transformateur — Courant de court-circuit présumé","url":"missions/transformer-shortcircuit-current-01.html","subskill":"Courant de court-circuit par tension uk du transformateur"}),
+Object.freeze({"id":"annular-clearance-leakage-01","world":"SI-06","title":"Jeu annulaire — Fuite visqueuse","url":"missions/annular-clearance-leakage-01.html","subskill":"Débit de fuite laminaire dans un jeu annulaire étroit"}),
 Object.freeze({"id":"maintenance-alarm-bayes-01","world":"SI-15","title":"Diagnostic — Probabilité après une alarme","url":"missions/maintenance-alarm-bayes-01.html","subskill":"Probabilité conditionnelle d'une défaillance après une alarme"}),
 Object.freeze({"id":"threephase-two-wattmeter-pf-01","world":"SI-08","title":"Triphasé — Facteur de puissance par deux wattmètres","url":"missions/threephase-two-wattmeter-pf-01.html","subskill":"Mesure du facteur de puissance triphasé par deux wattmètres"}),
 Object.freeze({"id":"hydraulic-critical-reynolds-flow-01","world":"SI-06","title":"Conduite — Débit au seuil de Reynolds","url":"missions/hydraulic-critical-reynolds-flow-01.html","subskill":"Débit de transition estimé à partir du nombre de Reynolds"}),
