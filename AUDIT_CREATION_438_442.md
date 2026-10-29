@@ -24,3 +24,5 @@ HEAD initial : `5129bc2e1ce87ce0a38f679bb8db091526d640e7`. Référence V2.3 lue 
 
 ## Contre-audit correctif
 Corrigé Faraday rectifié : 2,08366 g (au lieu de 2,08355 g), contrôle numérique ajouté avant publication finale. La CI native reste à vérifier ; ne pas revendiquer PASS sans journaux.
+
+Test graphique ajusté : l'attribut SVG `data-geom-px` est volontairement arrondi à six décimales ; la tolérance de test est désormais 5,1×10⁻⁷ px au lieu de la tolérance physique relative. Le modèle conserve son contrôle strict de synchronisation.
