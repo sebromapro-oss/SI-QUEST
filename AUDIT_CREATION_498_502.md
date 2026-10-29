@@ -30,3 +30,8 @@ Chaque mission possède sous-savoir explicite, situation métier, objectifs, pr�
 Catalogue vérifié avant commit : **502 entrées, 502 identifiants uniques, 17 univers, 368 libellés distincts de sous-savoirs, 67 missions sans sous-savoir explicite**. Taxonomie canonique 249 non réconciliée (**P2 ouverte**). Performance mobile : chaînage de scripts à mesurer (**P2 ouverte**). CI native : runs précédents en échec, jobs sans étapes ni journaux exploitables (**P1 ouverte, cause indéterminée**). Recette complète non acquise.
 
 **Statuts :** créées et intégrées, testées automatiquement de manière ciblée ; non validées définitivement. Aucun test navigateur ou matériel non exécuté n'est déclaré réussi.
+
+## Contrôle CI du SHA de production `34691cc5286483213245845f8a0dd31934b41641`
+Quatre workflows GitHub Actions déclenchés le 29 octobre 2026 à 15:20 UTC : `40900487361` (Node), `40900487601` (qualité scientifique), `40900487496` (accueil navigateurs), `40900487317` (contrôles scientifiques). Première tentative **FAIL 4/4** ; relance des quatre runs effectivement demandée et acceptée ; deuxième tentative **FAIL 4/4**. Les quatre jobs ne présentent aucune étape observable (steps=null), le journal scientifique retourne HTTP 404 `BlobNotFound`. Cause racine non démontrée, aucune exécution native Node ni recette navigateur ne peut être revendiquée. **CI BLOCKED / FAIL**.
+
+Contre-audit éditorial : précision de l'arrondi du gain nominal du passe-haut corrigée dans le corrigé (0,782479 au lieu de 0,782478). Vérification V8 de la valeur 0,7824789858269988 : **PASS**.
