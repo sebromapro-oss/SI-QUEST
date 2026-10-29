@@ -8,3 +8,6 @@ Modèles purs, trois jeux indépendants, contrôles dimensionnels documentés, c
 ## Preuves
 S : PASS ciblé V8 ; G : PASS structurel, inspection visuelle NOT RUN ; P : PASS structurel, parcours réel NOT RUN ; F : PASS ciblé V8, Node natif NOT RUN, CI BLOCKED tant que workflows non réussis ; A : NOT RUN pour appareils et lecteurs d'écran.
 CI précédemment en échec avant étapes observables ; nouveau commit à vérifier. Taxonomie 249 sous-savoirs canoniques et réception navigateur/mobile/lecteurs d'écran restent ouvertes. Aucune mission validée globalement.
+
+## Contre-calcul contradictoire complémentaire
+Le modèle du tirant conique a été vérifié par quadrature numérique de Simpson sur 2 000 subdivisions, en intégrant directement F/[E·A(z)] pour r₂=10, 20 et 25 mm. Écarts relatifs observés inférieurs à 3×10⁻¹⁵ en V8. Test reproductible ajouté à `tests/batch528-532.test.cjs`. Exécution native Node : NOT RUN.

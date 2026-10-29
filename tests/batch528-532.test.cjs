@@ -13,3 +13,13 @@ for(const x of [NaN,Infinity,null,'1',m.min-1,m.max+1])assert.throws(()=>P.calcu
 test('catalogue, invariants et cinq corrections historiques',()=>{assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=532);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);
 for(const id of ['hydro-volume-01','pneumatic-force-01','electric-power-02','joule-heat-01','rc-time-01']){const h=fs.readFileSync('missions/'+id+'.html','utf8'),c=JSON.parse(h.split('window.SI_MISSION=')[1].split('</script>')[0]);assert.equal(c.subskill,C.byId(id).subskill);}
 near(P.calculate(meta[3].id,4),4*P.calculate(meta[3].id,2));near(P.calculate(meta[2].id,10),2*P.calculate(meta[2].id,20));assert.ok(P.calculate(meta[4].id,30)>P.calculate(meta[4].id,50));});
+
+test('tirant conique : intégration numérique indépendante de F/(E A(z))',()=>{
+ const N=2000,L=.8,E=210e9,F=12000,r1=.015;
+ for(const x of [10,20,25]){
+  const r2=x/1000,h=L/N,g=z=>F/(E*Math.PI*(r1+(r2-r1)*z/L)**2);
+  let sum=g(0)+g(L);for(let k=1;k<N;k++)sum+=(k%2?4:2)*g(k*h);
+  const numeric_mm=sum*h/3*1000;
+  near(P.calculate('tapered-rod-axial-extension-01',x),numeric_mm);
+ }
+});
