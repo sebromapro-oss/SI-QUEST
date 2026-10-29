@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"relief-valve-spring-cracking-01","world":"SI-06","title":"Soupape à ressort — Pression d'ouverture","url":"missions/relief-valve-spring-cracking-01.html","subskill":"Équilibre d'un clapet précontraint par un ressort"}),
+Object.freeze({"id":"buck-ideal-duty-ratio-01","world":"SI-08","title":"Hacheur abaisseur — Rapport cyclique","url":"missions/buck-ideal-duty-ratio-01.html","subskill":"Conversion DC/DC idéale en conduction continue par PWM"}),
+Object.freeze({"id":"two-support-eccentric-reaction-01","world":"SI-03","title":"Traverse sur deux appuis — Réaction excentrée","url":"missions/two-support-eccentric-reaction-01.html","subskill":"Réactions d'une poutre bi-appuyée sous charge ponctuelle excentrée"}),
+Object.freeze({"id":"capacitor-ripple-esr-heating-01","world":"SI-08","title":"Condensateur — Pertes par courant d'ondulation","url":"missions/capacitor-ripple-esr-heating-01.html","subskill":"Dissipation Joule dans la résistance série équivalente d'un condensateur"}),
+Object.freeze({"id":"hydraulic-orifice-ideal-flow-01","world":"SI-06","title":"Orifice hydraulique — Débit sous pression différentielle","url":"missions/hydraulic-orifice-ideal-flow-01.html","subskill":"Débit incompressible d'un orifice avec coefficient de décharge"}),
 Object.freeze({"id":"conical-clutch-torque-01","world":"SI-05","title":"Embrayage conique — Couple transmissible","url":"missions/conical-clutch-torque-01.html","subskill":"Transmission de couple par frottement sur un cône à usure uniforme"}),
 Object.freeze({"id":"accumulator-polytropic-work-01","world":"SI-06","title":"Accumulateur — Travail de détente du gaz","url":"missions/accumulator-polytropic-work-01.html","subskill":"Travail d'une détente polytropique dans un accumulateur hydraulique"}),
 Object.freeze({"id":"triangular-beam-bending-stress-01","world":"SI-04","title":"Section triangulaire — Contrainte de flexion","url":"missions/triangular-beam-bending-stress-01.html","subskill":"Flexion élastique d'une section triangulaire autour de l'axe centroidal"}),
