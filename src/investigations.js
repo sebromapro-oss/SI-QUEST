@@ -104,7 +104,7 @@ const models=Object.freeze({
 "strain-gauge-bridge-01":x=>5*2.1*(x*1e-6)*1000/4,
 
 "double-shear-pin-01":x=>2*x*1000/(Math.PI*.012**2)/1e6,
-"hydraulic-reynolds-01":x=>4*850*(x/60000)/(Math.PI*.04*.008),
+"hydraulic-reynolds-01":x=>{const rho=850,mu=0.040,D=0.008;const Q=x/60000;return 4*rho*Q/(Math.PI*mu*D)},
 "composite-wall-01":x=>x/(.08/(.04*2)+.10/(.8*2)),
 "combined-uncertainty-01":x=>2*Math.hypot(x,.08),
 "stability-overturn-angle-01":x=>Math.atan(.8/x)*180/Math.PI,
