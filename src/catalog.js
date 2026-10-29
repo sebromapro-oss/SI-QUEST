@@ -421,11 +421,11 @@ Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage
     Object.freeze({id:"rolling-load-01",world:"SI-11",title:"Effort de roulement",url:'missions/rolling-load-01.html',subskill:"Résistance au roulement modélisée par le coefficient cᵣ et la réaction normale"}),
     Object.freeze({id:"heat-transfer-01",world:"SI-12",title:"Flux thermique par conduction",url:'missions/heat-transfer-01.html',subskill:"Puissance thermique traversant une paroi plane par conduction stationnaire"}),
     Object.freeze({id:"measurement-relative-01",world:"SI-13",title:"Erreur relative de mesure",url:'missions/measurement-relative-01.html',subskill:"Erreur relative absolue d'une mesure par rapport à une référence non nulle"}),
-    Object.freeze({id:"moment-arm-02",world:"SI-02",title:"Moment d’une force oblique",url:'missions/moment-arm-02.html'}),
-    Object.freeze({id:"kinetic-friction-01",world:"SI-03",title:"Force de frottement cinétique",url:'missions/kinetic-friction-01.html'}),
-    Object.freeze({id:"spring-stiffness-01",world:"SI-04",title:"Raideur d’un ressort",url:'missions/spring-stiffness-01.html'}),
-    Object.freeze({id:"beam-stress-02",world:"SI-04",title:"Contrainte normale de flexion",url:'missions/beam-stress-02.html'}),
-    Object.freeze({id:"gear-ratio-02",world:"SI-05",title:"Rapport de vitesses d’engrenages",url:'missions/gear-ratio-02.html'}),
+    Object.freeze({id:"moment-arm-02",world:"SI-02",title:"Moment d’une force oblique",url:'missions/moment-arm-02.html',subskill:"Moment scalaire d'une force oblique autour d'un pivot plan"}),
+    Object.freeze({id:"kinetic-friction-01",world:"SI-03",title:"Force de frottement cinétique",url:'missions/kinetic-friction-01.html',subskill:"Frottement cinétique d'un patin sur plan horizontal"}),
+    Object.freeze({id:"spring-stiffness-01",world:"SI-04",title:"Raideur d’un ressort",url:'missions/spring-stiffness-01.html',subskill:"Identification de la raideur par la loi de Hooke"}),
+    Object.freeze({id:"beam-stress-02",world:"SI-04",title:"Contrainte normale de flexion",url:'missions/beam-stress-02.html',subskill:"Contrainte normale maximale en flexion simple d'une section rectangulaire"}),
+    Object.freeze({id:"gear-ratio-02",world:"SI-05",title:"Rapport de vitesses d’engrenages",url:'missions/gear-ratio-02.html',subskill:"Module du rapport de vitesses d'un engrenage extérieur"}),
     Object.freeze({id:"screw-lead-01",world:"SI-05",title:"Avance d’une vis",url:'missions/screw-lead-01.html'}),
     Object.freeze({id:"hydro-cylinder-speed-02",world:"SI-06",title:"Vitesse d’avance hydraulique",url:'missions/hydro-cylinder-speed-02.html'}),
     Object.freeze({id:"hydro-annular-force-01",world:"SI-06",title:"Effort côté tige d’un vérin",url:'missions/hydro-annular-force-01.html'}),
@@ -516,6 +516,11 @@ Object.freeze({"id":"flywheel-kinetic-energy-01","world":"SI-02","title":"Volant
 Object.freeze({"id":"convective-surface-coefficient-01","world":"SI-12","title":"Refroidissement — Coefficient de convection","url":"missions/convective-surface-coefficient-01.html","subskill":"Détermination du coefficient convectif par bilan thermique"}),
 Object.freeze({"id":"rl-current-threshold-time-01","world":"SI-08","title":"Circuit RL — Temps d'établissement du courant","url":"missions/rl-current-threshold-time-01.html","subskill":"Temps d’établissement du courant d’un circuit RL série"}),
 Object.freeze({"id":"threephase-star-capacitance-01","world":"SI-08","title":"Triphasé — Capacité d'une batterie en étoile","url":"missions/threephase-star-capacitance-01.html","subskill":"Dimensionnement capacitif d’une compensation réactive triphasée en étoile"}),
+    Object.freeze({"id":"rc-highpass-gain-magnitude-01","world":"SI-08","title":"Filtre RC passe-haut — Gain en amplitude","url":"missions/rc-highpass-gain-magnitude-01.html","subskill":"Module de la fonction de transfert d'un passe-haut RC du premier ordre"}),
+    Object.freeze({"id":"liquid-acoustic-impedance-01","world":"SI-13","title":"Contrôle ultrasonore — Impédance acoustique d'un liquide","url":"missions/liquid-acoustic-impedance-01.html","subskill":"Impédance acoustique caractéristique d'une onde plane dans un fluide"}),
+    Object.freeze({"id":"piezoelectric-direct-charge-01","world":"SI-13","title":"Capteur piézoélectrique — Charge générée","url":"missions/piezoelectric-direct-charge-01.html","subskill":"Effet piézoélectrique direct : charge et force selon l'axe 3"}),
+    Object.freeze({"id":"buck-inductor-current-ripple-01","world":"SI-08","title":"Hacheur abaisseur — Ondulation du courant de l'inductance","url":"missions/buck-inductor-current-ripple-01.html","subskill":"Ondulation crête-à-crête de courant dans l'inductance d'un buck idéal"}),
+    Object.freeze({"id":"uniform-magnetic-flux-01","world":"SI-08","title":"Champ magnétique — Flux dans une surface plane","url":"missions/uniform-magnetic-flux-01.html","subskill":"Flux magnétique d'un champ uniforme normal à une surface plane"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
