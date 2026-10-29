@@ -32,3 +32,7 @@ HEAD initial : `63c7558fae240cfa8fd9f888af19c40945789ab0`. Références lues : c
 - GitHub Actions sur commit `926505de4afde61f983a5c5248e6949245a08733` : recette Node `40816845506`, qualité `40816845493`, recette accueil `40816845466`, contrôles scientifiques `40816863602` : **FAIL/BLOCKED**, échecs avant étapes observables ; relances demandées. Le journal Node renvoie HTTP 404 `BlobNotFound`. Aucune suite Node native revendiquée PASS.
 - Recette visuelle navigateur, Android/iPhone, NVDA, TalkBack et VoiceOver : **NOT RUN**.
 - Accueil et carte : quatre fichiers protégés inchangés selon comparaison Git ; dépôt privé, aucune publication Pages.
+
+## Correction P1 graphique avant réception
+
+Mission 447 : le premier SVG faisait varier l'amplitude transversale des spires au lieu de raccourcir leur longueur axiale. La géométrie est corrigée : la longueur dessinée du ressort varie désormais comme `190−1,5δ` pixels, amplification explicitée ; les extrémités et la tige suivent la compression. Test de monotonie et synchronisation ajouté, contre-audit V8 PASS sur d=4 et 7 mm.
