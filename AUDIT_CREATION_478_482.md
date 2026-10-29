@@ -41,3 +41,9 @@ Chaque mission a un modèle pur, un sous-savoir distinct, trois questions flash,
 | A | NOT RUN sur matériel et lecteurs d'écran |
 
 **Statut : intégré et testé de façon ciblée, non recetté complètement.** Taxonomie 249 sous-savoirs : réconciliation scientifique P2 OPEN. Performance mobile (chargement de scripts) P2 OPEN.
+
+## Contre-audit graphique complémentaire
+- **P1 graphique détecté et corrigé après le premier commit** : au maximum de la rampe, la ligne de sortie atteignait y=475 px et débordait le SVG de 450 px. Les origines ont été repositionnées ; le cas maximal atteint désormais y=400 px.
+- Vérification V8 des 15 états sur le code modifié : **PASS**, dont les trois états de la rampe sans débordement.
+- Test de non-régression ajouté à `tests/batch478-482.test.cjs` ; exécution Node native toujours **NOT RUN**.
+- Les quatre workflows du commit initial `4aef9ed69db485c6be4352caf471ef5179336789` : **FAIL** avant étape observable ; diagnostic de la cause non établi.

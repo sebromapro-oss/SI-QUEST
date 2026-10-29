@@ -33,3 +33,11 @@ assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=482);
 assert.equal(new Set(C.levels.map(v=>v.id)).size,C.levels.length);
 for(const id of ["circular-02","angular-accel-01","brake-torque-01","incline-force-01","resultant-01"]){assert.ok(C.byId(id).subskill);assert.ok(fs.readFileSync(path.join(__dirname,'../missions',id+'.html'),'utf8').includes('<strong>Sous-savoir :</strong>'));}
 });
+
+test('géométrie de rampe : aucun tracé ne sort du cadre aux bornes',()=>{
+const m=meta[2];for(const x of [m.min,m.initial,m.max]){
+const svg=D.render(m.id,x,M.calculate(m.id,x));
+const lines=[...svg.matchAll(/<line x1="240" y1="([0-9.]+)" x2="530" y2="([0-9.]+)"/g)];
+assert.equal(lines.length,2);for(const line of lines){assert.ok(Number(line[1])>=90&&Number(line[1])<=420);assert.ok(Number(line[2])>=90&&Number(line[2])<=420);}
+}
+});
