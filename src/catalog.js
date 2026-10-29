@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"conical-clutch-torque-01","world":"SI-05","title":"Embrayage conique — Couple transmissible","url":"missions/conical-clutch-torque-01.html","subskill":"Transmission de couple par frottement sur un cône à usure uniforme"}),
+Object.freeze({"id":"accumulator-polytropic-work-01","world":"SI-06","title":"Accumulateur — Travail de détente du gaz","url":"missions/accumulator-polytropic-work-01.html","subskill":"Travail d'une détente polytropique dans un accumulateur hydraulique"}),
+Object.freeze({"id":"triangular-beam-bending-stress-01","world":"SI-04","title":"Section triangulaire — Contrainte de flexion","url":"missions/triangular-beam-bending-stress-01.html","subskill":"Flexion élastique d'une section triangulaire autour de l'axe centroidal"}),
+Object.freeze({"id":"rc-lowpass-phase-01","world":"SI-09","title":"Filtre RC — Phase de sortie","url":"missions/rc-lowpass-phase-01.html","subskill":"Déphasage harmonique d'un filtre RC passe-bas du premier ordre"}),
+Object.freeze({"id":"open-belt-wrap-angle-01","world":"SI-05","title":"Courroie ouverte — Angle d'enroulement","url":"missions/open-belt-wrap-angle-01.html","subskill":"Géométrie des tangentes communes d'une transmission ouverte par courroie"}),
 Object.freeze({"id":"parallel-pumps-operating-flow-01","world":"SI-06","title":"Pompes en parallèle — Débit de fonctionnement","url":"missions/parallel-pumps-operating-flow-01.html","subskill":"Intersection de deux courbes de pompes parallèles avec une courbe de réseau"}),
 Object.freeze({"id":"star-delta-starting-torque-01","world":"SI-08","title":"Démarrage étoile-triangle — Couple initial en étoile","url":"missions/star-delta-starting-torque-01.html","subskill":"Réduction du couple de démarrage en couplage étoile sous tension composée fixe"}),
 Object.freeze({"id":"carnot-engine-efficiency-01","world":"SI-12","title":"Machine thermique — Rendement maximal de Carnot","url":"missions/carnot-engine-efficiency-01.html","subskill":"Limite de rendement d'une machine thermique réversible entre deux thermostats"}),
