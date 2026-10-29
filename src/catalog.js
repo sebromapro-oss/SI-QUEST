@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"bolt-elastic-preload-extension-01","world":"SI-04","title":"Assemblage boulonné — Allongement élastique","url":"missions/bolt-elastic-preload-extension-01.html","subskill":"Allongement élastique d'une tige filetée sous précharge"}),
+Object.freeze({"id":"triangular-load-right-reaction-01","world":"SI-03","title":"Traverse — Réaction sous charge triangulaire","url":"missions/triangular-load-right-reaction-01.html","subskill":"Réaction d'appui sous charge linéique triangulaire"}),
+Object.freeze({"id":"electrochemical-iron-loss-faraday-01","world":"SI-14","title":"Corrosion — Masse de fer dissoute","url":"missions/electrochemical-iron-loss-faraday-01.html","subskill":"Perte de masse électrochimique par loi de Faraday"}),
+Object.freeze({"id":"lumped-cooling-temperature-01","world":"SI-12","title":"Refroidissement — Température transitoire","url":"missions/lumped-cooling-temperature-01.html","subskill":"Refroidissement exponentiel d'un solide à température uniforme"}),
+Object.freeze({"id":"hydraulic-oil-tank-thermal-expansion-01","world":"SI-06","title":"Réservoir d'huile — Volume de dilatation","url":"missions/hydraulic-oil-tank-thermal-expansion-01.html","subskill":"Dilatation volumique libre d'une huile hydraulique"}),
 Object.freeze({"id":"braking-front-axle-load-01","world":"SI-02","title":"Freinage — Charge dynamique de l'essieu avant","url":"missions/braking-front-axle-load-01.html","subskill":"Transfert longitudinal de charge pendant un freinage"}),
 Object.freeze({"id":"pneumatic-doubleacting-freeair-01","world":"SI-07","title":"Vérin double effet — Air libre par cycle","url":"missions/pneumatic-doubleacting-freeair-01.html","subskill":"Consommation d'air libre d'un vérin double effet"}),
 Object.freeze({"id":"rectangular-plastic-bending-moment-01","world":"SI-04","title":"Section rectangulaire — Moment plastique","url":"missions/rectangular-plastic-bending-moment-01.html","subskill":"Module plastique d'une section rectangulaire en flexion"}),
