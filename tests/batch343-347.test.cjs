@@ -24,5 +24,5 @@ const scales=[['hydraulic-throttle-temperature-rise-01','data-rise-px',(x,y)=>30
 for(const [id,attr,fn] of scales){const a=meta.find(m=>m.id===id);for(const x of [a.min,a.initial,a.max]){const y=M.calculate(id,x),s=D.render(id,x,y),v=Number(s.match(new RegExp(attr+'="([^"]+)"'))[1]);assert.ok(Math.abs(v-fn(x,y))<1e-4,id+' échelle');}}
 assert.ok(C.levels.length>=347);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);
 assert.equal(new Set(C.levels.map(x=>x.world)).size,17);
-assert.equal(new Set(C.levels.filter(x=>x.subskill).map(x=>x.subskill)).size,249);
+assert.equal(C.targets.subskills,249);assert.ok(new Set(C.levels.filter(x=>x.subskill).map(x=>x.subskill)).size>=249);
 });

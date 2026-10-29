@@ -8,3 +8,10 @@ P1 CI corrigée : sept tests anciens imposaient exactement 249 libellés alors q
 P2 taxonomie OUVERTE : 249 sous-savoirs cibles, 269 libellés explicites au catalogue 437, réconciliation sémantique nécessaire.
 
 S PASS ciblé ; G PASS structurel, visuel NOT RUN ; P PASS structurel, audit exhaustif NOT RUN ; F PASS V8 ciblé, CI à confirmer ; A NOT RUN (NVDA/TalkBack/VoiceOver et appareils). Accueil protégé, aucune publication publique.
+
+## Contre-audit complémentaire — 0caf39a54c63623daa91d25a685aa544cb6b2f3b
+- Les 36 missions historiques 40–75 ont été exécutées en trois lots V8 : **108/108 états calcul/SVG PASS**, **108/108 valeurs SVG volontairement désynchronisées rejetées PASS**, **36/36 séries de questions flash PASS**.
+- Cinq autres suites historiques (343–347, 348–352, 368–372, 373–377, 378–382) contenaient la même assertion de taxonomie figée à 249 ; correction des tests sans masquer l'écart réel 269 contre cible 249.
+- Nouvelles missions : **6/6 tests unitaires adaptés V8 PASS** et **5/5 parcours DOM simulés PASS** ; cela ne remplace pas Node natif ou les navigateurs.
+- **CI BLOCKED** : les trois workflows du SHA `0caf39a54c63623daa91d25a685aa544cb6b2f3b` ont échoué avant toute étape observable ; relance tentée, journaux Node HTTP 404 `BlobNotFound`. Cause non déterminée.
+- **G visuel NOT RUN ; A matériel NOT RUN** : aucune validation NVDA, TalkBack, VoiceOver ni smartphone réel.

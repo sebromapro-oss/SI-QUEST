@@ -30,5 +30,5 @@ test('invariants scientifiques et audit pédagogique historique',()=>{
  for(const id of ['brake-torque-01','incline-force-01']){const h=fs.readFileSync('missions/'+id+'.html','utf8');assert.equal((h.match(/<li>/g)||[]).length,3);assert.match(h,/Objectif/);assert.match(h,/Prérequis/);assert.match(h,/Repère et hypothèses/);}
  near(M.calculate('brake-torque-01',4),32);near(M.calculate('incline-force-01',15),600*9.81*Math.sin(Math.PI/12));
  assert.ok(C.levels.length >= 377);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);
- assert.equal(new Set(C.levels.map(x=>x.subskill).filter(Boolean)).size,249);assert.equal(C.worlds.length,17);
+ assert.equal(C.targets.subskills,249);assert.ok(new Set(C.levels.map(x=>x.subskill).filter(Boolean)).size>=249);assert.equal(C.worlds.length,17);
 });

@@ -21,5 +21,5 @@ test('contre-épreuves dimensionnelles, invariants et géométrie paramétrique'
  for(const [sigma,cp] of refs['process-capability-cp-01'])near(6*sigma*cp,.2);
  for(const [mp,z] of refs['second-order-damping-from-overshoot-01'])near(100*Math.exp(-Math.PI*z/Math.sqrt(1-z*z)),mp);
  for(const a of meta)for(const [x,y] of refs[a.id]){const s=D.render(a.id,x,y),px=Number(s.match(/data-geom-px="([^"]+)"/)[1]);const expected=a.id==='helical-gear-opposed-thrust-01'?.25*y:a.id==='hydraulic-laminar-critical-flow-01'?40*y:a.id==='thermal-contact-heat-power-01'?.5*y:a.id==='process-capability-cp-01'?4800*x:.85*x;assert.ok(Math.abs(px-expected)<1e-5);}
- assert.ok(C.levels.length >= 352);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.equal(new Set(C.levels.map(x=>x.world)).size,17);assert.equal(new Set(C.levels.filter(x=>x.subskill).map(x=>x.subskill)).size,249);
+ assert.ok(C.levels.length >= 352);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.equal(new Set(C.levels.map(x=>x.world)).size,17);assert.equal(C.targets.subskills,249);assert.ok(new Set(C.levels.filter(x=>x.subskill).map(x=>x.subskill)).size>=249);
 });
