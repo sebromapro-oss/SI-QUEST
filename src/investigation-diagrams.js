@@ -1061,7 +1061,7 @@ case "frequency-period-01":{
  d+=' L540 '+level;
  s+='<path d="'+d+'" fill="none" stroke="#8ddcff" stroke-width="3" data-frequence-hz="'+x.toFixed(4)+'" data-fenetre-s="0.20" data-cycles="'+(x*windowS).toFixed(4)+'" data-periode-s="'+result.toFixed(6)+'"/>';
  s+=line(60,184,540,184,'#9bc9e5',2)+text(55,40,'f = '+N(x)+' Hz ; signal carré idéal')+text(425,207,'0,20 s')+text(55,219,'T = '+N(result)+' s ; fenêtre fixe de 0,20 s');break;}
-case "hydro-force-02":{s+=box(110,75,350,100)+box(250,83,18,85,'#d8e8f2')+box(268,115,250,20,'#d8e8f2')+(x>0?arrow(515,145,565,145):'')+text(55,40,'p = '+N(x)+' bar ; D = 80 mm')+text(55,219,'F = '+N(result)+' N ; effort théorique');break;}
+case "hydro-force-02":{s+=box(110,75,350,100)+box(250,83,18,85,'#d8e8f2')+box(268,115,250,20,'#d8e8f2')+(x>0?arrow(518,125,568,125):'')+text(55,40,'p = '+N(x)+' bar ; D = 80 mm')+text(55,219,'F = '+N(result)+' N ; effort théorique');break;}
 case "beam-defl-01":{s+=box(85,60,28,145,'#a2b5c2')+'<path d="M113 110 Q320 115 510 '+(110+Math.min(55,x*.25))+'" fill="none" stroke="#8ddcff" stroke-width="12"/>'+(x>0?arrow(510,60,510,100+Math.min(55,x*.25)):'')+text(55,40,'F = '+N(x)+' N ; flèche amplifiée')+text(55,219,'δ = '+N(result)+' mm ; amplification graphique');break;}
 case 'circular-02':{s+=circle(270,126,70)+circle(270,126,8,'#ffd17d')+line(270,126,340,126,'#8ddcff',5)+arrow(340,126,290,126)+arrow(340,126,340,56,'#7ce8ae')+text(50,45,'r = 0,5 m ; v = '+N(x)+' m/s');break;}
  case 'angular-accel-01':{s+=circle(270,125,74)+line(270,125,335,125,'#ffd17d',6)+'<path d="M345 85 A90 90 0 0 1 355 145" fill="none" stroke="#ffca7d" stroke-width="4" marker-end="url(#pointe)"/>'+text(55,42,'Δω = 120 rad/s ; Δt = '+N(x)+' s')+text(55,214,'α = '+N(result)+' rad/s²');break;}
