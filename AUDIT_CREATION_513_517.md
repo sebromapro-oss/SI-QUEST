@@ -22,7 +22,14 @@ Chaque mission contient objectifs, prérequis, 3 flash, domaine, hypothèses, mo
 
 ## Tests et preuves
 - V8 ciblé : 15/15 contre-calculs indépendants, 15/15 rendus SVG, 15/15 rejets de désynchronisation, 20/20 paramètres invalides PASS avant commit.
-- Syntaxe JavaScript compilée V8 : PASS ; exécution native Node dans ce cycle : NOT RUN ; CI GitHub Actions : à vérifier sur le SHA publié.
+- Syntaxe JavaScript compilée V8 : PASS ; exécution native Node dans ce cycle : NOT RUN ; CI GitHub Actions : 4 workflows FAIL sur le commit de production, puis 4 relances FAIL ; jobs sans runner attribué (runner_id=0), aucune étape exécutée ; logs HTTP 404 BlobNotFound. Cause exacte non établie, CI native BLOCKED.
 - S PASS ciblé ; G PASS structurel, visuel NOT RUN ; P PASS structurel, parcours complet NOT RUN ; F PASS V8 ciblé, navigateur NOT RUN ; A NOT RUN (NVDA, TalkBack, VoiceOver et appareils).
 - Catalogue : unicité, présence des pages et nombre réel à vérifier après publication ; taxonomie canonique 249 sous-savoirs encore à réconcilier.
 - Aucun test navigateur réel ou matériel revendiqué. Réception complète non prononcée.
+
+## Vérification de publication et contre-audit du 29 octobre 2026
+- Commit de production : `181995ef322420578af933418b2d0dc4d19c8adc`, descendant direct du HEAD initial ; 10 fichiers créés ou modifiés, sans modification de l'accueil.
+- Catalogue contrôlé sur ce commit : **517 identifiants uniques, 517 pages HTML présentes, 17 univers**. Cible 996 missions ; **479 restantes**. Présence au catalogue ≠ validation complète.
+- Fichiers protégés inchangés : `index.html` SHA `94165cccd6ad972a1a57699d5fcf42afde5cca53`, `src/home.js` SHA `0ead30ab3afe119589f0a14aab99898f0e7721d7`, `src/style.css` SHA `966e623673ce45c86c2cc6a59a4725406475db10`, `assets/archipelago-cinematic.svg` SHA `8d75fd72f75cb662f0d2de1c5a3e1df8ab935347`.
+- Workflows en échec (deux tentatives chacun) : `40929686005`, `40929686208`, `40929685972`, `40929686010`. Aucune étape Node ou navigateur exécutée. Ce blocage n'est pas imputable au code sans journal de job.
+- Réception S/G/P/F/A : **S PASS ciblé**, **G PASS structurel / NOT RUN visuel**, **P PASS structurel / NOT RUN parcours**, **F PASS V8 ciblé / BLOCKED CI**, **A NOT RUN matériel et lecteurs d'écran**.
