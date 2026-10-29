@@ -5,3 +5,5 @@ for(const [i,v] of meta.entries())test(v.id+' : bornes, contre-calcul, SVG, inva
 test('invariants physiques',()=>{near(M.calculate(meta[0].id,20),2*M.calculate(meta[0].id,10));for(const q of [2,6,10]){const r=M.calculate(meta[1].id,q);near(r+0.5*r,1.5*q);near(r,2*(r/2))}near(M.calculate(meta[2].id,8),2*M.calculate(meta[2].id,4));near((M.calculate(meta[3].id,250)-20)/(100-20),1/Math.E);near(M.calculate(meta[4].id,60),2*M.calculate(meta[4].id,30));assert.equal(C.worlds.length,17);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.ok(C.levels.length>=442)});
 
 test('Faraday : corrigé numérique cohérent avec le modèle',()=>{assert.match(M.answerPolicy[meta[2].id].solution,/2,08366 g/);assert.ok(Math.abs(M.calculate(meta[2].id,4)-2.083660672643416)<1e-10)});
+
+test('boulon : le domaine de précharge reste élastique selon la limite supposée',()=>{const sigmaMax=25e3/(58e-6)/1e6;assert.ok(sigmaMax<640);assert.ok(Math.abs(sigmaMax-431.0344827586207)<1e-8)});

@@ -26,3 +26,9 @@ HEAD initial : `5129bc2e1ce87ce0a38f679bb8db091526d640e7`. Référence V2.3 lue 
 Corrigé Faraday rectifié : 2,08366 g (au lieu de 2,08355 g), contrôle numérique ajouté avant publication finale. La CI native reste à vérifier ; ne pas revendiquer PASS sans journaux.
 
 Test graphique ajusté : l'attribut SVG `data-geom-px` est volontairement arrondi à six décimales ; la tolérance de test est désormais 5,1×10⁻⁷ px au lieu de la tolérance physique relative. Le modèle conserve son contrôle strict de synchronisation.
+
+## Audit historique exécuté sur le HEAD du cycle
+36 missions 40–75 contrôlées individuellement sur minimum, nominal et maximum : 108 calculs finis, 108 SVG structurels, 108 désynchronisations rejetées, 36 ensembles de trois questions flash ; PASS ciblé V8. Les modèles n'ont pas reçu une expertise scientifique indépendante exhaustive. Nouvelle suite 438–442 : 7 tests unitaires adaptés V8 PASS, 5 parcours DOM simulés PASS, 20 entrées invalides rejetées. Correction historique pression pneumatique : 1 test V8 PASS.
+
+## Domaine mécanique explicité
+Boulon : acier de classe 8.8, limite élastique supposée 640 MPa, contrainte maximale du domaine 431 MPa ; essai de domaine ajouté. Les critères de décision restent fictifs.
