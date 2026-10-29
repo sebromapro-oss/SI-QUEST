@@ -431,11 +431,11 @@ Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage
     Object.freeze({id:"hydro-annular-force-01",world:"SI-06",title:"Effort côté tige d’un vérin",url:'missions/hydro-annular-force-01.html',subskill:"Effort de rentrée d'un vérin hydraulique à section annulaire"}),
     Object.freeze({id:"pneumatic-consumption-01",world:"SI-07",title:"Vérin pneumatique — Volume géométrique balayé",url:'missions/pneumatic-consumption-01.html',subskill:"Volume géométrique balayé par un piston pneumatique"}),
     Object.freeze({id:"electrical-series-01",world:"SI-08",title:"Résistance équivalente série",url:'missions/electrical-series-01.html',subskill:"Résistance équivalente de deux résistances en série"}),
-    Object.freeze({id:"electrical-parallel-01",world:"SI-08",title:"Résistance équivalente parallèle",url:'missions/electrical-parallel-01.html'}),
-    Object.freeze({id:"inductor-energy-01",world:"SI-09",title:"Énergie stockée dans une inductance",url:'missions/inductor-energy-01.html'}),
-    Object.freeze({id:"mechanical-efficiency-02",world:"SI-10",title:"Puissance utile d’une transmission",url:'missions/mechanical-efficiency-02.html'}),
-    Object.freeze({id:"rolling-torque-01",world:"SI-11",title:"Couple résistant au roulement",url:'missions/rolling-torque-01.html'}),
-    Object.freeze({id:"thermal-resistance-01",world:"SI-12",title:"Résistance thermique plane",url:'missions/thermal-resistance-01.html'}),
+    Object.freeze({id:"electrical-parallel-01",world:"SI-08",title:"Résistance équivalente parallèle",url:'missions/electrical-parallel-01.html',subskill:"Résistance équivalente de deux résistances en parallèle"}),
+    Object.freeze({id:"inductor-energy-01",world:"SI-09",title:"Énergie stockée dans une inductance",url:'missions/inductor-energy-01.html',subskill:"Énergie magnétique stockée dans une inductance linéaire"}),
+    Object.freeze({id:"mechanical-efficiency-02",world:"SI-10",title:"Puissance utile d’une transmission",url:'missions/mechanical-efficiency-02.html',subskill:"Puissance utile d'une transmission à rendement donné"}),
+    Object.freeze({id:"rolling-torque-01",world:"SI-11",title:"Couple résistant au roulement",url:'missions/rolling-torque-01.html',subskill:"Couple résistant équivalent à l'axe d'une roue en roulement"}),
+    Object.freeze({id:"thermal-resistance-01",world:"SI-12",title:"Résistance thermique plane",url:'missions/thermal-resistance-01.html',subskill:"Résistance thermique d'une paroi plane par conduction stationnaire"}),
     Object.freeze({id:"measurement-uncertainty-01",world:"SI-13",title:"Incertitude relative",url:'missions/measurement-uncertainty-01.html'}),
     Object.freeze({id:'hose-pressure-drop-01',world:'SI-06',title:'Diagnostic hydraulique — Pertes de charge laminaires',url:'missions/hose-pressure-drop-01.html'}),
     Object.freeze({id:'dc-voltage-drop-01',world:'SI-08',title:'Diagnostic électrique — Chute de tension des câbles',url:'missions/dc-voltage-drop-01.html'}),
@@ -526,6 +526,11 @@ Object.freeze({"id":"threephase-star-capacitance-01","world":"SI-08","title":"Tr
     Object.freeze({"id":"pv-module-fill-factor-01","world":"SI-10","title":"Module photovoltaïque — Facteur de forme","url":"missions/pv-module-fill-factor-01.html","subskill":"Facteur de forme photovoltaïque à partir des mesures au point de puissance maximale"}),
     Object.freeze({"id":"battery-peukert-runtime-01","world":"SI-15","title":"Batterie — Autonomie selon Peukert","url":"missions/battery-peukert-runtime-01.html","subskill":"Autonomie d'une batterie au plomb selon la loi empirique de Peukert"}),
     Object.freeze({"id":"zener-series-resistor-current-01","world":"SI-08","title":"Diode Zener — Courant de polarisation","url":"missions/zener-series-resistor-current-01.html","subskill":"Courant d'une diode Zener idéale polarisée par une résistance série"}),
+    Object.freeze({"id":"bearing-outer-race-bpfo-01","world":"SI-15","title":"Roulement — Fréquence de défaut de bague extérieure","url":"missions/bearing-outer-race-bpfo-01.html","subskill":"Fréquence théorique BPFO d'un roulement à billes"}),
+    Object.freeze({"id":"hydraulic-oil-elastic-energy-01","world":"SI-06","title":"Huile comprimée — Énergie élastique stockée","url":"missions/hydraulic-oil-elastic-energy-01.html","subskill":"Énergie volumique stockée par compressibilité linéaire d'un liquide"}),
+    Object.freeze({"id":"copper-electroplating-thickness-01","world":"SI-14","title":"Cuivrage — Épaisseur déposée par électrolyse","url":"missions/copper-electroplating-thickness-01.html","subskill":"Épaisseur de dépôt électrolytique par la loi de Faraday"}),
+    Object.freeze({"id":"clutch-synchronization-heat-01","world":"SI-05","title":"Embrayage — Énergie dissipée à la synchronisation","url":"missions/clutch-synchronization-heat-01.html","subskill":"Perte d'énergie cinétique lors du couplage de deux inerties en rotation"}),
+    Object.freeze({"id":"rectangular-channel-critical-depth-01","world":"SI-06","title":"Canal rectangulaire — Hauteur critique","url":"missions/rectangular-channel-critical-depth-01.html","subskill":"Profondeur critique d'un écoulement à surface libre en canal rectangulaire"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
