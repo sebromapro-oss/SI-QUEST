@@ -14,3 +14,8 @@ HEAD initial : `6ebf4cb6535d5d7e2bbb773da5903c3b627fa4cf`. Branche main privée 
 ## Réception
 S PASS ciblé (3 jeux par modèle, contre-calculs et 4 entrées invalides) ; G PASS structurel (SVG synchronisés, géométrie paramétrique) / visuel NOT RUN ; P PASS structurel / observation élève NOT RUN ; F PASS V8 ciblé / CI native à vérifier ; A NOT RUN (NVDA, TalkBack, VoiceOver et appareils réels). Animations temporelles et 3D : NOT APPLICABLE pour ces modèles stationnaires ; graphes statiques synchronisés après déverrouillage.
 Taxonomie canonique 249 sous-savoirs à réconcilier ; libellés de missions ≠ sous-savoirs canoniques. L’existence d’une page ne vaut pas validation.
+
+## CI native — vérification du commit 31318bd2533ff7c80adebe385f605308030a571a
+Quatre workflows push détectés le 29 octobre 2026 à 09:20 UTC : Node `40848900273`, contrôles scientifiques `40848899995`, scientific quality `40848900304`, accueil navigateur `40848901998`.
+Première tentative : **4/4 FAIL**. Relance explicite des quatre workflows : **4/4 FAIL** en deuxième tentative. Les jobs affichent **zéro étape** ; téléchargement des quatre journaux : HTTP 404 `BlobNotFound`. Cause exacte **indéterminée**. CI native **BLOCKED** ; tests Node, navigateur et Playwright **NOT RUN / non démontrés**. Les 41 vérifications V8 ciblées réalisées avant publication ne constituent pas une recette native. Aucune modification de l'accueil n'a été réalisée.
+Catalogue distant après publication : 472 identifiants uniques, 17 univers, 304 libellés de sous-savoirs distincts, 97 missions sans sous-savoir explicite. Ces nombres ne démontrent pas 472 missions validées.
