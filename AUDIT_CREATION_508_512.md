@@ -26,3 +26,8 @@ Chaque page comporte situation professionnelle, objectifs, prérequis, trois fla
 - S : PASS ciblé ; G : PASS structurel, inspection visuelle NOT RUN ; P : PASS structurel, parcours navigateur NOT RUN ; F : PASS ciblé, CI BLOCKED ; A : NOT RUN (NVDA, TalkBack, VoiceOver et appareils réels).
 - Aucun test matériel ni navigateur réel revendiqué ; réception complète non prononcée.
 - Taxonomie 249 sous-savoirs, mesure de performance mobile et résolution CI : ouverts.
+
+## Contre-audit géométrique et CI
+- Anomalie P1 graphique reproduite après publication : les huit billes étaient visuellement séparées des pistes (rayon de bille 12 px, rayons des pistes 55 et 87 px pour un rayon primitif de 71 px). Correction : rayon de bille 14,2 px, pistes à 56,8 et 85,2 px, soit tangence géométrique exacte. Test de non-régression ajouté.
+- Première publication : quatre workflows GitHub Actions FAIL, puis quatre relances FAIL ; zéro étape exécutée, runner_id=0, journaux HTTP 404 BlobNotFound. La cause précise du blocage reste indéterminée ; CI native BLOCKED. Les tests V8 ciblés ne sont pas des tests Node natifs.
+- Après correction géométrique, vérifier à nouveau le SHA distant et la CI du commit correctif.

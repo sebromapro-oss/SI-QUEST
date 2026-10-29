@@ -12,7 +12,7 @@ for(const [i,m] of meta.entries())test(m.id+' : contre-calcul, domaine, graphiqu
  assert.equal(m.solution.split('\n').length,5);near(cfg.expected,refs[i](m.initial));
  let values=[];
  for(const x of [m.min,m.initial,m.max]){const y=M.calculate(m.id,x),svg=D.render(m.id,x,y);values.push(y);near(y,refs[i](x));
- assert.match(svg,/<title/);assert.match(svg,/<desc/);assert.match(svg,/data-chart-x/);assert.doesNotMatch(svg,/NaN|Infinity|undefined/);
+ assert.match(svg,/<title/);assert.match(svg,/<desc/);assert.match(svg,/data-chart-x/);if(m.id==='bearing-outer-race-bpfo-01'){assert.match(svg,/r="85\.2"/);assert.match(svg,/r="56\.8"/);assert.equal((svg.match(/r="14\.2"/g)||[]).length,8,'huit billes tangentes aux pistes');}assert.doesNotMatch(svg,/NaN|Infinity|undefined/);
  const px=Number(svg.match(/data-chart-x="([^"]+)"/)[1]),py=Number(svg.match(/data-chart-y="([^"]+)"/)[1]);assert.ok(px>=95&&px<=655&&py>=388&&py<=470);
  assert.throws(()=>D.render(m.id,x,y+Math.max(.1,Math.abs(y)*.1)),RangeError);}
  assert.ok(i===3?values[0]>values[1]&&values[1]>values[2]:values[0]<values[1]&&values[1]<values[2]);
