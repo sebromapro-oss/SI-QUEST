@@ -426,11 +426,11 @@ Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage
     Object.freeze({id:"spring-stiffness-01",world:"SI-04",title:"Raideur d’un ressort",url:'missions/spring-stiffness-01.html',subskill:"Identification de la raideur par la loi de Hooke"}),
     Object.freeze({id:"beam-stress-02",world:"SI-04",title:"Contrainte normale de flexion",url:'missions/beam-stress-02.html',subskill:"Contrainte normale maximale en flexion simple d'une section rectangulaire"}),
     Object.freeze({id:"gear-ratio-02",world:"SI-05",title:"Rapport de vitesses d’engrenages",url:'missions/gear-ratio-02.html',subskill:"Module du rapport de vitesses d'un engrenage extérieur"}),
-    Object.freeze({id:"screw-lead-01",world:"SI-05",title:"Avance d’une vis",url:'missions/screw-lead-01.html'}),
-    Object.freeze({id:"hydro-cylinder-speed-02",world:"SI-06",title:"Vitesse d’avance hydraulique",url:'missions/hydro-cylinder-speed-02.html'}),
-    Object.freeze({id:"hydro-annular-force-01",world:"SI-06",title:"Effort côté tige d’un vérin",url:'missions/hydro-annular-force-01.html'}),
-    Object.freeze({id:"pneumatic-consumption-01",world:"SI-07",title:"Vérin pneumatique — Volume géométrique balayé",url:'missions/pneumatic-consumption-01.html'}),
-    Object.freeze({id:"electrical-series-01",world:"SI-08",title:"Résistance équivalente série",url:'missions/electrical-series-01.html'}),
+    Object.freeze({id:"screw-lead-01",world:"SI-05",title:"Avance d’une vis",url:'missions/screw-lead-01.html',subskill:"Avance axiale par tour d'une vis à plusieurs filets"}),
+    Object.freeze({id:"hydro-cylinder-speed-02",world:"SI-06",title:"Vérin double effet — Vitesse de rentrée",url:'missions/hydro-cylinder-speed-02.html',subskill:"Vitesse de rentrée d'un vérin par la section annulaire"}),
+    Object.freeze({id:"hydro-annular-force-01",world:"SI-06",title:"Effort côté tige d’un vérin",url:'missions/hydro-annular-force-01.html',subskill:"Effort de rentrée d'un vérin hydraulique à section annulaire"}),
+    Object.freeze({id:"pneumatic-consumption-01",world:"SI-07",title:"Vérin pneumatique — Volume géométrique balayé",url:'missions/pneumatic-consumption-01.html',subskill:"Volume géométrique balayé par un piston pneumatique"}),
+    Object.freeze({id:"electrical-series-01",world:"SI-08",title:"Résistance équivalente série",url:'missions/electrical-series-01.html',subskill:"Résistance équivalente de deux résistances en série"}),
     Object.freeze({id:"electrical-parallel-01",world:"SI-08",title:"Résistance équivalente parallèle",url:'missions/electrical-parallel-01.html'}),
     Object.freeze({id:"inductor-energy-01",world:"SI-09",title:"Énergie stockée dans une inductance",url:'missions/inductor-energy-01.html'}),
     Object.freeze({id:"mechanical-efficiency-02",world:"SI-10",title:"Puissance utile d’une transmission",url:'missions/mechanical-efficiency-02.html'}),
@@ -521,6 +521,11 @@ Object.freeze({"id":"threephase-star-capacitance-01","world":"SI-08","title":"Tr
     Object.freeze({"id":"piezoelectric-direct-charge-01","world":"SI-13","title":"Capteur piézoélectrique — Charge générée","url":"missions/piezoelectric-direct-charge-01.html","subskill":"Effet piézoélectrique direct : charge et force selon l'axe 3"}),
     Object.freeze({"id":"buck-inductor-current-ripple-01","world":"SI-08","title":"Hacheur abaisseur — Ondulation du courant de l'inductance","url":"missions/buck-inductor-current-ripple-01.html","subskill":"Ondulation crête-à-crête de courant dans l'inductance d'un buck idéal"}),
     Object.freeze({"id":"uniform-magnetic-flux-01","world":"SI-08","title":"Champ magnétique — Flux dans une surface plane","url":"missions/uniform-magnetic-flux-01.html","subskill":"Flux magnétique d'un champ uniforme normal à une surface plane"}),
+    Object.freeze({"id":"capillary-meniscus-pressure-01","world":"SI-06","title":"Capillaire — Saut de pression au ménisque","url":"missions/capillary-meniscus-pressure-01.html","subskill":"Saut de pression de Laplace dans un capillaire cylindrique mouillant"}),
+    Object.freeze({"id":"magnetic-core-reluctance-01","world":"SI-08","title":"Circuit magnétique — Réluctance du noyau","url":"missions/magnetic-core-reluctance-01.html","subskill":"Réluctance d'un circuit ferromagnétique linéaire sans entrefer"}),
+    Object.freeze({"id":"ntc-beta-resistance-01","world":"SI-13","title":"Thermistance NTC — Résistance à chaud","url":"missions/ntc-beta-resistance-01.html","subskill":"Loi exponentielle β d'une thermistance NTC"}),
+    Object.freeze({"id":"pv-module-fill-factor-01","world":"SI-10","title":"Module photovoltaïque — Facteur de forme","url":"missions/pv-module-fill-factor-01.html","subskill":"Facteur de forme photovoltaïque à partir des mesures au point de puissance maximale"}),
+    Object.freeze({"id":"battery-peukert-runtime-01","world":"SI-15","title":"Batterie — Autonomie selon Peukert","url":"missions/battery-peukert-runtime-01.html","subskill":"Autonomie d'une batterie au plomb selon la loi empirique de Peukert"}),
   ]);
   const targets=Object.freeze({universes:17,subskills:249,levels:996});
   const api=Object.freeze({worlds,levels,targets,byId:id=>levels.find(level=>level.id===id)||null});
