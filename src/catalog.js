@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"capacitor-dielectric-dissipation-01","world":"SI-08","title":"Condensateur — Pertes diélectriques","url":"missions/capacitor-dielectric-dissipation-01.html","subskill":"Pertes diélectriques en régime sinusoïdal"}),
+Object.freeze({"id":"pump-dimensionless-specific-speed-01","world":"SI-06","title":"Pompe centrifuge — Vitesse spécifique","url":"missions/pump-dimensionless-specific-speed-01.html","subskill":"Vitesse spécifique adimensionnelle d'une pompe"}),
+Object.freeze({"id":"pid-derivative-sine-amplitude-01","world":"SI-09","title":"Action dérivée — Amplitude sinusoïdale","url":"missions/pid-derivative-sine-amplitude-01.html","subskill":"Gain fréquentiel d'un dérivateur idéal"}),
+Object.freeze({"id":"rotating-thin-ring-hoop-stress-01","world":"SI-04","title":"Couronne tournante — Contrainte de cerclage","url":"missions/rotating-thin-ring-hoop-stress-01.html","subskill":"Contrainte circonférentielle d'un anneau mince en rotation"}),
+Object.freeze({"id":"parallel-rc-impedance-magnitude-01","world":"SI-08","title":"RC parallèle — Module d'impédance","url":"missions/parallel-rc-impedance-magnitude-01.html","subskill":"Admittance complexe d'un réseau RC parallèle"}),
 Object.freeze({"id":"elbow-minor-pressure-loss-01","world":"SI-06","title":"Coude hydraulique — Perte de charge singulière","url":"missions/elbow-minor-pressure-loss-01.html","subskill":"Perte de charge locale par coefficient de singularité"}),
 Object.freeze({"id":"spherical-shell-thermal-resistance-01","world":"SI-12","title":"Enceinte sphérique — Résistance thermique","url":"missions/spherical-shell-thermal-resistance-01.html","subskill":"Conduction radiale stationnaire dans une coque sphérique"}),
 Object.freeze({"id":"mohr-plane-principal-stress-01","world":"SI-04","title":"État plan de contraintes — Contrainte principale","url":"missions/mohr-plane-principal-stress-01.html","subskill":"Contraintes principales par cercle de Mohr"}),
