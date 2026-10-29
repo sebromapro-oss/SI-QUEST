@@ -21,3 +21,14 @@ HEAD initial : `63c7558fae240cfa8fd9f888af19c40945789ab0`. Références lues : c
 - A : clavier/tactile via composants existants ; essais matériels et NVDA/TalkBack/VoiceOver NOT RUN.
 - CI précédente : trois workflows GitHub Actions échouaient avant toute étape observable ; diagnostic d'infrastructure ouvert.
 - Accueil : `index.html`, `src/home.js`, `src/style.css`, `assets/archipelago-cinematic.svg` inchangés. Aucun ZIP, Pages ni modification de branche archive.
+
+## Contre-audit exécuté après intégration
+
+- Catalogue distant relu : **447 identifiants uniques, 447 pages HTML, 17 univers**. 350 missions ont un champ sous-savoir explicite, 279 libellés distincts, 97 sans champ explicite. La cible canonique de 249 reste à réconcilier (P2).
+- Nouvelles missions 443–447 : **15/15** états modèle/contre-calcul indépendant et SVG structurels PASS en V8 ; **15/15** désynchronisations forcées rejetées ; **20/20** paramètres invalides rejetés.
+- **5/5** parcours DOM simulés PASS (saisie invalide sans essai, trois essais erronés, trois aides et corrigé, réponse correcte, trois étoiles, sauvegarde). Simulation DOM JavaScript, pas essai navigateur réel.
+- Missions 40–75 : **36/36** pages et trois questions flash, **108/108** calculs et SVG sur trois états, **108/108** désynchronisations rejetées, PASS ciblé V8 ; cela ne vaut pas expertise scientifique indépendante exhaustive.
+- P2 corrigée : texte métrologique fictif cohérent avec le critère moteur de 1,0 % ; contrôle du critère à u=0,50 mm PASS.
+- GitHub Actions sur commit `926505de4afde61f983a5c5248e6949245a08733` : recette Node `40816845506`, qualité `40816845493`, recette accueil `40816845466`, contrôles scientifiques `40816863602` : **FAIL/BLOCKED**, échecs avant étapes observables ; relances demandées. Le journal Node renvoie HTTP 404 `BlobNotFound`. Aucune suite Node native revendiquée PASS.
+- Recette visuelle navigateur, Android/iPhone, NVDA, TalkBack et VoiceOver : **NOT RUN**.
+- Accueil et carte : quatre fichiers protégés inchangés selon comparaison Git ; dépôt privé, aucune publication Pages.
