@@ -21,3 +21,6 @@ HEAD initial : `5129bc2e1ce87ce0a38f679bb8db091526d640e7`. Référence V2.3 lue 
 - S : PASS ciblé ; G : PASS structurel, inspection visuelle NOT RUN ; P : PASS structurel ; F : tests JS ciblés PASS, CI BLOCKED/à vérifier ; A : NVDA/TalkBack/VoiceOver NOT RUN.
 - Aucune recette réelle Windows, Mac, Android, iPhone, lecteur d'écran ou inspection visuelle ne peut être revendiquée sans preuve.
 - Accueil, carte, styles, SVG de l'accueil et branche d'archive non modifiés ; aucun GitHub Pages ni ZIP.
+
+## Contre-audit correctif
+Corrigé Faraday rectifié : 2,08366 g (au lieu de 2,08355 g), contrôle numérique ajouté avant publication finale. La CI native reste à vérifier ; ne pas revendiquer PASS sans journaux.
