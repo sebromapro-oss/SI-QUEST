@@ -24,3 +24,14 @@
 - Réception S : PASS ciblé ; G : PASS structurel / visuel NOT RUN ; P : PASS structurel ; F : tests ciblés PASS / CI BLOCKED jusqu'à preuve ; A : NOT RUN.
 - Taxonomie 249 sous-savoirs : réconciliation P2 ouverte. Performance mobile et multiplication des scripts : P2 ouverte.
 - Les schémas sont 2D ; aucune animation temporelle ou scène 3D n'est revendiquée. La validation complète n'est pas acquise.
+
+## Contre-audit après publication — preuves observées
+- **Historique 40–75 : 36/36 missions**, 108/108 états numériques finis et SVG structurels cohérents, 108/108 désynchronisations rejetées, 36/36 listes de trois questions flash : PASS ciblé V8 sur le code distant.
+- **Contre-calculs historiques indépendants : 15/15 PASS** sur les cinq modèles corrigés (torsion, déformation axiale, entraxe, vitesse de courroie, puissance hydraulique). Les 31 autres modèles n'ont pas fait l'objet d'une expertise scientifique indépendante exhaustive dans ce cycle.
+- **Nouvelles missions : 15/15 états** recalculés après publication avec les moteurs réellement chaînés, catalogue et HTML concordants ; 487/487 identifiants uniques, 17/17 univers.
+- Taxonomie actuelle : **338 libellés de sous-savoirs distincts**, **82 missions sans champ subskill**, dont **26 dans 40–75**. Cible canonique 249 non réconciliée : P2 OPEN.
+- Fichiers protégés vérifiés par SHA avant/après : `index.html`, `src/home.js`, `src/style.css`, `assets/archipelago-cinematic.svg` inchangés. `index.html` charge `src/catalog.js` puis `src/home.js` ; aucun de ces deux fichiers d'accueil n'a été modifié.
+- CI du commit de production `805c2e0c6f14559726a2293e8d5d4d819a892baa` : quatre workflows FAIL en tentative 1, relancés, quatre FAIL en tentative 2. Chaque job échoue sans étape (`steps=[]`, runner non attribué) ; téléchargement du journal scientifique : 404 `BlobNotFound`. Cause précise inconnue. **Node natif : NOT RUN / CI BLOCKED**, aucun PASS revendiqué.
+- Test de syntaxe de `tests/batch483-487.test.cjs` par compilation V8 : PASS ; exécution native `node --test` : NOT RUN.
+- Tests DOM, navigateurs et matériels réels, NVDA, TalkBack, VoiceOver : NOT RUN. Animation temporelle et scène 3D : NOT APPLICABLE au rendu 2D choisi, mais **animation scientifique temporelle exigée par le cahier des charges non livrée** ; réception complète : BLOCKED.
+- Classification : P1 pédagogie/taxonomie, 4 corrigées ; P2 sous-savoirs historiques, 5 corrigés et 26 encore ouverts sur 40–75 ; P2 taxonomie canonique, CI et performance mobile encore ouvertes.
