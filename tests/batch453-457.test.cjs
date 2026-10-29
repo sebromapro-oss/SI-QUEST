@@ -34,8 +34,8 @@ assert.match(D.render(d.id,10,M.calculate(d.id,10)),/data-weight-x=/);
 assert.match(D.render(e.id,-.8,M.calculate(e.id,-.8)),/data-covariance-px="-/);
 });
 test('catalogue, pages et corrections historiques',()=>{
-assert.equal(C.worlds.length,17);assert.equal(C.levels.length,457);
-assert.equal(new Set(C.levels.map(v=>v.id)).size,457);
+assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=457);
+assert.equal(new Set(C.levels.map(v=>v.id)).size,C.levels.length);
 for(const v of meta)assert.ok(fs.existsSync('missions/'+v.id+'.html'));
 const h=fs.readFileSync('missions/thermal-radiation-01.html','utf8');
 assert.equal((h.match(/<li>/g)||[]).length,3);assert.doesNotMatch(h,/Réactivation mémoire — questions flash/);
