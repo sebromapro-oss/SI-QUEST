@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"gyro-rotor-precession-torque-01","world":"SI-02","title":"Rotor — Couple gyroscopique de précession","url":"missions/gyro-rotor-precession-torque-01.html","subskill":"Moment gyroscopique vectoriel d’un rotor"}),
+Object.freeze({"id":"rl-series-voltage-phase-01","world":"SI-08","title":"Circuit RL — Déphasage tension-courant","url":"missions/rl-series-voltage-phase-01.html","subskill":"Déphasage inductif par triangle des tensions"}),
+Object.freeze({"id":"triangular-gate-hydrostatic-force-01","world":"SI-06","title":"Vanne triangulaire — Résultante hydrostatique","url":"missions/triangular-gate-hydrostatic-force-01.html","subskill":"Intégration hydrostatique sur une surface triangulaire"}),
+Object.freeze({"id":"hollow-rectangular-section-inertia-01","world":"SI-04","title":"Profilé creux — Moment quadratique","url":"missions/hollow-rectangular-section-inertia-01.html","subskill":"Moment quadratique d’une section rectangulaire évidée"}),
+Object.freeze({"id":"motor-i2t-overload-time-01","world":"SI-16","title":"Protection moteur — Temps limite I²t","url":"missions/motor-i2t-overload-time-01.html","subskill":"Intégrale thermique I²t sous surintensité constante"}),
 Object.freeze({"id":"capacitor-dielectric-dissipation-01","world":"SI-08","title":"Condensateur — Pertes diélectriques","url":"missions/capacitor-dielectric-dissipation-01.html","subskill":"Pertes diélectriques en régime sinusoïdal"}),
 Object.freeze({"id":"pump-dimensionless-specific-speed-01","world":"SI-06","title":"Pompe centrifuge — Vitesse spécifique","url":"missions/pump-dimensionless-specific-speed-01.html","subskill":"Vitesse spécifique adimensionnelle d'une pompe"}),
 Object.freeze({"id":"pid-derivative-sine-amplitude-01","world":"SI-09","title":"Action dérivée — Amplitude sinusoïdale","url":"missions/pid-derivative-sine-amplitude-01.html","subskill":"Gain fréquentiel d'un dérivateur idéal"}),

@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const c=window.SI_MISSION,profile={
+const c=window.SI_MISSION;if(!c)return;const profile={
 "series-spring-stiffness-01":["Un mécanicien vérifie la raideur d'un montage de deux ressorts bout à bout avant installation sur un banc.","Loi de Hooke, forces, allongements, association en série.","Déterminer la raideur équivalente et comparer le déplacement total sous une charge commune.","Critère fictif kₑq ≥ 25 kN/m ; vérifier les butées et courses.","Ne pas additionner les raideurs comme en parallèle."],
 "poisson-lateral-contraction-01":["Un technicien de laboratoire mesure la variation du diamètre d'une éprouvette cylindrique sous traction.","Module de Young, contrainte, déformation, coefficient de Poisson.","Calculer la contraction diamétrale signée dans le domaine élastique.","Critère fictif |Δd| ≤ 6 µm ; contrôler la limite élastique.","Ne pas perdre le signe négatif ni confondre MPa et GPa."],
 "differential-thermal-clearance-01":["Un mécanicien contrôle le jeu axial d'un insert aluminium dans un logement acier chauffé.","Dilatation linéaire, coefficients thermiques, conversions m/mm.","Calculer le jeu résiduel et vérifier le risque de contact.","Critère fictif j ≥ 0,100 mm ; mesurer les tolérances et températures.","Ne pas additionner les dilatations : calculer leur différence."],
