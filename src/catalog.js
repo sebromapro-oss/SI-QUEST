@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"gear-lewis-tooth-bending-01","world":"SI-05","title":"Engrenage droit — Contrainte de flexion de Lewis","url":"missions/gear-lewis-tooth-bending-01.html","subskill":"Contrainte nominale de flexion au pied de dent par la formule de Lewis"}),
+Object.freeze({"id":"maintenance-normal-reorder-point-01","world":"SI-15","title":"SAV — Point de commande avec aléas","url":"missions/maintenance-normal-reorder-point-01.html","subskill":"Seuil de réapprovisionnement sous demande normale indépendante et délai fixe"}),
+Object.freeze({"id":"chain-polygonal-speed-ripple-01","world":"SI-05","title":"Transmission par chaîne — Effet polygonal","url":"missions/chain-polygonal-speed-ripple-01.html","subskill":"Ondulation géométrique relative de vitesse liée au nombre de dents du pignon"}),
+Object.freeze({"id":"inglis-elliptical-hole-kt-01","world":"SI-04","title":"Plaque percée — Concentration de contrainte d'Inglis","url":"missions/inglis-elliptical-hole-kt-01.html","subskill":"Facteur élastique de concentration aux extrémités d'un trou elliptique"}),
+Object.freeze({"id":"safety-two-out-of-three-vote-01","world":"SI-16","title":"Vote 2 sur 3 — Fiabilité idéale","url":"missions/safety-two-out-of-three-vote-01.html","subskill":"Probabilité de succès d'un vote majoritaire à trois canaux indépendants"}),
+
 Object.freeze({"id":"maintenance-poisson-spares-twofail-01","world":"SI-15","title":"Pièces de rechange — Risque de deux pannes","url":"missions/maintenance-poisson-spares-twofail-01.html","subskill":"Probabilité d'au moins deux défaillances selon une loi de Poisson"}),
 Object.freeze({"id":"humid-air-vapor-mass-density-01","world":"SI-12","title":"Air humide — Masse volumique de vapeur","url":"missions/humid-air-vapor-mass-density-01.html","subskill":"Masse volumique partielle de vapeur d'eau dans un mélange gazeux idéal"}),
 Object.freeze({"id":"rectifier-capacitor-ripple-01","world":"SI-08","title":"Redresseur — Ondulation d'un condensateur de filtrage","url":"missions/rectifier-capacitor-ripple-01.html","subskill":"Ondulation crête à crête d'un filtrage capacitif après redressement double alternance"}),
