@@ -21,3 +21,7 @@ Avant publication : 15 références numériques indépendantes, 15 SVG structure
 | A | NOT RUN sur appareil et lecteur d'écran |
 
 Tests Node natifs et CI non encore prouvés lors de la rédaction initiale ; les exécutions GitHub Actions doivent être examinées après commit. Aucune validation complète revendiquée. Les 249 sous-savoirs canoniques restent à réconcilier.
+
+## Contre-audit complémentaire
+
+P1 graphique : remplacement des quatre marqueurs de pression sphérique par des pointes radiales réellement orientées ; correction de l'origine de la flèche de conduction pour qu'elle débute dans la paroi, et non dans le vide central. P2 scientifique : rectification de l'arrondi de la résistance cylindrique nominale à 0,0147090 K/W. Tests de géométrie et intégration numérique indépendante de Fourier ajoutés.
