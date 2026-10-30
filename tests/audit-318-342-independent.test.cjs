@@ -33,7 +33,7 @@ const references=[
   x=>x/300-x/400
 ];
 const near=(v,w,tol=2e-7)=>assert.ok(Number.isFinite(v)&&Number.isFinite(w)&&Math.abs(v-w)<=tol*Math.max(1,Math.abs(w)),v+' ≠ '+w);
-const attr=(svg,name)=>{const m=svg.match(new RegExp('\\\\b'+name+'="([^"]+)"'));assert.ok(m,'Attribut absent : '+name);return Number(m[1]);};
+const attr=(svg,name)=>{const m=svg.match(new RegExp('\\b'+name+'="([^"]+)"'));assert.ok(m,'Attribut absent : '+name);return Number(m[1]);};
 assert.equal(all.length,25);assert.equal(references.length,25);
 for(const [i,m] of all.entries())test('contre-audit indépendant '+(318+i)+' '+m.id,()=>{
  const html=fs.readFileSync('missions/'+m.id+'.html','utf8');
