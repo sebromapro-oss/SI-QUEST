@@ -75,3 +75,19 @@ for(const id of newIds)test(id+' : sauvegarde, reprise et investigation au seuil
  assert.ok(log.some(x=>x.includes('Essai :')),id+' essai non sauvegardé');
  b.get('reset').fire('click');assert.equal(storage['siquest:'+id+':v2.1'],undefined);
 });
+
+test('scène 3D qualitative après erreur : animation disponible sans dévoiler la réponse',()=>{
+ const h=harness('circular-02'),g=h.get;
+ assert.equal(g('scene3-play').disabled,true);
+ h.submit('999999');
+ assert.equal(g('scene3-play').disabled,false);
+ assert.equal(g('scene3-step').disabled,false);
+ assert.equal(g('graph').style.display,'none');
+ assert.equal(g('trial').disabled,true);
+ assert.equal(g('solution').disabled,true);
+ assert.match(g('scene3-view').innerHTML,/Exploration qualitative : valeur calculée masquée/);
+ assert.doesNotMatch(g('scene3-view').innerHTML,/aₙ = |v = /);
+ g('scene3-step').fire('click');
+ assert.match(g('scene3-info').textContent,/0.10 s/);
+ g('reset').fire('click');assert.equal(g('scene3-play').disabled,true);
+});
