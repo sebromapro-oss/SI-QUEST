@@ -62,3 +62,13 @@ Les résultats sont arrondis **pour la présentation uniquement**. La comparaiso
 - **Phase 2 :** toujours suspendue. Aucune mission 598+ créée.
 
 **Prochaine action :** inspection graphique réelle des schémas, revue de précision/tolérances et du comportement des aides, puis audit scientifique d'un nouveau lot sans confondre CI verte et réception complète.
+
+## Complément — trois erreurs de proportions SVG corrigées
+
+L'inspection du code des scènes paramétriques a révélé trois discordances géométriques qui n'étaient pas détectées par les tests numériques :
+
+1. **Roulement BPFI** (`bearing-inner-race-bpfi-01`) : les billes étaient représentées avec un rayon graphique de 11 px pour un rayon primitif de 89 px, soit un rapport des diamètres d'environ 0,124 au lieu de **d/D = 10/50 = 0,20**. Le rayon graphique est corrigé à **18 px** (rapport 18/89 ≈ 0,202), avec contrôle du non-contact des deux bagues. Code : `0e3dd66042b9edcc441dc16f1f512c3d4b54b55d` ; test : `3fc110f9deda81271ecdc7d3f08ff6fd17eda6ca`.
+2. **Conduction radiale** (`cylindrical-wall-radial-thermal-resistance-01`) : le rayon extérieur graphique `24+2,2×rₑ` n'était pas proportionnel au rayon physique, tandis que le rayon intérieur restait fixé à 48 px. Il est remplacé par `48×rₑ/20`, ce qui impose exactement **rₑ/rᵢ = Rₑ/Rᵢ** ; l'épaisseur `e=rₑ−rᵢ` est affichée. Code : `f6668e070ed1fafd9bfe08ecd89087d78504b101` ; test : `3f7e7cac82916f91686a109dcec3f789a7a2581f`.
+3. **Sonde capacitive coaxiale** (`coaxial-capacitive-level-delta-01`) : les rayons graphiques 44/96 ne respectaient pas le rapport physique **a/b=2/5**. Les rayons deviennent **40/100**, et les cotations `a` et `b` partent désormais toutes deux du centre, au lieu d'indiquer par erreur `b−a` pour `b`. Code : `2f57a125fae2757841c7af5194c89e2930dc0e25` ; test : `b85565749953ee958bc6cf82382d654079814032`.
+
+Ces corrections concernent **uniquement la géométrie SVG** : les équations, résultats attendus et tolérances de calcul restent inchangés. Les nouveaux tests vérifient les proportions physiques aux états représentatifs ; ils ne remplacent pas une inspection visuelle sur navigateur et appareil.
