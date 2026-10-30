@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"bolt-joint-external-load-share-01","world":"SI-04","title":"Assemblage précontraint — Surcharge dans la vis","url":"missions/bolt-joint-external-load-share-01.html","subskill":"Partage d'une charge externe entre vis et pièces serrées selon leurs raideurs"}),
+Object.freeze({"id":"journal-bearing-viscous-torque-01","world":"SI-11","title":"Palier lisse — Couple visqueux du film d'huile","url":"missions/journal-bearing-viscous-torque-01.html","subskill":"Couple de frottement visqueux d'un palier cylindrique en film mince de Couette"}),
+Object.freeze({"id":"diesel-fuel-thermal-density-01","world":"SI-14","title":"Gazole — Masse volumique corrigée en température","url":"missions/diesel-fuel-thermal-density-01.html","subskill":"Variation de masse volumique d'un liquide par dilatation volumique à masse constante"}),
+Object.freeze({"id":"pi-integrator-antiwindup-clamp-01","world":"SI-09","title":"Régulateur PI — Écrêtage de l'état intégral","url":"missions/pi-integrator-antiwindup-clamp-01.html","subskill":"Mise à jour discrète d'un intégrateur PI avec limitation explicite anti-emballement"}),
+Object.freeze({"id":"thin-lens-inspection-magnification-01","world":"SI-13","title":"Contrôle optique — Grandissement d'une lentille mince","url":"missions/thin-lens-inspection-magnification-01.html","subskill":"Grandissement transversal d'une lentille mince convergente à objet réel"}),
 Object.freeze({"id":"laser-michelson-fringe-displacement-01","world":"SI-13","title":"Interféromètre laser — Déplacement par franges","url":"missions/laser-michelson-fringe-displacement-01.html","subskill":"Mesure de déplacement par comptage de franges dans un Michelson à double passage"}),
 Object.freeze({"id":"photodiode-shot-noise-rms-01","world":"SI-08","title":"Photodiode — Bruit de grenaille efficace","url":"missions/photodiode-shot-noise-rms-01.html","subskill":"Courant de bruit de grenaille d'une photodiode en bande passante définie"}),
 Object.freeze({"id":"gear-involute-base-pitch-01","world":"SI-05","title":"Engrenage droit — Pas de base de développante","url":"missions/gear-involute-base-pitch-01.html","subskill":"Pas de base d'une denture droite à développante à partir du module et de l'angle de pression"}),
