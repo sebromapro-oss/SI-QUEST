@@ -253,10 +253,10 @@ $('calc').addEventListener('submit',e=>{
  const result=SIInvestigations.validateAnswer($('answer').value,c.expected,policy.absoluteTolerance,policy.relativeTolerance);
  if(!result.valid){$('answer').setAttribute('aria-invalid','true');$('feedback').textContent='Saisie invalide : utilise un nombre décimal, avec virgule ou point ; cet essai n’est pas décompté.';return;}
  tries++;
- if(result.correct){unlocked=true;mastered=true;}else if(tries===3){hints=3;}
+ if(result.correct){unlocked=true;mastered=true;}
  $('answer').setAttribute('aria-invalid',result.correct?'false':'true');
  const diagnostic=result.correct?'':SIInvestigations.diagnoseAnswer(result.value,c.expected,result.tolerance,c.unit);
- $('feedback').textContent=result.correct?'Calcul juste. Les simulations sont disponibles.':diagnostic+(tries===3?' Trois essais effectués : les trois indices sont affichés et le corrigé est disponible.':' Tu peux consulter une aide avant le prochain essai.');
+ $('feedback').textContent=result.correct?'Calcul juste. Les simulations sont disponibles.':diagnostic+(tries===3?' Trois essais effectués : consulte les trois aides pour accéder au corrigé.':' Tu peux consulter une aide avant le prochain essai.');
  record('Calcul '+(result.correct?'juste':'à reprendre')+' — essai '+tries+'/3');
 });
 $('hint').addEventListener('click',()=>{if(hints>=3){$('hintText').textContent='Les trois aides sont déjà affichées.';return;}hints=Math.min(3,hints+1);$('hintText').hidden=false;$('hintText').textContent=aids.slice(0,hints).map((s,i)=>(i+1)+'. '+s).join('\n');save();render()});

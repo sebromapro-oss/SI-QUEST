@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"radiation-surface-ambient-01","world":"SI-12","title":"Rayonnement — Surface vers ambiance","url":"missions/radiation-surface-ambient-01.html","subskill":"Puissance radiative nette d'une surface grise vers une grande enceinte noire"}),
+Object.freeze({"id":"thermal-peclet-transport-01","world":"SI-12","title":"Transport thermique — Nombre de Péclet","url":"missions/thermal-peclet-transport-01.html","subskill":"Rapport advection-diffusion thermique à partir d'une vitesse et d'une diffusivité"}),
+Object.freeze({"id":"kelvin-voigt-parallel-force-01","world":"SI-04","title":"Viscoélasticité — Kelvin-Voigt","url":"missions/kelvin-voigt-parallel-force-01.html","subskill":"Somme des efforts ressort-amortisseur en parallèle pour une déformation et une vitesse données"}),
+Object.freeze({"id":"capillary-pressure-drop-01","world":"SI-06","title":"Microconduite — Perte de pression laminaire","url":"missions/capillary-pressure-drop-01.html","subskill":"Perte de pression visqueuse d'un tube circulaire par la loi de Hagen-Poiseuille"}),
+Object.freeze({"id":"dielectric-parallel-plate-capacitance-01","world":"SI-08","title":"Diélectrique — Capacité de plaques planes","url":"missions/dielectric-parallel-plate-capacitance-01.html","subskill":"Capacité électrique d'un condensateur plan à entrefer homogène"}),
 Object.freeze({"id":"soderberg-fatigue-safety-01","world":"SI-14","title":"Fatigue — Sécurité selon Soderberg","url":"missions/soderberg-fatigue-safety-01.html","subskill":"Contrainte moyenne de traction et amplitude alternée dans le critère de Soderberg"}),
 Object.freeze({"id":"strain-half-bridge-output-01","world":"SI-13","title":"Jauges — Signal d'un demi-pont","url":"missions/strain-half-bridge-output-01.html","subskill":"Tension de sortie linéarisée de deux jauges actives de signes opposés"}),
 Object.freeze({"id":"thermal-contact-interface-resistance-01","world":"SI-12","title":"Contact thermique — Résistance d'interface","url":"missions/thermal-contact-interface-resistance-01.html","subskill":"Résistance de contact à partir de la conductance surfacique et de l'aire"}),
