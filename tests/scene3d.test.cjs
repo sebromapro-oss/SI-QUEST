@@ -1,1 +1,9 @@
 const test=require('node:test');const assert=require('node:assert/strict');const scene=require('../src/scene3d.js');const fs=require('node:fs');for(const id of scene.allowed){test(id+' : coordonnées 3D et caméra',()=>{const a=scene.render(id,.2,.3,4),b=scene.render(id,1.2,.3,4);assert.match(a,/<svg/);assert.match(a,/<desc/);assert.notEqual(a,b);assert.ok(!a.includes('NaN'));assert.ok(!a.includes('Infinity'));const page=fs.readFileSync('missions/'+id+'.html','utf8');assert.ok(page.includes('scene3d.js'))})}test('pas de fausse scène 3D',()=>assert.throws(()=>scene.render('heat-transfer-01',0,0,10)));
+test('exploration 3D qualitative : aucune valeur de résultat ni formule affichée',()=>{
+ for(const id of scene.allowed){const x=id==='gear-mesh-01'?40:4;
+  const svg=scene.render(id,.2,.3,x,{time:.2,conceptOnly:true});
+  assert.match(svg,/Exploration qualitative : valeur calculée masquée/);
+  assert.doesNotMatch(svg,/aₙ = |τmax = |ω₂\/ω₁|α = |Fᵣ = |v = |\|C\| = /);
+  assert.notEqual(svg,scene.render(id,.2,.3,x,{time:.2}));
+ }
+});
