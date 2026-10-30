@@ -29,3 +29,12 @@ V8 : 15/15 calculs PASS ; 15/15 SVG structurels PASS ; 15/15 désynchronisations
 | A | NOT RUN |
 
 Statut : codées, contrôlées de façon ciblée, NON VALIDÉES. Écarts ouverts : CI, recette navigateur/matériel, accessibilité, métadonnées historiques restantes et taxonomie des 249 sous-savoirs.
+
+## Contre-audit complémentaire après intégration
+
+- Contre-calculs historiques 40–75 : **36 missions × 3 états = 108/108 PASS** sous V8 avec références indépendantes du test `historical-40-75-independent.test.cjs` ; SVG structurels **108/108 PASS**. Cette exécution ciblée ne constitue pas une recette navigateur.
+- Métadonnées pédagogiques des 36 missions : **25/36 complètes**, **11/36 encore incomplètes**. Anomalies P2 ouvertes : `moment-arm-02`, `kinetic-friction-01`, `spring-stiffness-01`, `beam-stress-02`, `gear-ratio-02`, `screw-lead-01`, `hydro-cylinder-speed-02`, `hydro-annular-force-01`, `pneumatic-consumption-01`, `electrical-series-01`, `rolling-torque-01`.
+- Contre-calcul scientifique indépendant en Python des cinq cas nominaux : 1,2 m/s ; 4 comptes ; 36,363636 W ; 3 808,342302 tr/min ; 15,915494 mm/s : **5/5 PASS**.
+- HEAD de production vérifié : `7ca31b510555fc1e1bb6a839eb274a2af9147123`, catalogue **572/572** identifiants uniques et **572 pages HTML**, **17/17 univers**.
+- GitHub Actions sur `7ca31b510555fc1e1bb6a839eb274a2af9147123` : **4 workflows FAIL**, puis **4 relances FAIL**, tous sans étape observable ; récupération du journal d'un job : HTTP 404 `BlobNotFound`. Cause non établie. Aucun test Node natif ni navigateur réel revendiqué.
+- Les quatre fichiers de la nouvelle page d'accueil conservent leurs SHA initiaux. Branche d'archive intacte. La réception complète S/G/P/F/A reste ouverte.
