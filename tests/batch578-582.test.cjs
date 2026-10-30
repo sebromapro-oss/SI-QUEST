@@ -3,3 +3,14 @@ test('coque sphérique : quatre flèches radiales et conduction hors du vide',()
 test('conduction cylindrique : intégration numérique indépendante de Fourier',()=>{const a=meta[3],k=15,L=.5,ri=.02;for(const ro of [.03,.04,.06]){const n=2000,h=(ro-ri)/n,g=r=>1/(2*Math.PI*k*L*r);let sum=g(ri)+g(ro);for(let j=1;j<n;j++)sum+=(j%2?4:2)*g(ri+j*h);const integral=h*sum/3,analytical=P.calculate(a.id,ro*1000);assert.ok(Math.abs(integral-analytical)<1e-11)}});
 
 test('corrigés conditionnels détaillés, sans texte indéfini',()=>{for(const a of meta){const q=P.answerPolicy[a.id];assert.ok(typeof q.solution==='string'&&q.solution.includes('Substitution')&&/décision/i.test(q.solution),a.id);assert.doesNotMatch(q.solution,/undefined|NaN|Infinity/);assert.ok(q.absoluteTolerance>0)}});
+
+test('Conduction cylindrique : rayons SVG à la même échelle physique',()=>{
+ const m=meta[3];for(const ro of [m.min,m.initial,m.max]){
+  const svg=D.render(m.id,ro,P.calculate(m.id,ro));
+  const outer=svg.match(/<circle cx="365" cy="215" r="([^"]+)" fill="#447b8a"/);
+  const inner=svg.match(/<circle cx="365" cy="215" r="([^"]+)" fill="#092236"/);
+  assert.ok(outer&&inner);
+  assert.ok(Math.abs(Number(outer[1])/Number(inner[1])-ro/20)<1e-12);
+  assert.ok(svg.includes('e='+(ro-20)+' mm'));
+ }
+});
