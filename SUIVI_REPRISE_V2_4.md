@@ -84,3 +84,17 @@
 - **CI vérifiée sur `b85565749953ee958bc6cf82382d654079814032` : 1 826 tests exécutés, 1 826 réussis, 0 échec ; 3 workflows réussis :** [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41054305297), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41054305132), [qualité scientifique](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41054305218).
 - **Aucune modification des fichiers d'accueil ni création de mission.** Quatre corrections SVG ciblées au total pendant le cycle, quatre nouveaux tests de non-régression ; nombre de tests passé de 1 822 à 1 826.
 - **HEAD de référence testé :** `b855657499`. Les commits documentaires ultérieurs doivent être revérifiés sur leurs propres workflows ; ne pas les annoncer verts avant leur fin.
+
+## Cycle V2.5 du 30 octobre 2026 — audit 543–567 et corrections scientifiques/SVG
+
+- **HEAD initial :** `29182a1ccf213549783b855dfc22d9c50f2f3c2c`. Inventaire initial : **597** fichiers HTML de missions, aucun 598+ ; trois workflows scientifiques et fonctionnels verts au départ, **1 826/1 826** tests.
+- **Périmètre scientifique :** 25 missions **543 à 567**. **75 valeurs de référence** recalculées séparément aux bornes et à l'état nominal, avec **25/25 résultats nominaux concordants** au champ `expected` (tolérance relative/absolue `10⁻⁹ × max(1, |valeur|)`). Rapport : [AUDIT_SCIENTIFIQUE_543_567_20261030.md](AUDIT_SCIENTIFIQUE_543_567_20261030.md).
+- **Cinq anomalies corrigées :** arrondi du gazole `821,043` → **`821,042 kg/m³`** ; flèches de contraintes d'Inglis rendues verticales aux pointes ; suppression des fils passant à travers les blocs R/X du transformateur ; proportions et cotes de la plaque rectangulaire corrigées à la même échelle ; courbe PWM limitée aux sept TOP admissibles avec segments indicatifs.
+- **Cinq nouveaux tests de non-régression :** arrondi du gazole, directions des contraintes d'Inglis, fils R/X, géométrie de la plaque et sept points PWM. **1 831 tests Node, 1 831 réussis, 0 échec** sur le commit de code/tests `8b3871928c00eea335f871c03353fba7702cf178`, trois workflows verts :
+  - [Recette automatisée](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41061765373)
+  - [Contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41061765698)
+  - [Qualité scientifique](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41061765472)
+- **Document d'audit publié :** commit `69f83c9f74fa72e27989bb7d28249e48ee5bb77e`. Les workflows de ce commit documentaire doivent être consultés séparément ; le résultat ci-dessus est celui du commit de code/tests.
+- **Préservation :** aucune modification de l'accueil, des 17 univers, des assets, des fichiers HTML de missions, ni de l'historique Git ; aucune nouvelle mission.
+- **Limites :** les 75 calculs, tests Node et assertions SVG ne remplacent pas l'inspection visuelle sur navigateurs, les tests matériels Android/iPhone, ni NVDA/TalkBack/VoiceOver. Audit de sécurité des contenus et de l'historique non achevé. Aucun coût facturé ne peut être garanti par ces seules vérifications.
+- **Prochaine action :** confirmer les trois workflows du HEAD documentaire final, inspecter visuellement les scènes corrigées, poursuivre les missions 518–542, préparer les tests matériels/lecteurs d'écran ; **phase 1 maintenue**.
