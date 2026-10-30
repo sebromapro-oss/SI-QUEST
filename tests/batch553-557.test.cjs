@@ -3,3 +3,15 @@ const refs=[x=>{let Ft=x/(.12/2);return Ft/(.03*.004*.3)/1e6},x=>{let m=0,v=0;fo
 for(const [i,m] of meta.entries())test(m.id+' : modèle, SVG, domaine et page',()=>{const h=fs.readFileSync('missions/'+m.id+'.html','utf8'),c=JSON.parse(h.split('window.SI_MISSION=')[1].split('</script>')[0]);assert.equal(c.id,m.id);assert.equal(C.byId(m.id).subskill,m.subskill);assert.equal((h.match(/<li>/g)||[]).length,3);assert.equal((h.match(/<script src=/g)||[]).length,4);assert.equal(m.solution.split('\n').length,5);near(c.expected,refs[i](m.initial));for(const x of [m.min,m.initial,m.max]){const y=P.calculate(m.id,x),s=D.render(m.id,x,y);near(y,refs[i](x));assert.match(s,/<title/);assert.match(s,/<desc/);assert.doesNotMatch(s,/NaN|Infinity|undefined/);let px=+s.match(/data-chart-x="([^"]+)"/)[1],py=+s.match(/data-chart-y="([^"]+)"/)[1];assert.ok(px>=95&&px<=655&&py>=388&&py<=471);assert.throws(()=>D.render(m.id,x,y+Math.max(1,Math.abs(y)*.1)),RangeError)}for(const bad of [NaN,Infinity,null,'5',m.min-1,m.max+1])assert.throws(()=>P.calculate(m.id,bad),RangeError)});
 test('Catalogue, invariants et intégrité',()=>{assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=557);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.ok(P.calculate(meta[0].id,160)>P.calculate(meta[0].id,60));assert.ok(P.calculate(meta[1].id,15)>P.calculate(meta[1].id,3));assert.ok(P.calculate(meta[2].id,12)>P.calculate(meta[2].id,40));assert.ok(P.calculate(meta[3].id,2)>P.calculate(meta[3].id,8));near(P.calculate(meta[4].id,.9),97.2);assert.throws(()=>P.calculate(meta[2].id,13.5),RangeError);assert.throws(()=>P.calculate(meta[2].id,13),RangeError);assert.match(D.render(meta[2].id,20,P.calculate(meta[2].id,20)),/data-discrete="true"/);assert.match(D.render(meta[1].id,8,P.calculate(meta[1].id,8)),/data-discrete="true"/)});
 test('Traçabilité historique et filtrage',()=>{for(const id of ['hydro-volume-01','pneumatic-force-01','electric-power-02','joule-heat-01','rc-time-01']){const h=fs.readFileSync('missions/'+id+'.html','utf8'),c=JSON.parse(h.split('window.SI_MISSION=')[1].split('</script>')[0]);for(const [key,label] of [['objective','Objectif'],['prerequisites','Prérequis'],['successCriteria','Critères de réussite']]){const v=h.match(new RegExp('<strong>'+label+'\\s*:\\s*</strong>\\s*([^<]+)','i'))[1].trim();assert.equal(c[key],v)}}assert.doesNotMatch(fs.readFileSync('src/batch548-552.js','utf8'),/condensateur idéal de 1000 à 5000 µF/)});
+
+test('Inglis : traction verticale et contraintes tangentielles aux pointes',()=>{
+ const id='inglis-elliptical-hole-kt-01';
+ for(const b of [2,4,8]){
+  const svg=D.render(id,b,P.calculate(id,b));
+  assert.match(svg,/σyy,max aux pointes/);
+  for(const [x,y,Y] of [[265,203,170],[265,221,254],[465,203,170],[465,221,254]])
+   assert.ok(svg.includes('x1="'+x+'" y1="'+y+'" x2="'+x+'" y2="'+Y+'"'),'Contrainte locale non tangentielle');
+  assert.doesNotMatch(svg,/x1="265" y1="212" x2="230" y2="212"/);
+  assert.doesNotMatch(svg,/x1="465" y1="212" x2="500" y2="212"/);
+ }
+});
