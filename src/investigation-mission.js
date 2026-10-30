@@ -246,9 +246,33 @@ function svgText(x,y,value){const el=document.createElementNS(svgNS,'text');el.s
 const units=graph.querySelectorAll('text');if(units[0]){units[0].textContent=c.unit==='sans unité'?'1':c.unit;units[0].setAttribute('x','10');units[0].setAttribute('y','17')}if(units[1]){units[1].textContent=c.inputUnit==='sans unité'?'1':c.inputUnit;units[1].setAttribute('x','290');units[1].setAttribute('y','225')}
 svgText(10,44,fmt(hi));svgText(10,185,fmt(lo));svgText(60,209,fmt(c.min));svgText(520,209,fmt(c.max));
 function save(){try{localStorage.setItem(key,JSON.stringify({version:'2.1',tries,hints,unlocked,mastered,stars:mastered?Math.max(1,4-tries):0,log,updatedAt:new Date().toISOString()}))}catch{}}
-function render(){const allowed=unlocked,spatialAllowed=canExplore3D();$('hintText').hidden=hints===0;$('hintText').style.whiteSpace='pre-line';$('hintText').textContent=aids.slice(0,hints).map((s,i)=>(i+1)+'. '+s).join('\n');$('hint').disabled=hints>=3||mastered;$('answer').disabled=mastered||tries>=3;$('calc').querySelector('button[type="submit"]').disabled=mastered||tries>=3;if(scene3){if(!spatialAllowed)stop3d();for(const name of ['scene3-orbit','scene3-elevation','scene3-zoom',...(spatialMotion?['scene3-play','scene3-step','scene3-reset']:[])])scene3.querySelector('#'+name).disabled=!spatialAllowed;}$('trialValue').disabled=!allowed;$('trial').disabled=!allowed;$('solution').disabled=tries<3||hints<3||mastered;graph.style.display=allowed?'block':'none';figure.style.display=allowed?'block':'none';$('log').replaceChildren(...log.map(s=>{const li=document.createElement('li');li.textContent=s;return li}));showReward();if(allowed)preview();else{$('graphic').textContent='Graphique et schéma chiffrés disponibles après le calcul ou le corrigé.';$('trialLabel').textContent='Calcul préalable nécessaire.';if(spatialAllowed)updateScene3()}}
+function render(){const allowed=unlocked,spatialAllowed=canExplore3D();$('hintText').hidden=hints===0;$('hintText').style.whiteSpace='pre-line';$('hintText').textContent=aids.slice(0,hints).map((s,i)=>(i+1)+'. '+s).join('\n');$('hint').disabled=hints>=3||mastered;$('answer').disabled=mastered||tries>=3;$('calc').querySelector('button[type="submit"]').disabled=mastered||tries>=3;if(scene3){if(!spatialAllowed)stop3d();for(const name of ['scene3-orbit','scene3-elevation','scene3-zoom',...(spatialMotion?['scene3-play','scene3-step','scene3-reset']:[])])scene3.querySelector('#'+name).disabled=!spatialAllowed;}$('trialValue').disabled=!spatialAllowed;$('trial').disabled=!allowed;$('solution').disabled=tries<3||hints<3||mastered;graph.style.display=allowed?'block':'none';figure.style.display=spatialAllowed?'block':'none';$('log').replaceChildren(...log.map(s=>{const li=document.createElement('li');li.textContent=s;return li}));showReward();if(spatialAllowed)preview();else{$('graphic').textContent='Graphique et schéma chiffrés disponibles après le calcul ou le corrigé.';$('trialLabel').textContent='Calcul préalable nécessaire.'}}
 function record(s){log.push(s);log=log.slice(-20);save();render()}
-function preview(){if(!unlocked)return;const x=Number($('trialValue').value),result=calc(x);$('point').setAttribute('cx',String(xx(x)));$('point').setAttribute('cy',String(yy(result)));$('graphic').textContent='Paramètre : '+fmt(x)+' '+c.inputUnit+' ; résultat : '+fmt(result)+' '+c.unit+'.';$('trialLabel').textContent='Résultat théorique : '+fmt(result)+' '+c.unit+'.';figure.innerHTML=SIInvestigationDiagrams.render(c.id,x,result);updateScene3()}
+function qualitativeDiagram(svg){
+ // Les SVG de production portent des résultats dans leurs textes, descriptions
+ // et attributs data-* : ils ne doivent pas les révéler avant validation.
+ return svg.replace(/<text\b[^>]*>[\s\S]*?<\/text>/gi,'')
+  .replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi,'')
+  .replace(/<desc\b[^>]*>[\s\S]*?<\/desc>/gi,'')
+  .replace(/<metadata\b[^>]*>[\s\S]*?<\/metadata>/gi,'')
+  .replace(/\s(?:data-[\w-]+|aria-[\w-]+)=(?:"[^"]*"|'[^']*')/gi,'')
+  .replace(/<svg\b([^>]*)>/i,(_,attrs)=>'<svg'+attrs+' aria-labelledby="si-qual-2d-title si-qual-2d-desc"><title id="si-qual-2d-title">Exploration graphique qualitative</title><desc id="si-qual-2d-desc">Schéma de principe interactif : valeurs numériques et corrigé masqués jusqu’à la validation.</desc>');
+}
+function preview(){
+ if(!canExplore3D())return;
+ const x=Number($('trialValue').value),result=calc(x),svg=SIInvestigationDiagrams.render(c.id,x,result);
+ if(unlocked){
+  $('point').setAttribute('cx',String(xx(x)));$('point').setAttribute('cy',String(yy(result)));
+  $('graphic').textContent='Paramètre : '+fmt(x)+' '+c.inputUnit+' ; résultat : '+fmt(result)+' '+c.unit+'.';
+  $('trialLabel').textContent='Résultat théorique : '+fmt(result)+' '+c.unit+'.';
+  figure.innerHTML=svg;
+ }else{
+  $('graphic').textContent='Exploration qualitative : le graphique chiffré reste masqué.';
+  $('trialLabel').textContent='Schéma interactif sans résultat numérique.';
+  figure.innerHTML=qualitativeDiagram(svg);
+ }
+ updateScene3();
+}
 $('calc').addEventListener('submit',e=>{
  e.preventDefault();
  if(tries>=3||mastered){$('feedback').textContent='Les essais sont terminés : consulte le corrigé ou réinitialise la mission.';return;}
@@ -264,7 +288,7 @@ $('calc').addEventListener('submit',e=>{
 });
 $('hint').addEventListener('click',()=>{if(hints>=3){$('hintText').textContent='Les trois aides sont déjà affichées.';return;}hints=Math.min(3,hints+1);$('hintText').hidden=false;$('hintText').textContent=aids.slice(0,hints).map((s,i)=>(i+1)+'. '+s).join('\n');save();render()});
 $('solution').addEventListener('click',()=>{if(tries<3||hints<3||mastered)return;unlocked=true;$('solutionText').hidden=false;$('solutionText').style.whiteSpace='pre-line';$('solutionText').textContent=(q?q.solution+'\n':'')+'Résultat de référence : '+fmt(c.expected)+' '+c.unit+'.\nTolérance de réponse : ±'+fmt(q?q.absoluteTolerance:Math.max(.02,Math.abs(c.expected)*.001))+' '+c.unit+'.\nLe critère pédagogique est fictif ; il ne remplace pas la vérification constructeur.';$('feedback').textContent=mastered?'Calcul déjà validé.':'Corrigé consulté : exploration possible, mais calcul non validé.';record('Corrigé consulté')});
-$('trialValue').addEventListener('input',()=>{simTime=0;preview();decision.textContent='Paramètre modifié : enregistre un essai pour établir le verdict.'});
+$('trialValue').addEventListener('input',()=>{simTime=0;preview();decision.textContent=unlocked?'Paramètre modifié : enregistre un essai pour établir le verdict.':'Exploration qualitative : aucun verdict ni résultat numérique affiché.'});
 $('trial').addEventListener('click',()=>{const x=Number($('trialValue').value),r=assess(x);const low=Number.isFinite(r.min)?fmt(r.min):'sans limite inférieure',high=Number.isFinite(r.max)?fmt(r.max):'sans limite supérieure';const criterion='Plage pédagogique : '+low+' à '+high+' '+r.unit+'. ';decision.textContent=criterion+(r.acceptable?'Critère respecté. '+p[3]:'Critère non respecté. '+p[4]);record('Essai : '+fmt(x)+' '+c.inputUnit+' → '+fmt(r.value)+' '+r.unit+' ; '+(r.acceptable?'critère respecté':'critère non respecté'))});
 $('reset').addEventListener('click',()=>{stop3d();simTime=0;tries=0;hints=0;unlocked=false;mastered=false;log=[];try{localStorage.removeItem(key);localStorage.removeItem(legacyKey)}catch{}$('feedback').textContent='À toi de calculer.';$('answer').removeAttribute('aria-invalid');$('hintText').hidden=true;$('solutionText').hidden=true;$('trialValue').value=c.initial;decision.textContent='Décision technique disponible après un essai.';render()});
 render();
