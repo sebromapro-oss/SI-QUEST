@@ -50,3 +50,11 @@ Les quatre tests de non-régression contrôlent la géométrie du SVG généré 
 - Tests matériels Android/iPhone, NVDA, TalkBack et VoiceOver : **non réalisés**.
 - Audit exhaustif de la sécurité du dépôt public et de son historique : **non réalisé**.
 - Réception scientifique et graphique des 597 missions : **incomplète** ; la phase 2 reste suspendue.
+
+## Contre-recette GitHub Actions — SHA de code et de tests `2961cb278c1e3762c171af3fcda7c0c55ea94a48`
+
+- [Recette automatisée SI QUEST](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41078376876) : **1 839 tests exécutés, 1 839 réussis, 0 échec**, journal Node consulté ; exécution terminée avec succès.
+- [Contrôles scientifiques SI QUEST](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41078376940) : **succès**.
+- [SI QUEST scientific quality](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41078376977) : **succès**.
+- Un second ensemble de trois exécutions sur le même SHA a également réussi : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41078416413), [contrôles](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41078416079), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41078416216).
+- Les **quatre nouveaux tests** contrôlent les invariants géométriques SVG ; ils ne remplacent pas la validation visuelle, matérielle ou RGAA. **Statut : phase 1 maintenue**.

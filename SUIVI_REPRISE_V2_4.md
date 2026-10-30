@@ -119,3 +119,11 @@
 - Quatre corrections SVG : ondulation buck proportionnelle, ménisque à tangentes verticales et rayon à l'échelle, profondeur critique à échelle homogène, pistons du multiplicateur au rapport 40/25 ; quatre tests de non-régression ajoutés.
 - **CI du commit de ce lot à vérifier après publication** : ne pas annoncer 1 839/1 839 avant lecture des workflows.
 - Aucune mission ajoutée, aucun accueil modifié. Essais matériels et lecteurs d'écran non réalisés ; phase 1 maintenue.
+
+### Vérification CI du lot 493–517
+
+- Commit de code/tests : `2961cb278c1e3762c171af3fcda7c0c55ea94a48` ; **1 839/1 839 tests Node réussis**, zéro échec, trois workflows réussis (et second ensemble réussi sur le même SHA).
+- Preuves : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41078376876), [contrôles](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41078376940), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41078376977).
+- 25 missions auditées (493–517), 4 corrections SVG, 4 tests supplémentaires ; pas de création de mission ni modification de l'accueil.
+- **Prochaine priorité :** auditer les missions 468–492 ; vérifier les SVG des quatre corrections en navigateur et conserver les essais NVDA/TalkBack/VoiceOver et matériels en attente.
+- Cette mise à jour documentaire est postérieure au SHA de code testé : consulter ses propres workflows avant de déclarer le HEAD final vert.
