@@ -75,9 +75,10 @@ function render(id,yaw,pitch,x,options={}){
  }
  }
  line([-130,-115,0],[-90,-115,0],'#ffca7d');line([-130,-115,0],[-130,-75,0],'#7ce8ae');line([-130,-115,0],[-130,-115,40],'#cdaaff');
- const description=notes.join(' ; ');
+ const visibleNotes=options.conceptOnly?['Exploration qualitative : valeur calculée masquée.','Le mouvement ne valide pas la réponse.']:notes;
+ const description=visibleNotes.join(' ; ');
  const escape=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
- return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="scene3-title scene3-desc" style="width:100%;max-width:100%;background:#092236;border-radius:12px"><title id="scene3-title">Scène géométrique spatiale interactive</title><desc id="scene3-desc">'+escape(description)+'. Projection orthographique d’une géométrie 3D schématique ; ce n’est pas une CAO.</desc><defs><marker id="sq-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#ffca7d" stroke-width="1.5"/></marker></defs>'+segments.join('')+'<text x="14" y="278" fill="#fff" font-size="14">'+escape(notes[0]||'')+'</text><text x="14" y="294" fill="#fff" font-size="12">'+escape(notes[1]||'')+'</text></svg>';
+ return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="scene3-title scene3-desc" style="width:100%;max-width:100%;background:#092236;border-radius:12px"><title id="scene3-title">Scène géométrique spatiale interactive</title><desc id="scene3-desc">'+escape(description)+'. Projection orthographique d’une géométrie 3D schématique ; ce n’est pas une CAO.</desc><defs><marker id="sq-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#ffca7d" stroke-width="1.5"/></marker></defs>'+segments.join('')+'<text x="14" y="278" fill="#fff" font-size="14">'+escape(visibleNotes[0]||'')+'</text><text x="14" y="294" fill="#fff" font-size="12">'+escape(visibleNotes[1]||'')+'</text></svg>';
 }
 const api=Object.freeze({allowed,animated,describe,render});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
