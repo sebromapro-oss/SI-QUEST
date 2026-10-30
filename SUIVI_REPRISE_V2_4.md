@@ -340,3 +340,11 @@
 - **Correction ciblée du test, sans suppression d'assertion :** récupérer le paragraphe de verdict dans les enfants du conteneur où le contrôleur l'insère réellement. Commit `c59922071c8b616f4748eb9f416e31b883aff3eb`.
 - **CI de ce commit :** [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41143052478), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41143052444), [qualité scientifique](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41143052283). **En cours à la rédaction** : consulter les conclusions et les journaux avant de déclarer le HEAD reçu.
 - **Phase 1 maintenue.** Les tests simulés ne remplacent pas une inspection réelle du rendu 2D/3D ni les essais NVDA/TalkBack/VoiceOver.
+
+### Clôture CI du correctif 2D/3D — résultats réellement observés
+
+- **Code et tests sur `c59922071c8b616f4748eb9f416e31b883aff3eb` : 2 082 tests exécutés, 2 082 réussis, 0 échec** (journaux du job scientifique). Les trois workflows ont conclu `success` : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41143052478), [contrôles](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41143052444), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41143052283).
+- **Registre documentaire `6719ef9f` : 3/3 workflows `success`** : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41143097026), [contrôles](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41143096990), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41143097004).
+- Les anciennes exécutions rouges sur `3f0fbc64`, `1b9fd0ca` et `7fb155a4` restent visibles dans l'historique : elles correspondent au faux échec du harnais DOM corrigé, et ne doivent pas être effacées ou masquées.
+- **Reste ouvert :** réception scientifique individuelle des 597 missions, animation temporelle 2D, essais matériels et lecteurs d'écran, audit sécurité du dépôt public. **Phase 1**, zéro mission créée.
+- **Ce commit documentaire est postérieur à ces résultats :** vérifier ses propres workflows avant d'annoncer sa validation.
