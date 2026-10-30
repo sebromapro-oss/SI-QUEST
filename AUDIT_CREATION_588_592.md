@@ -29,3 +29,12 @@
 | A | NOT RUN |
 
 Schémas 2D statiques, sans simulation 3D ni animation temporelle physique complète ; seuils de décision fictifs. Réconciliation des 249 sous-savoirs canoniques toujours ouverte.
+
+## Contre-audit après publication du commit `8872daf07b52eb4bf929fbf49c1e58a105f46c2a`
+
+- V8 sur les fichiers distants publiés : **15/15** contre-calculs nouveaux, **15/15** SVG paramétriques, **15/15** rejets de désynchronisation, **30/30** paramètres invalides rejetés : PASS.
+- Historique 40–75 : **108/108** calculs indépendants et **108/108** SVG structurels PASS sur les 36 références ; flèche tangentielle corrigée PASS.
+- Catalogue : **592/592** identifiants uniques ; **17/17** univers ; classement `inductor-energy-01` en SI-08 confirmé.
+- GitHub Actions sur ce SHA : quatre workflows FAIL avant toute étape enregistrée ; quatre relances demandées et toutes les secondes tentatives FAIL. Aucune étape ni runner exploitable. Récupération du journal Node : HTTP 404 `BlobNotFound`. Cause exacte **non déterminée** ; CI **BLOCKED**. Tests Node natifs locaux **NOT RUN**.
+- Recette navigateur, matériel Android/iOS/Windows/Mac et lecteurs NVDA/TalkBack/VoiceOver : **NOT RUN**. Aucune conformité complète revendiquée.
+- Comparaison Git depuis `ee972906152a9550a876aa0f9ea1a2596e5bfdc4` : un commit descendant, treize fichiers créés ou modifiés, aucun changement de `index.html`, `src/home.js`, `src/style.css` ou `assets/archipelago-cinematic.svg`.
