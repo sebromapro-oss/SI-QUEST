@@ -13,3 +13,15 @@ near(cfg.expected,refs[i](m.initial));for(const chunk of h.split('<script src="'
 });
 test('catalogue et historique : aucun doublon, traçabilité',()=>{assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=502);assert.equal(new Set(C.levels.map(v=>v.id)).size,C.levels.length);
 for(const [id,sub] of [["moment-arm-02","Moment scalaire d'une force oblique autour d'un pivot plan"],["kinetic-friction-01","Frottement cinétique d'un patin sur plan horizontal"],["spring-stiffness-01","Identification de la raideur par la loi de Hooke"],["beam-stress-02","Contrainte normale maximale en flexion simple d'une section rectangulaire"],["gear-ratio-02","Module du rapport de vitesses d'un engrenage extérieur"]]){assert.equal(C.byId(id).subskill,sub);assert.ok(fs.readFileSync(path.join(__dirname,'../missions',id+'.html'),'utf8').includes(sub));}});
+
+// Le courant triangulaire doit suivre l'ondulation calculée, pas une amplitude décorative constante.
+test('buck : amplitude SVG proportionnelle à ΔI aux bornes et au nominal',()=>{
+ const id='buck-inductor-current-ripple-01',samples=[.2,.5,.8];const heights=[];
+ for(const duty of samples){const y=M.calculate(id,duty),svg=D.render(id,duty,y);
+ const h=Number(svg.match(/data-ripple-height-px="([^"]+)"/)[1]);heights.push(h);
+ assert.ok(Math.abs(h-85*y/.15)<1e-6,'amplitude proportionnelle à ΔI');
+ const peak=svg.match(/M145 245 L([0-9.]+) ([0-9.]+) L575 245/);assert.ok(peak,'triangle présent');
+ assert.ok(Math.abs(Number(peak[1])-(145+430*duty))<.001,'temps ON = D·T');
+ assert.ok(Math.abs(Number(peak[2])-(245-h))<.001,'sommet synchronisé à ΔI');
+ }assert.ok(heights[1]>heights[0]);assert.ok(Math.abs(heights[0]-heights[2])<1e-6);
+});

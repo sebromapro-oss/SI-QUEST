@@ -111,3 +111,11 @@
 - **Visibilité constatée :** GitHub API retourne `visibility=public` et `private=false` pour le dépôt ; cela ne prouve pas l'absence de données sensibles. Aucun changement de visibilité réalisé ; vérifier l'absence de données privées dans les fichiers et l'historique.
 - **Preuves manquantes :** recette visuelle navigateur de chaque scène, tests matériels Android/iPhone, NVDA/TalkBack/VoiceOver, audit RGAA complet, analyse de secrets exhaustive et validation scientifique individuelle de toutes les missions.
 - **Prochaine action :** lire le HEAD final et les trois workflows ; inspecter visuellement les scènes corrigées et poursuivre l'audit 493–517. **Phase 1 maintenue ; aucune création 598+ tant que la réception n'est pas prouvée.**
+
+## Cycle V2.5 du 30 octobre 2026 — audit 493–517 (en attente de CI)
+
+- HEAD initial distant : `c2e18a480421284bf44fa822a69002a3e942d086`, trois workflows verts et 1 835/1 835 tests sur cette révision.
+- Audit contradictoire ciblé : **25 missions**, **75 comparaisons min/nominal/max** et **25 champs expected HTML** concordants ; détails dans [AUDIT_SCIENTIFIQUE_493_517_20261030.md](AUDIT_SCIENTIFIQUE_493_517_20261030.md).
+- Quatre corrections SVG : ondulation buck proportionnelle, ménisque à tangentes verticales et rayon à l'échelle, profondeur critique à échelle homogène, pistons du multiplicateur au rapport 40/25 ; quatre tests de non-régression ajoutés.
+- **CI du commit de ce lot à vérifier après publication** : ne pas annoncer 1 839/1 839 avant lecture des workflows.
+- Aucune mission ajoutée, aucun accueil modifié. Essais matériels et lecteurs d'écran non réalisés ; phase 1 maintenue.

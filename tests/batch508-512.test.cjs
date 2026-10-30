@@ -22,3 +22,12 @@ for(const [i,m] of meta.entries())test(m.id+' : contre-calcul, domaine, graphiqu
 test('catalogue, unicité et traçabilité historique 40–75',()=>{assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=512);assert.equal(new Set(C.levels.map(v=>v.id)).size,C.levels.length);
 for(const [id,sub] of Object.entries({"electrical-parallel-01":"Résistance équivalente de deux résistances en parallèle","inductor-energy-01":"Énergie magnétique stockée dans une inductance linéaire","mechanical-efficiency-02":"Puissance utile d'une transmission à rendement donné","rolling-torque-01":"Couple résistant équivalent à l'axe d'une roue en roulement","thermal-resistance-01":"Résistance thermique d'une paroi plane par conduction stationnaire"})){assert.equal(C.byId(id).subskill,sub);assert.ok(fs.readFileSync(path.join(__dirname,'../missions',id+'.html'),'utf8').includes(sub));}
 });
+
+test('canal critique : même échelle de hauteur pour tous les débits',()=>{
+ const id='rectangular-channel-critical-depth-01',ymax=M.calculate(id,1);
+ for(const q of [.1,.5,1]){const y=M.calculate(id,q),svg=D.render(id,q,y);
+ const h=Number(svg.match(/data-critical-depth-height-px="([^"]+)"/)[1]);
+ assert.ok(Math.abs(h-190*y/ymax)<1e-6,'hauteur SVG proportionnelle à y_c');
+ assert.ok(h>0&&h<=190);
+ }
+});

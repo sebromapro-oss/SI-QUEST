@@ -19,3 +19,14 @@ test('catalogue et corrections historiques, sans perte',()=>{assert.equal(C.worl
 for(const [id,sub] of Object.entries({"screw-lead-01":"Avance axiale par tour d'une vis à plusieurs filets","hydro-cylinder-speed-02":"Vitesse de rentrée d'un vérin par la section annulaire","hydro-annular-force-01":"Effort de rentrée d'un vérin hydraulique à section annulaire","pneumatic-consumption-01":"Volume géométrique balayé par un piston pneumatique","electrical-series-01":"Résistance équivalente de deux résistances en série"})){assert.equal(C.byId(id).subskill,sub);assert.ok(fs.readFileSync(path.join(__dirname,'../missions',id+'.html'),'utf8').includes(sub));}
 assert.equal(C.byId('hydro-cylinder-speed-02').title,'Vérin double effet — Vitesse de rentrée');
 });
+
+// θ=0° impose une tangente verticale à la paroi et un rayon de courbure égal au rayon du tube.
+test('ménisque : rayon proportionnel et tangentes verticales au mouillage parfait',()=>{
+ const id='capillary-meniscus-pressure-01';
+ for(const x of [.3,.6,1.5]){const svg=D.render(id,x,M.calculate(id,x));
+ const w=Number(svg.match(/data-meniscus-radius-px="([^"]+)"/)[1]);assert.ok(Math.abs(w-45*x)<1e-6);
+ const a=350-w,b=350+w;assert.ok(svg.includes('M'+a+' 238 C'+a+' '),'tangente gauche verticale');
+ assert.ok(svg.includes(' '+b+' 238 L'+b+' 315'),'arrivée droite');assert.ok(238+w<315,'ménisque dans le tube');
+ assert.doesNotMatch(svg,/ Q350 276 /,'ancienne parabole non conforme supprimée');
+ }
+});

@@ -23,3 +23,11 @@ test('catalogue unique et correction historique',()=>{assert.equal(C.worlds.leng
 const id='measurement-uncertainty-01',sub='Conversion d’une incertitude absolue en incertitude relative';
 assert.equal(C.byId(id).subskill,sub);const h=fs.readFileSync('missions/'+id+'.html','utf8');assert.ok(h.includes(sub));assert.match(h,/"subskill":/);
 });
+
+test('multiplicateur : les diamètres des pistons respectent D1/D2 = 40/25',()=>{
+ const id='hydraulic-intensifier-pressure-01',svg=D.render(id,60,M.calculate(id,60));
+ const d1=Number(svg.match(/data-intensifier-d1-px="([^"]+)"/)[1]);
+ const d2=Number(svg.match(/data-intensifier-d2-px="([^"]+)"/)[1]);
+ assert.equal(d1/d2,40/25);assert.match(svg,/x="358" y="195" width="185" height="80"/);
+ assert.match(svg,/x="360" y="195" width="16" height="80"/);
+});
