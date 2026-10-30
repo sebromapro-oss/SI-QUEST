@@ -177,3 +177,13 @@
 - **Bilan cumulé du cycle : 50 missions 393–442, 150 contre-calculs, huit anomalies SVG corrigées, 33 tests ajoutés**, aucune mission créée. Les 597 missions, l'accueil et les 17 univers sont préservés.
 - **Limites :** essais navigateur et matériels, NVDA/TalkBack/VoiceOver, RGAA complet, sécurité exhaustive et validation pédagogique non réalisés. **Phase 1 maintenue**.
 - **Suite :** confirmer trois workflows du HEAD, corriger toute régression, puis auditer **368–392**.
+
+
+### Contre-recette GitHub Actions des deux lots 393–442 — 30 octobre 2026
+
+- **Commit final de code, tests et rapports :** `d786ca5689358982d269b69dffaddd5ace79ff6e` ; parent `8d4185fc426c761382dbb733fa943291e3b61a36`.
+- **Résultat confirmé sur ce SHA : 1 880 tests Node, 1 880 réussis, 0 échec, 3/3 workflows réussis.** [Recette automatisée](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41088820627), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41088820599), [qualité scientifique](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41088820761).
+- **Cycle cumulé :** 50 missions 393–442, 150 contre-calculs indépendants min/nominal/max concordants, **8 corrections SVG**, **33 tests de non-régression ajoutés** ; 597 missions conservées, aucune nouvelle mission.
+- **Préservation :** aucune modification de `index.html`, `src/home.js`, de la carte des 17 univers, des assets, des pages HTML de missions ou de l'historique ; aucun force-push.
+- **Limites persistantes :** CI verte ≠ réception graphique en navigateur ; tests matériels, NVDA/TalkBack/VoiceOver, RGAA, sécurité exhaustive et essai pédagogique non réalisés. **Phase 1 maintenue** ; prochaine priorité **368–392**.
+- **Note :** ce registre est un commit documentaire ultérieur ; ses propres workflows doivent être contrôlés avant de qualifier le HEAD documentaire final de vert.
