@@ -35,3 +35,24 @@ test('Rugosité : polyligne et points SVG physiquement synchronisés',()=>{
  const id='profile-discrete-roughness-ra-01';
  for(const x of [1,3,5]){const s=D.render(id,x,P.calculate(id,x));const pts=s.match(/<polyline points="([^"]+)"/)[1].split(' ').map(q=>q.split(',').map(Number));for(const [px,py] of pts)assert.ok(s.includes('<circle cx="'+px+'" cy="'+py+'"'),'Marqueur décalé du profil');}
 });
+
+test('Plaque rectangulaire : proportions a/b respectées aux trois largeurs',()=>{
+ const id='rectangular-plate-polar-mass-inertia-01';
+ for(const b of [.2,.6,1]){
+  const svg=D.render(id,b,P.calculate(id,b));
+  const rect=svg.match(/<rect x="262\.5" y="([^"]+)" width="195" height="([^"]+)"/);
+  assert.ok(rect,'Plaque SVG manquante');
+  const top=Number(rect[1]),height=Number(rect[2]);
+  near(height/195,b/.8);
+  assert.ok(top>=78&&top+height<=333,'Plaque hors zone : '+b);
+  assert.doesNotMatch(svg,/x1="255" y1="310" x2="465" y2="310"/);
+ }
+});
+test('Transformateur : fils interrompus par les blocs R et X',()=>{
+ const id='transformer-load-voltage-drop-01';
+ const svg=D.render(id,40,P.calculate(id,40));
+ for(const [a,b] of [[120,230],[330,450],[570,610]])
+  assert.ok(svg.includes('x1="'+a+'" y1="185" x2="'+b+'" y2="185"'));
+ assert.doesNotMatch(svg,/x1="230" y1="185" x2="330" y2="185"/);
+ assert.doesNotMatch(svg,/x1="450" y1="185" x2="610" y2="185"/);
+});
