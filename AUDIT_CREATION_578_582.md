@@ -25,3 +25,5 @@ Tests Node natifs et CI non encore prouvés lors de la rédaction initiale ; les
 ## Contre-audit complémentaire
 
 P1 graphique : remplacement des quatre marqueurs de pression sphérique par des pointes radiales réellement orientées ; correction de l'origine de la flèche de conduction pour qu'elle débute dans la paroi, et non dans le vide central. P2 scientifique : rectification de l'arrondi de la résistance cylindrique nominale à 0,0147090 K/W. Tests de géométrie et intégration numérique indépendante de Fourier ajoutés.
+
+P1 pédagogique corrigé avant réception : les cinq solutions conditionnelles contiennent désormais situation, hypothèses, loi, contrôle dimensionnel, substitution numérique, décision fictive et erreur fréquente. Un test empêche tout corrigé indéfini.
