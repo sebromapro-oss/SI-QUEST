@@ -32,3 +32,6 @@ Statut : missions CODÉES et contrôlées scientifiquement de façon ciblée, NO
 
 ## Complément d'audit contradictoire
 Le 30 octobre 2026, les 36 modèles historiques 40–75 ont été exécutés en V8 avec références mathématiques séparées : 108 valeurs et 108 SVG conformes structurellement. Cette preuve ne couvre ni rendu navigateur, ni animations réelles, ni lecteurs d'écran. Les quatre workflows du commit précédent ont échoué avant l'exécution de toute étape, puis ont échoué à nouveau après relance ; aucun runner attribué et journaux indisponibles (`BlobNotFound`).
+
+## Correction P1 graphique avant réception
+Le vecteur de rotation du palier était oblique au point supérieur. Il est désormais tangent à la circonférence, dirigé horizontalement vers la droite. Test de géométrie ajouté dans `tests/batch543-547.test.cjs` ; rendu SVG structurel contrôlable. Inspection visuelle navigateur NOT RUN.
