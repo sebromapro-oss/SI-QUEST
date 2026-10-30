@@ -19,3 +19,11 @@ test('catalogue et traçabilité des cinq missions historiques corrigées',()=>{
  assert.match(meta[2].detail,/0,554812/);const angle=8*Math.PI/180,angle2=M.calculate('ultrasonic-snell-refraction-01',8)*Math.PI/180;near(Math.sin(angle2)/Math.sin(angle),5900/1480);
  const na=M.calculate('fiber-numerical-aperture-01',1.48);near(na*na+1.45*1.45,1.48*1.48);
 });
+
+test('Snell : normale pointillée et flèches des rayons incident et transmis',()=>{
+ const m=meta[2],svg=D.render(m.id,m.initial,M.calculate(m.id,m.initial));
+ assert.match(svg,/x1="374" y1="127" x2="374" y2="371"[^>]*stroke-dasharray="7 6"/);
+ assert.match(svg,/marker-end="url\(#raygreen\)"/);
+ assert.match(svg,/marker-end="url\(#rayorange\)"/);
+ assert.equal((svg.match(/marker-end="url\(#ray(?:green|orange)\)"/g)||[]).length,2);
+});
