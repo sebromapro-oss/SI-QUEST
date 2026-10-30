@@ -33,7 +33,7 @@ test('propriétés scientifiques et géométriques',()=>{
  near(M.calculate(c.id,0),80);near(M.calculate(c.id,40),100);
  near(M.calculate(d.id,4)/M.calculate(d.id,8),2);
  near(M.calculate(e.id,80)/M.calculate(e.id,40),8);
- assert.match(D.render(b.id,80,M.calculate(b.id,80)),/data-outer-radius-px="106\.000000"/);
+ assert.match(D.render(b.id,80,M.calculate(b.id,80)),/data-outer-radius-px="112\.000000"/);
  assert.match(D.render(e.id,50,M.calculate(e.id,50)),/data-clearance-px=/);
 });
 test('P2 historique Reynolds : constantes et limites',()=>{
@@ -65,4 +65,15 @@ test('catalogue : 17 univers et identifiants uniques',()=>{
  for(const v of meta)assert.ok(fs.existsSync('missions/'+v.id+'.html'));
  assert.ok(C.byId('straight-fin-efficiency-01'),'ancienne mission ailette préservée');
  assert.ok(C.byId('spherical-shell-thermal-resistance-01'),'nouvelle mission sphérique distincte');
+});
+
+test('459 : coque sphérique à échelle radiale homogène',()=>{
+ const m=meta[1];for(const x of [m.min,m.initial,m.max]){
+ const s=D.render(m.id,x,M.calculate(m.id,x));const ro=Number(s.match(/data-outer-radius-px="([^"]+)"/)[1]);near(ro/70,x/50);assert.ok(ro<=168);
+ }
+});
+test('462 : jeu annulaire représenté proportionnellement',()=>{
+ const m=meta[4];for(const x of [m.min,m.initial,m.max]){
+ const s=D.render(m.id,x,M.calculate(m.id,x));const g=Number(s.match(/data-clearance-px="([^"]+)"/)[1]);near(g,x/5);assert.ok(g>0&&g<45);
+ }
 });

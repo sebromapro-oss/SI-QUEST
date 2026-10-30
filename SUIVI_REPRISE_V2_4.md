@@ -138,3 +138,10 @@
 - Aucun changement de l'accueil, des 17 univers, des pages de mission ni des données privées. Pas de mission créée.
 - Tests navigateur réels, appareils physiques, NVDA/TalkBack/VoiceOver, sécurité exhaustive du dépôt : non réalisés ; réception scientifique complète encore ouverte.
 - **Suite :** vérifier CI sur le HEAD publié, puis audit 443–467 ; phase 1 maintenue.
+
+## Cycle V2.5 — second lot 443–467 (30 octobre 2026)
+
+- HEAD initial `b874914d535672d179e8d4dd1cf7ef9ec2f97dfc` ; **1 843/1 843 tests réussis** et trois workflows verts : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41081909839), [contrôles](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41081909909), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41081909858).
+- **25 missions 443–467 auditées, 75 contre-calculs et 25/25 valeurs nominales HTML concordantes**. [Rapport détaillé](AUDIT_SCIENTIFIQUE_443_467_20261030.md).
+- **Quatre corrections SVG** : coque sphérique 459, fuite annulaire 462, échelle PID 465, cerclage tangent 466 ; **quatre tests ajoutés**. CI du nouveau commit à vérifier, cible 1 847 tests.
+- Accueil, 17 univers, pages de mission et données privées préservés ; aucune mission créée. Tests matériels/lecteurs d'écran et audit de sécurité exhaustif non réalisés. **Phase 1 maintenue** ; prochain lot 418–442.

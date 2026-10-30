@@ -2,3 +2,21 @@
 for(const [i,v] of meta.entries())test(v.id+' science SVG HTML',()=>{const h=fs.readFileSync('missions/'+v.id+'.html','utf8'),c=JSON.parse(h.match(/window\.SI_MISSION=(\{.*?\})<\/script>/)[1]);assert.equal(c.id,v.id);assert.equal((h.match(/<li>/g)||[]).length,3);assert.equal(v.solution.split('\n').length,5);for(const x of [v.min,v.initial,v.max]){const y=M.calculate(v.id,x),s=D.render(v.id,x,y);near(y,refs[i](x));assert.match(s,/<title/);assert.match(s,/<desc/);assert.doesNotMatch(s,/NaN|Infinity|undefined/);near(Number(s.match(/data-geom-px="([^"]+)"/)[1]),v.scale*y,1e-6);assert.throws(()=>D.render(v.id,x,y+Math.max(1,.1*Math.abs(y))),RangeError)}for(const x of [NaN,Infinity,v.min-1,v.max+1])assert.throws(()=>M.calculate(v.id,x),RangeError);near(c.expected,refs[i](v.initial));for(const [,src] of h.matchAll(/<script src="([^"]+)"/g))assert.ok(fs.existsSync(path.join('missions',src)),src)});
 test('historique 40–75 et P2 soupape',()=>{const h=require('./fixtures/historic-40-75.cjs').map(id=>C.byId(id));assert.equal(h.length,36);for(const v of h){const page=fs.readFileSync(v.url,'utf8'),c=JSON.parse(page.match(/window\.SI_MISSION=(\{.*?\})<\/script>/)[1]);assert.ok((page.match(/<li>/g)||[]).length>=3,v.id);for(const x of [c.min,c.initial,c.max]){const y=old.calculate(v.id,x),s=draw.render(v.id,x,y);assert.ok(Number.isFinite(y));assert.match(s,/<svg/);assert.doesNotMatch(s,/NaN|Infinity|undefined/);assert.throws(()=>draw.render(v.id,x,y+Math.max(1,.1*Math.abs(y))),RangeError)}}const p=fs.readFileSync('missions/hydraulic-relief-setpoint-01.html','utf8');assert.doesNotMatch(p,/Questions flash — avant le calcul/);assert.match(p,/N\/mm² en bar/)});
 test('catalogue',()=>{assert.ok(C.levels.length>=467);assert.equal(C.worlds.length,17);assert.equal(new Set(C.levels.map(v=>v.id)).size,C.levels.length);for(const v of meta)assert.ok(fs.existsSync('missions/'+v.id+'.html'))});
+test('465 : échelle PID constante et courbe dérivée sans débordement',()=>{
+ const m=meta[2];for(const f of [m.min,m.initial,m.max]){
+ const s=D.render(m.id,f,M.calculate(m.id,f));near(Number(s.match(/data-signal-scale-px-per-unit="([^"]+)"/)[1]),100);
+ const p=s.match(/<path d="([^"]+)" fill="none" stroke="#ffca7d"/);assert.ok(p);
+ const ys=[...p[1].matchAll(/[ML][0-9.]+ ([0-9.]+)/g)].map(v=>Number(v[1]));
+ assert.ok(ys.length>=100);assert.ok(ys.every(y=>y>=105&&y<=390));
+ }
+});
+test('466 : rayon proportionnel, anneau mince et flèches tangentielles',()=>{
+ const m=meta[3];for(const r of [m.min,m.initial,m.max]){
+ const s=D.render(m.id,r,M.calculate(m.id,r));
+ const radius=Number(s.match(/data-ring-radius-px="([^"]+)"/)[1]);
+ const wall=Number(s.match(/data-ring-wall-px="([^"]+)"/)[1]);
+ near(radius,.5*r);near(wall/radius,.08);
+ assert.match(s,/marker-end="url\(#hoop466\)"/);
+ assert.match(s,/x1="348" y1="[0-9.]+" x2="308" y2="[0-9.]+"/);
+ }
+});
