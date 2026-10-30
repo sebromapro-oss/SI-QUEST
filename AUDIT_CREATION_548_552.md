@@ -27,3 +27,6 @@ Nouveaux modèles : 15/15 références contradictoires PASS, 15/15 SVG PASS, 15/
 | A | NOT RUN | HTML sémantique inspecté ; essais clavier, tactile et lecteurs d'écran non effectués |
 
 Défauts ouverts : CI historique échoue avant attribution de runner (cause non établie) ; taxonomie 249 sous-savoirs canoniques non réconciliée ; 56 entrées anciennes sans sous-savoir explicite au catalogue selon registre antérieur ; réceptions visuelle/mobile/accessibilité incomplètes. Les missions sont intégrées, **non reçues définitivement**.
+
+## Contre-audit contextuel P1/P2
+P1 pédagogique corrigé : la rupture de stock à deux pannes suppose **une seule pièce de rechange**, et non deux ; contexte 548 rectifié. P2 scientifique corrigé : deux fréquences différentes ne sont pas décrites comme deux sons cohérents à phase relative constante (mission 551). P2 domaine d'approximation : capacité minimale portée à 2000 µF pour limiter l'ondulation estimée à 2 V (≈8,3 % de 24 V) sur le domaine 550. Ces corrections ne modifient pas les résultats nominaux. Tests navigateur/CI toujours à réceptionner.
