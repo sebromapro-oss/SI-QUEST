@@ -166,3 +166,14 @@
 - **Protection :** accueil utilisateur, 17 univers, navigation, assets, HTML des missions et historique inchangés. Aucune nouvelle mission, aucune dépense demandée.
 - **Preuves manquantes :** navigateur/mobile réel, NVDA/TalkBack/VoiceOver, audit RGAA, sécurité exhaustive, réception pédagogique. **Phase 1 maintenue**.
 - **Prochaine action :** contrôler HEAD/3 workflows, corriger les échecs éventuels, auditer **393–417**.
+
+
+## Cycle V2.5 du 30 octobre 2026 — second lot 393–417, trois corrections SVG
+
+- **HEAD initial :** `8d4185fc426c761382dbb733fa943291e3b61a36` ; 597 missions, **1 877/1 877 tests** et trois workflows réussis sur ce SHA.
+- **Audit numérique contradictoire :** **25 missions 393–417**, 75 calculs indépendants aux trois états **75/75 concordants** (écart relatif pondéré max **9,80×10⁻¹⁶**). Détails : [AUDIT_SCIENTIFIQUE_393_417_20261030.md](AUDIT_SCIENTIFIQUE_393_417_20261030.md).
+- **Trois corrections graphiques :** circuit RC avec source/résistance et condensateur non court-circuité (393) ; épaisseurs bicouches à échelle unique (401) ; fibre moyenne et épaisseur du tube fermé de Bredt (415).
+- **Trois tests de non-régression ajoutés.** Cible après publication : **1 880 tests** ; CI du nouveau commit **non encore vérifiée** à la rédaction.
+- **Bilan cumulé du cycle : 50 missions 393–442, 150 contre-calculs, huit anomalies SVG corrigées, 33 tests ajoutés**, aucune mission créée. Les 597 missions, l'accueil et les 17 univers sont préservés.
+- **Limites :** essais navigateur et matériels, NVDA/TalkBack/VoiceOver, RGAA complet, sécurité exhaustive et validation pédagogique non réalisés. **Phase 1 maintenue**.
+- **Suite :** confirmer trois workflows du HEAD, corriger toute régression, puis auditer **368–392**.
