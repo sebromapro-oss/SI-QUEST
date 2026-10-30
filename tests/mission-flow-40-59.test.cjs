@@ -110,3 +110,18 @@ test('schéma 2D exploratoire après réponse fausse sans fuite de résultat',()
  assert.equal(g('graph').style.display,'none');
  g('reset').fire('click');assert.equal(g('trialValue').disabled,true);
 });
+
+test('45 missions historiques : exploration 2D après erreur sans divulgation',()=>{
+ for(const id of ids){
+  const h=harness(id),g=h.get;
+  h.submit('999999');
+  const fig=g('model').children.find(x=>x.id==='figure');
+  assert.ok(fig,id+' : figure manquante');
+  assert.equal(fig.style.display,'block',id);
+  assert.match(fig.innerHTML,/Exploration graphique qualitative/,id);
+  assert.doesNotMatch(fig.innerHTML,/<text\b|data-[\w-]+=/i,id+' : fuite SVG');
+  assert.equal(g('graph').style.display,'none',id);
+  assert.equal(g('trial').disabled,true,id);
+  assert.equal(g('solution').disabled,true,id);
+ }
+});
