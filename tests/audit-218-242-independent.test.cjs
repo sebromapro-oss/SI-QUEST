@@ -48,7 +48,10 @@ for(const [i,id] of ids.entries())test('218–242 : mission '+(218+i)+' '+id,()=
   assert.match(svg,/<title/);assert.match(svg,/<desc/);assert.match(svg,/aria-labelledby=/);
   assert.doesNotMatch(svg,/NaN|Infinity|undefined/);
   const result=Number(svg.match(/data-result="([^"]+)"/)[1]);assert.ok(Math.abs(result-y)<=5.1e-7);
-  const c=M.criteria[id];assert.equal(M.assess(id,x).acceptable,y>=c.min-1e-9&&y<=c.max+1e-9);
+  const c=M.criteria[id];
+  // Une borne null signifie « non borné » ; ne jamais la convertir implicitement en zéro.
+  const inRange=(c.min==null||y>=c.min-1e-9)&&(c.max==null||y<=c.max+1e-9);
+  assert.equal(M.assess(id,x).acceptable,inRange);
  }
  for(const bad of [NaN,Infinity,-Infinity,cfg.min-1,cfg.max+1])assert.throws(()=>M.calculate(id,bad),RangeError);
  assert.throws(()=>D.render(id,cfg.initial,M.calculate(id,cfg.initial)+1),RangeError);
