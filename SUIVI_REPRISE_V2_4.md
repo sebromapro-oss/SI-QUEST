@@ -291,3 +291,13 @@
 - **Total du cycle : 50 missions revues** (143–192), aucune nouvelle mission ni changement de moteur physique. **Couverture documentaire récente : 143–597, soit 455/597** ; les preuves de réception individuelle graphique et physique restent manquantes.
 - **Dernier SHA de référence CI vert avant les commits documentaires :** `8fc56a4d59f9a1652eb500f5f212372131865dbe` ; 2 078/2 078 tests et 3/3 workflows. Les commits documentaires successifs exigent leurs propres runs avant déclaration de réussite sur le HEAD final.
 - **Prochaine plage :** 118–142, en priorité aux défauts confirmés et à l'accessibilité ; ne pas créer les missions 598+.
+
+
+## Cycle V2.5 — revue 118–142 et blocage animation après erreur (30 octobre 2026)
+
+- **HEAD initial** `64cb69234e601989992da4065ae4faef15e3a332` ; sur ce SHA, **2 078/2 078 tests Node réussis, 0 échec, 3/3 workflows verts** : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41130044964), [science](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41130045017), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41130045018). Journaux du job scientifique `124318338866` consultés.
+- **25 missions 118–142** : revue des cinq suites de tests existantes et des références dimensionnelles, domaine et SVG ; [rapport de contre-audit](AUDIT_SCIENTIFIQUE_118_142_20261030.md), commit documentaire `3f39b692e7116cbf0eb153bfaab63b8fde517595`. **Couverture documentaire cumulée 118–597 : 480/597 (80,4 %)**, sans préjuger de la réception exhaustive.
+- **Défaut transverse confirmé par lecture du contrôleur** : après une réponse valide erronée, `src/investigation-mission.js` maintient `unlocked=false`, désactive les simulations et masque les graphiques. **Exigence « animation même en cas d'erreur » non satisfaite**. Ne pas simplement rendre `preview()` accessible : il expose la réponse numérique au paramètre initial. Correction à concevoir avec séparation animation/valeur/corrigé et tests 3 essais/3 aides.
+- **Aucun correctif de moteur ni nouvelle mission** dans ce cycle ; 597 conservées. Accueil, carte 17 univers, HTML des missions, navigation, assets, données privées et AppDeploy inchangés. Aucune dépense ni force-push.
+- **Réserves ouvertes :** tests navigateurs/appareils physiques, NVDA/TalkBack/VoiceOver, RGAA, réception pédagogique, audit secrets/historique et dépôt public non résolus.
+- **Prochaine action :** vérifier les 3 workflows sur le HEAD documentaire, traiter le défaut d'animation sans divulguer la réponse, puis poursuivre l'audit 93–117. Phase 1 maintenue.
