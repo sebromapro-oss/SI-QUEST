@@ -18,3 +18,17 @@ const q=P.answerPolicy[a.id];assert.ok(q.solution.includes('Substitution')&&q.so
 test('invariants et critères de décision',()=>{assert.ok(P.calculate(meta[0].id,3000)>P.calculate(meta[0].id,1000));assert.ok(Math.abs(P.calculate(meta[1].id,600)-.1)<1e-12);assert.equal(P.calculate(meta[2].id,400),981);assert.ok(P.calculate(meta[3].id,.5)>P.calculate(meta[3].id,.1));assert.ok(P.calculate(meta[4].id,150)>P.calculate(meta[4].id,50))});
 test('catalogue et pages intégrées',()=>{assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=587);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);for(const a of meta)assert.ok(fs.existsSync('missions/'+a.id+'.html'))});
 test('palan : quatre flèches de tension vers le haut et poids vers le bas',()=>{const a=meta[2],s=D.render(a.id,a.initial,P.calculate(a.id,a.initial));assert.equal((s.match(/>T<\/text>/g)||[]).length,4);assert.match(s,/P = mg/)});
+
+test('mouflage 4:1 : continuité du câble, quatre brins et poulies fixes/mobiles',()=>{
+ const a=meta[2];
+ for(const mass of [a.min,a.initial,a.max]){
+  const svg=D.render(a.id,mass,P.calculate(a.id,mass));
+  assert.equal((svg.match(/data-sheave="fixed"/g)||[]).length,2);
+  assert.equal((svg.match(/data-sheave="moving"/g)||[]).length,2);
+  assert.equal((svg.match(/data-support-force="T"/g)||[]).length,4);
+  assert.match(svg,/data-reeving="four-supporting-strands"/);
+  assert.match(svg,/M190 105 V275 A20 20 0 0 0 230 275 V145 A20 20 0 0 1 270 145 V275 A20 20 0 0 0 310 275 V145 A20 20 0 0 1 350 145 V355/);
+  assert.match(svg,/4T = mg \(idéal\)/);
+  assert.ok(Math.abs(4*P.calculate(a.id,mass)-mass*9.81)<1e-9);
+ }
+});
