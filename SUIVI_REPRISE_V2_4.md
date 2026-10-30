@@ -155,3 +155,14 @@
 - **Fichiers d'accueil et carte des 17 univers inchangés** : comparaison Git entre `74bd56ebbd` et `84404d8c2a1c` limitée à cinq modules SVG, cinq fichiers de tests, deux rapports d'audit et ce registre.
 - **Limites** : aucun essai réel navigateur/mobile ni NVDA/TalkBack/VoiceOver ; sécurité du dépôt public et historique non audités exhaustivement. **Phase 1 maintenue** ; prochaine priorité missions **418–442**.
 - Cette entrée documentaire est postérieure au SHA ci-dessus : vérifier ses trois workflows propres avant d'annoncer le HEAD documentaire vert.
+
+
+## Cycle V2.5 du 30 octobre 2026 — audit 418–442, cinq corrections et 30 tests
+
+- **HEAD initial :** `477b5e903864277cd42f4dd1b1a1634d18310722`, 597 missions présentes, **1 847/1 847 tests** et trois workflows verts avant modification.
+- **Audit contradictoire :** **25 missions 418–442**, 75 évaluations min/nominal/max indépendantes **75/75 concordantes**, écart relatif pondéré maximal **3,17×10⁻¹⁶** ; rapport [AUDIT_SCIENTIFIQUE_418_442_20261030.md](AUDIT_SCIENTIFIQUE_418_442_20261030.md).
+- **Cinq corrections SVG :** machine thermique de Carnot avec travail et bilan thermique (420), triangle de flexion à échelle unique (425), barre ESR sans intercept (431), flèches d'orifice proportionnelles au débit (432), flèche de puissance de condensation non saturée (437).
+- **30 tests de non-régression supplémentaires :** 25 références indépendantes avec vérification HTML et domaines, cinq tests de géométrie/énergie. **Objectif CI : 1 877 tests**, non déclaré réussi avant confirmation des runs du commit de publication.
+- **Protection :** accueil utilisateur, 17 univers, navigation, assets, HTML des missions et historique inchangés. Aucune nouvelle mission, aucune dépense demandée.
+- **Preuves manquantes :** navigateur/mobile réel, NVDA/TalkBack/VoiceOver, audit RGAA, sécurité exhaustive, réception pédagogique. **Phase 1 maintenue**.
+- **Prochaine action :** contrôler HEAD/3 workflows, corriger les échecs éventuels, auditer **393–417**.
