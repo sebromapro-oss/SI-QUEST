@@ -263,3 +263,13 @@
 - **Périmètre :** aucune mission nouvelle, 597 conservées ; accueil, 17 univers, HTML, assets et AppDeploy non modifiés. Aucun force-push ni dépense.
 - **Réserves :** dépôt public, audit secrets/historique incomplet ; navigateurs/appareils physiques, NVDA/TalkBack/VoiceOver, RGAA/WCAG et réception pédagogique non réalisés. **Phase 1 maintenue**.
 - **Suite :** vérifier trois workflows du commit, corriger toute régression, auditer **193–217**.
+
+
+## Cycle V2.5 — audit complémentaire 193–217 (30 octobre 2026)
+
+- **SHA de départ du complément :** `1b958dc284279bfce58ea4b6c459741805d7cfec` ; les trois workflows de ce commit étaient encore **queued**, résultat final non revendiqué.
+- **25 missions 193–217 contrôlées numériquement :** 75/75 contre-calculs V8 concordants (écart pondéré max 2,75×10⁻¹⁶), 25/25 configurations HTML nominales cohérentes, 75 SVG sans NaN/Infinity. Références algébriques déjà présentes dans les tests de lots historiques, donc indépendance limitée. [Rapport](AUDIT_SCIENTIFIQUE_193_217_20261030.md).
+- **Aucune anomalie numérique ou graphique nouvelle démontrée**, aucune correction ni test supplémentaire pour ce sous-lot. **Bilan étendu du cycle : 50 missions 193–242 auditées, 5 corrections SVG et 30 tests Node ajoutés dans le premier sous-lot**.
+- **Nouveau HEAD documentaire :** le commit contenant cette entrée est postérieur au SHA de code testé ; contrôler ses propres trois workflows avant de déclarer CI verte. 597 missions conservées, 0 mission créée, aucune modification AppDeploy.
+- **Risques ouverts :** dépôt public, secrets/historique non audités exhaustivement, navigateurs et mobiles physiques, NVDA/TalkBack/VoiceOver, RGAA/WCAG et réception pédagogique non réalisés. **Phase 1 maintenue**.
+- **Prochaine action :** vérifier CI et corriger toute régression ; auditer **168–192**.
