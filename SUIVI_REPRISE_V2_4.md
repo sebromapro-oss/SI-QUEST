@@ -241,3 +241,14 @@
 - Accueil, 17 univers, HTML, données privées, historique et AppDeploy inchangés ; aucune mission créée, aucun force-push ni dépense.
 - **Limites :** dépôt public, sécurité exhaustive, navigateur/mobile physique, NVDA/TalkBack/VoiceOver, RGAA et réception pédagogique non réalisés. **Phase 1 maintenue.**
 - **Prochaine action :** contrôler les workflows du SHA de publication, corriger toute régression et auditer **218–242**.
+
+
+### Contre-recette finale du cycle 243–292 — 30 octobre 2026
+
+- **SHA de code, tests et rapports validé** : `97d2cc7a3a94b69cb7b6cae982c3c781bc73cfb6` ; parent `74c46dd40cf52fa39db70f9c6322b96a61d5d6e1`.
+- **2 048/2 048 tests Node réussis, 0 échec ; 3/3 workflows GitHub Actions réussis sur ce même SHA** : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41113371926), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41113371849), [qualité scientifique](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41113371771). Compte de tests confirmé dans les journaux du job Node `124261191286`.
+- **Bilan cumulé de deux lots : 50 missions 243–292 auditées**, 150/150 contre-calculs V8 min/milieu/max concordants, **6 anomalies graphiques corrigées**, **56 tests de non-régression ajoutés**, aucune mission créée ; **597 missions conservées**.
+- Audits récents continus : **243–597, soit 355/597 missions (59,5 %) couvertes par les contrôles numériques documentés**. Ce pourcentage n'est pas une réception globale.
+- **Préservation :** seuls cinq modules de schémas, deux fichiers de tests, deux rapports d'audit et le registre ont été modifiés ; accueil utilisateur, carte des 17 univers, HTML des missions, assets, historique et AppDeploy inchangés.
+- **Réserves persistantes :** tests réels navigateur/mobile, NVDA/TalkBack/VoiceOver, RGAA/WCAG complet, validation pédagogique et audit de secrets/historique non réalisés ; dépôt public. **Phase 1 maintenue.** Prochaine priorité : **218–242**.
+- Cette entrée documentaire est postérieure au SHA de code testé ; vérifier les workflows du HEAD documentaire avant de le déclarer vert.
