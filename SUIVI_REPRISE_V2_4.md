@@ -145,3 +145,13 @@
 - **25 missions 443–467 auditées, 75 contre-calculs et 25/25 valeurs nominales HTML concordantes**. [Rapport détaillé](AUDIT_SCIENTIFIQUE_443_467_20261030.md).
 - **Quatre corrections SVG** : coque sphérique 459, fuite annulaire 462, échelle PID 465, cerclage tangent 466 ; **quatre tests ajoutés**. CI du nouveau commit à vérifier, cible 1 847 tests.
 - Accueil, 17 univers, pages de mission et données privées préservés ; aucune mission créée. Tests matériels/lecteurs d'écran et audit de sécurité exhaustif non réalisés. **Phase 1 maintenue** ; prochain lot 418–442.
+
+
+### Contre-recette GitHub Actions — deux lots 443–492 (30 octobre 2026)
+
+- **Commit final de code, tests et audits :** `84404d8c2a1c1ce2fba4e31274d8a1330e80bdb9` (parent : `b874914d535672d179e8d4dd1cf7ef9ec2f97dfc`).
+- **CI vérifiée sur ce SHA : 1 847 tests Node, 1 847 réussis, 0 échec ; 3/3 workflows réussis** : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41082458671), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41082458693), [qualité scientifique](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41082458689).
+- **Total du cycle : 50 missions 443–492**, 150 contre-calculs (min/nominal/max), 50 valeurs HTML `expected` concordantes, **8 anomalies graphiques corrigées, 8 tests de non-régression ajoutés**, aucune mission créée ; **597 missions conservées**.
+- **Fichiers d'accueil et carte des 17 univers inchangés** : comparaison Git entre `74bd56ebbd` et `84404d8c2a1c` limitée à cinq modules SVG, cinq fichiers de tests, deux rapports d'audit et ce registre.
+- **Limites** : aucun essai réel navigateur/mobile ni NVDA/TalkBack/VoiceOver ; sécurité du dépôt public et historique non audités exhaustivement. **Phase 1 maintenue** ; prochaine priorité missions **418–442**.
+- Cette entrée documentaire est postérieure au SHA ci-dessus : vérifier ses trois workflows propres avant d'annoncer le HEAD documentaire vert.
