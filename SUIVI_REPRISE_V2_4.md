@@ -301,3 +301,12 @@
 - **Aucun correctif de moteur ni nouvelle mission** dans ce cycle ; 597 conservées. Accueil, carte 17 univers, HTML des missions, navigation, assets, données privées et AppDeploy inchangés. Aucune dépense ni force-push.
 - **Réserves ouvertes :** tests navigateurs/appareils physiques, NVDA/TalkBack/VoiceOver, RGAA, réception pédagogique, audit secrets/historique et dépôt public non résolus.
 - **Prochaine action :** vérifier les 3 workflows sur le HEAD documentaire, traiter le défaut d'animation sans divulguer la réponse, puis poursuivre l'audit 93–117. Phase 1 maintenue.
+
+
+### Complément du cycle V2.5 — revue 93–117
+
+- **25 missions supplémentaires** (93–117), sept fichiers de tests existants relus ; références algébriques, unités, domaines et limites examinés. [Rapport](AUDIT_SCIENTIFIQUE_093_117_20261030.md), commit `9662dde40e663f091efd4ed3c59436ca4ac1624a`. **Bilan du cycle : 50 missions 93–142 revues, 0 mission créée, 0 correction de moteur.**
+- **Couverture documentaire récente : 93–597, soit 505/597 (84,6 %)**. Cette métrique ne mesure pas la réception scientifique exhaustive ni les tests graphiques, physiques ou d'accessibilité.
+- **Bloquant confirmé :** simulations verrouillées après réponse incorrecte dans `src/investigation-mission.js`. Une correction non naïve doit permettre l'animation tout en préservant la confidentialité de la réponse initiale et les trois essais/trois aides. Anomalie ouverte, non corrigée dans ce cycle.
+- **SHA CI vert de référence au début du cycle :** `64cb69234e601989992da4065ae4faef15e3a332`, 2 078/2 078 tests et 3/3 workflows. Les commits documentaires ultérieurs doivent être revérifiés avant déclaration de réussite sur le HEAD.
+- **Prochaine action :** contrôler les workflows du dernier SHA, corriger le contrôleur et écrire des tests comportementaux de non-divulgation, puis auditer 68–92. Maintenir phase 1 ; aucune modification AppDeploy.
