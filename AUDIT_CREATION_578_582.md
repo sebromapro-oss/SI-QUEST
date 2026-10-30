@@ -27,3 +27,7 @@ Tests Node natifs et CI non encore prouvés lors de la rédaction initiale ; les
 P1 graphique : remplacement des quatre marqueurs de pression sphérique par des pointes radiales réellement orientées ; correction de l'origine de la flèche de conduction pour qu'elle débute dans la paroi, et non dans le vide central. P2 scientifique : rectification de l'arrondi de la résistance cylindrique nominale à 0,0147090 K/W. Tests de géométrie et intégration numérique indépendante de Fourier ajoutés.
 
 P1 pédagogique corrigé avant réception : les cinq solutions conditionnelles contiennent désormais situation, hypothèses, loi, contrôle dimensionnel, substitution numérique, décision fictive et erreur fréquente. Un test empêche tout corrigé indéfini.
+
+P2 rédaction scientifique : le titre « Conduite isolante » a été remplacé par « Paroi cylindrique », car λ=15 W/(m·K) ne décrit pas un isolant usuel. Le modèle et ses valeurs restent inchangés.
+
+CI sur le commit 9d6fe12a77fa431c32d5f6cb0158d37bfe14ab99 : trois workflows FAIL, puis trois relances FAIL. Aucun job ne comporte d'étape exécutée ; téléchargement du journal Node HTTP 404 BlobNotFound. Cause non déterminée. Aucun succès CI natif revendiqué. Le présent commit de documentation et correction rédactionnelle déclenchera de nouvelles exécutions à vérifier.
