@@ -32,3 +32,13 @@ test('mouflage 4:1 : continuité du câble, quatre brins et poulies fixes/mobile
   assert.ok(Math.abs(4*P.calculate(a.id,mass)-mass*9.81)<1e-9);
  }
 });
+
+test('Sonde coaxiale : a et b sont des rayons mesurés depuis le centre, rapport 2/5',()=>{
+ const m=meta[3],svg=D.render(m.id,m.initial,P.calculate(m.id,m.initial));
+ const outer=svg.match(/<circle cx="336" cy="218" r="([^"]+)" fill="#284c60"/);
+ const inner=svg.match(/<circle cx="336" cy="218" r="([^"]+)" fill="#092236"/);
+ assert.ok(outer&&inner);
+ assert.equal(Number(inner[1])/Number(outer[1]),2/5);
+ assert.match(svg,/x1="336" y1="218" x2="376" y2="218"/);
+ assert.match(svg,/x1="336" y1="218" x2="336" y2="118"/);
+});
