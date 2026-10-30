@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"maintenance-poisson-spares-twofail-01","world":"SI-15","title":"Pièces de rechange — Risque de deux pannes","url":"missions/maintenance-poisson-spares-twofail-01.html","subskill":"Probabilité d'au moins deux défaillances selon une loi de Poisson"}),
+Object.freeze({"id":"humid-air-vapor-mass-density-01","world":"SI-12","title":"Air humide — Masse volumique de vapeur","url":"missions/humid-air-vapor-mass-density-01.html","subskill":"Masse volumique partielle de vapeur d'eau dans un mélange gazeux idéal"}),
+Object.freeze({"id":"rectifier-capacitor-ripple-01","world":"SI-08","title":"Redresseur — Ondulation d'un condensateur de filtrage","url":"missions/rectifier-capacitor-ripple-01.html","subskill":"Ondulation crête à crête d'un filtrage capacitif après redressement double alternance"}),
+Object.freeze({"id":"acoustic-two-tone-beat-01","world":"SI-13","title":"Diagnostic acoustique — Fréquence de battement","url":"missions/acoustic-two-tone-beat-01.html","subskill":"Fréquence de modulation d'amplitude issue de deux sons sinusoïdaux proches"}),
+Object.freeze({"id":"optical-grating-first-order-angle-01","world":"SI-13","title":"Réseau optique — Angle du premier ordre","url":"missions/optical-grating-first-order-angle-01.html","subskill":"Angle de diffraction du premier ordre à incidence normale sur un réseau"}),
 Object.freeze({"id":"bolt-joint-external-load-share-01","world":"SI-04","title":"Assemblage précontraint — Surcharge dans la vis","url":"missions/bolt-joint-external-load-share-01.html","subskill":"Partage d'une charge externe entre vis et pièces serrées selon leurs raideurs"}),
 Object.freeze({"id":"journal-bearing-viscous-torque-01","world":"SI-11","title":"Palier lisse — Couple visqueux du film d'huile","url":"missions/journal-bearing-viscous-torque-01.html","subskill":"Couple de frottement visqueux d'un palier cylindrique en film mince de Couette"}),
 Object.freeze({"id":"diesel-fuel-thermal-density-01","world":"SI-14","title":"Gazole — Masse volumique corrigée en température","url":"missions/diesel-fuel-thermal-density-01.html","subskill":"Variation de masse volumique d'un liquide par dilatation volumique à masse constante"}),
