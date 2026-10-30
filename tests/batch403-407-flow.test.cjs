@@ -18,7 +18,7 @@ for(const a of meta)test(a.id+' : parcours DOM simulé, essais, aides, corrigé,
  const p=mockPage(cfg),n=p.nodes;assert.equal(p.graph.style.display,'none');assert.equal(n.trial.disabled,true);assert.equal(n.solution.disabled,true);
  n.answer.value='texte';n.calc.events.submit({preventDefault(){}});assert.match(n.feedback.textContent,/Saisie invalide/);assert.equal(n.solution.disabled,true);
  n.answer.value='999999';for(let i=0;i<3;i++)n.calc.events.submit({preventDefault(){}});
- assert.equal(n.solution.disabled,false);assert.equal(p.graph.style.display,'none');assert.match(n.hintText.textContent,/3\. /);
+ assert.equal(n.solution.disabled,true);for(let i=0;i<3;i++)n.hint.events.click();assert.equal(n.solution.disabled,false);assert.equal(p.graph.style.display,'none');assert.match(n.hintText.textContent,/3\. /);
  n.solution.events.click();assert.equal(p.graph.style.display,'block');assert.match(n.feedback.textContent,/calcul non validé/i);
  const s=mockPage(cfg),m=s.nodes;m.answer.value=String(cfg.expected).replace('.',',');m.calc.events.submit({preventDefault(){}});
  assert.equal(s.graph.style.display,'block');assert.equal(m.trial.disabled,false);assert.equal(m.solution.disabled,true);
