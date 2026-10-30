@@ -26,7 +26,7 @@ for(const id of ["parallel-reliability-01","induction-rotor-copper-loss-01","ntc
  const a=mockPage(cfg),n=a.nodes;assert.equal(a.graph.style.display,'none');assert.equal(n.trial.disabled,true);assert.equal(n.solution.disabled,true);
  n.answer.value='pas un nombre';n.calc.events.submit({preventDefault(){}});assert.match(n.feedback.textContent,/Saisie invalide/);assert.equal(n.solution.disabled,true);
  n.answer.value='999999';for(let i=0;i<3;i++)n.calc.events.submit({preventDefault(){}});
- assert.equal(n.solution.disabled,false);assert.equal(a.graph.style.display,'none');assert.match(n.hintText.textContent,/3\. /);
+ assert.equal(n.solution.disabled,true);for(let i=0;i<3;i++)n.hint.events.click();assert.equal(n.solution.disabled,false);assert.equal(a.graph.style.display,'none');assert.match(n.hintText.textContent,/3\. /);
  n.solution.events.click();assert.equal(a.graph.style.display,'block');assert.match(n.feedback.textContent,/calcul non validé/i);
  const b=mockPage(cfg),m=b.nodes;m.answer.value=String(cfg.expected).replace('.',',');m.calc.events.submit({preventDefault(){}});
  assert.equal(b.graph.style.display,'block');assert.equal(m.trial.disabled,false);assert.equal(m.solution.disabled,true);
