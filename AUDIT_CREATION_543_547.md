@@ -4,7 +4,7 @@
 Dépôt privé sebromapro-oss/SI-QUEST, main ; HEAD initial 16143598b499557811d6c5716acb8d913a8597d2. Cahier V2.3, EXIGENCES, PRODUCTION, catalogue, modèles, contrôleur, tests et workflows relus. Fichiers protégés intacts : index.html, src/home.js, src/style.css, assets/archipelago-cinematic.svg. Pas de ZIP, Pages, branche archive ni force push.
 
 ## Chantier A : missions historiques 40–75
-36 missions historiquement listées dans AUDIT_CREATION_538_542.md ; contrats et tests existants relus. Cinq anomalies P2 de métadonnées pédagogiques corrigées : circular-02, angular-accel-01, brake-torque-01, incline-force-01, resultant-01. Champs objective, prerequisites, successCriteria recopiés fidèlement des pages visibles, sans changer les lois ni les graphismes. Test de non-régression ajouté. La revue documentaire ne remplace pas l'exécution indépendante exhaustive des 36 cas : NOT RUN pour cette partie dans le présent cycle.
+36 missions historiquement listées dans AUDIT_CREATION_538_542.md ; contrats et tests existants relus. Cinq anomalies P2 de métadonnées pédagogiques corrigées : circular-02, angular-accel-01, brake-torque-01, incline-force-01, resultant-01. Champs objective, prerequisites, successCriteria recopiés fidèlement des pages visibles, sans changer les lois ni les graphismes. Test de non-régression ajouté. Contre-audit indépendant V8 réalisé sur les 36 missions : 3 états par mission, soit **108/108 contre-calculs PASS** et **108/108 SVG structurels PASS**. Le test reproductible `tests/historical-40-75-independent.test.cjs` est ajouté ; son exécution native Node reste NOT RUN.
 
 ## Chantier B : nouvelles missions indépendantes
 | N° | ID | Référence nominale |
@@ -29,3 +29,6 @@ V8 JavaScript exécuté sur les cinq modèles avec trois états (min/nominal/max
 | A | NOT RUN | lecteurs d'écran et matériel non testés |
 
 Statut : missions CODÉES et contrôlées scientifiquement de façon ciblée, NON VALIDÉES en réception complète. Taxonomie canonique 249 sous-savoirs toujours à réconcilier ; 56 entrées anciennes sans sous-savoir explicite au catalogue signalées au cycle précédent.
+
+## Complément d'audit contradictoire
+Le 30 octobre 2026, les 36 modèles historiques 40–75 ont été exécutés en V8 avec références mathématiques séparées : 108 valeurs et 108 SVG conformes structurellement. Cette preuve ne couvre ni rendu navigateur, ni animations réelles, ni lecteurs d'écran. Les quatre workflows du commit précédent ont échoué avant l'exécution de toute étape, puis ont échoué à nouveau après relance ; aucun runner attribué et journaux indisponibles (`BlobNotFound`).
