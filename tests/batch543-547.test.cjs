@@ -16,3 +16,12 @@ test('cinq configurations historiques : objectifs et prérequis traçables',()=>
 test('graphiques de géométrie et saturation',()=>{const a=meta[3];near(P.calculate(a.id,10),10);const s=D.render(a.id,10,10);assert.match(s,/Écrêtage/);const l=meta[4];assert.match(D.render(l.id,200,P.calculate(l.id,200)),/image réelle inversée/);});
 
 test('palier : flèche tangentielle au point supérieur de la bague',()=>{const m=meta[1],s=D.render(m.id,m.initial,P.calculate(m.id,m.initial));assert.match(s,/x1="320" y1="150" x2="382" y2="150"[^>]*marker-end="url\(#p543\)"/);});
+
+test('Gazole : valeur arrondie du corrigé conforme au calcul indépendant',()=>{
+ const m=meta.find(x=>x.id==='diesel-fuel-thermal-density-01');
+ const rho=835/(1+0.00085*(35-15));
+ assert.equal(rho.toFixed(3).replace('.',','),'821,042');
+ assert.ok(m.detail.includes('ρ=835/1,017=821,042 kg/m³'));
+ assert.ok(m.solution.includes('ρ=835/1,017=821,042 kg/m³'));
+ assert.doesNotMatch(m.solution,/821,043/);
+});
