@@ -57,9 +57,10 @@ T(45,67,'Z₂='+N(x)+' Rayl ; coefficient de pression r='+N(y))+
 L(300,105,300,242,'#ffca7d',3)+
 L(125,160,285,160,'#7ce8ae',5,'marker-end="url(#arrow-'+id+')"')+
 L(300,202,300-width,202,'#ffca7d',5,'marker-end="url(#arrow-'+id+')" data-reflection-px="'+width.toFixed(5)+'"')+
+L(310,160,310+160*(1+y),160,'#8ddcff',5,'marker-end="url(#arrow-'+id+')" data-transmission-px="'+(160*(1+y)).toFixed(5)+'"')+
 T(105,142,'Incidente →')+T(110,229,'← Réfléchie')+
 T(360,145,'Transmise →')+
-T(48,275,'Longueur réfléchie : 160×r px (amplitude)');break;
+T(30,275,'Pression : incidente=160 px ; réfléchie=160r ; transmise=160(1+r)');break;
 case 'entropy-two-reservoirs-01':
 width=400*y/.8;s=T(50,40,'Réservoirs isothermes : Th=400 K ; Tc=300 K')+
 T(50,66,'Q='+N(x)+' J ; entropie créée='+N(y)+' J/K')+
