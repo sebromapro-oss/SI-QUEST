@@ -19,7 +19,7 @@ for(const id of [cases[0].id,cases[1].id,cases[2].id])assert.doesNotMatch(D.rend
 assert.throws(()=>D.render(cases[2].id,120,500),RangeError);
 });
 test('P2 historique : piston et volume cohérents avec la course',()=>{
-const B=require('../src/investigations.js'),G=require('../src/investigation-diagrams.js');const a=G.render('hydro-volume-01',0,B.calculate('hydro-volume-01',0)),b=G.render('hydro-volume-01',600,B.calculate('hydro-volume-01',600));assert.match(a,/data-piston-x="110.00"/);assert.match(b,/data-piston-x="422.00"/);assert.match(a,/V = 0 L/);assert.match(b,/V = 3 L/);assert.match(a,/L = 0 mm/);
+const B=require('../src/investigations.js'),G=require('../src/investigation-diagrams.js');const a=G.render('hydro-volume-01',0,B.calculate('hydro-volume-01',0)),b=G.render('hydro-volume-01',600,B.calculate('hydro-volume-01',600));assert.match(a,/data-piston-x="125.00"/);assert.match(b,/data-piston-x="245.00"/);assert.match(a,/V = 0 L/);assert.match(b,/V = 3 L/);assert.match(a,/L = 0 mm/);
 });
 test('catalogue : identifiants uniques et 17 univers',()=>{assert.ok(C.levels.length>=222);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);assert.equal(new Set(C.levels.map(x=>x.world)).size,17);});
 

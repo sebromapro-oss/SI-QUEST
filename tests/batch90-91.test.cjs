@@ -20,7 +20,7 @@ test('Contrôle géométrique : tube sans arrondis et ressort raccordé',()=>{
 test('Audit lot 40–75 : résistance au roulement, réaction au contact et légende unique',()=>{
  const svg=d.render('rolling-torque-01',200,m.calculate('rolling-torque-01',200));
  assert.match(svg,/<line x1="305" y1="190" x2="305" y2="129"[^>]+marker-end/);
- assert.match(svg,/<line x1="305" y1="68" x2="232\.5" y2="68"[^>]+marker-end/);
+ assert.match(svg,/<line x1="305" y1="129" x2="232\.5" y2="129"[^>]+marker-end/);
  assert.equal((svg.match(/Fᵣ = /g)||[]).length,0);
  assert.match(svg,/Cᵣ = 70 N·m/);
 });

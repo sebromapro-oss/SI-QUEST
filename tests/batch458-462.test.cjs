@@ -45,7 +45,7 @@ test('P2 historique Reynolds : constantes et limites',()=>{
  assert.match(g,/D = 8 mm/);assert.match(g,/0,040 Pa/);
 });
 test('non-régression 40–75 : 108 états, SVG et flash',()=>{
- const missions=C.levels.slice(-75,-39);assert.equal(missions.length,36);
+ const missions=require('./fixtures/historic-40-75.cjs').map(id=>C.byId(id));assert.equal(missions.length,36);
  for(const v of missions){
   const h=fs.readFileSync(v.url,'utf8');
   assert.ok((h.match(/<li>/g)||[]).length>=3,v.id);

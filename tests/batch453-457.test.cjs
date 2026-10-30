@@ -46,7 +46,7 @@ assert.match(e,/Pcr\/A/);assert.match(e,/Aucune charge admissible/);
 test('audit de non-régression 40–75 : calculs, SVG, synchronisation, réactivation',()=>{
  const base=require('../src/investigations.js');
  const diagrams=require('../src/investigation-diagrams.js');
- const historic=C.levels.slice(-75,-39);
+ const historic=require('./fixtures/historic-40-75.cjs').map(id=>C.byId(id));
  assert.equal(historic.length,36);
  for(const v of historic){
   const h=fs.readFileSync(v.url,'utf8');
