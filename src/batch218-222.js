@@ -42,7 +42,7 @@ s+=circle(295,49,7,'#ffd17d')+line(295,49,bx,by,'#cbe7f5',4)+circle(bx,by,15,'#f
 s+=text(35,42,'L = '+n(x)+' m')+text(35,220,'T = '+n(y)+' s ; amplitude ≈ 8°');
 break;}
 case 'radial-insulation-resistance-01':{
-const outer=42+(x-30)*.8;
+const outer=28*x/25;
 s+=circle(300,139,outer,'#477e9b')+circle(300,139,28,'#092236')+line(300,139,300+outer,139,'#ffd17d',2)+text(315,127,'r₂')+text(253,131,'r₁');
 s+=text(35,42,'r₂ = '+n(x)+' mm ; r₁ = 25 mm')+text(35,221,'Rₜₕ = '+n(y)+' K/W ; ΔT non imposé');
 break;}

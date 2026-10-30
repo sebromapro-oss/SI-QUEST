@@ -44,8 +44,8 @@ case 'hydrostatic-wheel-traction-01':{
 z+=rect(40,105,112,58)+rect(213,105,112,58)+rect(370,105,102,58);
 z+=label(49,139,'Hydraulique')+label(234,139,'Moteur')+label(383,139,'Réducteur');
 z+=line(152,134,213,134,'#8ddcff',5)+line(325,134,370,134,'#ffd17d',5);
-z+='<circle cx="528" cy="145" r="44" fill="#315c76" stroke="#a9d9ed" stroke-width="3"/>'+line(484,190,579,190,'#a9d9ed',3);
-if(x>0)z+=arrow(160,134,205,134)+arrow(528,190,582,190);
+z+=line(472,134,528,134,'#ffd17d',5)+'<circle cx="528" cy="134" r="44" fill="#315c76" stroke="#a9d9ed" stroke-width="3"/><circle cx="528" cy="134" r="6" fill="#ffd17d"/>'+line(484,179,579,179,'#a9d9ed',3);
+if(x>0)z+=arrow(160,134,205,134)+arrow(528,178,582,178);
 z+=label(35,39,'Δp = '+n(x)+' bar ; i = 15')+label(35,220,'F = '+n(y)+' N ; adhérence non modélisée');break}
 }
 return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 235" role="img" aria-labelledby="schema-titre schema-description" class="machine"><title id="schema-titre">'+titles[id]+'</title><desc id="schema-description">Schéma technique bidimensionnel paramétrique non à l’échelle ; grandeur calculée également disponible en texte. Représentation statique sans animation temporelle inventée.</desc><defs><marker id="pointe" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#7ce8ae"/></marker></defs><rect x="1" y="1" width="598" height="232" rx="12" fill="#092236" stroke="#507895"/>'+z+'<g data-parameter="'+x.toFixed(6)+'" data-result="'+y.toFixed(6)+'"></g></svg>';

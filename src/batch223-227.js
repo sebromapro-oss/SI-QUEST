@@ -38,11 +38,11 @@ const dx=(x-10)*sc,dy=-2*Math.sqrt(3)*sc;
 s+=arrow(ox,oy,ox-dx,oy-dy,'#ff8fb2');
 s+=txt(34,39,'Iₐ = '+n(x)+' A ; Iᵦ = 8 A ; I𝒸 = 12 A')+txt(34,194,'Vert : A ; orange : B ; bleu : C ; rose : neutre')+txt(34,219,'Iₙ = '+n(y)+' A ; angles 0°, −120°, +120°');break;}
 case 'source-matched-load-power-01':{
-s+=line(160,105,246,105)+rect(246,93,90,24)+line(336,105,450,105)+line(450,105,450,124)+rect(434,124,32,42)+line(450,166,450,183)+line(450,183,160,183)+line(160,183,160,153)+line(160,119,160,105)+line(139,125,181,125,'#ffd17d',4)+line(149,147,171,147,'#ffd17d',4);
+s+=line(160,105,246,105)+rect(246,93,90,24)+line(336,105,450,105)+line(450,105,450,124)+rect(434,124,32,42)+line(450,166,450,183)+line(450,183,160,183)+line(160,183,160,147)+line(160,125,160,105)+line(139,125,181,125,'#ffd17d',4)+line(149,147,171,147,'#ffd17d',4);
 s+=txt(256,87,'r')+txt(475,145,'R = r')+txt(100,145,'12 V')+txt(34,39,'r = '+n(x)+' Ω ; charge adaptée')+txt(34,219,'Pmax = '+n(y)+' W ; rendement = 50 %');break;}
 case 'couette-viscous-shear-01':{
 s+=rect(160,168,300,17,'#54768a')+rect(160,121,300,47,'#225b78')+rect(160,108,300,13,'#9bc9e5');
-for(let k=1;k<5;k++){const yy=121+k*9;s+=line(176,yy,176+k*22,yy,'#7aaec5',2);}
+for(let k=1;k<5;k++){const yy=121+k*9;s+=line(176,yy,176+(5-k)*22,yy,'#7aaec5',2);}
 if(x>0){s+=arrow(300,87,300+95*x/2,87)+arrow(310,113,310-95*x/2,113,'#ffca7d');}
 s+=txt(34,39,'v = '+n(x)+' m/s ; h = 1,0 mm')+txt(34,219,'F = '+n(y)+' N ; effort opposé à v');break;}
 }

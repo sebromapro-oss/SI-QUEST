@@ -40,9 +40,9 @@ const rise=330*x/(Math.PI*24);
 s+=ln(135,183,485,183)+ln(135,183,465,(183-rise).toFixed(3),'#ffca7d',5)+ln(465,(183-rise).toFixed(3),465,183);
 s+=tx(35,39,'l = '+n(x)+' mm ; dₘ = 24 mm')+tx(35,219,'λ = '+n(y)+'° ; μ = 0,12 ; filet carré');break;}
 case 'capillary-rise-water-01':{
-const top=181-y;
-s+='<rect x="100" y="181" width="410" height="33" fill="#225d8a" opacity=".8"/><path d="M250 80 V209 M305 80 V209" stroke="#a9d9ed" stroke-width="5" fill="none"/>';
-s+='<path d="M253 '+top.toFixed(3)+' Q278 '+(top+9).toFixed(3)+' 302 '+top.toFixed(3)+' L302 208 L253 208 Z" fill="#3486b6" opacity=".85"/>';
+const top=181-y,cx=277.5,rp=5+5*x,left=cx-rp,right=cx+rp;
+s+='<rect x="100" y="181" width="410" height="33" fill="#225d8a" opacity=".8"/><path d="M'+left.toFixed(3)+' 80 V209 M'+right.toFixed(3)+' 80 V209" stroke="#a9d9ed" stroke-width="5" fill="none"/>';
+s+='<path data-meniscus-radius-px="'+rp.toFixed(3)+'" data-contact-angle="0" d="M'+left.toFixed(3)+' '+top.toFixed(3)+' A'+rp.toFixed(3)+' '+rp.toFixed(3)+' 0 0 0 '+right.toFixed(3)+' '+top.toFixed(3)+' L'+right.toFixed(3)+' 208 L'+left.toFixed(3)+' 208 Z" fill="#3486b6" opacity=".85"/>';
 s+=ln(333,top.toFixed(3),333,181,'#ffd17d',2)+ln(327,top.toFixed(3),339,top.toFixed(3),'#ffd17d',2)+ln(327,181,339,181,'#ffd17d',2);
 s+=tx(35,39,'r = '+n(x)+' mm ; γ = 0,0728 N/m')+tx(35,230,'h = '+n(y)+' mm ; θ = 0°');break;}
 case 'sample-hold-phase-lag-01':{

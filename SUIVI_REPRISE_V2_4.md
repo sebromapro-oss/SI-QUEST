@@ -252,3 +252,14 @@
 - **Préservation :** seuls cinq modules de schémas, deux fichiers de tests, deux rapports d'audit et le registre ont été modifiés ; accueil utilisateur, carte des 17 univers, HTML des missions, assets, historique et AppDeploy inchangés.
 - **Réserves persistantes :** tests réels navigateur/mobile, NVDA/TalkBack/VoiceOver, RGAA/WCAG complet, validation pédagogique et audit de secrets/historique non réalisés ; dépôt public. **Phase 1 maintenue.** Prochaine priorité : **218–242**.
 - Cette entrée documentaire est postérieure au SHA de code testé ; vérifier les workflows du HEAD documentaire avant de le déclarer vert.
+
+
+## Cycle V2.5 — audit 218–242 (30 octobre 2026)
+
+- **HEAD de départ :** `afe89cbf307483b0f644f58eef38c7ce196adfab` ; 597 missions, 2 048/2 048 tests Node et trois workflows réussis sur le HEAD initial.
+- **25 missions auditées :** 75/75 contre-calculs indépendants V8 aux bornes et au milieu du domaine (écart max 3,36×10⁻¹⁶) ; 25/25 configurations HTML nominales cohérentes ; SVG produits sans NaN/Infinity.
+- **Cinq corrections graphiques :** 222 rapport géométrique des rayons, 226 continuité électrique du générateur, 227 profil Couette, 237 coaxialité transmission/roue, 241 ménisque mouillant tangent.
+- **30 tests de non-régression ajoutés** dans `tests/audit-218-242-independent.test.cjs` ; voir [rapport](AUDIT_SCIENTIFIQUE_218_242_20261030.md). **CI sur le nouveau SHA à confirmer** ; aucun résultat non observé n'est revendiqué.
+- **Périmètre :** aucune mission nouvelle, 597 conservées ; accueil, 17 univers, HTML, assets et AppDeploy non modifiés. Aucun force-push ni dépense.
+- **Réserves :** dépôt public, audit secrets/historique incomplet ; navigateurs/appareils physiques, NVDA/TalkBack/VoiceOver, RGAA/WCAG et réception pédagogique non réalisés. **Phase 1 maintenue**.
+- **Suite :** vérifier trois workflows du commit, corriger toute régression, auditer **193–217**.
