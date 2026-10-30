@@ -273,3 +273,14 @@
 - **Nouveau HEAD documentaire :** le commit contenant cette entrée est postérieur au SHA de code testé ; contrôler ses propres trois workflows avant de déclarer CI verte. 597 missions conservées, 0 mission créée, aucune modification AppDeploy.
 - **Risques ouverts :** dépôt public, secrets/historique non audités exhaustivement, navigateurs et mobiles physiques, NVDA/TalkBack/VoiceOver, RGAA/WCAG et réception pédagogique non réalisés. **Phase 1 maintenue**.
 - **Prochaine action :** vérifier CI et corriger toute régression ; auditer **168–192**.
+
+## Cycle V2.5 du 30 octobre 2026 — correction des six échecs et contre-audit 168–192
+
+- **HEAD initial de correction :** `cccc620b84dc00fb0d246a4ea4a151d10956448b`. Échec constaté dans les trois workflows : 2 072 réussites / 2 078 tests, **6 échecs** ; cause commune identifiée dans `tests/audit-218-242-independent.test.cjs` (borne supérieure `null` convertie en zéro par l'assertion).
+- **Correctif réel :** [`8fc56a4d59f9a1652eb500f5f212372131865dbe`](https://github.com/sebromapro-oss/SI-QUEST/commit/8fc56a4d59f9a1652eb500f5f212372131865dbe), assertion respectant les bornes ouvertes. Aucun moteur, test ou seuil physique supprimé.
+- **Recette confirmée sur ce SHA :** **2 078/2 078 tests réussis, zéro échec, trois workflows verts** : [science](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41122610517), [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41122610520), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41122610712).
+- **Lot de 25 missions contre-audité :** 168–192, cinq fichiers de tests existants relus, cinq points par mission soit **125 points de référence couverts** par la CI ; document [AUDIT_SCIENTIFIQUE_168_192_20261030.md](AUDIT_SCIENTIFIQUE_168_192_20261030.md), commit `9cc2fa9a12f01ca1818ca2ce2ee0567597a3d2d9`. Aucun défaut nouveau confirmé par ces assertions, aucune mission ajoutée.
+- **Couverture documentaire cumulée annoncée des audits récents :** 168–597, soit **430 missions / 597** ; cette couverture numérique et documentaire ne vaut pas réception scientifique et graphique exhaustive.
+- **HEAD de ce document :** sera postérieur aux preuves CI sur `8fc56a4` ; vérifier les workflows sur le nouveau HEAD avant de le déclarer validé.
+- **Blocages de réception :** visuel navigateur/écrans physiques, NVDA, TalkBack, VoiceOver, RGAA, pertinence pédagogique, sécurité et confidentialité du dépôt public.
+- **Suite :** confirmer les trois workflows du HEAD documentaire, puis audit 143–167, corrections ciblées et preuves. Phase 1 uniquement ; aucun changement AppDeploy.
