@@ -26,10 +26,10 @@ case 'bearing-static-safety-01':{
  s+=line(315,110-h,315,110,'#ffb68a',5,'marker-end="url(#arr)" data-charge-longueur-px="'+h+'"');
  s+=label(22,40,'C₀ = 45 000 N ; P₀ = '+n(x)+' N')+label(22,65,'Effort radial équivalent déjà déterminé')+label(22,224,'S₀ = '+n(y)+' (sans unité)');break;}
 case 'vibration-critical-damping-01':{
- const w=Number((80+4*Math.sqrt(x)).toFixed(3));
+ const w=Number((80+4*Math.sqrt(x)).toFixed(3)),damper=Number((230+w-35).toFixed(3));
  s+='<rect x="230" y="74" width="'+w+'" height="48" fill="#41647b" stroke="#ffd17d" stroke-width="3"/>';
  s+=line(260,122,260,136)+line(260,136,244,146)+line(244,146,276,157)+line(276,157,244,168)+line(244,168,260,181);
- s+=line(355,122,355,140)+line(340,140,370,140)+line(355,140,355,165)+line(338,165,372,165)+line(338,165,338,181)+line(372,165,372,181);
+ s+=line(damper,122,damper,140,'#a9d9ed',3,'data-damper-x="'+damper+'"')+line(damper-15,140,damper+15,140)+line(damper,140,damper,165)+line(damper-17,165,damper+17,165)+line(damper-17,165,damper-17,181)+line(damper+17,165,damper+17,181);
  s+=line(200,185,455,185,'#b8cbd9',5);
  s+=label(22,40,'k = 40 000 N/m ; m = '+n(x)+' kg')+label(22,65,'Masse – ressort – amortisseur idéal')+label(22,224,'c critique = '+n(y)+' N·s/m');break;}
 case 'material-thermal-effusivity-01':{

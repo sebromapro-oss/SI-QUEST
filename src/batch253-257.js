@@ -33,7 +33,7 @@ case 'three-phase-cable-voltage-drop-01':{for(let k=0;k<3;k++){const yy=90+k*43;
 s+=label(25,39,'I = '+n(x)+' A ; cos φ = 0,80')+label(25,65,'L = 50 m ; S = 6 mm² ; R = 0,145833 Ω/phase')+label(25,226,'ΔU = '+n(y)+' V ; réactance négligée');break;}
 case 'hydraulic-throttle-heat-01':{const w=Number((160*x/100).toFixed(3));
 s+=line(75,129,245,129,'#8ddcff',10)+line(355,129,530,129,'#8ddcff',10);
-s+='<path d="M245 95 L300 129 L245 163 Z M355 95 L300 129 L355 163 Z" fill="#315b75" stroke="#ffd17d" stroke-width="3"/>';
+s+='<path d="M245 95 L286 129 L245 163 Z M355 95 L314 129 L355 163 Z" fill="#315b75" stroke="#ffd17d" stroke-width="3" data-passage-libre-px="28"/>';
 s+=line(390,105,445,105,'#7ce8ae',4,'marker-end="url(#pointe)"');
 if(x>0)s+='<rect x="75" y="185" width="'+w+'" height="12" fill="#ffca7d" data-perte-largeur-px="'+w+'"/>';
 s+=label(25,39,'Q = 15 L/min ; Δp = '+n(x)+' bar')+label(25,226,'Puissance dissipée = '+n(y)+' kW');break;}

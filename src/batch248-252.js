@@ -45,7 +45,7 @@ s+='<rect x="170" y="83" width="245" height="112" rx="4" fill="#315c76" stroke="
 s+=line(180,91,400,91,'#ffca7d',7)+line(180,187,400,187,'#ffca7d',7);
 s+=label(190,114,'Cordon 1')+label(190,179,'Cordon 2');
 const length=Number((105*x/12).toFixed(3));if(x>0)s+=line(420,137,420+length,137,'#7ce8ae',5,'marker-end="url(#pointe)" data-effort-longueur-px="'+length+'"');
-s+=label(25,39,'F = '+n(x)+' kN ; 2 × L = 80 mm')+label(25,218,'a = 6 mm ; τ = '+n(y)+' MPa');break;}
+s+=label(25,39,'F = '+n(x)+' kN ; 2 cordons × 80 mm')+label(25,218,'a = 6 mm ; τ = '+n(y)+' MPa');break;}
 case 'parallel-plate-capacitance-01':{
 const gap=Number((x*11).toFixed(3)),left=300-gap/2,right=300+gap/2;
 s+=line(left,70,left,188,'#ffca7d',8)+line(right,70,right,188,'#ffca7d',8);

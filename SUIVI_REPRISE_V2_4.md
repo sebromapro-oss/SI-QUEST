@@ -226,3 +226,18 @@
 - **28 tests Node nouveaux**, résultat CI du nouveau commit **à vérifier**. Aucun nouveau modèle ou mission ; accueil, 17 univers, HTML, AppDeploy, données privées et historique inchangés.
 - **Risques ouverts :** dépôt public, contrôle secrets/historique incomplet, tests physiques navigateur/mobile et NVDA/TalkBack/VoiceOver non réalisés, RGAA et réception pédagogique non démontrés.
 - **Prochaine action :** vérifier les trois workflows du SHA de publication, corriger toute régression, puis auditer **243–267**. Phase 1 maintenue.
+
+
+### Contre-recette du lot 268–292
+
+- Commit `74c46dd40cf52fa39db70f9c6322b96a61d5d6e1` : **2 020/2 020 tests Node réussis, 0 échec, 3/3 workflows réussis** : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41113166242), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41113166416), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41113166238).
+
+## Cycle V2.5 — audit 243–267 (30 octobre 2026)
+
+- HEAD initial `74c46dd40cf52fa39db70f9c6322b96a61d5d6e1` ; 597 missions, **2 020/2 020 tests et 3/3 workflows verts** avant modification.
+- **25 missions 243–267**, 75/75 contre-calculs V8 (minimum/milieu/maximum) ; [rapport](AUDIT_SCIENTIFIQUE_243_267_20261030.md).
+- **Trois correctifs :** annotation de longueur des deux soudures (250), passage libre du tiroir d'étranglement hydraulique (255), fixation de l'amortisseur à la masse variable (264).
+- **28 tests Node supplémentaires** ; CI du nouveau commit **à vérifier**, ne pas annoncer une réussite avant le résultat des workflows.
+- Accueil, 17 univers, HTML, données privées, historique et AppDeploy inchangés ; aucune mission créée, aucun force-push ni dépense.
+- **Limites :** dépôt public, sécurité exhaustive, navigateur/mobile physique, NVDA/TalkBack/VoiceOver, RGAA et réception pédagogique non réalisés. **Phase 1 maintenue.**
+- **Prochaine action :** contrôler les workflows du SHA de publication, corriger toute régression et auditer **218–242**.
