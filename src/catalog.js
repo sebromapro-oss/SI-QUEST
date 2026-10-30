@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"soderberg-fatigue-safety-01","world":"SI-14","title":"Fatigue — Sécurité selon Soderberg","url":"missions/soderberg-fatigue-safety-01.html","subskill":"Contrainte moyenne de traction et amplitude alternée dans le critère de Soderberg"}),
+Object.freeze({"id":"strain-half-bridge-output-01","world":"SI-13","title":"Jauges — Signal d'un demi-pont","url":"missions/strain-half-bridge-output-01.html","subskill":"Tension de sortie linéarisée de deux jauges actives de signes opposés"}),
+Object.freeze({"id":"thermal-contact-interface-resistance-01","world":"SI-12","title":"Contact thermique — Résistance d'interface","url":"missions/thermal-contact-interface-resistance-01.html","subskill":"Résistance de contact à partir de la conductance surfacique et de l'aire"}),
+Object.freeze({"id":"rc-lowpass-phase-lag-01","world":"SI-08","title":"Filtre RC — Retard de phase","url":"missions/rc-lowpass-phase-lag-01.html","subskill":"Valeur absolue du déphasage d'un filtre RC passe-bas non chargé"}),
+Object.freeze({"id":"copper-skin-depth-frequency-01","world":"SI-08","title":"Cuivre — Épaisseur de peau","url":"missions/copper-skin-depth-frequency-01.html","subskill":"Profondeur de pénétration électromagnétique en régime sinusoïdal"}),
+
 Object.freeze({"id":"milling-cutting-speed-01","world":"SI-05","title":"Fraisage — Vitesse périphérique de coupe","url":"missions/milling-cutting-speed-01.html","subskill":"Conversion du diamètre et de la vitesse de rotation en vitesse tangentielle de coupe"}),
 Object.freeze({"id":"milling-feed-per-tooth-01","world":"SI-15","title":"Fraisage — Avance par dent","url":"missions/milling-feed-per-tooth-01.html","subskill":"Détermination de l'avance par dent à partir de la vitesse d'avance et de la fréquence de passage des dents"}),
 Object.freeze({"id":"four-part-pulley-ideal-tension-01","world":"SI-03","title":"Palan — Traction idéale à quatre brins","url":"missions/four-part-pulley-ideal-tension-01.html","subskill":"Équilibre statique d'une charge suspendue par quatre brins porteurs de même tension"}),
@@ -464,7 +470,7 @@ Object.freeze({"id":"bolt-preload-torque-01","world":"SI-15","title":"Assemblage
     Object.freeze({id:"pneumatic-consumption-01",world:"SI-07",title:"Vérin pneumatique — Volume géométrique balayé",url:'missions/pneumatic-consumption-01.html',subskill:"Volume géométrique balayé par un piston pneumatique"}),
     Object.freeze({id:"electrical-series-01",world:"SI-08",title:"Résistance équivalente série",url:'missions/electrical-series-01.html',subskill:"Résistance équivalente de deux résistances en série"}),
     Object.freeze({id:"electrical-parallel-01",world:"SI-08",title:"Résistance équivalente parallèle",url:'missions/electrical-parallel-01.html',subskill:"Résistance équivalente de deux résistances en parallèle"}),
-    Object.freeze({id:"inductor-energy-01",world:"SI-09",title:"Énergie stockée dans une inductance",url:'missions/inductor-energy-01.html',subskill:"Énergie magnétique stockée dans une inductance linéaire"}),
+    Object.freeze({id:"inductor-energy-01",world:"SI-08",title:"Énergie stockée dans une inductance",url:'missions/inductor-energy-01.html',subskill:"Énergie magnétique stockée dans une inductance linéaire"}),
     Object.freeze({id:"mechanical-efficiency-02",world:"SI-10",title:"Puissance utile d’une transmission",url:'missions/mechanical-efficiency-02.html',subskill:"Puissance utile d'une transmission à rendement donné"}),
     Object.freeze({id:"rolling-torque-01",world:"SI-11",title:"Couple résistant au roulement",url:'missions/rolling-torque-01.html',subskill:"Couple résistant équivalent à l'axe d'une roue en roulement"}),
     Object.freeze({id:"thermal-resistance-01",world:"SI-12",title:"Résistance thermique plane",url:'missions/thermal-resistance-01.html',subskill:"Résistance thermique d'une paroi plane par conduction stationnaire"}),
