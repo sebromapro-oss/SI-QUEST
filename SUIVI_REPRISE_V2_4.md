@@ -284,3 +284,10 @@
 - **HEAD de ce document :** sera postérieur aux preuves CI sur `8fc56a4` ; vérifier les workflows sur le nouveau HEAD avant de le déclarer validé.
 - **Blocages de réception :** visuel navigateur/écrans physiques, NVDA, TalkBack, VoiceOver, RGAA, pertinence pédagogique, sécurité et confidentialité du dépôt public.
 - **Suite :** confirmer les trois workflows du HEAD documentaire, puis audit 143–167, corrections ciblées et preuves. Phase 1 uniquement ; aucun changement AppDeploy.
+
+## Complément du même cycle — audit documentaire 143–167
+
+- **25 missions supplémentaires revues** (143–167) : cinq lots de références mathématiques et contrôles d'homogénéité dimensionnelle, document [AUDIT_SCIENTIFIQUE_143_167_20261030.md](AUDIT_SCIENTIFIQUE_143_167_20261030.md), commit `65d1568d903a9a14f89d70007c48491af9f5283b`.
+- **Total du cycle : 50 missions revues** (143–192), aucune nouvelle mission ni changement de moteur physique. **Couverture documentaire récente : 143–597, soit 455/597** ; les preuves de réception individuelle graphique et physique restent manquantes.
+- **Dernier SHA de référence CI vert avant les commits documentaires :** `8fc56a4d59f9a1652eb500f5f212372131865dbe` ; 2 078/2 078 tests et 3/3 workflows. Les commits documentaires successifs exigent leurs propres runs avant déclaration de réussite sur le HEAD final.
+- **Prochaine plage :** 118–142, en priorité aux défauts confirmés et à l'accessibilité ; ne pas créer les missions 598+.
