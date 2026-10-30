@@ -127,3 +127,14 @@
 - 25 missions auditées (493–517), 4 corrections SVG, 4 tests supplémentaires ; pas de création de mission ni modification de l'accueil.
 - **Prochaine priorité :** auditer les missions 468–492 ; vérifier les SVG des quatre corrections en navigateur et conserver les essais NVDA/TalkBack/VoiceOver et matériels en attente.
 - Cette mise à jour documentaire est postérieure au SHA de code testé : consulter ses propres workflows avant de déclarer le HEAD final vert.
+
+
+## Cycle V2.5 du 30 octobre 2026 — audit 468–492, quatre corrections SVG
+
+- HEAD initial `74bd56ebbd9b01f6cc95ed13aee9a41a8e5f5679` ; trois workflows verts, **1 839/1 839** tests avant modification.
+- **25 missions 468–492**, **75 contre-calculs indépendants**, **25/25 champs expected** concordants ; détails et valeurs dans [AUDIT_SCIENTIFIQUE_468_492_20261030.md](AUDIT_SCIENTIFIQUE_468_492_20261030.md).
+- **Quatre correctifs SVG :** largeur du vantail triangulaire à l'échelle (470), clavette implantée sur la périphérie et hauteur portante cohérente (475), rampe maintenue dans le repère à toutes les bornes (480), rayons du liquide tournant au rapport 0,25 (481).
+- **Quatre tests de non-régression ajoutés**. Objectif après commit : 1 843 tests ; **résultat de la nouvelle CI non encore connu au moment de cette entrée**. Consulter les trois workflows sur le nouveau SHA avant d'annoncer une réussite.
+- Aucun changement de l'accueil, des 17 univers, des pages de mission ni des données privées. Pas de mission créée.
+- Tests navigateur réels, appareils physiques, NVDA/TalkBack/VoiceOver, sécurité exhaustive du dépôt : non réalisés ; réception scientifique complète encore ouverte.
+- **Suite :** vérifier CI sur le HEAD publié, puis audit 443–467 ; phase 1 maintenue.

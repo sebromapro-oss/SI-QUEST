@@ -41,3 +41,23 @@ const lines=[...svg.matchAll(/<line x1="240" y1="([0-9.]+)" x2="530" y2="([0-9.]
 assert.equal(lines.length,2);for(const line of lines){assert.ok(Number(line[1])>=90&&Number(line[1])<=420);assert.ok(Number(line[2])>=90&&Number(line[2])<=420);}
 }
 });
+
+test('mission 480 : écart de rampe lisible et contenu dans le repère pour tout le domaine',()=>{
+ const m=meta[2];for(const speed of [m.min,m.initial,m.max]){
+  const svg=D.render(m.id,speed,M.calculate(m.id,speed));
+  const gap=Number(svg.match(/data-ramp-gap-px="([^"]+)"/)[1]);
+  near(gap,16*M.calculate(m.id,speed));
+  const lines=[...svg.matchAll(/<line x1="240" y1="([0-9.]+)" x2="530" y2="([0-9.]+)"/g)];
+  assert.equal(lines.length,2);
+  for(const line of lines)for(const ordinate of line.slice(1).map(Number))assert.ok(ordinate>=95&&ordinate<=365,ordinate);
+ }
+});
+test('mission 481 : rapport des rayons r1/r2 exactement égal à 0,05/0,20',()=>{
+ const m=meta[3];for(const omega of [m.min,m.initial,m.max]){
+  const svg=D.render(m.id,omega,M.calculate(m.id,omega));
+  const inner=Number(svg.match(/data-inner-radius-px="([^"]+)"/)[1]);
+  const outer=Number(svg.match(/data-outer-radius-px="([^"]+)"/)[1]);
+  near(inner/outer,.05/.20);near(outer,115);
+  assert.match(svg,/<line x1="378\.75" y1="240" x2="465" y2="240"/);
+ }
+});

@@ -52,3 +52,16 @@ test('réception structurelle catalogue et correction P2 historiques',()=>{
   assert.ok(html.includes('<strong>Sous-savoir :</strong>'));
  }
 });
+
+test('mission 475 : clavette sur le diamètre réel, hauteur portante he/d = 4/40',()=>{
+ const m=meta[2];for(const torque of [m.min,m.initial,m.max]){
+  const svg=D.render(m.id,torque,M.calculate(m.id,torque));
+  const diameter=Number(svg.match(/data-shaft-diameter-px="([^"]+)"/)[1]);
+  const bearing=Number(svg.match(/data-bearing-height-px="([^"]+)"/)[1]);
+  near(diameter,170);near(bearing/diameter,4/40);
+  assert.match(svg,/<circle cx="240" cy="235" r="85"/);
+  assert.match(svg,/<rect x="220" y="133\.000000" width="40" height="34\.000000"/);
+  const force=Number(svg.match(/data-key-force-arrow-px="([^"]+)"/)[1]);
+  near(force,m.scale*M.calculate(m.id,torque));
+ }
+});

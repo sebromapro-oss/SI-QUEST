@@ -35,3 +35,14 @@ test('géométries : centre de pression et parois intérieures',()=>{
 const g=meta[2],svg=D.render(g.id,.8,M.calculate(g.id,.8));near(Number(svg.match(/data-pressure-center-y="([^"]+)"/)[1]),130+.75*120*.8,1e-6);
 const h=meta[3],s=D.render(h.id,12,M.calculate(h.id,12));near(Number(s.match(/data-inner-width-px="([^"]+)"/)[1]),96,1e-6);
 });
+
+test('mission 470 : triangle à échelle isotrope et centre de pression à 3h/4',()=>{
+ const m=meta[2];for(const h of [m.min,m.initial,m.max]){
+  const svg=D.render(m.id,h,M.calculate(m.id,h));
+  const match=svg.match(/<path d="M350 130 L([0-9.]+) ([0-9.]+) L([0-9.]+) ([0-9.]+) Z"/);
+  assert.ok(match,'triangle SVG');const [xL,yL,xR,yR]=match.slice(1).map(Number);
+  near(xR-xL,120*.6);near(yL-130,120*h);near(yR,yL);near((xL+xR)/2,350);
+  near(Number(svg.match(/data-base-width-px="([^"]+)"/)[1]),72);
+  near(Number(svg.match(/data-pressure-center-y="([^"]+)"/)[1]),130+.75*120*h);
+ }
+});
