@@ -24,3 +24,12 @@ Calculs V8 ciblés : 15/15 jeux nominaux/bornes PASS ; 15/15 SVG paramétriques 
 | A | NOT RUN sur appareil et lecteur d'écran |
 
 La conformité complète aux 249 sous-savoirs canoniques reste à établir ; aucune validation complète n'est revendiquée.
+
+## Contre-audit après publication du commit `1ceb3754bf02a0ddf056848e0a89ab01d0b051ab`
+
+- Modèles historiques 40–75 : **108/108** contre-calculs numériques et **108/108** rendus SVG structurels PASS dans V8, à partir de 36 références et de trois états par modèle ; aucun test navigateur revendiqué.
+- Nouvelles missions : **15/15** états numériques et SVG PASS, **30/30** entrées invalides rejetées. Après publication, **15** vérifications complémentaires ciblées (catalogue, deux modèles historiques, HTML, syntaxe du test) PASS.
+- Catalogue vérifié : **587/587** identifiants uniques, **17/17** univers ; présence des cinq pages HTML confirmée.
+- GitHub Actions sur `1ceb3754bf02a0ddf056848e0a89ab01d0b051ab` : **4 workflows FAIL**, chacun **relancé une fois et de nouveau FAIL**. Jobs sans étape enregistrée ; journaux Node et scientifique indisponibles, HTTP 404 `BlobNotFound`. Cause non déterminée. CI **BLOCKED** ; tests Node natifs **NOT RUN** localement.
+- Réception visuelle navigateur, mobile et lecteurs NVDA/TalkBack/VoiceOver : **NOT RUN**. Les cinq missions sont codées et testées de façon ciblée, mais **non validées complètement**.
+- La page d'accueil, la carte et les fichiers `index.html`, `src/home.js`, `src/style.css`, `assets/archipelago-cinematic.svg` ne figurent pas dans le diff de production.
