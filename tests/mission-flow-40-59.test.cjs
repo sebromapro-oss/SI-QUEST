@@ -91,3 +91,22 @@ test('scène 3D qualitative après erreur : animation disponible sans dévoiler 
  assert.match(g('scene3-info').textContent,/0.10 s/);
  g('reset').fire('click');assert.equal(g('scene3-play').disabled,true);
 });
+
+test('schéma 2D exploratoire après réponse fausse sans fuite de résultat',()=>{
+ const h=harness('pressure-01'),g=h.get;
+ assert.equal(g('trialValue').disabled,true);
+ h.submit('999999');
+ assert.equal(g('trialValue').disabled,false);
+ assert.equal(g('trial').disabled,true);
+ assert.equal(g('graph').style.display,'none');
+ assert.equal(g('solution').disabled,true);
+ const fig=g('model').children.find(x=>x.id==='figure');
+ assert.ok(fig,'figure 2D absente');
+ assert.equal(fig.style.display,'block');
+ assert.match(fig.innerHTML,/Exploration graphique qualitative/);
+ assert.doesNotMatch(fig.innerHTML,/<text\b|data-result=|Résultat théorique/);
+ g('trialValue').value=String(h.cfg.max);g('trialValue').fire('input');
+ assert.match(g('technicalDecision').textContent,/aucun verdict/i);
+ assert.equal(g('graph').style.display,'none');
+ g('reset').fire('click');assert.equal(g('trialValue').disabled,true);
+});
