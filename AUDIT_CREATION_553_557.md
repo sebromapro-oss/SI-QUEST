@@ -28,3 +28,6 @@ V8 exécuté : 15/15 contre-calculs nouveaux PASS ; 15/15 SVG PASS ; 15/15 désy
 
 ## Anomalies ouvertes
 CI historique en échec sans journaux exploitables ; navigateur, appareils et accessibilité non reçus ; taxonomie à réconcilier avec 249 sous-savoirs ; persistance non testée sur appareils. Aucune validation définitive déclarée.
+
+## Contre-audit géométrique complémentaire P2
+Le pignon de chaîne n'accepte plus de nombre impair de dents dans le domaine pédagogique déclaré (z pair de 12 à 40). Les graphes du point de commande et de l'effet polygonal tracent désormais uniquement les paramètres discrets admissibles, avec points et segments de liaison explicitement indicatifs. Tests de non-régression ajoutés.
