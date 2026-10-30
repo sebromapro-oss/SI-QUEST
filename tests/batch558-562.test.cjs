@@ -25,3 +25,8 @@ test('Invariants et dimensions',()=>{
  near(P.calculate(meta[4].id,3),3.6);
  assert.equal(C.worlds.length,17);assert.equal(C.levels.length,562);assert.equal(new Set(C.levels.map(x=>x.id)).size,562);
 });
+
+test('Rugosité : les cinq points restent dans la zone du schéma pour les bornes',()=>{
+ const id='profile-discrete-roughness-ra-01';
+ for(const x of [1,3,5]){const s=D.render(id,x,P.calculate(id,x));const p=s.match(/<polyline points="([^"]+)"/);assert.ok(p,'Profil SVG manquant');const pts=p[1].split(' ').map(t=>t.split(',').map(Number));assert.equal(pts.length,5);for(const [px,py] of pts){assert.ok(px>=150&&px<=590);assert.ok(py>=100&&py<=310,'Point hors zone technique : '+py)}}
+});

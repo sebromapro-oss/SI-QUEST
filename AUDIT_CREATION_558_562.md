@@ -29,3 +29,8 @@ V8 dans l'environnement de production : 15/15 contre-calculs indépendants, 15/1
 
 ## Anomalies ouvertes
 GitHub Actions échoue historiquement avant toute étape de job ; cause non établie. Réception navigateur et accessibilité à réaliser. Réconciliation de la taxonomie avec les 249 sous-savoirs canoniques ouverte. Le nombre 562 représente des missions intégrées, non 562 missions entièrement reçues.
+
+## Contre-audit complémentaire du profil de rugosité
+Anomalie P1 graphique détectée avant clôture : aux amplitudes maximales, les ordonnées du profil pouvaient chevaucher le titre et le graphique. Échelle verticale de dessin corrigée (10 px/µm) et légende déplacée. Test géométrique ajouté pour x=1, 3 et 5 µm. La forme est illustrative, les valeurs numériques restent celles du modèle.
+## Audit historique effectivement reproduit
+36 modèles 40–75 × 3 états : 108/108 références indépendantes PASS et 108/108 SVG structurels PASS dans V8, sur le HEAD de ce cycle. Ces tests ciblés ne valent pas réception visuelle ni accessibilité.
