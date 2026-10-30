@@ -26,3 +26,9 @@ V8 ciblé : 75 contrôles de calcul, SVG, désynchronisation et entrées invalid
 | A | NOT RUN |
 
 Les missions sont codées et testées de façon ciblée, non validées. CI, taxonomie des 249 sous-savoirs, accessibilité et recette matérielle restent ouverts.
+
+## Vérification GitHub Actions après publication
+
+Sur `309814c60e0224fcf50730a953487cd93f172b79`, **4 workflows FAIL** dès la première tentative : scientifique, recette Node, accueil navigateur et qualité scientifique. Les quatre relances ont également terminé **FAIL**, sans runner affecté ni étape exécutée (0 étape par job). Le téléchargement du journal du job Node a retourné HTTP 404 `BlobNotFound`. La cause exacte reste indéterminée. Il n'existe donc **aucune preuve de réussite CI ni de recette navigateur**. Les contrôles V8 ciblés précédents ne doivent pas être confondus avec l'exécution Node native. La correction des trois assertions figées a été publiée, mais sa validation native reste bloquée.
+
+La comparaison Git du HEAD initial au commit de production confirme 2 commits descendants, 18 fichiers modifiés ou créés et aucune modification des quatre fichiers protégés de l'accueil. Les 577 pages HTML sont présentes, avec 17 univers au catalogue.
