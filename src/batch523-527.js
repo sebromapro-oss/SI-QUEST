@@ -11,7 +11,7 @@ const physics=Object.freeze(Object.assign({},base,{calculate,assess,criteria:Obj
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const fmt=v=>Number(v.toPrecision(6)).toLocaleString('fr-FR',{maximumFractionDigits:6});
 const txt=(x,y,s,size=15)=>'<text x="'+x+'" y="'+y+'" font-size="'+size+'" fill="#f4f9ff">'+esc(s)+'</text>';
-const ln=(x,y,X,Y,color='#8ddcff',width=3)=>'<line x1="'+x+'" y1="'+y+'" x2="'+X+'" y2="'+Y+'" stroke="'+color+'" stroke-width="'+width+'"/>';
+const ln=(x,y,X,Y,color='#8ddcff',width=3,extra='')=>'<line x1="'+x+'" y1="'+y+'" x2="'+X+'" y2="'+Y+'" stroke="'+color+'" stroke-width="'+width+'"'+(extra?' '+extra:'')+'/>';
 function render(id,x,y){const i=lookup[id];if(i===undefined)return prior.render(id,x,y);const m=meta[i],z=calculate(id,x);if(typeof y!=='number'||!Number.isFinite(y)||Math.abs(y-z)>1e-8*Math.max(1,Math.abs(z)))throw new RangeError('SVG désynchronisé');
 let scene=txt(26,34,m.title,18)+txt(26,65,'Paramètre : '+fmt(x)+' '+m.iu+' ; résultat : '+fmt(y)+' '+m.u);
 switch(i){
