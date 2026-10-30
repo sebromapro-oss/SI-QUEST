@@ -67,6 +67,7 @@ test('Catalogue : 79 missions indépendantes et deux savoirs distincts',()=>{
 });
 test('Audit : troisième essai n’annonce plus un corrigé disponible avant trois indices',()=>{
  const js=fs.readFileSync(path.join(root,'src/investigation-mission.js'),'utf8');
- assert.match(js,/les trois indices sont affichés et le corrigé est disponible/);
+ assert.match(js,/Trois essais effectués : consulte les trois aides pour accéder au corrigé/);
+ assert.doesNotMatch(js,/else if\(tries===3\)\{hints=3;\}/);
  assert.match(js,/disabled=tries<3\|\|hints<3\|\|mastered/);
 });
