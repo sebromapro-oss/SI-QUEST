@@ -231,7 +231,7 @@ function updateScene3(silent=false){
  if(!silent){const d=window.SIScene3D.describe(c.id,x);scene3.querySelector('#scene3-info').textContent='Caméra : '+Math.round(orbit*180/Math.PI)+'° horizontalement, '+Math.round(elevation*180/Math.PI)+'° verticalement ; zoom ×'+zoom.toFixed(2)+'. Paramètre '+fmt(x)+' '+c.inputUnit+'. '+(spatialMotion?'Temps simulé : '+simTime.toFixed(2)+' s.':'Scène statique.');}
 }
 const decision=document.createElement('p');decision.id='technicalDecision';decision.setAttribute('role','status');decision.textContent='Décision technique disponible après un essai.';$('trialLabel').insertAdjacentElement('afterend',decision);
-const integerDomain=c.id==='gear-mesh-01'||c.id==='gear-ratio-02'||c.id==='transformer-turns-ratio-01'||c.id==='maintenance-mtbf-operating-hours-01'||c.id==='can-classic-frame-busload-01'||c.inputStep===1||(Number.isInteger(c.inputStep)&&c.inputStep>1&&Number.isInteger(c.min)&&Number.isInteger(c.max)&&/^(dents|pièces|mesures|échantillons)$/i.test(c.inputUnit));
+const integerDomain=c.id==='gear-mesh-01'||c.id==='gear-ratio-02'||c.id==='transformer-turns-ratio-01'||c.id==='maintenance-mtbf-operating-hours-01'||c.id==='can-classic-frame-busload-01'||c.inputStep===1||(Number.isInteger(c.inputStep)&&c.inputStep>1&&Number.isInteger(c.min)&&Number.isInteger(c.max)&&/^(dents|pièces|mesures|échantillons|comptes)$/i.test(c.inputUnit));
 const domainStep=integerDomain&&Number.isInteger(c.inputStep)&&c.inputStep>0?c.inputStep:1;
 const domain=integerDomain?Array.from({length:Math.floor((c.max-c.min)/domainStep+1e-9)+1},(_,i)=>c.min+i*domainStep):Array.from({length:101},(_,i)=>Math.min(c.max,Math.max(c.min,c.min+(c.max-c.min)*i/100)));
 const samples=domain.map(calc);
