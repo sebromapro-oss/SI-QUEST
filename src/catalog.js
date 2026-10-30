@@ -9,6 +9,11 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"milling-cutting-speed-01","world":"SI-05","title":"Fraisage — Vitesse périphérique de coupe","url":"missions/milling-cutting-speed-01.html","subskill":"Conversion du diamètre et de la vitesse de rotation en vitesse tangentielle de coupe"}),
+Object.freeze({"id":"milling-feed-per-tooth-01","world":"SI-15","title":"Fraisage — Avance par dent","url":"missions/milling-feed-per-tooth-01.html","subskill":"Détermination de l'avance par dent à partir de la vitesse d'avance et de la fréquence de passage des dents"}),
+Object.freeze({"id":"four-part-pulley-ideal-tension-01","world":"SI-03","title":"Palan — Traction idéale à quatre brins","url":"missions/four-part-pulley-ideal-tension-01.html","subskill":"Équilibre statique d'une charge suspendue par quatre brins porteurs de même tension"}),
+Object.freeze({"id":"coaxial-capacitive-level-delta-01","world":"SI-13","title":"Capteur de niveau — Variation de capacité coaxiale","url":"missions/coaxial-capacitive-level-delta-01.html","subskill":"Variation de capacité d'une sonde coaxiale liée à la longueur immergée et au contraste diélectrique"}),
+Object.freeze({"id":"radiative-net-heat-flow-01","world":"SI-12","title":"Thermique — Puissance radiative nette","url":"missions/radiative-net-heat-flow-01.html","subskill":"Bilan radiatif net d'une surface grise vers une enceinte noire isotherme"}),
 Object.freeze({"id":"optical-rayleigh-circular-aperture-01","world":"SI-13","title":"Optique — Limite de résolution de Rayleigh","url":"missions/optical-rayleigh-circular-aperture-01.html","subskill":"Angle minimal de séparation de deux sources selon Rayleigh pour une ouverture circulaire"}),
 Object.freeze({"id":"helical-gear-transverse-module-01","world":"SI-05","title":"Engrenage hélicoïdal — Module apparent","url":"missions/helical-gear-transverse-module-01.html","subskill":"Conversion du module normal en module transverse d'une denture hélicoïdale"}),
 Object.freeze({"id":"spherical-pressure-vessel-membrane-stress-01","world":"SI-04","title":"Réservoir sphérique — Contrainte de membrane","url":"missions/spherical-pressure-vessel-membrane-stress-01.html","subskill":"Contrainte tangentielle d'une enveloppe sphérique mince sous pression interne"}),
