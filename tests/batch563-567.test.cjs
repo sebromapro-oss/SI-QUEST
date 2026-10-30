@@ -54,3 +54,22 @@ test('Traçabilité pédagogique historique 40–75 corrigée sur cinq missions'
   assert.equal((h.match(/<li>/g)||[]).length,3);
  }
 });
+
+test('Géométrie : masses d’équilibrage opposées et rayon de correction constant',()=>{
+ const id=meta[0].id,s=D.render(id,320,P.calculate(id,320));
+ assert.match(s,/cx="479" cy="208" r="11"/);assert.match(s,/cx="291" cy="208" r="11"/);
+ assert.equal((479+291)/2,385);assert.equal(479-385,385-291);
+});
+test('Géométrie : cercles primitifs tangents et rayons conformes au module',()=>{
+ const id=meta[3].id,s=D.render(id,1,P.calculate(id,1));
+ assert.match(s,/cx="295" cy="210" r="48"/);
+ assert.match(s,/cx="439" cy="210" r="96"/);
+ assert.equal(439-295,48+96);
+ assert.match(s,/cx="295" cy="210" r="52"/);
+ assert.match(s,/cx="439" cy="210" r="100"/);
+});
+test('Électroaimant : trois flèches B et une attraction orientée vers le noyau',()=>{
+ const id=meta[4].id,s=D.render(id,.3,P.calculate(id,.3));
+ assert.equal((s.match(/marker-end="url\(#arr563\)"/g)||[]).length,4);
+ assert.match(s,/x1="440" y1="316" x2="370" y2="316"/);
+});
