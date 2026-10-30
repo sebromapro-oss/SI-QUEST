@@ -17,3 +17,12 @@ test('invariants physiques et catalogue',()=>{assert.equal(C.worlds.length,17);a
 test('10 configurations historiques : sous-savoir cohérent avec catalogue',()=>{for(const id of ['screw-lead-01','hydro-cylinder-speed-02','hydro-annular-force-01','pneumatic-consumption-01','electrical-series-01','moment-arm-02','kinetic-friction-01','spring-stiffness-01','beam-stress-02','gear-ratio-02']){const h=fs.readFileSync('missions/'+id+'.html','utf8'),cfg=JSON.parse(h.split('window.SI_MISSION=')[1].split('</script>')[0]);assert.equal(cfg.subskill,C.byId(id).subskill)}});
 
 test('tube : quatre vecteurs de pression orientés et marqueur SVG',()=>{const m=meta[3],s=D.render(m.id,m.initial,P.calculate(m.id,m.initial));assert.equal((s.match(/marker-end="url\(#p538\)"/g)||[]).length,4);assert.match(s,/<marker id="p538"/)});
+
+test('tube mince : échelle commune et rapport e/D = 1,5/30',()=>{
+ const m=meta[3],svg=D.render(m.id,m.initial,P.calculate(m.id,m.initial));
+ const outer=svg.match(/<circle cx="325" cy="234" r="([0-9.]+)" fill="#718c9b"/);
+ const inner=svg.match(/<circle cx="325" cy="234" r="([0-9.]+)" fill="#164a6a"/);
+ assert.ok(outer&&inner,'Cercles concentriques du tube absents');
+ const rO=Number(outer[1]),rI=Number(inner[1]);
+ near((rO-rI)/(2*rI),1.5/30);assert.ok(rO>rI);
+});
