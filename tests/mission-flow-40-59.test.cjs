@@ -106,7 +106,7 @@ test('schéma 2D exploratoire après réponse fausse sans fuite de résultat',()
  assert.match(fig.innerHTML,/Exploration graphique qualitative/);
  assert.doesNotMatch(fig.innerHTML,/<text\b|data-result=|Résultat théorique/);
  g('trialValue').value=String(h.cfg.max);g('trialValue').fire('input');
- assert.match(g('technicalDecision').textContent,/aucun verdict/i);
+ const decision=g('trialLabel').children.find(x=>x.id==='technicalDecision');assert.ok(decision);assert.match(decision.textContent,/aucun verdict/i);
  assert.equal(g('graph').style.display,'none');
  g('reset').fire('click');assert.equal(g('trialValue').disabled,true);
 });
