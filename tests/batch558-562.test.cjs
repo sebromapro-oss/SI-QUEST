@@ -30,3 +30,8 @@ test('Rugosité : les cinq points restent dans la zone du schéma pour les borne
  const id='profile-discrete-roughness-ra-01';
  for(const x of [1,3,5]){const s=D.render(id,x,P.calculate(id,x));const p=s.match(/<polyline points="([^"]+)"/);assert.ok(p,'Profil SVG manquant');const pts=p[1].split(' ').map(t=>t.split(',').map(Number));assert.equal(pts.length,5);for(const [px,py] of pts){assert.ok(px>=150&&px<=590);assert.ok(py>=100&&py<=310,'Point hors zone technique : '+py)}}
 });
+
+test('Rugosité : polyligne et points SVG physiquement synchronisés',()=>{
+ const id='profile-discrete-roughness-ra-01';
+ for(const x of [1,3,5]){const s=D.render(id,x,P.calculate(id,x));const pts=s.match(/<polyline points="([^"]+)"/)[1].split(' ').map(q=>q.split(',').map(Number));for(const [px,py] of pts)assert.ok(s.includes('<circle cx="'+px+'" cy="'+py+'"'),'Marqueur décalé du profil');}
+});

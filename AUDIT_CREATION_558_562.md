@@ -34,3 +34,6 @@ GitHub Actions échoue historiquement avant toute étape de job ; cause non éta
 Anomalie P1 graphique détectée avant clôture : aux amplitudes maximales, les ordonnées du profil pouvaient chevaucher le titre et le graphique. Échelle verticale de dessin corrigée (10 px/µm) et légende déplacée. Test géométrique ajouté pour x=1, 3 et 5 µm. La forme est illustrative, les valeurs numériques restent celles du modèle.
 ## Audit historique effectivement reproduit
 36 modèles 40–75 × 3 états : 108/108 références indépendantes PASS et 108/108 SVG structurels PASS dans V8, sur le HEAD de ce cycle. Ces tests ciblés ne valent pas réception visuelle ni accessibilité.
+
+## Contrôle graphique de clôture
+Une seconde vérification a montré que la première correction de la rugosité avait déplacé les marqueurs sans déplacer la polyligne. Les deux géométries sont désormais calculées avec le même facteur de 10 px/µm ; tests V8 3/3 PASS et test de non-régression d'alignement ajouté. Le statut graphique reste PASS structurel uniquement, recette navigateur NOT RUN.
