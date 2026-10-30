@@ -73,3 +73,20 @@ test('Électroaimant : trois flèches B et une attraction orientée vers le noya
  assert.equal((s.match(/marker-end="url\(#arr563\)"/g)||[]).length,4);
  assert.match(s,/x1="440" y1="316" x2="370" y2="316"/);
 });
+
+test('PWM : courbe échantillonnée uniquement sur les sept TOP admissibles',()=>{
+ const id='timer-pwm-fast-frequency-01';
+ const svg=D.render(id,999,P.calculate(id,999));
+ assert.match(svg,/data-discrete="true"/);
+ assert.match(svg,/TOP admissibles ; segments de liaison indicatifs/);
+ const pts=[...svg.matchAll(/<circle cx="([^"]+)" cy="([^"]+)" r="3" fill="#7ce8ae"\/>/g)];
+ assert.equal(pts.length,7);
+ const allowed=[499,749,999,1249,1499,1749,1999];
+ const ylo=P.calculate(id,1999),yhi=P.calculate(id,499);
+ for(let i=0;i<7;i++){
+  const x=95+560*(allowed[i]-499)/1500;
+  const y=470-82*(P.calculate(id,allowed[i])-ylo)/(yhi-ylo);
+  assert.ok(Math.abs(Number(pts[i][1])-x)<.001,'Abscisse TOP incorrecte');
+  assert.ok(Math.abs(Number(pts[i][2])-y)<.001,'Ordonnée fréquence incorrecte');
+ }
+});
