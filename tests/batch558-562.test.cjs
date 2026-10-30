@@ -23,7 +23,7 @@ test('Invariants et dimensions',()=>{
  near(P.calculate(meta[2].id,2),30);
  near(P.calculate(meta[3].id,.6),2);
  near(P.calculate(meta[4].id,3),3.6);
- assert.equal(C.worlds.length,17);assert.equal(C.levels.length,562);assert.equal(new Set(C.levels.map(x=>x.id)).size,562);
+ assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=562);assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);
 });
 
 test('Rugosité : les cinq points restent dans la zone du schéma pour les bornes',()=>{

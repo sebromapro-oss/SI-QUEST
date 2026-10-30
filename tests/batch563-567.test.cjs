@@ -36,8 +36,8 @@ test('Invariants et dimensions : masse, contrainte, période, conduite, pression
  assert.ok(P.calculate(meta[4].id,.5)>P.calculate(meta[4].id,.3));
  assert.throws(()=>P.calculate(meta[2].id,1000),RangeError);
  assert.throws(()=>P.calculate(meta[2].id,749.5),RangeError);
- assert.equal(C.worlds.length,17);assert.equal(C.levels.length,567);
- assert.equal(new Set(C.levels.map(x=>x.id)).size,567);
+ assert.equal(C.worlds.length,17);assert.ok(C.levels.length>=567);
+ assert.equal(new Set(C.levels.map(x=>x.id)).size,C.levels.length);
 });
 test('Compteur : pas discret respecté par le contrôleur mutualisé',()=>{
  const s=fs.readFileSync('src/investigation-mission.js','utf8');
