@@ -23,3 +23,14 @@ test('tirant conique : intégration numérique indépendante de F/(E A(z))',()=>
   near(P.calculate('tapered-rod-axial-extension-01',x),numeric_mm);
  }
 });
+
+test('tirant conique : rayons r1 et r2 sur une même échelle graphique',()=>{
+ const m=meta[2];for(const x of [m.min,m.initial,m.max]){
+  const svg=D.render(m.id,x,P.calculate(m.id,x));
+  const poly=svg.match(/<polygon points="235,([0-9.]+) 235,([0-9.]+) 535,([0-9.]+) 535,([0-9.]+)"/);
+  assert.ok(poly,'Profil conique non retrouvé');
+  const [lTop,lBottom,rBottom,rTop]=poly.slice(1).map(Number);
+  const rL=(lBottom-lTop)/2,rR=(rBottom-rTop)/2;
+  near(rL/rR,15/x);near((lTop+lBottom)/2,(rTop+rBottom)/2);
+ }
+});
