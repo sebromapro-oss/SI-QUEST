@@ -216,3 +216,13 @@
 - **Préservation et responsabilités :** comparaison Git depuis `a42d15c` limitée à trois modules de schémas, deux tests et deux rapports d'audit. Accueil utilisateur, carte 17 univers, HTML des missions, navigation, assets, données privées, historique et applications AppDeploy inchangés. Aucun force-push, aucune dépense.
 - **Risques ouverts :** dépôt réellement **public** d'après l'API GitHub, malgré la mention « privé » ; aucune modification de visibilité. Audit exhaustif des secrets/historique non réalisé. Essais navigateur réel, mobile physique, NVDA/TalkBack/VoiceOver, RGAA/WCAG et validation pédagogique en situation non réalisés. **CI verte ≠ réception exhaustive ; phase 1 maintenue.**
 - **Prochaine action :** vérifier les trois workflows sur le commit documentaire du présent registre ; poursuivre l'audit indépendant **268–292** (puis les lots suivants), corriger les causes racines et maintenir l'interdiction de créer les missions 598–996 avant réception fondée sur preuves.
+
+
+## Cycle V2.5 — audit 268–292 (30 octobre 2026)
+
+- HEAD initial `c4282bfbabcb66262f241b3776294f53509c42f5` ; 597 missions, 1 992/1 992 tests, trois workflows verts **avant** modification.
+- **25 missions 268–292**, 75/75 contre-calculs V8 (minimum/milieu/maximum), [rapport](AUDIT_SCIENTIFIQUE_268_292_20261030.md).
+- **Trois corrections SVG :** échelle P/Q/S (269), résistance interne batterie (270), chaîne série moteur CC (279).
+- **28 tests Node nouveaux**, résultat CI du nouveau commit **à vérifier**. Aucun nouveau modèle ou mission ; accueil, 17 univers, HTML, AppDeploy, données privées et historique inchangés.
+- **Risques ouverts :** dépôt public, contrôle secrets/historique incomplet, tests physiques navigateur/mobile et NVDA/TalkBack/VoiceOver non réalisés, RGAA et réception pédagogique non démontrés.
+- **Prochaine action :** vérifier les trois workflows du SHA de publication, corriger toute régression, puis auditer **243–267**. Phase 1 maintenue.

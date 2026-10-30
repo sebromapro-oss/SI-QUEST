@@ -30,13 +30,13 @@ case 'thinwall-bredt-shear-01':{
  s+=line(400,132,455,132,'#ffb68a',4,'marker-end="url(#arr)"');
  s+=label(22,40,'T = 200 N·m ; Aₘ = 0,004 m²')+label(22,65,'Paroi t = '+n(x)+' mm ; fibre moyenne fixe')+label(22,224,'τ = '+n(y)+' MPa ; flux q = 25 000 N/m');break;}
 case 'threephase-power-factor-pq-01':{
- const q=Number((7*x).toFixed(3));
- s+=line(210,188,390,188,'#7ce8ae',4)+line(390,188,390,188-q,'#ffb68a',4)+line(210,188,390,188-q,'#8ddcff',4);
- s+=label(235,208,'P = 12 kW')+label(400,180,'Q')+label(22,40,'Q = '+n(x)+' kvar ; P = 12 kW')+label(22,65,'S² = P² + Q² ; charge sinusoïdale')+label(22,224,'cos φ = '+n(y)+' (sans unité)');break;}
+ const scale=7,p=12*scale,q=Number((scale*x).toFixed(3)),x0=225,x1=x0+p,y0=207;
+ s+=line(x0,y0,x1,y0,'#7ce8ae',4,'data-p-px="'+p+'"')+line(x1,y0,x1,y0-q,'#ffb68a',4,'data-q-px="'+q+'"')+line(x0,y0,x1,y0-q,'#8ddcff',4);
+ s+=label(225,225,'P = 12 kW')+label(327,110,'Q')+label(22,88,'Échelle commune : 7 px/kW ou kvar')+label(22,40,'Q = '+n(x)+' kvar ; P = 12 kW')+label(22,65,'S² = P² + Q² ; charge sinusoïdale')+label(22,224,'cos φ = '+n(y)+' (sans unité)');break;}
 case 'battery-internal-joule-heat-01':{
  const a=Number((130*x/150).toFixed(3));
- s+=line(130,115,235,115)+line(235,115,235,90)+line(235,90,380,90)+line(380,90,380,115)+line(380,115,480,115);
- s+='<rect x="235" y="75" width="145" height="30" fill="#406b7d" stroke="#ffd17d" stroke-width="3"/>';
+ s+=line(130,115,215,115)+line(215,115,215,90)+line(215,90,235,90)+line(380,90,400,90)+line(400,90,400,115)+line(400,115,480,115);
+ s+='<rect x="235" y="75" width="145" height="30" fill="#406b7d" stroke="#ffd17d" stroke-width="3" data-serie="resistance-interne"/>';
  if(x>0)s+=line(150,150,150+a,150,'#ffb68a',4,'marker-end="url(#arr)" data-courant-longueur-px="'+a+'"');
  s+=label(22,40,'Rᵢ = 0,050 Ω ; I = '+n(x)+' A')+label(250,96,'Rᵢ')+label(22,224,'P pertes = '+n(y)+' W ; I²R');break;}
 case 'sensor-two-point-sensitivity-01':{
