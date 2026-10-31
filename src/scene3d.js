@@ -4,16 +4,18 @@
 const allowed=new Set(['circular-02','angular-accel-01','brake-torque-01','torsion-01','gear-mesh-01','belt-speed-01','rolling-load-01']);
 const animated=new Set(['circular-02','angular-accel-01','gear-mesh-01','belt-speed-01']);
 const finite=v=>typeof v==='number'&&Number.isFinite(v);
+const checked=data=>{if(Object.values(data).some(v=>typeof v==='number'&&!finite(v)))throw new RangeError('Résultat 3D non fini');return Object.freeze(data);};
+const safePhase=phase=>{if(!finite(phase))throw new RangeError('Phase 3D non finie');return phase;};
 function describe(id,x){
  if(!allowed.has(id)||!finite(x)||x<0)throw new RangeError('Paramètre 3D invalide');
  switch(id){
- case 'circular-02':return Object.freeze({radius:0.5,angularSpeed:x/0.5,acceleration:x*x/0.5,animated:true});
- case 'angular-accel-01':if(x<=0)throw new RangeError('Durée strictement positive');return Object.freeze({duration:x,alpha:120/x,deltaOmega:120,animated:true});
- case 'brake-torque-01':return Object.freeze({inertia:8,alpha:x,torque:8*x,animated:false});
- case 'torsion-01':return Object.freeze({diameter:30,torque:x,stress:16*x*1000/(Math.PI*30**3),animated:false});
- case 'gear-mesh-01':if(!Number.isInteger(x)||x<=0)throw new RangeError('Nombre de dents entier strictement positif');return Object.freeze({module:3,z1:20,z2:x,r1:30,r2:1.5*x,centerDistance:30+1.5*x,angularRatio:-20/x,animated:true});
- case 'belt-speed-01':return Object.freeze({diameter:0.2,radius:0.1,angularSpeed:2*Math.PI*x/60,beltSpeed:Math.PI*0.2*x/60,animated:true});
- case 'rolling-load-01':return Object.freeze({normal:8000,coefficient:x,resistance:8000*x,animated:false});
+ case 'circular-02':return checked({radius:0.5,angularSpeed:x/0.5,acceleration:x*x/0.5,animated:true});
+ case 'angular-accel-01':if(x<=0)throw new RangeError('Durée strictement positive');return checked({duration:x,alpha:120/x,deltaOmega:120,animated:true});
+ case 'brake-torque-01':return checked({inertia:8,alpha:x,torque:8*x,animated:false});
+ case 'torsion-01':return checked({diameter:30,torque:x,stress:16*x*1000/(Math.PI*30**3),animated:false});
+ case 'gear-mesh-01':if(!Number.isSafeInteger(x)||x<=0)throw new RangeError('Nombre de dents entier strictement positif');return checked({module:3,z1:20,z2:x,r1:30,r2:1.5*x,centerDistance:30+1.5*x,angularRatio:-20/x,animated:true});
+ case 'belt-speed-01':return checked({diameter:0.2,radius:0.1,angularSpeed:2*Math.PI*x/60,beltSpeed:Math.PI*0.2*x/60,animated:true});
+ case 'rolling-load-01':return checked({normal:8000,coefficient:x,resistance:8000*x,animated:false});
  default:throw new RangeError('Mission sans scène spatiale');
  }
 }
@@ -46,14 +48,14 @@ function render(id,yaw,pitch,x,options={}){
  const point=(p,color='#ffd17d')=>{const [px,py]=P(p);segments.push('<circle cx="'+px.toFixed(2)+'" cy="'+py.toFixed(2)+'" r="5" fill="'+color+'"/>')};
  switch(id){
  case 'circular-02':{
-  const phase=d.angularSpeed*time,r=65,a=[r*Math.cos(phase),r*Math.sin(phase),12];
+  const phase=safePhase(d.angularSpeed*time),r=65,a=[r*Math.cos(phase),r*Math.sin(phase),12];
   cylinder(0,0,r,phase);
   arrow(a,[a[0]*.35,a[1]*.35,12],'#ffca7d',4);
   arrow(a,[a[0]-42*Math.sin(phase),a[1]+42*Math.cos(phase),12],'#7ce8ae',4);
   point(a);notes.push('aₙ = '+d.acceleration.toFixed(2)+' m/s² ; vers le centre','v = '+x.toFixed(2)+' m/s ; tangentielle');break;
  }
  case 'angular-accel-01':{
-  const t=Math.min(time,d.duration),phase=.5*d.alpha*t*t;
+  const t=Math.min(time,d.duration),phase=safePhase(.5*d.alpha*t*t);
   shaft(phase);arrow([105,0,0],[105,35,0],'#ffca7d');
   notes.push('α = '+d.alpha.toFixed(2)+' rad/s² ; ω(t) = αt','Temps physique simulé : '+t.toFixed(2)+' s / '+d.duration.toFixed(2)+' s');break;
  }
@@ -65,14 +67,14 @@ function render(id,yaw,pitch,x,options={}){
  }
  case 'gear-mesh-01':{
   const factor=1.0,r1=d.r1*factor,r2=d.r2*factor,a=d.centerDistance*factor;
-  const x1=-a/2,x2=a/2,phase1=time,phase2=-time*20/x;
+  const x1=-a/2,x2=a/2,phase1=time,phase2=safePhase(-time*20/x);
   cylinder(x1,0,r1,phase1,18);cylinder(x2,0,r2,phase2,18);
   line([x1,0,0],[x2,0,0],'#ffca7d',2,'5 5');
   point([x1+r1,0,0],'#ff9999');
   notes.push('r₁ = '+d.r1.toFixed(1)+' mm ; r₂ = '+d.r2.toFixed(1)+' mm ; a = '+d.centerDistance.toFixed(1)+' mm','ω₂/ω₁ = −20/'+x+' = '+d.angularRatio.toFixed(3)+' ; cercles primitifs, sans profil de denture');break;
  }
  case 'belt-speed-01':{
-  const phase=d.angularSpeed*time,rad=48,c1=-90,c2=90;
+  const phase=safePhase(d.angularSpeed*time),rad=48,c1=-90,c2=90;
   cylinder(c1,0,rad,phase);cylinder(c2,0,rad,phase);
   line([c1,rad,0],[c2,rad,0],'#d5e8f4',5);line([c1,-rad,0],[c2,-rad,0],'#d5e8f4',5);
   point(beltMarkerPosition(phase,rad,c1,c2),'#7ce8ae');
