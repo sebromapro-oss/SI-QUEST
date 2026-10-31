@@ -64,4 +64,9 @@
 | 559 | `symmetric-sling-tension-01` | SI-03 |
 
 ## Réserves de réception
-Les 41 autres lois de ce lot ne disposent pas de contre-calculs indépendants dans ce cycle. La cohérence graphique des vecteurs, la fidélité temporelle des simulations, les appareils physiques, Firefox/Safari, NVDA/TalkBack/VoiceOver, l'audit de l'historique Git et la conformité RGAA/WCAG restent à démontrer. Dépôt public, progression locale non authentifiée. **Phase 1 maintenue ; 0 mission nouvelle.**
+Les 33 autres lois de ce lot ne disposent pas de contre-calculs indépendants dans ce cycle. La cohérence graphique des vecteurs, la fidélité temporelle des simulations, les appareils physiques, Firefox/Safari, NVDA/TalkBack/VoiceOver, l'audit de l'historique Git et la conformité RGAA/WCAG restent à démontrer. Dépôt public, progression locale non authentifiée. **Phase 1 maintenue ; 0 mission nouvelle.**
+
+
+## Complément scientifique — huit lois supplémentaires
+
+Huit lois ont été contre-calculées indépendamment sur quatre valeurs chacune (minimum, milieu, nominal, maximum) : charge d'un condensateur, vitesse de vérin, période/fréquence, accélération angulaire, poids sur pente, effet Joule, rendement en série et résistance au roulement. Les références utilisent les constantes et conversions explicitées dans les situations professionnelles. **Bilan du lot : 17 modèles distincts, 68 comparaisons numériques indépendantes** (9 × 4 + 8 × 4), en plus des 50 contrôles HTML et des 200 évaluations de cohérence moteur/HTML. Test Node complémentaire à confirmer en CI ; aucune équation de production modifiée. Il reste 33 lois sans contre-calcul indépendant dans ce lot.

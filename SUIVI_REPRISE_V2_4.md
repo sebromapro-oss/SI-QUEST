@@ -687,3 +687,9 @@
 - **Tests ajoutés :** 50 contrôles structurels/numériques, neuf contre-calculs indépendants, invariants, six scénarios Playwright (bureau/Android émulé). **Tests et navigateur du commit de ce lot en attente de verdict CI** ; ne pas annoncer 559/597 avant réussite complète des deux shards.
 - **Limites :** tests matériels Android/iPhone, Firefox/Safari, NVDA/TalkBack/VoiceOver, sécurité historique, conformité RGAA/WCAG et validation graphique/scientifique exhaustive non réalisés. Aucun changement AppDeploy ni de l'accueil, des 17 univers ou des données privées. Zéro nouvelle mission ; phase 1 maintenue.
 - **Prochaine action :** vérifier les runs du HEAD final, corriger tout échec sans suppression de tests, puis auditer les 38 dernières missions non couvertes si le lot 510–559 réussit ; poursuivre les contre-calculs et la recette physique.
+
+
+### Complément scientifique du cycle 510–559
+
+- **HEAD de départ :** `5dd18abe89bb9dc5758ea559fbe5719ca8fe9981` ; trois workflows Node/science verts, **2 448/2 448 tests réussis** : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41209556579), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41209556628), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41209556568).
+- Huit modèles supplémentaires recalculés indépendamment, soit **17 modèles et 68 contre-calculs** sur le lot 510–559. Neuf assertions Node nouvelles (huit modèles et invariants). La nouvelle CI reste à confirmer. Aucune mission créée, aucune application AppDeploy modifiée, aucun changement de l'accueil.
