@@ -762,3 +762,12 @@
 - **Catalogue :** 597 missions conservées, **0 créée**. Couverture Chromium cumulative des lots : 597/597 antérieurement confirmée, mais **la régression du correctif 3D reste conditionnée au run 41223457752**. Aucune réception scientifique, graphique ou accessibilité exhaustive annoncée.
 - **Risques non levés :** dépôt public, branche `main` non protégée, suivi `localStorage` non authentifié ; audit de secrets historiques et tests physiques NVDA/TalkBack/VoiceOver, Android/iOS, Firefox/Safari non réalisés. **Phase 1 maintenue ; phase 2 suspendue.**
 - **Aucun changement** AppDeploy, accueil, 17 univers, assets, marquage auteur, budget, données privées, historique Git ou permissions.
+
+
+### Complément du même cycle — sept oracles SI des scènes 3D
+
+- **Commit de tests réellement publié :** [`b68aef7d`](https://github.com/sebromapro-oss/SI-QUEST/commit/b68aef7d848cd652159e6ed3dd72fb742cfecafe). Sept tests nouveaux dans `tests/scene3d-physics-consistency.test.cjs` : sept scènes existantes × trois paramètres (borne inférieure, nominal, borne supérieure) = **21 cas**, confrontés à deux implémentations + oracle SI indépendant, **42 comparaisons**, **21 SVG rendus**. Vérification JavaScript indépendante réussie avant publication.
+- **Science CI de ce SHA :** [41223627264](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41223627264) `success`. [Recette Node 41223627379](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41223627379) et [qualité 41223627318](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41223627318) : verdict à confirmer.
+- **Preuve Node sur le SHA `a4bd6533` :** [run 41223511592](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41223511592) **2 581/2 581 tests réussis, 0 échec** (décompte confirmé dans les logs) ; trois workflows Node/science `success` sur ce SHA. Ce décompte précède les sept nouveaux tests du commit `b68aef7d`.
+- **Browser :** [41223457752](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41223457752) en cours au dernier contrôle ; ne pas déclarer la correction de courroie validée dans Chromium avant réussite des deux shards.
+- **HEAD avant le présent complément documentaire :** `b68aef7d848cd652159e6ed3dd72fb742cfecafe`. Aucun autre fichier de production, aucune mission, aucun AppDeploy modifié. Phase 1 maintenue.

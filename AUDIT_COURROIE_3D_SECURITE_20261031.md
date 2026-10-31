@@ -30,3 +30,19 @@ Le commit [`a4bd6533`](https://github.com/sebromapro-oss/SI-QUEST/commit/a4bd653
 - NVDA, TalkBack, VoiceOver, Firefox, Safari, Android/iOS physiques et audit exhaustif des secrets de l'historique : **non réalisés**.
 
 **Décision :** maintien de la phase 1, zéro mission créée, aucune intervention AppDeploy, accueil, carte des 17 univers, marquage d'auteur ou données privées modifiés.
+
+## Extension : oracles physiques indépendants sur les sept scènes 3D
+
+Le [commit `b68aef7d`](https://github.com/sebromapro-oss/SI-QUEST/commit/b68aef7d848cd652159e6ed3dd72fb742cfecafe) ajoute `tests/scene3d-physics-consistency.test.cjs` : **sept tests**, un par scène 3D existante, à trois paramètres chacun (borne basse, nominal, borne haute). Les valeurs ont été calculées indépendamment du moteur avec les relations SI ci-dessous, puis confrontées **à la fois** au moteur 2D et à la description 3D. Les **21 SVG** ont été rendus et contrôlés pour valeurs non finies. Le contrôle indépendant en JavaScript, avant commit, a validé **42 comparaisons**.
+
+| Scène | Oracle indépendant et unités |
+|---|---|
+| `circular-02` | `ω = v/r`, `aₙ = ω²r` en m/s², `r = 0,50 m` |
+| `angular-accel-01` | `α = Δω/Δt` en rad/s², `Δω = 120 rad/s` |
+| `brake-torque-01` | `|C| = J|α|` en N·m, `J = 8 kg·m²` |
+| `torsion-01` | `Jₚ = πd⁴/32` en mm⁴, `τ = (C×1000)(d/2)/Jₚ` en N/mm² = MPa |
+| `gear-mesh-01` | `rᵢ = mzᵢ/2`, `a = r₁+r₂` en mm, `ω₂/ω₁ = -r₁/r₂` |
+| `belt-speed-01` | `ω = 2πn/60`, `v = (D/2)ω` en m/s, `D = 0,20 m` |
+| `rolling-load-01` | `Fᵣ = cᵣN` en N, `N = 8000 N` |
+
+Ces sept scènes constituent **un sous-ensemble**, non une preuve de réception des 597 missions. La fidélité géométrique réelle, les essais humains et les lecteurs d'écran restent à effectuer.
