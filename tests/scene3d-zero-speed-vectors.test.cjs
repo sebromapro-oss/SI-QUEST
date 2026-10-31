@@ -40,3 +40,8 @@ test('belt marker stays finite for extreme finite phases',()=>{
  }
  assert.throws(()=>scene.beltMarkerPosition(Infinity),RangeError);
 });
+
+test('belt geometry rejects overflowed perimeters instead of producing NaN',()=>{
+ for(const args of [[0,Number.MAX_VALUE,-90,90],[0,48,-1e308,1e308],[0,Number.MIN_VALUE,-90,90]])
+  assert.throws(()=>scene.beltMarkerPosition(...args),RangeError);
+});

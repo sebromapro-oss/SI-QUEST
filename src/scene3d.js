@@ -26,6 +26,7 @@ function beltMarkerPosition(phase,radius=48,left=-90,right=90){
  const span=right-left,perimeter=2*span+2*Math.PI*radius;
  // Réduire l'angle avant multiplication évite Infinity % périmètre pour une phase finie extrême.
  const period=perimeter/radius;
+ if(!finite(perimeter)||!finite(period)||period<=0)throw new RangeError('Périmètre de courroie non fini');
  const s=radius*(((phase%period)+period)%period);
  if(s<=span)return [right-s,radius,0];
  if(s<=span+Math.PI*radius){const a=Math.PI/2+(s-span)/radius;return [left+radius*Math.cos(a),radius*Math.sin(a),0];}
