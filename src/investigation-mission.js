@@ -238,7 +238,7 @@ const decision=document.createElement('p');decision.id='technicalDecision';decis
 // Le domaine discret est aussi déclaré par le curseur HTML : certaines
 // missions de comptage exigent un entier même sans c.inputStep explicite.
 // Ne jamais évaluer le modèle sur des fractions de fronts/dents/comptages.
-const sliderStep=Number($('trialValue').getAttribute('step'));
+const sliderStep=Number($('trialValue').getAttribute?.('step')??$('trialValue').step);
 const step=Number.isInteger(c.inputStep)&&c.inputStep>0?c.inputStep:Number.isInteger(sliderStep)&&sliderStep>0?sliderStep:1;
 const discreteSlider=Number.isInteger(sliderStep)&&sliderStep>0&&Number.isInteger(c.min)&&Number.isInteger(c.max);
 const integerDomain=c.id==='gear-mesh-01'||c.id==='gear-ratio-02'||c.id==='transformer-turns-ratio-01'||c.id==='maintenance-mtbf-operating-hours-01'||c.id==='can-classic-frame-busload-01'||c.inputStep===1||discreteSlider||(Number.isInteger(c.inputStep)&&c.inputStep>1&&Number.isInteger(c.min)&&Number.isInteger(c.max)&&/^(dents|pièces|mesures|échantillons|comptes)$/i.test(c.inputUnit));
