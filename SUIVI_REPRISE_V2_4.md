@@ -519,3 +519,12 @@
 - **Correctif réel :** [`7e0974f46193`](https://github.com/sebromapro-oss/SI-QUEST/commit/7e0974f46193c75ecf60b73724c775b0215332af), import de la bonne chaîne, aucune formule ni seuil affaibli.
 - **Résultat vérifié : 2 216/2 216 tests Node réussis, trois workflows verts sur `7e0974f`** : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838300), [science](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838260), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838314).
 - Rapport détaillé mis à jour au commit `48872c545f0eaad3e0ad8ee2d4f490f4fe68b930`. La recette Chromium `41179676226` doit toujours être contre-vérifiée avant de confirmer 209/597.
+
+
+### Réception Chromium confirmée pour le lot 160–209
+
+- [Run Chromium 41179676226](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179676226) : **44/44 scénarios Playwright réussis en 12,8 minutes** sur le commit navigateur `b26eac4c` ; artefact de recette `siquest-accueil-recette` ID `13035130255`.
+- **Couverture navigateur cumulée prouvée : 209/597 missions distinctes (35,0 %)** ; **388 missions restent à parcourir**. Contrôles réalisés sur Chromium bureau et Android émulé ; cinq missions du lot vérifiées au clavier sur chaque viewport.
+- La comparaison GitHub `b26eac4c..2033fd0587` confirme que les huit commits intermédiaires ne touchent qu'aux tests scientifiques et à la documentation ; le code testé dans Chromium n'a pas changé.
+- **Trois workflows Node/science verts sur le HEAD de suivi `2033fd0587`, 2 216/2 216 tests réussis**. Le commit documentaire de cette mise à jour est postérieur et devra être contrôlé sur ses propres runs.
+- **Suite prioritaire :** lot navigateur 210–259 sans doublons, vérification des défauts détectés, tests physiques et lecteurs d'écran. **Phase 1 maintenue, zéro nouvelle mission.**
