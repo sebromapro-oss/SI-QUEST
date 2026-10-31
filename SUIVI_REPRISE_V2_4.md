@@ -374,3 +374,14 @@
 - **Réserves :** fidélité des animations temporelles, recette visuelle navigateur/mobile, NVDA/TalkBack/VoiceOver, RGAA/WCAG, réception pédagogique et audit secrets/historique toujours non prouvés. Le dépôt GitHub est **public** malgré l'exigence « privé » ; visibilité non modifiée. Aucun export personnel ou donnée privée ajouté.
 - **Prochaine action :** confirmer les workflows du HEAD final, corriger toute régression, puis auditer 18–42 et traiter les lacunes d'accessibilité et d'animations en conditions réelles. **Phase 1 maintenue ; phase 2 non autorisée.**
 - **SHA de ce registre :** le commit documentaire final est postérieur à `114405d9` ; revérifier ses propres trois workflows avant de déclarer le HEAD reçu.
+
+
+### Cycle V2.5 — missions 18–42 et réactivation des 17 missions historiques (31 octobre 2026)
+
+- **HEAD initial distant :** `d1f7dc33481ce19679a62b62d61ea470f3be45a3`. Trois workflows GitHub Actions `success` : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41154647306), [contrôles](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41154647226), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41154647284).
+- **Audit :** missions 18–42 (25 missions), 25 formules de référence distinctes, 100 points numériques couverts par le nouveau test `tests/audit-018-042-independent.test.cjs` ; résultat **non présumé** avant CI. [Rapport](AUDIT_SCIENTIFIQUE_018_042_20261031.md).
+- **Anomalie et correction :** 17 missions 18–34 sans questions flash dans HTML ou contrôleur ; 51 questions de réactivation ajoutées dans le contrôleur commun, sans modification des modèles scientifiques, des essais, aides, corrigés, accueil ou navigation. Les 30 jeux `legacyFlash` existants restent inchangés.
+- **Catalogue :** 597 missions conservées, 0 créée. Couverture documentaire 18–597 = 580/597 (97,2 %) ; 1–17 à auditer. Aucun AppDeploy modifié, pas de force-push ni dépense intentionnelle.
+- **CI nouveau commit :** à consulter après publication ; vérifier tests pass/fail et les trois workflows. **Pas de réception déclarée sans preuve.**
+- **Réserves :** fidélité temporelle des animations, rendu navigateur/mobile, tests physiques NVDA/TalkBack/VoiceOver, RGAA/WCAG et sécurité du dépôt public non validés.
+- **Prochaine action :** CI, correction éventuelle, puis audit indépendant des missions 1–17 et essais réels d'accessibilité.
