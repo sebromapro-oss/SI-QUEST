@@ -34,6 +34,7 @@ function frame(t){
 }
 $('calc').addEventListener('submit',event=>{
  event.preventDefault();
+ if(attempts>=3){$('feedback').textContent='Trois essais utilisés : consulte les aides avant la correction.';return;}
  attempts=Math.min(3,attempts+1);
  const ok=Math.abs(num('reaction')-reference.reactionDistanceM)<=.1&&Math.abs(num('braking')-reference.brakingDistanceM)<=.1&&Math.abs(num('total')-reference.stoppingDistanceM)<=.1;
  passed=ok;
