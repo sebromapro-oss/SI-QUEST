@@ -19,8 +19,10 @@ test('catalogue : 597 missions avec trois questions flash statiques ou dynamique
   const file=path.join(__dirname,'..',m.url);
   if(!fs.existsSync(file)){defects.push(m.id+': page absente');continue;}
   const html=fs.readFileSync(file,'utf8');
-  const flash=html.match(/<h3[^>]*>\s*Questions flash\s*<\/h3>\s*<ol[^>]*>([\s\S]*?)<\/ol>/i);
-  const staticCount=flash?(flash[1].match(/<li(?:\s[^>]*)?>/gi)||[]).length:0;
+  // Les anciennes pages utilisent aussi « Réactivation — trois questions flash »
+  // ou un <details><summary>Trois questions flash</summary> : ne pas les ignorer.
+  const hasFlashHeading=/(?:questions\s+flash|réactivation\s+mémoire)/i.test(html);
+  const staticCount=hasFlashHeading?(html.match(/<li(?:\s[^>]*)?>/gi)||[]).length:0;
   const dynamic=early[m.id]||legacy[m.id];
   const dynamicCount=Array.isArray(dynamic)?dynamic.length:0;
   if(staticCount!==3 && !(staticCount===0&&dynamicCount===3))
