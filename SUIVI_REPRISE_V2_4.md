@@ -943,3 +943,14 @@
 - **Aucune anomalie de calcul confirmée** sur ces 25 lois et points de contrôle ; ceci ne démontre ni les graphiques individuels ni les interfaces physiques, ni les 597/597.
 - **Sécurité et accessibilité :** aucune nouvelle dépense, aucun changement de visibilité, aucun secret manipulé ; NVDA/TalkBack/VoiceOver et appareils réels toujours non testés.
 - **Prochaine action :** vérifier les workflows de `9d69692f` et des commits documentaires suivants, la recette navigateur des 608–612, puis poursuivre les missions historiques par lot et corriger toute régression constatée.
+
+
+## Cycle du 31 octobre 2026 — réception automatisée intermédiaire, 7 scènes 3D
+
+- **HEAD de code vérifié :** `3703c140df7ced645f368e7751a8403f6d00cc3d` ; **612 missions** au catalogue, dont 597 historiques et 15 ajoutées depuis la consigne d'extension.
+- **Trois workflows Node/science réussis sur ce SHA :** [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41238025000), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41238025074), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41238025037). Les journaux de recette confirment **2 680 tests Node réussis sur 2 680, zéro échec**.
+- **Matrice 3D indépendante :** `tests/scene3d-matrix-seven.test.cjs` publié au commit `3703c140`. **84 rendus** couvrent 7 scènes (cinématique circulaire, accélération angulaire, freinage, torsion, engrenages, courroie, résistance au roulement), 2 orientations, 3 instants et 2 modes d'affichage ; vérification du SVG fini, des axes, titres et descriptions. Cinq phases de courroie dont `1e300` restent finies ; les phases non finies sont rejetées.
+- **Audit scientifique permanent :** `tests/independent-audit-143-167.test.cjs`, 25 missions × 3 valeurs = 75 oracles, inclus dans la recette Node réussie. Ce contrôle n'est pas un examen visuel exhaustif des 25 missions.
+- **Recettes navigateurs des commits `88d2df34` et `58f4ef97` :** encore **en cours** au dernier relevé (runs `41237706316` et `41237775577`) ; aucune réussite navigateur du lot 608–612 annoncée.
+- **Réserves persistantes :** pas de validation exhaustive des 597 missions historiques, pas de tests sur smartphones physiques ni NVDA/TalkBack/VoiceOver, pas d'audit complet de l'historique des secrets. Aucun changement AppDeploy, aucune dépense nouvelle, aucune modification de visibilité.
+- **Prochaine action :** examiner les deux recettes navigateur dès leur conclusion, corriger toute anomalie, poursuivre les lots d'audit et les missions nouvelles seulement si les tests associés restent fiables. Le présent commit de suivi documentaire déclenche ses propres workflows, dont l'état doit être vérifié séparément.
