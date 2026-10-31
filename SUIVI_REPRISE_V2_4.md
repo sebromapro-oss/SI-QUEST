@@ -540,3 +540,13 @@
 - **Blocages :** 388 missions sans recette navigateur confirmée à l'écriture (338 si le lot est réussi), vérification scientifique et graphique individuelle non exhaustive, Android/iPhone physiques, Firefox/Safari, NVDA/TalkBack/VoiceOver et audit historique des secrets non réalisés. Dépôt public ; progression locale non authentifiée.
 - **Prochaine action :** examiner les runs et corriger toute régression ; si Chromium réussit, valider 259/597 puis poursuivre 260–309. **Phase 1 maintenue, extension 598–996 suspendue.**
 - **SHA de suivi avant publication de cette section :** `b84a3e17813b525048f1e311957f5635b24c040f` ; le SHA du commit documentaire final est celui retourné par GitHub.
+
+
+### Complément du lot 210–259 — onze modèles, incident CI documenté
+
+- [`d9db5517`](https://github.com/sebromapro-oss/SI-QUEST/commit/d9db5517fd30a55d792994b46b844c57522c4145) : cinq modèles indépendants supplémentaires (NPSH, Archimède, engrènement, ressorts en série, rapport d'engrenages), portant le lot à **11 modèles, 44 contre-calculs et 12 tests Node nouveaux**.
+- **Échec réel sur `d9db5517` : 2 227/2 228 tests réussis**, trois workflows en échec. Cause : une assertion d'inventaire du nouveau banc d'essai attendait encore six identifiants alors que onze étaient présents ; les onze contre-calculs scientifiques ont réussi.
+- **Correctif publié :** [`b7347b31`](https://github.com/sebromapro-oss/SI-QUEST/commit/b7347b31698987942b89fd7cd3f50555ef88937c), assertion corrigée de six à onze sans suppression de test ni modification de loi scientifique.
+- **Runs du correctif à contrôler :** [recette 41183847762](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847762), [science 41183847738](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847738), [qualité 41183847742](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847742). **Chromium 41183678314 toujours en cours** à la rédaction ; ne pas encore valider 259/597.
+- **Rapport actualisé :** [AUDIT_NAVIGATEUR_210_259_20261031.md](AUDIT_NAVIGATEUR_210_259_20261031.md), commit documentaire [`4396afc5`](https://github.com/sebromapro-oss/SI-QUEST/commit/4396afc502bdda42781712c52d468982065da192).
+- **Phase 1 maintenue** ; zéro nouvelle mission, aucune application AppDeploy modifiée.
