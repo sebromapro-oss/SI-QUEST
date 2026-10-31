@@ -50,8 +50,10 @@ function render(id,yaw,pitch,x,options={}){
  case 'circular-02':{
   const phase=safePhase(d.angularSpeed*time),r=65,a=[r*Math.cos(phase),r*Math.sin(phase),12];
   cylinder(0,0,r,phase);
-  arrow(a,[a[0]*.35,a[1]*.35,12],'#ffca7d',4);
-  arrow(a,[a[0]-42*Math.sin(phase),a[1]+42*Math.cos(phase),12],'#7ce8ae',4);
+  if(x>0){
+   arrow(a,[a[0]*.35,a[1]*.35,12],'#ffca7d',4);
+   arrow(a,[a[0]-42*Math.sin(phase),a[1]+42*Math.cos(phase),12],'#7ce8ae',4);
+  }
   point(a);notes.push('aₙ = '+d.acceleration.toFixed(2)+' m/s² ; vers le centre','v = '+x.toFixed(2)+' m/s ; tangentielle');break;
  }
  case 'angular-accel-01':{
