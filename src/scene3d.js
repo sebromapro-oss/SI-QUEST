@@ -24,7 +24,9 @@ function describe(id,x){
 function beltMarkerPosition(phase,radius=48,left=-90,right=90){
  if(![phase,radius,left,right].every(finite)||radius<=0||right<=left)throw new RangeError('Géométrie de courroie invalide');
  const span=right-left,perimeter=2*span+2*Math.PI*radius;
- const s=((radius*phase%perimeter)+perimeter)%perimeter;
+ // Réduire l'angle avant multiplication évite Infinity % périmètre pour une phase finie extrême.
+ const period=perimeter/radius;
+ const s=radius*(((phase%period)+period)%period);
  if(s<=span)return [right-s,radius,0];
  if(s<=span+Math.PI*radius){const a=Math.PI/2+(s-span)/radius;return [left+radius*Math.cos(a),radius*Math.sin(a),0];}
  if(s<=2*span+Math.PI*radius)return [left+s-span-Math.PI*radius,-radius,0];

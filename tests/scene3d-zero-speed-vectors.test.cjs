@@ -31,3 +31,12 @@ test('3D coordinate axes remain visible and rotate with the camera',()=>{
  }
  assert.notEqual(extract(a),extract(b));
 });
+
+test('belt marker stays finite for extreme finite phases',()=>{
+ for(const phase of [Number.MAX_VALUE,-Number.MAX_VALUE,1e200,-1e200]){
+  const position=scene.beltMarkerPosition(phase);
+  assert.equal(position.length,3);
+  assert.ok(position.every(Number.isFinite),'invalid belt position for '+phase);
+ }
+ assert.throws(()=>scene.beltMarkerPosition(Infinity),RangeError);
+});
