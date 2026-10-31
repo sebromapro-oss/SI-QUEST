@@ -361,3 +361,16 @@
 - **Réserves :** tests visuels sur appareils réels, animations temporelles, NVDA/TalkBack/VoiceOver, audit RGAA/WCAG, vérification sécurité/secrets et visibilité publique du dépôt. Les contrôles numériques ne constituent pas une réception globale.
 - **Suite impérative :** consulter les trois CI du nouveau HEAD, corriger tout échec sans masquer les tests ; poursuivre par 43–67 et la recette réelle 2D/3D. Maintenir la phase 1 et la séparation de responsabilité avec SI FRANCE.
 - **SHA du registre :** commit postérieur à `b8c4ef17` ; ses propres workflows devront être revérifiés avant de déclarer le HEAD reçu.
+
+
+### Cycle V2.5 — contre-audit indépendant des missions 43–67 (31 octobre 2026)
+
+- **HEAD initial distant :** `ed66827473f520c8495e903bd5ef1650f77ff623` ; trois workflows `success` : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41148571971), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41148571858), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41148572107).
+- **Lot traité :** 25 missions n° 43–67, 25 relations physiques indépendantes, quatre points numériques par mission (100 points). Contrôles des unités SI, configurations, domaines, catalogue, SVG et trois questions flash. [Rapport détaillé](AUDIT_SCIENTIFIQUE_043_067_20261031.md). **Couverture documentaire cumulée 43–597 : 555/597 (93,0 %)**, sans présumer de réception exhaustive.
+- **Code/test :** nouveau fichier `tests/audit-043-067-independent.test.cjs`. Commit `773ddfb9f11b03b532a03cbec89f37069cd47449` (première syntaxe du harnais incorrecte, trois CI en échec), puis correction de l'extraction de configuration `72d21b5c53a6f8deed1423cf010b7075a9e90187` (sans suppression d'assertions ni modification des moteurs).
+- **Résultat CI vérifié sur `72d21b5c` : 2 134/2 134 tests réussis, 0 échec ; 3/3 workflows `success`.** [Recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41154571874), [contrôles](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41154571851), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41154571884). Le premier commit en échec demeure dans l'historique.
+- **Rapport documentaire :** commit `114405d9ded63f813abb627807579b8ac30fd4b1` ; ses propres workflows sont à vérifier, sans déduire leur conclusion des tests du commit de code.
+- **Inventaire :** 597 missions conservées, **0 mission créée**. Aucun accueil, carte des 17 univers, style, script de navigation, asset ou projet AppDeploy modifié ; aucun force-push ni dépense.
+- **Réserves :** fidélité des animations temporelles, recette visuelle navigateur/mobile, NVDA/TalkBack/VoiceOver, RGAA/WCAG, réception pédagogique et audit secrets/historique toujours non prouvés. Le dépôt GitHub est **public** malgré l'exigence « privé » ; visibilité non modifiée. Aucun export personnel ou donnée privée ajouté.
+- **Prochaine action :** confirmer les workflows du HEAD final, corriger toute régression, puis auditer 18–42 et traiter les lacunes d'accessibilité et d'animations en conditions réelles. **Phase 1 maintenue ; phase 2 non autorisée.**
+- **SHA de ce registre :** le commit documentaire final est postérieur à `114405d9` ; revérifier ses propres trois workflows avant de déclarer le HEAD reçu.
