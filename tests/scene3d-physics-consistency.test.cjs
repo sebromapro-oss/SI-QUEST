@@ -56,3 +56,21 @@ for(const item of cases){
   }
  });
 }
+
+// Réception des invariants temporels et des cas limites des scènes spatiales.
+for(const item of cases){
+ test('scène 3D : temps, caméra et mode exploration '+item.id,()=>{
+  const x=item.inputs[1];
+  for(const time of [0,.125,1,5]){
+   for(const [yaw,pitch] of [[0,0],[.4,-.2],[-.5,.3]]){
+    const svg=scene.render(item.id,yaw,pitch,x,{time,conceptOnly:true});
+    assert.match(svg,/role="img" aria-labelledby="scene3-title scene3-desc"/);
+    assert.match(svg,/Exploration qualitative/);
+    assert.doesNotMatch(svg,/NaN|Infinity|undefined/);
+    assert.doesNotMatch(svg,/valeur calculée masquée[^<]*<\/text><text[^>]*>[^<]*[0-9]+(?:\.[0-9]+)?\s*(?:m\/s|MPa|N·m)/);
+   }
+  }
+  for(const time of [-1,NaN,Infinity])assert.throws(()=>scene.render(item.id,0,0,x,{time}),RangeError);
+  for(const zoom of [0,.49,2.01,Infinity])assert.throws(()=>scene.render(item.id,0,0,x,{zoom}),RangeError);
+ });
+}
