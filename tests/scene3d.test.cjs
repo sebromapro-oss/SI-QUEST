@@ -81,3 +81,16 @@ test('roulement 3D : résistance opposée au déplacement et appui orienté vers
  assert.match(svg,/<path d="M300\.00 150\.00 L452\.00 150\.00"[^>]*stroke="#8ddcff"/,
   'Sens du déplacement orienté vers la droite');
 });
+
+test('mouvement circulaire 3D : accélération centripète et vitesse tangentielle',()=>{
+ const svg=scene.render('circular-02',0,0,6,{time:0});
+ // À phase 0, le point est à x=65 ; aₙ pointe vers le centre (x décroissant)
+ // et la vitesse est orthogonale au rayon, dirigée vers +y.
+ assert.match(svg,/<path d="M404\.00 150\.00 L336\.40 150\.00"[^>]*stroke="#ffca7d"/,
+  'Accélération normale orientée vers le centre');
+ assert.match(svg,/<path d="M404\.00 150\.00 L404\.00 82\.80"[^>]*stroke="#7ce8ae"/,
+  'Vitesse tangentielle orthogonale au rayon');
+ const d=scene.describe('circular-02',6);
+ assert.equal(d.angularSpeed,12);
+ assert.equal(d.acceleration,72);
+});
