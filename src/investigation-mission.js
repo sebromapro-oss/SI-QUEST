@@ -235,9 +235,17 @@ function updateScene3(silent=false){
  if(!silent){const d=window.SIScene3D.describe(c.id,x);scene3.querySelector('#scene3-info').textContent='Caméra : '+Math.round(orbit*180/Math.PI)+'° horizontalement, '+Math.round(elevation*180/Math.PI)+'° verticalement ; zoom ×'+zoom.toFixed(2)+'. Paramètre '+fmt(x)+' '+c.inputUnit+'. '+(spatialMotion?'Temps simulé : '+simTime.toFixed(2)+' s.':'Scène statique.');}
 }
 const decision=document.createElement('p');decision.id='technicalDecision';decision.setAttribute('role','status');decision.textContent='Décision technique disponible après un essai.';$('trialLabel').insertAdjacentElement('afterend',decision);
-const integerDomain=c.id==='gear-mesh-01'||c.id==='gear-ratio-02'||c.id==='transformer-turns-ratio-01'||c.id==='maintenance-mtbf-operating-hours-01'||c.id==='can-classic-frame-busload-01'||c.inputStep===1||(Number.isInteger(c.inputStep)&&c.inputStep>1&&Number.isInteger(c.min)&&Number.isInteger(c.max)&&/^(dents|pièces|mesures|échantillons|comptes)$/i.test(c.inputUnit));
-const domainStep=integerDomain&&Number.isInteger(c.inputStep)&&c.inputStep>0?c.inputStep:1;
-const domain=integerDomain?Array.from({length:Math.floor((c.max-c.min)/domainStep+1e-9)+1},(_,i)=>c.min+i*domainStep):Array.from({length:101},(_,i)=>Math.min(c.max,Math.max(c.min,c.min+(c.max-c.min)*i/100)));
+// Le domaine discret est aussi déclaré par le curseur HTML : certaines
+// missions de comptage exigent un entier même sans c.inputStep explicite.
+// Ne jamais évaluer le modèle sur des fractions de fronts/dents/comptages.
+const sliderStep=Number($('trialValue').getAttribute('step'));
+const step=Number.isInteger(c.inputStep)&&c.inputStep>0?c.inputStep:Number.isInteger(sliderStep)&&sliderStep>0?sliderStep:1;
+const discreteSlider=Number.isInteger(sliderStep)&&sliderStep>0&&Number.isInteger(c.min)&&Number.isInteger(c.max);
+const integerDomain=c.id==='gear-mesh-01'||c.id==='gear-ratio-02'||c.id==='transformer-turns-ratio-01'||c.id==='maintenance-mtbf-operating-hours-01'||c.id==='can-classic-frame-busload-01'||c.inputStep===1||discreteSlider||(Number.isInteger(c.inputStep)&&c.inputStep>1&&Number.isInteger(c.min)&&Number.isInteger(c.max)&&/^(dents|pièces|mesures|échantillons|comptes)$/i.test(c.inputUnit));
+const discreteIntervals=integerDomain?Math.floor((c.max-c.min)/step+1e-9):0;
+const sampleIntervals=Math.min(100,discreteIntervals);
+// Échantillonnage borné à 101 points, mais toujours aligné sur le pas discret.
+const domain=integerDomain?Array.from({length:sampleIntervals+1},(_,i)=>c.min+Math.round(i*discreteIntervals/Math.max(1,sampleIntervals))*step):Array.from({length:101},(_,i)=>Math.min(c.max,Math.max(c.min,c.min+(c.max-c.min)*i/100)));
 const samples=domain.map(calc);
 const lo=Math.min(...samples),hi=Math.max(...samples),span=Math.max(1e-9,hi-lo);
 const xx=v=>60+500*(v-c.min)/(c.max-c.min),yy=v=>190-160*(v-lo)/span;
