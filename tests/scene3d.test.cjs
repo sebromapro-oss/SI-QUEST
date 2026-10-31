@@ -37,3 +37,26 @@ test('courroie 3D : SVG animé cohérent avec la position physique du marqueur',
  assert.ok(svg.includes('<circle cx="'+cx+'" cy="'+cy+'" r="5" fill="#7ce8ae"/>'));
  assert.doesNotMatch(svg,/NaN|Infinity/);
 });
+
+test('courroie 3D : périodicité, rayon et confinement sur le contour fermé',()=>{
+ const radius=48,left=-90,right=90,span=right-left;
+ const perimeter=2*span+2*Math.PI*radius;
+ const phasePeriod=perimeter/radius;
+ for(const phase of [-20,-3,-.1,0,.1,1,3,7,12,25]){
+  const [x,y,z]=scene.beltMarkerPosition(phase,radius,left,right);
+  assert.ok(Number.isFinite(x)&&Number.isFinite(y)&&z===0);
+  assert.ok(x>=left-radius-1e-8&&x<=right+radius+1e-8);
+  assert.ok(y>=-radius-1e-8&&y<=radius+1e-8);
+  const onTop=Math.abs(y-radius)<1e-8&&x>=left-1e-8&&x<=right+1e-8;
+  const onBottom=Math.abs(y+radius)<1e-8&&x>=left-1e-8&&x<=right+1e-8;
+  const onLeft=Math.abs(Math.hypot(x-left,y)-radius)<1e-8&&x<=left+1e-8;
+  const onRight=Math.abs(Math.hypot(x-right,y)-radius)<1e-8&&x>=right-1e-8;
+  assert.ok(onTop||onBottom||onLeft||onRight,'point hors courroie : '+phase);
+  const next=scene.beltMarkerPosition(phase+phasePeriod,radius,left,right);
+  assert.ok(Math.hypot(x-next[0],y-next[1])<1e-8,'périodicité : '+phase);
+ }
+});
+test('courroie 3D : rejet des géométries dégénérées',()=>{
+ for(const args of [[0,0,-90,90],[0,-1,-90,90],[0,48,90,90],[0,48,91,90],[0,48,NaN,90],[Infinity,48,-90,90]])
+  assert.throws(()=>scene.beltMarkerPosition(...args),RangeError);
+});
