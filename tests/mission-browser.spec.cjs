@@ -1236,3 +1236,51 @@ for(const device of [
 
 // Lot 603–607 : navigateur desktop et Android émulé, pas appareils physiques.
 for(const device of [{name:'desktop',viewport:{width:1440,height:900},isMobile:false,hasTouch:false},{name:'android-emule',viewport:{width:390,height:844},isMobile:true,hasTouch:true}]){test.describe('missions 603–607 — '+device.name,()=>{test.use({viewport:device.viewport,isMobile:device.isMobile,hasTouch:device.hasTouch});test('cinq calculs nominaux et schémas',async({page})=>{test.setTimeout(120_000);const meta=require('../src/batch603-607.js').meta,errors=[];page.on('pageerror',e=>errors.push(e.message));for(const m of meta){errors.length=0;await page.goto('http://127.0.0.1:4173/missions/'+m.id+'.html');await expect(page.locator('h1')).toContainText(m.title);await expect(page.locator('#solution')).toBeDisabled();await expect(page.locator('#trialValue')).toBeDisabled();await page.locator('#answer').fill(String(m.expected));await page.locator('#calc button[type="submit"]').click();await expect(page.locator('#feedback')).toContainText('Calcul juste');await expect(page.locator('#trialValue')).toBeEnabled();await expect(page.locator('figure svg').first()).toBeVisible();const w=await page.evaluate(()=>({doc:document.documentElement.scrollWidth,view:innerWidth}));expect(w.doc,m.id+' débordement').toBeLessThanOrEqual(w.view+2);expect(errors,m.id+' erreurs JS').toEqual([]);}});});}
+
+
+// Missions 608–612 : recette navigateur bureau et Android émulé.
+// Le contrôle ne remplace ni des essais sur appareils physiques ni un audit RGAA.
+for(const device of [
+ {name:'desktop',viewport:{width:1440,height:900},isMobile:false,hasTouch:false},
+ {name:'android-emule',viewport:{width:390,height:844},isMobile:true,hasTouch:true}
+]){
+ test.describe('missions 608–612 — '+device.name,()=>{
+  test.use({viewport:device.viewport,isMobile:device.isMobile,hasTouch:device.hasTouch});
+  test('cinq missions : calcul nominal, graphique et absence de débordement',async({page})=>{
+   test.setTimeout(120_000);
+   const meta=require('../src/batch608-612.js').meta,errors=[];
+   page.on('pageerror',e=>errors.push(e.message));
+   for(const m of meta){
+    errors.length=0;
+    await page.goto('http://127.0.0.1:4173/missions/'+m.id+'.html');
+    await expect(page.locator('h1')).toContainText(m.title);
+    await expect(page.locator('#solution')).toBeDisabled();
+    await expect(page.locator('#trialValue')).toBeDisabled();
+    await page.locator('#answer').fill(String(m.expected));
+    await page.locator('#calc button[type="submit"]').click();
+    await expect(page.locator('#feedback')).toContainText('Calcul juste');
+    await expect(page.locator('#trialValue')).toBeEnabled();
+    await expect(page.locator('figure svg').first()).toBeVisible();
+    const w=await page.evaluate(()=>({doc:document.documentElement.scrollWidth,view:innerWidth}));
+    expect(w.doc,m.id+' débordement').toBeLessThanOrEqual(w.view+2);
+    expect(errors,m.id+' erreurs JavaScript').toEqual([]);
+   }
+  });
+  test('trois essais, trois aides et remise à zéro — valve hydraulique',async({page})=>{
+   await page.goto('http://127.0.0.1:4173/missions/counterbalance-valve-pilot-pressure-01.html');
+   const answer=page.locator('#answer'),submit=page.locator('#calc button[type="submit"]');
+   for(let i=0;i<3;i++){
+    await answer.fill('99999');await submit.click();
+    await expect(page.locator('#solution')).toBeDisabled();
+    await expect(page.locator('#trialValue')).toBeEnabled();
+   }
+   for(let i=0;i<3;i++)await page.locator('#hint').click();
+   await expect(page.locator('#solution')).toBeEnabled();
+   await page.locator('#solution').click();
+   await expect(page.locator('#solutionText')).toBeVisible();
+   await page.locator('#reset').click();
+   await expect(page.locator('#solutionText')).toBeHidden();
+   await expect(page.locator('#trialValue')).toBeDisabled();
+  });
+ });
+}

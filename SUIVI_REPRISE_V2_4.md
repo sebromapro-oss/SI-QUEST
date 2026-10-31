@@ -921,3 +921,15 @@
 - Vérification supplémentaire du moteur dans un environnement JS isolé : cinq lois, chacune aux trois points minimum/nominal/maximum ; 15 résultats finis, 15 SVG finis avec points de graphe. Les cinq modèles ont un oracle indépendant dans `tests/batch603-607.test.cjs`.
 - **Recette navigateur** [`41233447076`](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41233447076) encore en cours lors de la rédaction ; aucune réussite navigateur annoncée sans son résultat. Tests physiques et lecteurs d'écran non réalisés.
 - Prochain cycle : contrôler l'issue des deux shards navigateur ; corriger immédiatement toute régression ; continuer l'audit indépendant par lots et l'extension seulement avec preuves.
+
+
+## Cycle du 31 octobre 2026 — ajout validé en précontrôle de cinq missions 608–612
+
+- **HEAD de départ :** `667affbc47e5415c937a14f9afa3fceb1ba1dcec` ; les trois workflows Node/science étaient verts sur ce SHA (runs `41233650456`, `41233650486`, `41233650470`). Le navigateur de `3d0b5424` avait réussi ; aucune recette physique n'est revendiquée.
+- **Commit de production :** `88d2df34f0c08f05c9f3cabc360e807e0308b33c` — cinq pages, un moteur scientifique paramétrique, un test Node et cinq entrées de catalogue. Les 607 missions précédentes et les 17 univers restent présents ; **612 missions au total, 384 restantes jusqu'à 996**.
+- **Nouvelles missions :** `counterbalance-valve-pilot-pressure-01` (pression pilote d'une valve d'équilibrage idéale), `maxwell-stress-relaxation-01` (relaxation viscoélastique), `planetary-ring-tooth-count-01` (géométrie des dentures planétaires), `vacuum-cup-theoretical-holding-force-01` (effort théorique d'une ventouse), `hydraulic-orifice-pressure-drop-01` (perte de pression quadratique).
+- **Précontrôle scientifique avant publication :** 15 points de calcul comparés à cinq oracles algébriques indépendants (minimum, nominal, maximum), 15 SVG paramétriques sans `NaN`/`Infinity`, coordonnées de graphes présentes, données nominales et unités vérifiées. Ce précontrôle n'est pas une recette Node complète.
+- **CI du commit de production :** recette scientifique `41237706041` **réussie** ; autres workflows `41237706045`, `41237706087`, navigateur `41237706316` **en cours au dernier relevé**. Leur succès n'est pas anticipé.
+- **Recette navigateur ajoutée ensuite :** scénarios Playwright desktop/Android émulé sur les cinq nouvelles pages, essais faux et trois aides sur la valve, déverrouillage et remise à zéro. Le commit documentaire et navigateur qui contient ce paragraphe déclenche ses propres contrôles ; ne pas attribuer au commit actuel les résultats du précédent.
+- **Réserves :** audit individuel complet des 597 missions historiques non achevé ; essais réels NVDA, TalkBack, VoiceOver et appareils physiques non effectués ; sécurité historique du dépôt non réceptionnée ; aucune modification AppDeploy.
+- **Prochaine action :** vérifier les quatre workflows du nouveau HEAD, corriger toute régression ; poursuivre l'audit scientifique indépendant par lots et la fiabilisation des 597 missions, puis seulement augmenter les lots de production selon les preuves.
