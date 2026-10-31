@@ -14,7 +14,7 @@
     const saved=JSON.parse(localStorage.getItem('siquest-gear01-v2')||'null');
     if(saved&&typeof saved==='object'){
       state={
-        calculationAttempts:Number.isInteger(saved.calculationAttempts)&&saved.calculationAttempts>=0?Math.min(saved.calculationAttempts,999):0,
+        calculationAttempts:Number.isInteger(saved.calculationAttempts)&&saved.calculationAttempts>=0?Math.min(saved.calculationAttempts,3):0,
         hints:Number.isInteger(saved.hints)?Math.max(0,Math.min(3,saved.hints)):0,
         calculationPassed:saved.calculationPassed===true,
         solutionShown:saved.solutionShown===true,
@@ -49,6 +49,7 @@
   }
   $('task').addEventListener('submit',event=>{
     event.preventDefault();
+    if(state.calculationAttempts>=3||state.calculationPassed){$('feedback').textContent='Trois essais terminés ou calculs déjà validés : consulte les aides ou lance l’essai.';return;}
     const speed=N.parseDecimal($('speed').value),torque=N.parseDecimal($('torque').value);
     if(speed===null||torque===null){
       $('feedback').textContent='Saisie non reconnue : utilise des nombres avec virgule ou point.';
