@@ -17,7 +17,7 @@ const fmt=n=>n.toFixed(2).replace('.',',');
 function save(){try{localStorage.setItem(key,JSON.stringify({attempts,hints,passed,log}));}catch{}}
 function render(){
  $('trial').disabled=attempts===0;
- $('solution').disabled=attempts<3||hints<3||passed;$('calc').querySelector('button[type="submit"]').disabled=attempts>=3||passed;
+ $('solution').disabled=attempts<3||hints<3||passed;const checkButton=$('calc').querySelector?.('button[type="submit"]');if(checkButton)checkButton.disabled=attempts>=3||passed;
  $('log').replaceChildren(...log.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));
 }
 function note(message){log.push(message);log=log.slice(-20);save();render();}

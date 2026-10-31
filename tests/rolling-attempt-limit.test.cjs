@@ -8,7 +8,7 @@ test('roulement : une quatrième validation est bloquée avant le calcul et le j
  const handler=js.match(/\$\('calc'\)\.addEventListener\('submit',e=>\{([\s\S]*?)\}\);\$\('hint'\)/);
  assert.ok(handler,'Gestionnaire de validation présent');
  const body=handler[1];
- const guard=body.indexOf('if(attempts>=3)');
+ const guard=body.indexOf('if(attempts>=3||passed)');
  const increment=body.indexOf('attempts=Math.min(3,attempts+1)');
  const evaluation=body.indexOf('passed=Math.abs(');
  assert.ok(guard>=0&&guard<increment&&increment<evaluation,'La limite doit précéder le calcul');
