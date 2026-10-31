@@ -31,3 +31,11 @@ Ce contre-audit numérique n'établit ni une réception visuelle de chaque scèn
 Le commit de code `0fda3d87036ed35ec2176abe344bd9e13aeae8c3` a été validé par trois workflows GitHub Actions : **2 179/2 179 tests réussis, zéro échec** (runs `41163825336`, `41163825453`, `41163825294`). Les tests ajoutés contrôlent des références numériques indépendantes, mais pas le parcours navigateur.
 
 **Régression pédagogique encore présente, non corrigée :** les neuf contrôleurs autonomes de cette série verrouillent le bouton d'essai avant réussite du calcul ; le moteur commun des missions plus récentes ne couvre pas ces neuf pages. L'ouverture sans séparation des modes dévoilerait les résultats dans les messages d'essai. Priorité : mode d'exploration **qualitatif** après une tentative valide même incorrecte, corrigé chiffré masqué, puis tests DOM et recette réelle. Les essais physiques et lecteurs d'écran restent non réalisés.
+
+
+## Correctifs fonctionnels transversaux — bilan vérifié
+Les neuf contrôleurs autonomes 001–009 ont été corrigés dans les commits `bd467fb7`, `042c3bac` et `f68b37df`. Après une tentative de calcul, l'élève peut utiliser l'exploration qualitative, même si sa réponse est incorrecte ; les résultats numériques restent masqués. Le corrigé conserve ses conditions d'accès. Le vérin maintient les interverrouillages ; le freinage masque les distances et marges avant réussite. Une animation qualitative ne valide pas l'activité.
+
+**Preuve CI sur `f68b37dfe965382106615ba05437d2cb54d44f8b` : 2 188/2 188 tests Node réussis, 0 échec, trois workflows verts** : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41164238566), [contrôles](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41164238346), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41164238299).
+
+Les tests des contrôleurs sont des simulations DOM et ne prouvent ni le rendu navigateur/mobile réel, ni les mouvements sur appareils, ni la conformité WCAG/RGAA ou les lecteurs d'écran. Ces vérifications restent à organiser. Les 597 missions sont documentées, **pas reçues individuellement**. Aucun développement 598–996 engagé.
