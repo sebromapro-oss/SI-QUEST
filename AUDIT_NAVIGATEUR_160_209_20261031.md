@@ -103,3 +103,11 @@ Les cinq modèles sont testés aux bornes, au milieu et au nominal, soit **20 co
 - `beam-curvature-01` : courbure M/(EI), **0,000595238 m⁻¹** au nominal.
 - **Total du cycle : dix modèles physiques distincts, 40 points de contre-calcul indépendants, douze nouveaux tests Node**, en plus des six scénarios Playwright. Cela ne démontre pas l'exhaustivité scientifique du lot de 50.
 - Le total de tests Node **attendu** passe de 2 204 à **2 216** ; confirmer uniquement après résultat du run [recette `cba5aa1f`](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179773461).
+
+
+## Régression de banc d'essai corrigée et CI Node confirmée
+
+- Sur `cba5aa1f` puis `75c24e1f`, **un test sur 2 216 échouait** : `hydrostatic-wheel-traction-01` n'était pas chargé dans la chaîne `batch448-452`, qui repart de `batch238-242`. Le modèle de traction hydrostatique appartient à la chaîne distincte `batch233-237`. Le test cherchait donc `physics.criteria[id].unit` dans un registre qui ne contient pas ce modèle. **Ce n'est pas une divergence de résultat physique**.
+- [Correctif du banc `7e0974f`](https://github.com/sebromapro-oss/SI-QUEST/commit/7e0974f46193c75ecf60b73724c775b0215332af) : import explicite de la chaîne `batch233-237` pour ce modèle ; aucune équation de production ni assertion de référence affaiblie.
+- Sur `7e0974f` : **2 216/2 216 tests Node réussis**, zéro échec ; trois workflows réussis : [recette 41179838300](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838300), [science 41179838260](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838260), [qualité 41179838314](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838314).
+- Le run Chromium du commit navigateur demeure une preuve distincte à attendre ; les commits scientifiques/documentaires postérieurs n'ont pas modifié les pages ni les scripts exécutés par ce run.
