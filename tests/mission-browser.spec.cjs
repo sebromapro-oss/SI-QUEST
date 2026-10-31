@@ -1011,11 +1011,17 @@ for(const device of [
    for(const id of ['braking-distance-friction-01','heat-exchanger-lmtd-01',
     'acoustic-distance-loss-01','sampling-alias-frequency-01']){
     await page.goto('http://127.0.0.1:4173/missions/'+id+'.html');
-    const axes=await page.locator('#curve').evaluate(el=>
+    // Le graphe contient deux légendes d'axes puis quatre graduations numériques.
+    // Comparer les six textes aux deux unités déclenche un faux échec en navigateur.
+    const labels=await page.locator('#curve').evaluate(el=>
      Array.from(el.ownerSVGElement.children).filter(n=>n.tagName.toLowerCase()==='text')
       .map(n=>n.textContent.trim()));
-    const expected=await page.evaluate(()=>[window.SI_MISSION.unit,window.SI_MISSION.inputUnit]);
-    expect(axes,id+' : axes SVG non conformes aux unités').toEqual(expected);
+    const expected=await page.evaluate(()=>[window.SI_MISSION.unit,window.SI_MISSION.inputUnit]
+     .map(unit=>unit==='sans unité'?'1':unit));
+    expect(labels.length,id+' : légendes ou graduations SVG manquantes').toBeGreaterThanOrEqual(6);
+    expect(labels.slice(0,2),id+' : axes SVG non conformes aux unités').toEqual(expected);
+    expect(labels.slice(2,6).every(value=>value!==''&&Number.isFinite(Number(value.replace(/\\s/g,'').replace(',','.')))),
+     id+' : graduations SVG non numériques').toBe(true);
    }
   });
  });
