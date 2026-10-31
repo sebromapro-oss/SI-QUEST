@@ -105,3 +105,11 @@ Ces lois sont formulées dans le test sans appeler le moteur de production pour 
 - [Correctif `b7347b31`](https://github.com/sebromapro-oss/SI-QUEST/commit/b7347b31698987942b89fd7cd3f50555ef88937c) : l'assertion d'unicité attend désormais les onze identifiants effectivement contrôlés. **Aucune équation de production modifiée, aucun test supprimé.**
 - Runs de validation du correctif : [recette Node 41183847762](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847762), [science 41183847738](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847738), [qualité 41183847742](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847742) — **en attente** à la rédaction.
 - Le [run Chromium 41183678314](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183678314) du commit `f3f3f0be` est indépendant des tests Node ajoutés ensuite ; **en cours** à la rédaction. La couverture confirmée reste **209/597** jusqu'au verdict.
+
+
+## Verdict Chromium confirmé le 31 octobre 2026
+
+- [Run navigateur 41183678314](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183678314) : **completed / success**, commit testé `f3f3f0be96a236c98886e270dfdaea5a9d5d5f2b`, fin 08:29:40 UTC.
+- **Couverture navigateur cumulée confirmée : 259/597 (43,4 %)**. Il reste **338 missions** non couvertes par le parcours Chromium ; ce nombre ne préjuge pas de la validité scientifique des schémas.
+- Les commits ultérieurs du lot 210–259 portent sur les tests scientifiques et la documentation, sans changement du code fonctionnel testé dans ce run. Le nouveau lot 260–309 est traité séparément dans [AUDIT_NAVIGATEUR_260_309_20261031.md](AUDIT_NAVIGATEUR_260_309_20261031.md).
+- Tests sur appareils physiques, Firefox/Safari et lecteurs d'écran toujours **non réalisés**.
