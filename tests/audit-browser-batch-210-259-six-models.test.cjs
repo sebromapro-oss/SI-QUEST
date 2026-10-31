@@ -1,7 +1,7 @@
 'use strict';
 /**
  * Recette scientifique indépendante du lot navigateur 210–259.
- * Six modèles distincts ; quatre valeurs chacun ; unités, bornes, données
+ * Onze modèles distincts ; quatre valeurs chacun ; unités, bornes, données
  * nominales HTML, rejets non finis. Ne constitue pas une recette SVG/RGAA.
  */
 const test=require('node:test');
@@ -26,7 +26,18 @@ const cases=[
  ['power-01',n=>120*(2*Math.PI*n/60)/1000,'kW',base],
  // Étranglement adiabatique : delta T=delta p/(rho cp),
  // rho=850 kg/m3, cp=2000 J/(kg.K), delta p en bar.
- ['hydraulic-throttle-temperature-rise-01',p=>p*100000/(850*2000),'K',hydraulic]
+ ['hydraulic-throttle-temperature-rise-01',p=>p*100000/(850*2000),'K',hydraulic],
+ // NPSH : pression atmosphérique et pression de vapeur en Pa, rho g en N/m3.
+ // H statique variable, pertes régulières constantes de 0,8 m.
+ ['npsh-available-01',H=>(101325-2340)/(998*9.81)-H-.8,'m',base],
+ // Archimède : volume en litres -> m3 ; rho=1000 kg/m3.
+ ['buoyancy-immersed-volume-01',litres=>1000*9.81*(litres/1000),'N',base],
+ // Fréquence de passage de 36 dents : tr/min -> tr/s.
+ ['gear-mesh-frequency-01',n=>36*n/60,'Hz',base],
+ // Deux ressorts en série : k1=20000 N/m.
+ ['spring-series-01',k2=>(20000*k2)/(20000+k2),'N/m',base],
+ // Rapport de transmission idéal en valeur absolue, z1=18 dents.
+ ['gear-ratio-02',z2=>18/z2,'sans unité',base]
 ];
 function near(actual,expected,label){
  assert.ok(Number.isFinite(actual)&&Number.isFinite(expected),label+' : valeur non finie');
@@ -51,8 +62,8 @@ for(const [id,reference,unit,engine] of cases){
    assert.throws(()=>engine.calculate(id,invalid),RangeError,id+' : entrée non finie');
  });
 }
-test('inventaire et six modèles indépendants distincts',()=>{
- assert.equal(cases.length,6);
+test('inventaire et onze modèles indépendants distincts',()=>{
+ assert.equal(cases.length,11);
  assert.equal(new Set(cases.map(c=>c[0])).size,6);
  assert.equal(catalog.levels.length,597);
 });
