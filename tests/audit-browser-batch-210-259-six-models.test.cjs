@@ -64,6 +64,6 @@ for(const [id,reference,unit,engine] of cases){
 }
 test('inventaire et onze modèles indépendants distincts',()=>{
  assert.equal(cases.length,11);
- assert.equal(new Set(cases.map(c=>c[0])).size,6);
+ assert.equal(new Set(cases.map(c=>c[0])).size,11);
  assert.equal(catalog.levels.length,597);
 });
