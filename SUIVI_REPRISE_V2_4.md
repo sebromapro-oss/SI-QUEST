@@ -603,3 +603,13 @@
 - **2 249/2 249 tests Node réussis, 0 échec**, d'après les journaux du [run 41192105355](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192105355). Les deux autres workflows sont également **success** : [contrôles 41192105480](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192105480) et [qualité 41192105501](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192105501).
 - Le [run Chromium 41192037459](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192037459) est **encore en cours** lors de cette contre-réception. **Couverture confirmée : 309/597** ; 359/597 reste conditionnel.
 - Les 11 lois vérifiées et les 44 comparaisons ne démontrent ni la justesse des 39 autres lois du lot ni la conformité des animations ou des appareils physiques. **Phase 1 maintenue.**
+
+
+## Cycle V2.5 du 31 octobre 2026 — recette 360–409
+
+- **HEAD initial :** `f2b1891b7b3d2367c578e735670714ee77d4e1a5` ; **3/3 workflows Node/science réussis** sur ce SHA ([recette 41192170719](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192170719), [science 41192171062](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192171062), [qualité 41192170895](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192170895)).
+- **Chromium 310–359 confirmé :** [run 41192037459](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192037459), **success**. Couverture confirmée **359/597 (60,1 %)**.
+- **Nouveau lot 360–409 :** 50 missions distinctes, six scénarios Playwright ajoutés, bureau et Android émulé ; vérifications trois essais/trois aides, exploration, corrigé, SVG, largeur, erreurs JS, clavier. **Couverture 409/597 (68,5 %) conditionnée à la réussite de la nouvelle recette Chromium**. Missions restantes : **238** sans recette confirmée, puis **188** si réussite.
+- **Rapport nominatif :** [AUDIT_NAVIGATEUR_360_409_20261031.md](AUDIT_NAVIGATEUR_360_409_20261031.md). Syntaxe JavaScript vérifiée avant commit ; CI du nouveau HEAD à contrôler, aucun résultat anticipé.
+- **597 missions conservées, 0 créée ; aucun code de production ni aucune application AppDeploy modifiés.** Tests physiques, Firefox/Safari, NVDA/TalkBack/VoiceOver, RGAA, fidélité scientifique des animations et audit historique de sécurité non réalisés. Dépôt public, progression locale non authentifiée.
+- **Phase 1 maintenue.** Suite : contrôler les runs du nouveau commit, corriger les anomalies éventuelles, ajouter des contre-calculs indépendants et poursuivre 410–459 après réussite.
