@@ -903,3 +903,11 @@
 
 - Commit `e9c23d2143b5501a3615a669706c6e9e726fdd38` : **2 630/2 630 tests Node réussis**, zéro échec, selon les journaux de la recette `41230857530`. Les contrôles scientifiques `41230857509` et qualité `41230857541` sont également verts. Recette navigateur `41230857535` en cours au moment du constat.
 - Ajout d'une recette Playwright ciblée pour les **cinq nouvelles pages**, chacune testée en viewport bureau et Android émulé : chargement, calcul nominal, absence d'erreur JavaScript, déblocage de l'exploration et affichage du schéma. La réussite de cette nouvelle recette doit être constatée sur le prochain SHA ; elle ne remplace pas des appareils physiques.
+
+
+## Cycle V2.5 — 31 octobre 2026, 20 h 12 (Paris) — extension 603–607
+
+- HEAD initial `5bba82fca4ce564e7f66356e0650b3be33c835a3` ; quatre workflows GitHub Actions réussis sur ce SHA.
+- Cinq missions nouvelles : `bolted-joint-differential-thermal-preload-01`, `pneumatic-cylinder-retraction-force-01`, `accumulator-gas-precharge-temperature-01`, `natural-convection-grashof-01`, `electrical-earth-loop-fault-current-01`. Oracles indépendants à trois valeurs, domaines, unités, schémas et corrigés ; tests Node et Playwright desktop/Android émulé ajoutés. CI du commit à confirmer après publication.
+- 597 missions historiques conservées dans leur ordre, 602 précédentes intactes ; total visé **607/996**. Aucun changement accueil, 17 univers, AppDeploy ou données privées.
+- Réserves : pas de réception scientifique et graphique exhaustive, pas de tests physiques NVDA/TalkBack/VoiceOver, ni audit complet de l'historique Git. Prochaine action : vérifier CI, corriger régressions, poursuivre audit 25–50 missions et nouveaux lots sûrs.
