@@ -781,3 +781,14 @@
 - **Couverture :** 597 missions existantes, 0 mission créée ; les tests nouveaux concernent les 7 scènes 3D et ne constituent pas une validation visuelle humaine. Aucune modification de production ni AppDeploy, accueil, carte des 17 univers, auteur ou données privées.
 - **Réserves :** essais physiques et NVDA/TalkBack/VoiceOver non réalisés ; fidélité des vecteurs/échelles et audit historique des secrets incomplets ; dépôt public et suivi local non authentifié. Phase 1 maintenue.
 - **HEAD contrôlé avant cette écriture :** `25d316b038ab3629d72bd1b8fbd84c3fa4c51229`.
+
+
+## Cycle V2.5 — correction physique du vecteur de roulement nul (31 octobre 2026)
+
+- **HEAD initial :** `d932911f58a4d15dfc23c8aa0b1b1aba6ac0fd2e` ; trois workflows Node/science **success** sur ce SHA : [41223958015](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41223958015), [41223958011](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41223958011), [41223957985](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41223957985).
+- **Défaut physique réel :** pour `rolling-load-01`, coefficient `cᵣ=0` et `Fᵣ=8000×0=0 N`, le SVG montrait une flèche rouge non nulle (longueur indicative de 20 unités). La représentation contredisait le résultat scientifique.
+- **Correctif production :** [`372006f0`](https://github.com/sebromapro-oss/SI-QUEST/commit/372006f017e40955b1816238226a83f574d1e31a) : afficher le vecteur de résistance uniquement si `Fᵣ>0` ; formule, unités et autres scènes inchangées.
+- **Test de non-régression :** [`228458cd`](https://github.com/sebromapro-oss/SI-QUEST/commit/228458cdf2b23166772c6cd3be7b55baf5b1103e) : vérifier `0 N` sans flèche rouge et `200 N` avec flèche pour `cᵣ=0,025`. Un nouveau test ajouté, verdict CI en attente.
+- **CI :** sur `372006f0`, navigateur [41224082075](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41224082075) et trois workflows Node/science encore `in_progress` au dernier contrôle ; sur `228458cd`, [recette 41224088346](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41224088346), [science 41224088322](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41224088322), [qualité 41224088345](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41224088345) `queued`. Ne pas annoncer leur succès avant verdict.
+- **Périmètre :** 597 missions conservées, zéro créée ; accueil, carte 17 univers, attribution auteur et AppDeploy non modifiés. Essais physiques, NVDA/TalkBack/VoiceOver, validation graphique exhaustive et audit historique des secrets non réalisés. Phase 1 maintenue.
+- **HEAD vérifié avant écriture :** `228458cdf2b23166772c6cd3be7b55baf5b1103e`.
