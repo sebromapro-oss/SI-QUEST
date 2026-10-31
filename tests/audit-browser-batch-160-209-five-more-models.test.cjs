@@ -9,6 +9,9 @@ const fs=require('node:fs');
 const path=require('node:path');
 const catalog=require('../src/catalog.js');
 const physics=require('../src/batch448-452.js').physics;
+// Le lot 233–237 est une chaîne indépendante de la chaîne 238+ :
+// ne pas confondre absence d'import et absence de modèle en production.
+const physics233=require('../src/batch233-237.js').physics;
 const cases=[
  // Pression en bar -> Pa ; cylindrée en m3/tr ; couple puis réduction et roue.
  ['hydrostatic-wheel-traction-01',p=>(p*1e5*80e-6*.85/(2*Math.PI))*15*.9/.45,'N'],
@@ -33,14 +36,15 @@ for(const [id,reference,unit] of cases){
   const cfg=JSON.parse(html.split('window.SI_MISSION=')[1].split('</script>')[0]);
   assert.equal(cfg.id,id);
   assert.equal(cfg.unit,unit);
-  assert.equal(physics.criteria[id].unit,unit);
+  const engine=id==='hydrostatic-wheel-traction-01'?physics233:physics;
+  assert.equal(engine.criteria[id].unit,unit);
   assert.ok(Number.isFinite(cfg.min)&&Number.isFinite(cfg.max)&&cfg.min<cfg.max);
   assert.ok(cfg.initial>=cfg.min&&cfg.initial<=cfg.max);
   near(cfg.expected,reference(cfg.initial),id+' : valeur nominale HTML');
   for(const x of [cfg.min,(cfg.min+cfg.max)/2,cfg.initial,cfg.max])
-   near(physics.calculate(id,x),reference(x),id+' : x='+x+' '+cfg.inputUnit);
+   near(engine.calculate(id,x),reference(x),id+' : x='+x+' '+cfg.inputUnit);
   for(const invalid of [NaN,Infinity,-Infinity])
-   assert.throws(()=>physics.calculate(id,invalid),RangeError,id+' : entrée non finie');
+   assert.throws(()=>engine.calculate(id,invalid),RangeError,id+' : entrée non finie');
  });
 }
 test('cinq références complémentaires distinctes et inventaire inchangé',()=>{
