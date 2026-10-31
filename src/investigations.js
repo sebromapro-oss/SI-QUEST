@@ -656,6 +656,27 @@ function assess(id,x){
   min:criterion.min,max:criterion.max,unit:criterion.unit});
 }
 const inputUnits=Object.freeze({
+// Unités des missions historiques 10–29 : métadonnées explicites pour la traçabilité SI.
+"motion-01":"s",
+"accel-01":"s",
+"rotation-01":"tr/min",
+"torque-01":"N",
+"pressure-01":"N",
+"flow-01":"s",
+"power-01":"tr/min",
+"ohm-01":"Ω",
+"energy-01":"h",
+"heat-01":"K",
+"stress-01":"N",
+"strain-01":"N",
+"density-01":"kg",
+"accuracy-01":"mm",
+"frequency-01":"tr/min",
+"kinetic-01":"m/s",
+"potential-01":"m",
+"impulse-01":"s",
+"friction-02":"sans unité",
+"buoyancy-01":"m³",
 "shaft-torsional-shear-stress-01":"N·m",
 "series-rl-impedance-01":"Hz",
 "series-system-reliability-01":"h",
