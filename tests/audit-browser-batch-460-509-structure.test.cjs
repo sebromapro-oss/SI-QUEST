@@ -237,8 +237,11 @@ for(const [id,world] of inventory){
    if(cfg[key]!==undefined)
     assert.ok(typeof cfg[key]==='string'&&cfg[key].trim(),id+' : '+key+' vide');
   const scripts=[...html.matchAll(/<script[^>]+src=["']\.\.\/src\/(batch[0-9-]+\.js)["']/g)];
-  assert.ok(scripts.length,id+' : moteur de lot introuvable');
-  const engine=require(path.join(__dirname,'..','src',scripts.at(-1)[1])).physics;
+  // 33 missions du moteur historique chargent directement investigations.js,
+  // les autres utilisent un module batch*.js. Les deux chemins sont contrôlés.
+  const engine=scripts.length
+   ?require(path.join(__dirname,'..','src',scripts.at(-1)[1])).physics
+   :require('../src/investigations.js');
   assert.ok(engine&&typeof engine.calculate==='function',id+' : moteur absent');
   const nominal=engine.calculate(id,cfg.initial);
   assert.ok(Number.isFinite(nominal),id+' : résultat non fini');

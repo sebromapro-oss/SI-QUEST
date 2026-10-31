@@ -665,3 +665,9 @@
 - Huit modèles supplémentaires contre-calculés : décharge RC, réactance inductive, puissance du liquide de refroidissement, accélération centripète, mélange d'eau, rendement volumétrique, distance de freinage et perte de charge singulière.
 - **16 modèles distincts et 64 comparaisons numériques indépendantes prévus au total** pour le lot, plus vérification des unités, bornes et invariants. Les huit nouvelles valeurs nominales ont été vérifiées mathématiquement avant publication ; les **tests Node complets sont à confirmer en CI**.
 - Aucune mission ni équation de production modifiée par ce complément ; le nouveau test ne couvre pas les 34 autres lois, les graphismes physiques ni l'accessibilité réelle.
+
+
+### Correctif de détection du moteur historique
+
+- [Run 41204779823](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41204779823) : **33 échecs restants sur 2 378 tests**, tous issus du nouveau banc structurel : les 33 missions historiques du lot utilisent directement `src/investigations.js`, sans fichier `batch*.js`. Le test détecte désormais les deux architectures, sans supprimer les vérifications de calcul, bornes, unités et objectifs.
+- La recette Node du nouveau commit reste à contrôler ; ne pas déclarer de réception avant résultat.
