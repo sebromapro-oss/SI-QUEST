@@ -640,3 +640,14 @@
 - **Dernier commit documentaire avant cette mise à jour :** `d719c9fc44030862763e1d393f17e82186ca8221`. Ses workflows et ceux du test structurel sont à vérifier, ne pas anticiper de résultat. **597 missions conservées, 0 mission créée ; aucune modification AppDeploy, accueil, carte des 17 univers, assets, auteur ou backend.**
 - **Réserves :** 138 missions resteraient sans recette Chromium **si** 410–459 réussit ; science et animations non réceptionnées exhaustivement, appareils physiques, Firefox/Safari, NVDA/TalkBack/VoiceOver et audit historique des secrets non réalisés. Dépôt **public**, progression locale **non authentifiée**. **Phase 1 maintenue ; phase 2 suspendue.**
 - **Prochaine action :** examiner le verdict Chromium et les trois workflows du dernier HEAD, corriger toute anomalie, puis couvrir 460–509. Aucun verrou global entre fils : relecture du HEAD avant écriture.
+
+
+## Cycle V2.5 du 31 octobre 2026 — lot 460–509 (14 h, Paris)
+
+- **HEAD distant initial :** `ec5725a46490c79f3b88a034d9843b98e1859f69`. [Chromium 410–459 — run 41200350785](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41200350785) **success**, terminé le 31 octobre à 12:46 UTC. Couverture navigateur confirmée : **459/597** (76,9 %).
+- **Lot préparé :** 50 missions distinctes 460–509 ; six scénarios Chromium bureau/Android émulé, 50 tests structurels + inventaire, huit contre-calculs indépendants sur 32 points. Le résultat du nouveau code est **en attente des workflows** ; **509/597 n'est pas encore confirmé**.
+- **CI navigateur :** deux shards parallèles pour réduire le risque de timeout du job cumulatif (la précédente recette durait ~29 minutes). Tous les scénarios restent présents. Les **deux shards** doivent être success pour valider la nouvelle couverture.
+- **Rapport nominatif :** [AUDIT_NAVIGATEUR_460_509_20261031.md](AUDIT_NAVIGATEUR_460_509_20261031.md). Vérification syntaxique des deux nouveaux tests et du fichier Playwright effectuée avant commit ; exécution Node et navigateur à confirmer par GitHub Actions.
+- **Réserves :** 138 missions sans recette avant ce cycle, 88 seulement si le nouveau lot réussit ; 42 lois du lot non contre-calculées, graphisme scientifique exhaustif, appareils physiques, Firefox/Safari, NVDA/TalkBack/VoiceOver, RGAA et sécurité historique non réceptionnés. Dépôt public et progression locale non authentifiée.
+- **Préservation :** aucune mission créée, aucun code de production, accueil, carte 17 univers, asset, auteur, backend, AppDeploy ou budget modifié. Phase 1 maintenue, phase 2 suspendue.
+- **Suite :** contrôler les deux shards Chromium et les trois workflows Node/science sur le nouveau HEAD ; corriger toute régression avant de poursuivre 510–559. Vérifier le HEAD avant chaque écriture concurrente.
