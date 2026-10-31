@@ -20,3 +20,8 @@
 ## Suite
 
 Vérifier les trois CI sur le commit publié ; corriger toute régression. Auditer ensuite les missions 1–17 et prioriser la recette réelle 2D/3D, mobile, clavier et lecteurs d'écran. Le registre `SUIVI_REPRISE_V2_4.md` reste la source de reprise.
+
+
+## Confirmation CI et anomalie transversale corrigée
+
+Le premier commit `4fcce38f` a révélé 12 métadonnées d'unités d'entrée absentes pour les missions 18–29 (12 tests en échec, non masqués). Le correctif `9e554a0d` a renseigné les unités des missions 10–29 sans modifier les modèles physiques ni affaiblir les assertions. Les trois workflows du commit `cd202b5e` ont réussi, avec **2 169 tests sur 2 169**, zéro échec. Ce résultat valide la CI automatisée, non la réception visuelle ou scientifique exhaustive.

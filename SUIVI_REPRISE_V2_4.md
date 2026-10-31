@@ -394,3 +394,13 @@
 - **Tests et CI du nouveau commit :** résultats à confirmer après publication, ne pas assimiler à une réussite. Couverture documentaire 10–597 = 588/597 (98,5 %) ; **1–9 non auditées dans ce cycle**. 597 missions conservées, 0 créée.
 - **Réserves :** politiques de tolérance et solutions détaillées manquantes dans certaines missions historiques, animation temporelle, contrôles physiques navigateurs/mobile, NVDA/TalkBack/VoiceOver, sécurité, confidentialité et visibilité publique. Phase 1 maintenue ; aucune action AppDeploy.
 - **Suite :** CI sur le HEAD, correctifs éventuels, puis audit 1–9 et réception réelle.
+
+
+### Réception CI des correctifs 10–42 (31 octobre 2026)
+
+- **Commits réels :** `4fcce38fbb5f8bed05eb9320435701a8a1bb93fd` (questions 18–34, test 18–42, rapport), `9e554a0dc01b52e7eb83f9ee2c416d39a3ed2e2c` (20 unités d'entrée manquantes 10–29), `cd202b5e45eddb65efdf232f10151464fc0569cd` (questions 10–17, test 10–17, rapport et registre).
+- **Échec intermédiaire conservé :** le commit `4fcce38f` a produit **2 148 réussites / 2 160 tests, 12 échecs** (missions 18–29, `inputUnits` absent). Correction de la métadonnée manquante, **sans retirer ni affaiblir les assertions**.
+- **Dernier commit de code/test `cd202b5e45eddb65efdf232f10151464fc0569cd` : 2 169/2 169 tests réussis, 0 échec, 3/3 workflows `success`.** [Recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41159443407), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41159443354), [qualité scientifique](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41159443435).
+- **Bilan du cycle :** 33 missions (10–42), 33 références indépendantes, **132 points numériques** dans les nouveaux tests ; **75 questions flash** pour 25 missions (10–34). 597 missions conservées, 0 créée. Couverture documentaire 10–597 : **588/597 (98,5 %)**, sans prétendre à la réception complète.
+- **Reste à faire :** missions 1–9, politiques scientifiques/tolérances et corrigés détaillés des premières missions, tests navigateur et smartphone réels, géométrie/animations temporelles, NVDA/TalkBack/VoiceOver, sécurité/confidentialité et audit du dépôt public. Phase 1 maintenue, aucun AppDeploy modifié.
+- **Le présent commit documentaire est postérieur au SHA CI ci-dessus :** vérifier ses trois propres workflows avant de déclarer le HEAD final validé.

@@ -14,3 +14,8 @@ Huit missions historiques : translation uniforme, accélération constante, rota
 - 597 missions conservées, 0 créée. Aucun changement AppDeploy, accueil, 17 univers, navigation, assets ou visibilité GitHub.
 - Le dépôt est public ; vigilance secrets et données privées. Aucun audit complet de sécurité ni test réel NVDA/TalkBack/VoiceOver, smartphone, animation temporelle ou géométrie visuelle n'a été réalisé.
 - **Suite :** confirmer les trois CI du nouveau HEAD, corriger les régressions, auditer 1–9 et combler les politiques scientifiques/tolérances manquantes des premières missions.
+
+
+## Confirmation CI
+
+Le commit de code et de tests `cd202b5e45eddb65efdf232f10151464fc0569cd` a passé **2 169/2 169 tests**, trois workflows `success` : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41159443407), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41159443354), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41159443435). Le commit documentaire qui complète ce rapport nécessite sa propre vérification.
