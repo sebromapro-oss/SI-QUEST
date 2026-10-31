@@ -36,3 +36,11 @@ Ces contrôles sont fonctionnels et pédagogiques, **pas des contre-calculs ind�
 - **Non réalisés :** 488 autres parcours navigateur, vérification graphique individuelle des 597 missions, fidélité temporelle des animations, appareils physiques Android/iPhone, Safari réel, Firefox réel, NVDA, TalkBack, VoiceOver et recette RGAA/WCAG complète.
 - **Phase 1 maintenue**, extension 598–996 suspendue jusqu'à réception démontrée. Prochain lot : 25–50 missions non encore testées, avec tests clavier et contrôle des anomalies communes.
 - Aucun accueil, carte des 17 univers, marquage auteur, fichier privé, historique Git, code ou déploiement AppDeploy d'un autre projet n'a été modifié.
+
+
+## Contre-recette après durcissement de la CI — confirmation
+
+- Le workflow Chromium restreint à `permissions: contents: read` a été **réexécuté avec succès** sur `c9fb94c46ffdefffb7e85253fe09f37f3dbf16a2` : **32/32 scénarios réussis** ([run 41176735709](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41176735709)). Les changements suivants n'affectent pas le code navigateur ni les scénarios.
+- Un nouveau test de non-régression `tests/workflow-permissions.test.cjs` contrôle les quatre workflows : autorisation `contents: read` explicite et absence de permissions `write` dans leurs déclarations. [Commit `1c2037b1`](https://github.com/sebromapro-oss/SI-QUEST/commit/1c2037b1a362550808bdea7e7caa231079f77261).
+- Sur `1c2037b1`, **2 196/2 196 tests Node réussis** et trois workflows scientifiques/recette verts : [recette 41176927496](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41176927496), [qualité 41176927480](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41176927480), [contrôles 41176927436](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41176927436).
+- **Limite :** l'inspection structurelle des YAML ne garantit pas à elle seule l'absence de risque de chaîne d'approvisionnement ; l'audit des actions tierces et des permissions réelles reste distinct.
