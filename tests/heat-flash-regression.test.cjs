@@ -1,18 +1,21 @@
 'use strict';
-/** Non-régression de la réactivation thermique historique et de son résultat SI. */
+/** Non-régression de la réactivation thermique dynamique et du calcul SI. */
 const test=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
 const html=fs.readFileSync(path.join(__dirname,'../missions/heat-01.html'),'utf8');
+const controller=fs.readFileSync(path.join(__dirname,'../src/investigation-mission.js'),'utf8');
 
-test('heat-01 : objectifs et trois questions flash sans divulgation du résultat',()=>{
- const section=html.match(/<h2>Objectifs, prérequis et réactivation<\/h2>[\s\S]*?<\/section>/);
- assert.ok(section,'section de réactivation absente');
- assert.equal((section[0].match(/<li>/g)||[]).length,3);
- for(const heading of ['Situation professionnelle','Objectif','Prérequis','Critères de réussite'])
-  assert.ok(section[0].includes(heading),heading+' manquant');
- assert.doesNotMatch(section[0],/23\s*kJ/i,'résultat numérique dévoilé dans les questions');
+test('heat-01 : trois questions flash dynamiques sans double affichage',()=>{
+ const early=JSON.parse(controller.split('const earlyFlash=Object.freeze(')[1].split(');\nconst legacyFlash=')[0]);
+ const questions=early['heat-01'];
+ assert.ok(Array.isArray(questions));
+ assert.equal(questions.length,3);
+ assert.equal(new Set(questions).size,3);
+ assert.ok(questions.every(q=>q.length>=25));
+ assert.doesNotMatch(questions.join(' '),/23\s*kJ/i,'résultat numérique dévoilé dans les questions');
+ assert.equal((html.match(/<li>/g)||[]).length,0,'questions HTML dupliquées avec la réactivation dynamique');
 });
 
 test('heat-01 : valeur nominale, conversions et domaine cohérents',()=>{
