@@ -66,7 +66,7 @@ for(let i=0;i<ids.length;i++)test('audit indépendant mission '+(i+18)+' : '+ids
 test('lot 18–42 : 25 missions uniques, 17 jeux flash ajoutés, catalogue inchangé',()=>{
  assert.equal(ids.length,25);
  assert.equal(new Set(ids).size,25);
- assert.equal(Object.keys(earlyFlash).length,17);
+ assert.equal(Object.keys(earlyFlash).length,25);
  assert.equal(catalog.levels.length,597);
  assert.match(controller,/const flashQuestions=earlyFlash\[c\.id\]\|\|legacyFlash\[c\.id\]/);
 });

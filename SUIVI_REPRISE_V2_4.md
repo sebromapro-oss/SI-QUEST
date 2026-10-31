@@ -385,3 +385,12 @@
 - **CI nouveau commit :** à consulter après publication ; vérifier tests pass/fail et les trois workflows. **Pas de réception déclarée sans preuve.**
 - **Réserves :** fidélité temporelle des animations, rendu navigateur/mobile, tests physiques NVDA/TalkBack/VoiceOver, RGAA/WCAG et sécurité du dépôt public non validés.
 - **Prochaine action :** CI, correction éventuelle, puis audit indépendant des missions 1–17 et essais réels d'accessibilité.
+
+
+### Complément du cycle V2.5 — missions 10–17 (31 octobre 2026)
+
+- **HEAD initial :** `9e554a0dc01b52e7eb83f9ee2c416d39a3ed2e2c`. Trois CI `success` : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41159362215), [contrôles](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41159362127), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41159362151). **2 160 tests réussis, 0 échec** sur ce SHA. Le commit initial `4fcce38f` avait 12 tests en échec : absence de métadonnées d'unités pour les missions 18–29 ; corrigé par `9e554a0d` en complétant les unités 10–29 sans affaiblir les assertions.
+- **Lot complémentaire :** 10–17, huit modèles indépendants et 32 contre-calculs dans `tests/audit-010-017-independent.test.cjs`. **24 questions flash** ajoutées ; dictionnaire `earlyFlash` = 25 jeux pour les missions 10–34. [Rapport](AUDIT_SCIENTIFIQUE_010_017_20261031.md).
+- **Tests et CI du nouveau commit :** résultats à confirmer après publication, ne pas assimiler à une réussite. Couverture documentaire 10–597 = 588/597 (98,5 %) ; **1–9 non auditées dans ce cycle**. 597 missions conservées, 0 créée.
+- **Réserves :** politiques de tolérance et solutions détaillées manquantes dans certaines missions historiques, animation temporelle, contrôles physiques navigateurs/mobile, NVDA/TalkBack/VoiceOver, sécurité, confidentialité et visibilité publique. Phase 1 maintenue ; aucune action AppDeploy.
+- **Suite :** CI sur le HEAD, correctifs éventuels, puis audit 1–9 et réception réelle.
