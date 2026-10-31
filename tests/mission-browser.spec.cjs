@@ -46,9 +46,14 @@ for(const device of [
   test('échantillon transversal de 25 missions : calcul, confidentialité UI et largeur',async({page})=>{
    // 25 navigations et calculs successifs dépassent parfois les 30 s par défaut.
    test.setTimeout(120_000);
-   // Échantillonnage déterministe de 25 identifiants parmi les missions 10–597.
-   // Ce test de parcours n'est pas une preuve de justesse des 25 équations.
-   const missions=Array.from({length:25},(_,i)=>catalog.levels[9+Math.round(i*(catalog.levels.length-10)/24)]);
+   // Un parcours par univers (17), puis 8 missions supplémentaires réparties
+   // dans le catalogue : 25 identifiants distincts et 17 univers couverts.
+   // Ce test de parcours ne démontre pas la justesse des équations.
+   const missions=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+   for(let i=0;missions.length<25;i++){
+    const candidate=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+    if(!missions.some(m=>m.id===candidate.id))missions.push(candidate);
+   }
    const errors=[];
    page.on('pageerror',e=>errors.push(e.message));
    for(const mission of missions){
