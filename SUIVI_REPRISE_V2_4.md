@@ -550,3 +550,12 @@
 - **Runs du correctif à contrôler :** [recette 41183847762](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847762), [science 41183847738](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847738), [qualité 41183847742](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847742). **Chromium 41183678314 toujours en cours** à la rédaction ; ne pas encore valider 259/597.
 - **Rapport actualisé :** [AUDIT_NAVIGATEUR_210_259_20261031.md](AUDIT_NAVIGATEUR_210_259_20261031.md), commit documentaire [`4396afc5`](https://github.com/sebromapro-oss/SI-QUEST/commit/4396afc502bdda42781712c52d468982065da192).
 - **Phase 1 maintenue** ; zéro nouvelle mission, aucune application AppDeploy modifiée.
+
+
+#### Contre-réception Node du lot 210–259 — résultat confirmé
+
+- **HEAD testé :** `4729dee13f70226655b70aa43534297417c2cc05`.
+- **2 228/2 228 tests Node réussis, zéro échec** d'après les logs du [run 41183879986](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183879986). Les deux autres workflows sont également **success** : [contrôles scientifiques 41183879993](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183879993) et [qualité 41183879972](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183879972).
+- **La recette Chromium 41183678314 reste en cours à cette écriture : couverture confirmée 209/597**, objectif 259/597. Ne pas annoncer son succès par anticipation.
+- Les échecs intermédiaires `d9db5517` (assertion d'inventaire du banc d'essai) sont conservés dans l'historique et corrigés par `b7347b31`. Aucune équation ni aucun contrôle n'a été affaibli.
+- **Prochaine étape :** examiner le verdict Chromium, traiter les anomalies éventuelles, puis seulement confirmer le nouveau total et étendre à 260–309. Phase 1 maintenue, 0 mission créée.
