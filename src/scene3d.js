@@ -58,10 +58,10 @@ function render(id,yaw,pitch,x,options={}){
   notes.push('α = '+d.alpha.toFixed(2)+' rad/s² ; ω(t) = αt','Temps physique simulé : '+t.toFixed(2)+' s / '+d.duration.toFixed(2)+' s');break;
  }
  case 'brake-torque-01':{
-  shaft(0);arrow([80,45,0],[80,15,35],'#ffca7d');notes.push('J = 8 kg·m² ; |C| = '+d.torque.toFixed(2)+' N·m','Couple résistant ; pas de mouvement sans vitesse initiale');break;
+  shaft(0);if(d.torque>0)arrow([80,45,0],[80,15,35],'#ffca7d');notes.push('J = 8 kg·m² ; |C| = '+d.torque.toFixed(2)+' N·m','Couple résistant ; pas de mouvement sans vitesse initiale');break;
  }
  case 'torsion-01':{
-  shaft(0);arrow([80,42,0],[80,0,42],'#ffca7d');notes.push('Ø = 30 mm ; τmax = '+d.stress.toFixed(2)+' MPa','Torsion statique ; angle de torsion non calculable sans G et L');break;
+  shaft(0);if(d.torque>0)arrow([80,42,0],[80,0,42],'#ffca7d');notes.push('Ø = 30 mm ; τmax = '+d.stress.toFixed(2)+' MPa','Torsion statique ; angle de torsion non calculable sans G et L');break;
  }
  case 'gear-mesh-01':{
   const factor=1.0,r1=d.r1*factor,r2=d.r2*factor,a=d.centerDistance*factor;
