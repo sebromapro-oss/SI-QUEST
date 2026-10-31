@@ -881,3 +881,12 @@
 - **Inventaire et sécurité ciblée :** arbre GitHub HEAD de 1 153 fichiers, dont **597 pages HTML de missions et 276 fichiers `.test.cjs`** ; aucun nom de fichier typique de secret détecté. Huit recherches de contenu indexé (`BEGIN PRIVATE KEY`, `ghp_`, `sk-`, `client_secret`, `api_key`, `@gmail.com`, `AKIA`, `password`) sans résultat. Cela **ne prouve pas** l'absence de secrets dans l'historique ou les contenus non indexés. Le dépôt est **public** selon l'API GitHub ; visibilité inchangée.
 - **Conservation :** accueil personnalisé, carte des 17 univers, assets, attribution et historique non modifiés ; aucune application AppDeploy touchée ; **597 missions maintenues, 0 mission nouvelle**.
 - **Réserves et prochaine action :** consulter les quatre workflows du dernier commit de code `59218e52`, puis ceux du présent commit documentaire ; examiner les captures Playwright, continuer les contre-audits scientifiques/graphique et les scénarios 3 essais/3 aides. Les essais physiques Windows/Android/iPhone, NVDA/TalkBack/VoiceOver et la réception RGAA/WCAG demeurent **non réalisés**. **Phase 1 maintenue ; aucune réception 597/597 annoncée.**
+
+
+## Cycle V2.5 — 31 octobre 2026, 19 h 38 (Europe/Paris), lot 598–602
+
+- HEAD initial : `c9f89fe291fe3846c478488ced2eac51ecde8667` ; trois workflows scientifiques/Node réussis sur ce SHA ; recette navigateur du SHA antérieur réussie.
+- Consigne utilisateur plus récente : commencer les ajouts dès maintenant sans attendre la réception exhaustive des 597. Lot pilote de cinq missions : `helical-gear-axial-lead-01`, `helical-gear-axial-overlap-01`, `magnetic-airgap-reluctance-01`, `hydraulic-aeration-bulk-modulus-01`, `pt100-three-wire-imbalance-01`.
+- 597 missions initiales préservées ; cinq nouvelles pages, un moteur scientifique et graphique, un test Node de références indépendantes et cinq entrées catalogue ; total attendu : **602 missions** et 17 univers.
+- Précontrôle : trois points par modèle (minimum, nominal, maximum), formulation algébrique indépendante, SVG paramétrique fini, domaines et garde contre les valeurs invalides, trois questions flash et contenu professionnel. La CI du commit doit encore être confirmée.
+- Réserves : pas de recette manuelle ni tests physiques NVDA/TalkBack/VoiceOver, pas de réception 597/597 ; poursuivre l'audit et corriger immédiatement toute CI rouge. Aucun changement AppDeploy ou accueil.

@@ -9,6 +9,12 @@
     id:'SI-'+String(i+1).padStart(2,'0'),title
   })));
   const levels=Object.freeze([
+Object.freeze({"id":"helical-gear-axial-lead-01","world":"SI-05","title":"Engrenage hélicoïdal — Pas axial de l’hélice","url":"missions/helical-gear-axial-lead-01.html","subskill":"Avance axiale d'un tour d'hélice sur le cylindre primitif"}),
+Object.freeze({"id":"helical-gear-axial-overlap-01","world":"SI-05","title":"Engrenage hélicoïdal — Recouvrement axial","url":"missions/helical-gear-axial-overlap-01.html","subskill":"Rapport de recouvrement axial d'une denture hélicoïdale"}),
+Object.freeze({"id":"magnetic-airgap-reluctance-01","world":"SI-08","title":"Circuit magnétique — Réluctance de l’entrefer","url":"missions/magnetic-airgap-reluctance-01.html","subskill":"Réluctance d'un entrefer homogène à section constante"}),
+Object.freeze({"id":"hydraulic-aeration-bulk-modulus-01","world":"SI-06","title":"Huile aérée — Module de compressibilité apparent","url":"missions/hydraulic-aeration-bulk-modulus-01.html","subskill":"Effet de la fraction volumique d'air libre sur le module apparent"}),
+Object.freeze({"id":"pt100-three-wire-imbalance-01","world":"SI-13","title":"Pt100 trois fils — Biais de compensation","url":"missions/pt100-three-wire-imbalance-01.html","subskill":"Biais résiduel dû au déséquilibre des conducteurs d'une Pt100 trois fils"}),
+
 Object.freeze({"id":"radiation-surface-ambient-01","world":"SI-12","title":"Rayonnement — Surface vers ambiance","url":"missions/radiation-surface-ambient-01.html","subskill":"Puissance radiative nette d'une surface grise vers une grande enceinte noire"}),
 Object.freeze({"id":"thermal-peclet-transport-01","world":"SI-12","title":"Transport thermique — Nombre de Péclet","url":"missions/thermal-peclet-transport-01.html","subskill":"Rapport advection-diffusion thermique à partir d'une vitesse et d'une diffusivité"}),
 Object.freeze({"id":"kelvin-voigt-parallel-force-01","world":"SI-04","title":"Viscoélasticité — Kelvin-Voigt","url":"missions/kelvin-voigt-parallel-force-01.html","subskill":"Somme des efforts ressort-amortisseur en parallèle pour une déformation et une vitesse données"}),
