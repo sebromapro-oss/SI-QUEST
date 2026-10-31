@@ -65,6 +65,8 @@ for(const device of [
     const wrong=await page.evaluate(()=>Math.abs(window.SI_MISSION.expected)*1e6+1e6);
     await page.locator('#answer').fill(String(wrong));
     await page.locator('#calc button[type="submit"]').click();
+    const state=await page.evaluate(()=>({feedback:document.querySelector('#feedback')?.textContent,trialDisabled:document.querySelector('#trialValue')?.disabled,controller:!!document.querySelector('#rewardText')}));
+    if(state.trialDisabled)throw new Error(mission.id+' : exploration bloquée après erreur ; état='+JSON.stringify(state)+' ; erreurs='+errors.join(' | '));
     await expect(page.locator('#trialValue'),mission.id+' : exploration bloquée après erreur').toBeEnabled();
     await expect(page.locator('#trial'),mission.id+' : verdict accessible avant validation').toBeDisabled();
     await expect(page.locator('#solutionText'),mission.id+' : corrigé prématuré').toBeHidden();
