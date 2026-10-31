@@ -817,3 +817,44 @@
 - **Commit de tests réel :** [`86152530`](https://github.com/sebromapro-oss/SI-QUEST/commit/86152530cbba8b0a57773bf5f0a326d58c95b508). Deux tests supplémentaires : contact des cercles primitifs `gear-mesh-01` pour `z₁=20`, `z₂=40`, `m=3 mm` (`r₁=30 mm`, `r₂=60 mm`, `a=90 mm`, rapport `−0,5`), et contrainte maximale de torsion pour `C=120 N·m`, `d=30 mm` avec vérification de l'unité MPa et du domaine de saisie.
 - **CI en attente :** [recette 41224278674](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41224278674), [science 41224278854](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41224278854), [qualité 41224278684](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41224278684) `queued` au dernier contrôle ; aucun résultat anticipé.
 - **Réception :** 597 missions existantes, zéro créée ; tests de rendu schématique, pas validation physique exhaustive. Restent les essais réels mobile et lecteurs d'écran, la géométrie et les animations sur les autres missions, l'audit de secrets et la sécurité de progression. Aucune intervention AppDeploy. Phase 1 ouverte.
+
+
+## FEUILLE DE ROUTE OPÉRATIONNELLE — PROCHAINS CYCLES V2.5 (ajout du 31 octobre 2026)
+
+**Point de départ confirmé :** HEAD `9b3c9d9cf648f95bc2c6a2ed39cb27c20baa562e` ; les trois workflows GitHub Actions associés sont **success** : [recette 41224291894](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41224291894), [science 41224291887](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41224291887), [qualité 41224291880](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41224291880). Ces réussites ne valent pas réception scientifique exhaustive.
+
+### Priorité 0 — Contrôle de reprise à chaque cycle
+
+1. Lire le HEAD distant de `main`, l'état des workflows, les commits concurrents et les derniers échecs. Réconcilier avant toute écriture ; aucun force-push.
+2. Vérifier les scénarios de test ajoutés récemment, puis corriger les causes racines communes plutôt que multiplier les assertions redondantes.
+3. Définir le lot réel de missions auditées, leurs identifiants, les oracles indépendants, les anomalies et les preuves ; distinguer `examiné`, `testé`, `corrigé` et `réceptionné`.
+
+### Priorité 1 — Science et visualisation : lots de 25 à 50 missions si faisable
+
+1. Terminer le contre-audit des sept scènes 3D : couple de freinage, accélération angulaire, torsion, engrenages, courroie, mouvement circulaire et résistance au roulement. Contrôler sens, échelles, unités, hypothèses, positions, raccordements, temps et limites ; produire des tests numériques et géométriques réellement indépendants.
+2. Poursuivre les missions restantes par familles de lois : statique/PFS, cinématique, adhérence/frottement, RDM, transmissions, hydraulique, électricité, automatique et thermique selon les identifiants effectivement présents au catalogue. Pour chaque mission : vérifier l'énoncé, les données, les équations, les unités SI, les tolérances, les cas nuls et limites, l'interprétation et les graphes.
+3. Vérifier la concordance entre résultat numérique, vecteurs, courbes, animation et explication pédagogique. Tout défaut confirmé entraîne correction ciblée, test de non-régression et contre-audit avant publication.
+
+### Priorité 2 — Fonctionnement des 597 missions
+
+1. Vérifier les **trois essais et trois aides** : comptage exact, absence de validation abusive, fonctionnement après erreur, remise à zéro, saisie clavier, messages DYS et réponses avec unités.
+2. Tester les boutons démarrer/arrêter, la navigation, les retours, les liens, la sauvegarde locale et les transitions ; couvrir les erreurs et les états extrêmes.
+3. Poursuivre les recettes Chromium par lots, sur desktop et viewport mobile ; distinguer simulation automatisée et test physique. Étendre Firefox/Safari seulement si exécutable sans dépenses ni risque pour la cadence.
+
+### Priorité 3 — Sécurité, accessibilité et données
+
+1. Examiner les secrets potentiellement exposés dans le dépôt **et l'historique Git**, sans jamais afficher les valeurs sensibles ; vérifier permissions Actions, dépendances et surfaces d'injection. Ne pas modifier la visibilité du dépôt sans autorisation explicite.
+2. Auditer contrastes, focus, ordre de tabulation, libellés, états dynamiques, zoom, reflow et navigation clavier. Planifier les essais **NVDA, TalkBack, VoiceOver et smartphones réels** comme preuves distinctes : ils ne peuvent pas être déclarés réalisés à partir de tests Node ou Chromium.
+3. Ne pas qualifier `localStorage` de suivi authentifié ou de stockage de données privées sécurisé. Toute preuve personnelle, suivi nominatif ou espace réservé requiert un dispositif d'authentification et d'autorisation validé séparément.
+
+### Priorité 4 — Réception de la phase 1, puis extension conditionnelle
+
+- **Critère de passage :** 597/597 missions inventoriées et auditées selon une matrice de traçabilité ; aucune anomalie critique ouverte ; calculs indépendants et limites vérifiés ; fonctionnalités et interfaces testées ; preuves d'accessibilité et de sécurité disponibles ou réserves explicitement acceptées par le propriétaire. Une CI verte seule ne suffit pas.
+- **Tant que ce critère n'est pas atteint :** rester en phase 1 ; **0 mission nouvelle**. Les essais physiques impossibles à distance restent un blocage de réception à déclarer, pas à inventer.
+- **Après réception seulement :** phase 2 vers 996 missions, lots adaptatifs de 10 à 20, davantage uniquement si chaque nouvelle mission est scientifiquement, graphiquement, pédagogiquement et fonctionnellement validée ; aucun doublon ni gonflement de compteur.
+
+### Cadence et responsabilité
+
+- Conserver **l'unique automatisation SI QUEST existante**, cadence horaire ; ne pas créer de doublon. Chaque cycle doit avancer autant que le permettent les outils et la durée, sans s'arrêter artificiellement après un commit.
+- Périmètre **GitHub SI-QUEST uniquement**. Préserver intégralement accueil personnalisé, carte des 17 univers, assets, styles, scripts, navigation, attribution et historique. **Aucune modification AppDeploy** : SI-MISSION, SI MÉCA LAB, SI MAP, SI RESSOURCES, AXIOME et ORMAV relèvent exclusivement du programme SI FRANCE.
+- À chaque cycle, mettre à jour ce registre avec : HEAD avant/après, commits réels, identifiants et nombre de missions effectivement auditées, tests et liens de runs, pass/fail, preuves manquantes, anomalies non résolues et prochaine action concrète. Ne jamais confondre planification et réalisation.
