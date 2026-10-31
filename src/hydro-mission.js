@@ -44,7 +44,7 @@
       const li=document.createElement('li');li.textContent=message;return li;
     }));
     $('solution').disabled=state.hints<3||state.attempts<3||state.calculationPassed;
-    $('trial').disabled=running||!(state.calculationPassed||state.solutionShown);
+    $('trial').disabled=running||!(state.attempts>0||state.calculationPassed||state.solutionShown);
     $('stop').disabled=!running;
     if(state.calculationPassed && !state.solutionShown && $('calculation-feedback').textContent.startsWith('Tes calculs')){
       $('calculation-feedback').textContent='Calculs déjà validés : règle le circuit et lance un essai.';
@@ -58,7 +58,9 @@
         ' mm/s. En rentrée, la surface annulaire plus petite augmente la vitesse pour le même débit.';
     }
     if(state.lastTrialSafe===true){
-      $('decision').textContent='Dernier essai : réglages compatibles avec le modèle. Avant mise en service réelle : contrôler les flexibles, les organes de sécurité, la charge et les procédures constructeur.';
+      $('decision').textContent=state.calculationPassed&&!state.solutionShown?
+        'Dernier essai : réglages compatibles avec le modèle. Avant mise en service réelle : contrôler les flexibles, les organes de sécurité, la charge et les procédures constructeur.':
+        'Exploration qualitative : réglages théoriquement compatibles, sans validation de la mission ni autorisation réelle.';
     }else if(state.lastTrialSafe===false){
       $('decision').textContent='Dernier essai : mise en service refusée. Corriger les réglages non conformes.';
     }
@@ -116,7 +118,7 @@
   }
   $('settings').addEventListener('submit',event=>{
     event.preventDefault();
-    if(running||!(state.calculationPassed||state.solutionShown))return;
+    if(running||!(state.attempts>0||state.calculationPassed||state.solutionShown))return;
     const pressure=N.parseDecimal($('pressure').value);
     const flow=N.parseDecimal($('flow').value);
     for(const [id,value,min,max] of [['pressure',pressure,0,140],['flow',flow,0,18]]){
@@ -127,7 +129,9 @@
       return;
     }
     const evaluation=H.evaluate({...base,pressureBar:pressure,flowLpm:flow},limits);
-    const prefix='Essai : '+pressure.toFixed(1)+' bar, '+flow.toFixed(1)+' L/min ; effort sortie '+
+    const qualitative=!(state.calculationPassed||state.solutionShown);
+    const prefix=qualitative?'Exploration qualitative : pression et débit modifient les efforts et les vitesses ; résultats masqués.':
+      'Essai : '+pressure.toFixed(1)+' bar, '+flow.toFixed(1)+' L/min ; effort sortie '+
       Math.round(evaluation.extensionForceN)+' N ; vitesse sortie '+
       (evaluation.extensionSpeedMps*1000).toFixed(1)+' mm/s ; vitesse rentrée '+
       (evaluation.retractionSpeedMps*1000).toFixed(1)+' mm/s.';
@@ -150,10 +154,12 @@
     const success=()=>{
       if(state.calculationPassed&&!state.solutionShown)state.trialPassed=true;
       state.lastTrialSafe=true;
-      const message=prefix+' Cycle autorisé ; temps sortie '+evaluation.extensionTimeS.toFixed(2)+
+      const message=qualitative?prefix+' Cycle qualitatif terminé ; durées masquées, mission non validée.':
+        prefix+' Cycle autorisé ; temps sortie '+evaluation.extensionTimeS.toFixed(2)+
         ' s, temps rentrée '+evaluation.retractionTimeS.toFixed(2)+' s.';
       $('trial-feedback').textContent=message;
-      $('decision').textContent='Décision métier : mise en service admissible selon ce modèle simplifié. Vérifier les protections, l’étanchéité, les flexibles et la documentation constructeur sur machine.';
+      $('decision').textContent=qualitative?'Exploration qualitative uniquement : ne pas valider la mission ni autoriser une mise en service.':
+        'Décision métier : mise en service admissible selon ce modèle simplifié. Vérifier les protections, l’étanchéité, les flexibles et la documentation constructeur sur machine.';
       log(message);finish('Cycle terminé : sortie puis rentrée, piston revenu à sa position initiale.');
     };
     if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){

@@ -184,3 +184,21 @@ test('Gear: exploration qualitative après calcul faux, sans divulgation de la r
  assert.equal(state.solutionShown,false);
  assert.equal(state.trialPassed,false);
 });
+
+test('Hydro: exploration qualitative après erreur sans résultat ni validation',()=>{
+ const h=harness('hydro-mission.js');
+ assert.equal(h.element('trial').disabled,true);
+ fillHydro(h);h.element('area').value='1';
+ h.element('calculations').dispatch('submit');
+ assert.equal(h.element('trial').disabled,false);
+ assert.equal(h.element('solution').disabled,true);
+ h.element('flow').value='10';
+ h.element('settings').dispatch('submit');
+ assert.match(h.element('trial-feedback').textContent,/qualitative/);
+ assert.doesNotMatch(h.element('trial-feedback').textContent,/effort sortie [0-9]|vitesse sortie [0-9]|temps sortie [0-9]/);
+ const state=JSON.parse(h.storage.get('siquest-hydro02'));
+ assert.equal(state.calculationPassed,false);
+ assert.equal(state.solutionShown,false);
+ assert.equal(state.trialPassed,false);
+ assert.match(h.element('decision').textContent,/sans validation/);
+});

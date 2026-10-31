@@ -16,7 +16,7 @@ const num=id=>{const s=$(id).value.trim().replace(',','.');return s!==''&&Number
 const fmt=n=>n.toFixed(2).replace('.',',');
 function save(){try{localStorage.setItem(key,JSON.stringify({attempts,hints,passed,log}));}catch{}}
 function render(){
- $('trial').disabled=!passed;
+ $('trial').disabled=attempts===0;
  $('solution').disabled=attempts<3||hints<3;
  $('log').replaceChildren(...log.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));
 }
@@ -29,7 +29,8 @@ function frame(t){
  $('vehicle').setAttribute('transform','translate('+(x-32)+' 0)');
  $('time').value=String(Math.min(t,current.stoppingTimeS));
  const phase=state.phase==='reaction'?'réaction':state.phase==='braking'?'freinage':'arrêt';
- $('frameText').textContent='Temps : '+fmt(state.timeS)+' s ; position : '+fmt(state.distanceM)+' m ; vitesse : '+fmt(state.speedMps)+' m/s ; phase : '+phase+'.';
+ $('frameText').textContent=passed?'Temps : '+fmt(state.timeS)+' s ; position : '+fmt(state.distanceM)+' m ; vitesse : '+fmt(state.speedMps)+' m/s ; phase : '+phase+'.':
+  'Exploration qualitative : phase '+phase+' ; position et vitesse masquées.';
 }
 $('calc').addEventListener('submit',event=>{
  event.preventDefault();
@@ -37,7 +38,7 @@ $('calc').addEventListener('submit',event=>{
  const ok=Math.abs(num('reaction')-reference.reactionDistanceM)<=.1&&Math.abs(num('braking')-reference.brakingDistanceM)<=.1&&Math.abs(num('total')-reference.stoppingDistanceM)<=.1;
  passed=ok;
  $('feedback').textContent=ok?'Calculs corrects. Tu peux comparer plusieurs distances à l’obstacle.':'Vérifie la conversion en m/s, puis sépare réaction et freinage. Conserve les unités en mètres.';
- if(!ok){pause();current=null;$('time').disabled=true;$('play').disabled=true;$('decision').textContent='Corrige les calculs avant l’essai.';}
+ if(!ok){pause();current=null;$('time').disabled=true;$('play').disabled=true;$('decision').textContent='Exploration qualitative possible ; corrige les calculs pour afficher les valeurs.';}
  note('Calcul '+(ok?'correct':'à reprendre'));
 });
 $('hint').addEventListener('click',()=>{
@@ -46,10 +47,12 @@ $('hint').addEventListener('click',()=>{
  hints=Math.min(3,hints+1);save();render();
 });
 $('solution').addEventListener('click',()=>{
+ if(attempts<3||hints<3)return;
  $('solutionText').hidden=false;
  $('solutionText').textContent='18 km/h = 5 m/s ; réaction : 5 × 1,2 = 6 m ; freinage : 5² / (2 × 2,5) = 5 m ; arrêt total : 11 m ; à 12 m, marge théorique = 1 m. Cette marge ne valide pas une situation réelle.';
 });
 $('trial').addEventListener('click',()=>{
+ if(attempts===0)return;
  const obstacleM=num('obstacle');
  if(obstacleM<0||obstacleM>30||!Number.isFinite(obstacleM)){
  $('decision').textContent='Distance invalide : saisis une valeur comprise entre 0 et 30 m.';return;
@@ -63,7 +66,9 @@ $('trial').addEventListener('click',()=>{
  $('obstacleLabel').setAttribute('x',String(Math.min(465,Math.max(65,x))));
  $('obstacleLabel').textContent='dₒ = '+fmt(obstacleM)+' m';
  frame(0);
- $('decision').textContent=current.stopsBeforeObstacle?
+ $('decision').textContent=!passed?
+ (current.stopsBeforeObstacle?'Exploration qualitative : arrêt théorique possible, distances et marge masquées.':'Exploration qualitative : collision théorique possible, distances et marge masquées. Essai réel interdit.'):
+ current.stopsBeforeObstacle?
  'Arrêt théorique avant l’obstacle : distance '+fmt(current.stoppingDistanceM)+' m ; marge '+fmt(current.marginM)+' m. Décision : ne pas autoriser un essai réel sans procédure, marge de sécurité et contrôle des conditions.' :
  'Collision théorique : arrêt à '+fmt(current.stoppingDistanceM)+' m, obstacle à '+fmt(obstacleM)+' m ; manque '+fmt(-current.marginM)+' m. Essai réel interdit.';
  note('Obstacle '+fmt(obstacleM)+' m : '+(current.stopsBeforeObstacle?'arrêt théorique possible':'collision théorique'));
@@ -91,13 +96,13 @@ $('pause').addEventListener('click',pause);
 $('reset').addEventListener('click',()=>{
  pause();attempts=0;hints=0;passed=false;log=[];current=null;
  try{localStorage.removeItem(key);}catch{}
- $('feedback').textContent='Calculs à effectuer.';$('decision').textContent='Essai disponible après validation des calculs.';
+ $('feedback').textContent='Calculs à effectuer.';$('decision').textContent='Exploration disponible après une tentative numérique.';
  $('hintText').hidden=true;$('solutionText').hidden=true;
  $('time').disabled=true;$('time').value='0';$('play').disabled=true;
  $('obstacle').value='12';$('obstacleLine').setAttribute('x1','204');$('obstacleLine').setAttribute('x2','204');
  $('obstacleLabel').setAttribute('x','204');$('obstacleLabel').textContent='dₒ = 12 m';
  $('vehicle').setAttribute('transform','translate(28 0)');
- $('frameText').textContent='Temps : 0,00 s ; position : 0,00 m ; vitesse : 5,00 m/s.';
+ $('frameText').textContent='Évolution temporelle non simulée ; valeurs masquées avant validation.';
  render();
 });
 render();
