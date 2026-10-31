@@ -1,19 +1,19 @@
 # SI QUEST — jeu scientifique de sciences industrielles
 
-**État contrôlé au 30 octobre 2026.** Application statique HTML/CSS/JavaScript, dépôt GitHub public `sebromapro-oss/SI-QUEST`, branche de développement `main`.
+**État contrôlé au 31 octobre 2026.** Application statique HTML/CSS/JavaScript, dépôt GitHub public `sebromapro-oss/SI-QUEST`, branche de développement `main`.
 
 ## Périmètre réel et cible
 
-- **597 missions référencées** dans `src/catalog.js` ; 17 univers. Une entrée au catalogue n'est pas une validation pédagogique, scientifique ou d'accessibilité.
+- **612 missions référencées** dans `src/catalog.js` ; 17 univers. Une entrée au catalogue n'est pas une validation pédagogique, scientifique ou d'accessibilité.
 - **Cible : 996 missions indépendantes et 249 sous-savoirs**, répartis entre 17 univers.
-- **Phase 1 active : fiabilisation et réception des 597 missions existantes.** Aucune nouvelle mission tant que les critères de stabilisation ne sont pas satisfaits.
-- **Phase 2 : missions 598 à 996**, seulement après validation documentée de la phase 1.
+- **Fiabilisation prioritaire des 597 missions historiques** : tests scientifiques, parcours, accessibilité et sécurité, sans annoncer une réception exhaustive.
+- **Extension autorisée par consigne utilisateur du 31 octobre** : 15 missions ajoutées (598–612), chacune avec modèle, corrigé et tests. La publication n'est pas une réception complète. Il reste **384 missions à créer** pour atteindre 996.
 
 ## Contrôles réellement exécutés
 
-Au commit `bb819cc92fd217fef7c684175193e6bb05e878d4`, les trois workflows Node/science ont réussi : **1 821 tests réussis, 0 échec**. Ils vérifient notamment la syntaxe, les calculs, des domaines numériques, le catalogue et des parcours DOM simulés.
+Sur le commit `58f4ef97b6b36d86dd54a2a61ecc3365880f9ec1`, les trois workflows Node/science ont réussi : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41237775601), [contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41237775610), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41237775618). Ils contrôlent syntaxe, calculs, domaines numériques, catalogue et parcours DOM simulés. Le nouveau lot de **75 oracles indépendants sur 25 missions historiques** a été publié ensuite au commit `9d69692f` ; sa CI est à vérifier séparément.
 
-Au commit `0a22774140d9e96878f1199905796cec32b8c0de`, la recette Playwright de l'accueil a réussi **16/16 scénarios** (bureau, émulations Android et iPhone portrait, tablette paysage). Il s'agit d'émulations Chromium, pas d'essais sur des appareils physiques.
+La recette Playwright inclut désormais les missions 598–612 et les parcours bureau/Android émulé ; **le résultat du nouveau HEAD reste à confirmer**. Les anciennes recettes Chromium ne remplacent pas des essais sur appareils physiques.
 
 **Non prouvé :** tests manuels sur smartphones, NVDA/TalkBack/VoiceOver, recette visuelle et scientifique individuelle des 597 missions, audit de sécurité exhaustif. Aucun de ces points n'est réputé validé par les seuls tests CI.
 

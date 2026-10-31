@@ -933,3 +933,13 @@
 - **Recette navigateur ajoutée ensuite :** scénarios Playwright desktop/Android émulé sur les cinq nouvelles pages, essais faux et trois aides sur la valve, déverrouillage et remise à zéro. Le commit documentaire et navigateur qui contient ce paragraphe déclenche ses propres contrôles ; ne pas attribuer au commit actuel les résultats du précédent.
 - **Réserves :** audit individuel complet des 597 missions historiques non achevé ; essais réels NVDA, TalkBack, VoiceOver et appareils physiques non effectués ; sécurité historique du dépôt non réceptionnée ; aucune modification AppDeploy.
 - **Prochaine action :** vérifier les quatre workflows du nouveau HEAD, corriger toute régression ; poursuivre l'audit scientifique indépendant par lots et la fiabilisation des 597 missions, puis seulement augmenter les lots de production selon les preuves.
+
+
+## Cycle du 31 octobre 2026 — contre-audit indépendant de 25 missions historiques (positions 143–167)
+
+- **Missions réellement examinées :** 25, de `adc-quantization-max-error-01` à `straight-fin-heat-rate-01` dans l'ordre du catalogue contrôlé (positions 143–167), réparties dans les six moteurs `batch383-387`, `378-382`, `373-377`, `368-372`, `363-367`, `358-362`.
+- **Contrôle numérique :** 25 oracles rédigés séparément du moteur ; 3 valeurs par mission (minimum, nominal, maximum) ; **75/75 comparaisons concordantes** avec tolérance relative au plus `1e-8`. Les unités, paramètres, limites et équations ont été relus pour construire les oracles. Un premier oracle personnel sur la conduction cylindrique interprétait à tort le paramètre `x` comme température ; après lecture des hypothèses, il a été corrigé en rayon extérieur variable. Le moteur et sa loi `ln(r_e/r_i)` étaient corrects.
+- **Test permanent publié :** `tests/independent-audit-143-167.test.cjs`, commit `9d69692fe8b7a840bfced3cc4ee2aa3276bb949f`, 25 cas de tests plus inventaire, 75 points numériques et rejets de paramètres hors domaine. **Résultat CI de ce commit à confirmer** ; les vérifications comparatives ont été exécutées indépendamment avant publication.
+- **Aucune anomalie de calcul confirmée** sur ces 25 lois et points de contrôle ; ceci ne démontre ni les graphiques individuels ni les interfaces physiques, ni les 597/597.
+- **Sécurité et accessibilité :** aucune nouvelle dépense, aucun changement de visibilité, aucun secret manipulé ; NVDA/TalkBack/VoiceOver et appareils réels toujours non testés.
+- **Prochaine action :** vérifier les workflows de `9d69692f` et des commits documentaires suivants, la recette navigateur des 608–612, puis poursuivre les missions historiques par lot et corriger toute régression constatée.
