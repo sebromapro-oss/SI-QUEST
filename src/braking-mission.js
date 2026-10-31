@@ -17,7 +17,7 @@ const fmt=n=>n.toFixed(2).replace('.',',');
 function save(){try{localStorage.setItem(key,JSON.stringify({attempts,hints,passed,log}));}catch{}}
 function render(){
  $('trial').disabled=attempts===0;
- $('solution').disabled=attempts<3||hints<3;
+ $('solution').disabled=attempts<3||hints<3||passed;$('calc').querySelector('button[type="submit"]').disabled=attempts>=3||passed;
  $('log').replaceChildren(...log.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));
 }
 function note(message){log.push(message);log=log.slice(-20);save();render();}
@@ -34,7 +34,7 @@ function frame(t){
 }
 $('calc').addEventListener('submit',event=>{
  event.preventDefault();
- if(attempts>=3){$('feedback').textContent='Trois essais utilisés : consulte les aides avant la correction.';return;}
+ if(attempts>=3||passed){$('feedback').textContent='Trois essais utilisés : consulte les aides avant la correction.';return;}
  attempts=Math.min(3,attempts+1);
  const ok=Math.abs(num('reaction')-reference.reactionDistanceM)<=.1&&Math.abs(num('braking')-reference.brakingDistanceM)<=.1&&Math.abs(num('total')-reference.stoppingDistanceM)<=.1;
  passed=ok;
@@ -48,7 +48,7 @@ $('hint').addEventListener('click',()=>{
  hints=Math.min(3,hints+1);save();render();
 });
 $('solution').addEventListener('click',()=>{
- if(attempts<3||hints<3)return;
+ if(attempts<3||hints<3||passed)return;
  $('solutionText').hidden=false;
  $('solutionText').textContent='18 km/h = 5 m/s ; réaction : 5 × 1,2 = 6 m ; freinage : 5² / (2 × 2,5) = 5 m ; arrêt total : 11 m ; à 12 m, marge théorique = 1 m. Cette marge ne valide pas une situation réelle.';
 });

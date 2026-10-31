@@ -44,6 +44,7 @@
       const li=document.createElement('li');li.textContent=message;return li;
     }));
     $('solution').disabled=state.hints<3||state.attempts<3||state.calculationPassed;
+    $('calculations').querySelector('button[type="submit"]').disabled=state.attempts>=3||state.calculationPassed;
     $('trial').disabled=running||!(state.attempts>0||state.calculationPassed||state.solutionShown);
     $('stop').disabled=!running;
     if(state.calculationPassed && !state.solutionShown && $('calculation-feedback').textContent.startsWith('Tes calculs')){

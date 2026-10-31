@@ -33,6 +33,7 @@
     }));
     $('trial').disabled=running||!(state.calculationAttempts>0||state.calculationPassed||state.solutionShown);
     $('solution').disabled=state.calculationPassed||state.calculationAttempts<3||state.hints<3;
+    $('task').querySelector('button[type="submit"]').disabled=state.calculationAttempts>=3||state.calculationPassed;
     $('readout').textContent=state.calculationPassed||state.solutionShown?
       'Modèle : '+model.outputSpeedRpm.toFixed(1)+' tr/min ; '+model.outputTorqueNm.toFixed(1)+' N·m.':
       'Résultats masqués avant validation du calcul ou ouverture du corrigé.';
