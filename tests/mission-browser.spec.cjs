@@ -2,6 +2,7 @@
 // Recette Chromium : émulation de viewport et interactions réelles.
 // Ces scénarios ne remplacent ni les appareils physiques ni NVDA/TalkBack/VoiceOver.
 const {test,expect}=require('@playwright/test');
+const catalog=require('../src/catalog.js');
 
 for(const device of [
  {name:'desktop',viewport:{width:1440,height:900},isMobile:false,hasTouch:false},
@@ -40,6 +41,31 @@ for(const device of [
    await expect(page.locator('#trialValue')).toBeDisabled();
    await expect(page.locator('#solutionText')).toBeHidden();
    await expect(page.locator('#log li')).toHaveCount(0);
+  });
+
+  test('échantillon transversal de 25 missions : calcul, confidentialité UI et largeur',async({page})=>{
+   // Échantillonnage déterministe de 25 identifiants parmi les missions 10–597.
+   // Ce test de parcours n'est pas une preuve de justesse des 25 équations.
+   const missions=Array.from({length:25},(_,i)=>catalog.levels[9+Math.round(i*(catalog.levels.length-10)/24)]);
+   const errors=[];
+   page.on('pageerror',e=>errors.push(e.message));
+   for(const mission of missions){
+    errors.length=0;
+    await page.goto('http://127.0.0.1:4173/'+mission.url);
+    await expect(page.locator('#answer'),mission.id+' : saisie absente').toBeVisible();
+    await expect(page.locator('#solution'),mission.id+' : corrigé accessible avant calcul').toBeDisabled();
+    await expect(page.locator('#trialValue'),mission.id+' : exploration ouverte avant essai').toBeDisabled();
+    const wrong=await page.evaluate(()=>Math.abs(window.SI_MISSION.expected)*1e6+1e6);
+    await page.locator('#answer').fill(String(wrong));
+    await page.locator('#calc button[type="submit"]').click();
+    await expect(page.locator('#trialValue'),mission.id+' : exploration bloquée après erreur').toBeEnabled();
+    await expect(page.locator('#trial'),mission.id+' : verdict accessible avant validation').toBeDisabled();
+    await expect(page.locator('#solutionText'),mission.id+' : corrigé prématuré').toBeHidden();
+    await expect(page.locator('figure svg'),mission.id+' : schéma qualitatif absent').toBeVisible();
+    const dimensions=await page.evaluate(()=>({document:document.documentElement.scrollWidth,viewport:innerWidth}));
+    expect(dimensions.document,mission.id+' : débordement horizontal').toBeLessThanOrEqual(dimensions.viewport+2);
+    expect(errors,mission.id+' : erreur JavaScript navigateur').toEqual([]);
+   }
   });
 
   test('3D après erreur : caméra et pas de temps accessibles sans validation',async({page})=>{
