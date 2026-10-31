@@ -116,6 +116,15 @@ for(const device of [
    }
   });
 
+  test('questions flash uniques : HTML et contrôleur ne se superposent pas',async({page})=>{
+   for(const id of ['heat-01','brake-torque-01','motion-01']){
+    await page.goto('http://127.0.0.1:4173/missions/'+id+'.html');
+    const headings=page.locator('main h3').filter({hasText:/Questions flash/i});
+    await expect(headings,id+' : doublon ou absence de questions flash').toHaveCount(1);
+    await expect(headings.locator('xpath=following-sibling::ol[1]/li'),id+' : nombre de questions').toHaveCount(3);
+   }
+  });
+
   test('3D après erreur : caméra et pas de temps accessibles sans validation',async({page})=>{
    await page.goto('http://127.0.0.1:4173/missions/circular-02.html');
    await expect(page.locator('#scene3-step')).toBeDisabled();
