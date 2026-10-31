@@ -53,7 +53,7 @@
 
 ## Contre-calculs indépendants
 
-Douze lois ont des références calculées sans appeler la fonction de production, sur des valeurs nominales, des bornes et des points intermédiaires autorisés. Contrôles d'unités et de résultats attendus inclus.
+Les **38 lois du dernier lot** disposent désormais d'une référence physique ou mathématique indépendante du moteur de production, sur les valeurs nominales, les deux bornes et un point intermédiaire autorisé : **152 comparaisons numériques**, plus contrôle des unités, du domaine et de la valeur attendue. Le tableau suivant détaille les 12 premières ; les 26 suivantes sont couvertes par les deux fichiers de tests complémentaires cités ci-dessous.
 
 | Mission | Loi physique indépendante | Unité résultat |
 |---|---|---|
@@ -70,7 +70,14 @@ Douze lois ont des références calculées sans appeler la fonction de productio
 | `two-layer-wall-heat-rate-01` | `Φ = 30/[0,12/(0,8×2)+(e₂/1000)/(0,04×2)]` | W |
 | `vickers-indent-pressure-01` | `H = 2×196,2×sin(68°)/d²`, d en mm | MPa |
 
-**Portée des preuves :** 12/38 lois ont un contre-calcul indépendant dans ce cycle. Les 26 autres ont des contrôles structurels et de cohérence nominale avec leur moteur, ce qui ne démontre **pas** leur justesse scientifique indépendante. Les contre-calculs des autres cycles ne constituent pas une certification des animations.
+**Portée des preuves :** 38/38 lois ont désormais des contre-calculs indépendants automatisés sur quatre points chacun. Les trois workflows Node/science du commit scientifique final sont **réussis** : [recette 41213910552](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41213910552), [science 41213910567](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41213910567), [qualité 41213910653](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41213910653). **2 536/2 536 tests Node réussis, zéro échec**. Ces preuves ne certifient ni la fidélité des animations, ni toutes les hypothèses de chaque modèle, ni la conformité RGAA.
+
+
+### Compléments scientifiques publiés et réussis
+
+- [Dix références indépendantes supplémentaires](tests/audit-browser-batch-560-597-ten-more-models.test.cjs), commit [`b7485a5a`](https://github.com/sebromapro-oss/SI-QUEST/commit/b7485a5a492d9dc3c4aefa8fe6dfafaf2dff64b0) : Darcy laminaire, géométrie de relevage, flottabilité, quart de pont, vanne hydrostatique, Peukert, BPFO, Laplace capillaire, corde vibrante et impédance acoustique. [CI Node 41213868708](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41213868708) **success**, 2 519/2 519 tests.
+- [Seize références indépendantes finales](tests/audit-browser-batch-560-597-sixteen-final-models.test.cjs), commit [`5c4b5ba0`](https://github.com/sebromapro-oss/SI-QUEST/commit/5c4b5ba05ec92748835c250d14d7ed4e9ceeef2d) : résultante de charges, synchronisation d'embrayage, induction mutuelle, THD, fréquence de cage, rapport critique de buse, tirant conique, Pt100, vis à billes, célérité hydraulique, transformateur, inertie de plaque, traction-flexion, rapport de conduite, force magnétique et charge de boucle 4–20 mA. [CI Node 41213910552](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41213910552) **success**, **2 536/2 536 tests**.
+- **Total du lot : 38/38 lois avec quatre références numériques indépendantes chacune (152 comparaisons), 38/38 HTML inspectés.** Les tests sur appareil réel, la fidélité géométrique/physique des SVG et les lecteurs d'écran restent hors de cette validation.
 
 ## Critères Chromium soumis aux deux shards
 
@@ -85,4 +92,4 @@ Le dépôt est **public**, contrairement au libellé « privé » du cahier des 
 
 **Phase 1 maintenue.** Phase 2 (598–996) suspendue. Aucune application AppDeploy, page d'accueil, carte des 17 univers, asset, donnée privée, marquage auteur ou équation de production n'a été modifié.
 
-**Prochaine action :** examiner les trois workflows Node/science et les deux shards Chromium du dernier SHA, corriger tout échec puis approfondir les 26 lois sans contre-calcul de ce lot et les vérifications scientifiques/graphiques et d'accessibilité non démontrées.
+**Prochaine action :** confirmer les deux shards Chromium de la recette 560–597, corriger tout échec et poursuivre la vérification graphique/physique, les tests de lecteurs d'écran et les contrôles de sécurité non démontrés.
