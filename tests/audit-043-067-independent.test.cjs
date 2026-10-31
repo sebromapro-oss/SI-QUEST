@@ -48,9 +48,9 @@ for(const [i,[id,reference]] of cases.entries()){
   assert.ok(item,'mission absente du catalogue');
   assert.equal(item.url,'missions/'+id+'.html');
   const html=fs.readFileSync(path.join(__dirname,'..',item.url),'utf8');
-  const config=html.match(/window\\.SI_MISSION=(\\{[^<]+\\})<\\/script>/);
-  assert.ok(config,'configuration de mission absente');
-  const cfg=JSON.parse(config[1]);
+  const raw=html.split('window.SI_MISSION=')[1]?.split('</script>')[0];
+  assert.ok(raw,'configuration de mission absente');
+  const cfg=JSON.parse(raw);
   assert.equal(cfg.id,id);
   assert.match(html,/<html lang="fr"/);
   assert.equal((html.match(/<li>/g)||[]).length,3,'trois questions flash');
