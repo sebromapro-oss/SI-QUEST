@@ -17,6 +17,18 @@ function describe(id,x){
  default:throw new RangeError('Mission sans scène spatiale');
  }
 }
+// Point matériel sur une courroie fermée : deux brins tangents et deux demi-cercles.
+// Phase positive = rotation anti-horaire ; le brin supérieur se déplace vers la gauche.
+function beltMarkerPosition(phase,radius=48,left=-90,right=90){
+ if(![phase,radius,left,right].every(finite)||radius<=0||right<=left)throw new RangeError('Géométrie de courroie invalide');
+ const span=right-left,perimeter=2*span+2*Math.PI*radius;
+ const s=((radius*phase%perimeter)+perimeter)%perimeter;
+ if(s<=span)return [right-s,radius,0];
+ if(s<=span+Math.PI*radius){const a=Math.PI/2+(s-span)/radius;return [left+radius*Math.cos(a),radius*Math.sin(a),0];}
+ if(s<=2*span+Math.PI*radius)return [left+s-span-Math.PI*radius,-radius,0];
+ const a=3*Math.PI/2+(s-2*span-Math.PI*radius)/radius;
+ return [right+radius*Math.cos(a),radius*Math.sin(a),0];
+}
 function render(id,yaw,pitch,x,options={}){
  const d=describe(id,x),time=options.time??0,zoom=options.zoom??1;
  if(![yaw,pitch,time,zoom].every(finite)||zoom<0.5||zoom>2||time<0)throw new RangeError('Caméra ou temps invalide');
@@ -63,7 +75,7 @@ function render(id,yaw,pitch,x,options={}){
   const phase=d.angularSpeed*time,rad=48,c1=-90,c2=90;
   cylinder(c1,0,rad,phase);cylinder(c2,0,rad,phase);
   line([c1,rad,0],[c2,rad,0],'#d5e8f4',5);line([c1,-rad,0],[c2,-rad,0],'#d5e8f4',5);
-  const marker=c1+((rad*phase%180)+180)%180;point([marker,rad,0],'#7ce8ae');
+  point(beltMarkerPosition(phase,rad,c1,c2),'#7ce8ae');
   notes.push('n = '+x.toFixed(0)+' tr/min ; v = '+d.beltSpeed.toFixed(3)+' m/s','Sans glissement ; deuxième poulie de même diamètre (illustration)');break;
  }
  case 'rolling-load-01':{
@@ -80,7 +92,7 @@ function render(id,yaw,pitch,x,options={}){
  const escape=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="scene3-title scene3-desc" style="width:100%;max-width:100%;background:#092236;border-radius:12px"><title id="scene3-title">Scène géométrique spatiale interactive</title><desc id="scene3-desc">'+escape(description)+'. Projection orthographique d’une géométrie 3D schématique ; ce n’est pas une CAO.</desc><defs><marker id="sq-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#ffca7d" stroke-width="1.5"/></marker></defs>'+segments.join('')+'<text x="14" y="278" fill="#fff" font-size="14">'+escape(visibleNotes[0]||'')+'</text><text x="14" y="294" fill="#fff" font-size="12">'+escape(visibleNotes[1]||'')+'</text></svg>';
 }
-const api=Object.freeze({allowed,animated,describe,render});
+const api=Object.freeze({allowed,animated,describe,render,beltMarkerPosition});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 root.SIScene3D=api;
 })(typeof window==='undefined'?globalThis:window);
