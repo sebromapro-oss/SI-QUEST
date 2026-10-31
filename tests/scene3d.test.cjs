@@ -69,3 +69,15 @@ test('résistance au roulement 3D : force nulle sans vecteur fictif',()=>{
  assert.doesNotMatch(zero,/stroke="#ff9999"/,'Aucune flèche de résistance pour Fᵣ = 0 N');
  assert.match(positive,/stroke="#ff9999"/,'La flèche de résistance doit apparaître pour Fᵣ > 0 N');
 });
+
+test('roulement 3D : résistance opposée au déplacement et appui orienté vers le haut',()=>{
+ const svg=scene.render('rolling-load-01',0,0,.025);
+ // Projection à caméra nulle : x_svg = 300+1,6x ; y_svg = 150-1,6y.
+ // Résistance de 200 N : longueur indicative min(100,20+200/4)=70.
+ assert.match(svg,/<path d="M300\.00 246\.00 L188\.00 246\.00"[^>]*stroke="#ff9999"/,
+  'Résistance vers la gauche, opposée au déplacement vers la droite');
+ assert.match(svg,/<path d="M300\.00 246\.00 L300\.00 130\.80"[^>]*stroke="#7ce8ae"/,
+  'Réaction normale orientée vers le haut');
+ assert.match(svg,/<path d="M300\.00 150\.00 L452\.00 150\.00"[^>]*stroke="#8ddcff"/,
+  'Sens du déplacement orienté vers la droite');
+});
