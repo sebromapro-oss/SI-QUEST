@@ -13,7 +13,7 @@ for(const name of modules){
   const guard=body.indexOf('if(attempts>=3||passed)');
   const increment=body.indexOf('attempts=Math.min(3,attempts+1)');
   assert.ok(guard>=0&&increment>guard,name+' : garde avant incrément');
-  assert.match(body.slice(guard,increment),/return\s*}/,name+' : arrêt effectif de la validation');
+  assert.match(body.slice(guard,increment),/return;?\s*}/,name+' : arrêt effectif de la validation');
  });
 }
 
@@ -31,6 +31,6 @@ for(const [name,form,counter,success] of [
   assert.ok(guard>=0&&increment>guard,'garde avant incrément');
   assert.match(body.slice(guard,increment),/return;/,'arrêt effectif');
   assert.ok(src.includes('Math.min(saved.'+(name==='gear'?'calculationAttempts':'attempts')+',3)'),'borne de restauration');
-  assert.ok(src.includes("querySelector('button[type="submit"]').disabled="+counter+">=3||"+success),'bouton verrouillé');
+  assert.ok(src.includes(`querySelector('button[type="submit"]').disabled=`+counter+'>=3||'+success),'bouton verrouillé');
  });
 }
