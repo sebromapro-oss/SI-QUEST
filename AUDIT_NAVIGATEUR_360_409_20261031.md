@@ -73,3 +73,11 @@
 ## Réserves
 
 **597 missions conservées, zéro mission créée.** Aucune modification du code de production, de l'accueil, de la carte des 17 univers, du marquage auteur, des assets ni des applications AppDeploy. Appareils physiques, Firefox, Safari, NVDA, TalkBack, VoiceOver, RGAA, fidélité vectorielle et audit historique de sécurité non vérifiés. Dépôt **public**, progression locale non authentifiée. Phase 2 suspendue.
+
+
+## Complément scientifique — huit modèles SI
+
+- Huit modèles distincts du lot font désormais l'objet de références analytiques indépendantes : codeur absolu, PWM, condensateurs en série, inertie de rotor annulaire, batterie sous charge, Reynolds hydraulique, refroidissement transitoire et pression de clavette.
+- **32 points de comparaison prévus** (minimum, milieu, nominal, maximum), sous réserve de l'intégralité du codeur ; son milieu est entier, donc 32 points. Unités d'entrée/sortie, domaine, valeurs non finies, schémas SVG présents et invariants monotones également contrôlés.
+- Fichier de tests : `tests/audit-browser-batch-360-409-eight-models.test.cjs`. **Statut : publié, résultats Node/science du nouveau commit à vérifier** ; aucune réussite annoncée par anticipation.
+- Ces tests ne prouvent ni la justesse des 42 autres modèles du lot ni la fidélité physique des animations ou l'accessibilité sur appareil réel.

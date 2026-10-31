@@ -613,3 +613,11 @@
 - **Rapport nominatif :** [AUDIT_NAVIGATEUR_360_409_20261031.md](AUDIT_NAVIGATEUR_360_409_20261031.md). Syntaxe JavaScript vérifiée avant commit ; CI du nouveau HEAD à contrôler, aucun résultat anticipé.
 - **597 missions conservées, 0 créée ; aucun code de production ni aucune application AppDeploy modifiés.** Tests physiques, Firefox/Safari, NVDA/TalkBack/VoiceOver, RGAA, fidélité scientifique des animations et audit historique de sécurité non réalisés. Dépôt public, progression locale non authentifiée.
 - **Phase 1 maintenue.** Suite : contrôler les runs du nouveau commit, corriger les anomalies éventuelles, ajouter des contre-calculs indépendants et poursuivre 410–459 après réussite.
+
+
+### Complément scientifique 360–409 — huit références indépendantes
+
+- **HEAD initial du complément :** `4f73ef44b57e97172f497cd4f0fa7306bf81a2ee`.
+- Nouveau test `tests/audit-browser-batch-360-409-eight-models.test.cjs` : **8 modèles SI, 32 comparaisons numériques de référence**, unités, domaines, invariants, contrôle structurel SVG et HTML ; syntaxe vérifiée avant publication.
+- **Résultats des workflows à vérifier après publication** ; ne pas assimiler l'ajout de tests à leur réussite. La recette Chromium du lot 360–409 déclenchée par le commit précédent doit également être contrôlée.
+- Aucun code scientifique de production, aucune mission, aucun accueil ni aucune application AppDeploy modifiés. Phase 1 maintenue.
