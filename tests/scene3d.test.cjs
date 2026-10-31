@@ -60,3 +60,12 @@ test('courroie 3D : rejet des géométries dégénérées',()=>{
  for(const args of [[0,0,-90,90],[0,-1,-90,90],[0,48,90,90],[0,48,91,90],[0,48,NaN,90],[Infinity,48,-90,90]])
   assert.throws(()=>scene.beltMarkerPosition(...args),RangeError);
 });
+
+test('résistance au roulement 3D : force nulle sans vecteur fictif',()=>{
+ const zero=scene.render('rolling-load-01',0,0,0);
+ const positive=scene.render('rolling-load-01',0,0,.025);
+ assert.equal(scene.describe('rolling-load-01',0).resistance,0);
+ assert.equal(scene.describe('rolling-load-01',.025).resistance,200);
+ assert.doesNotMatch(zero,/stroke="#ff9999"/,'Aucune flèche de résistance pour Fᵣ = 0 N');
+ assert.match(positive,/stroke="#ff9999"/,'La flèche de résistance doit apparaître pour Fᵣ > 0 N');
+});
