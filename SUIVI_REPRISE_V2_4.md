@@ -897,3 +897,9 @@
 - La CI du commit `aba8e2b127c7e01fd0fb38dc9278f15748db89c4` a montré **21 échecs Node sur 2 629 tests** : assertions d'inventaire figées à 597, tandis que le catalogue contient désormais 602 missions. Les deux recettes navigateur ont échoué car leurs échantillons déterministes utilisaient la taille totale du catalogue.
 - Correctif : 21 tests historiques vérifient la conservation du seuil minimal de 597 ; une liste de référence des 597 identifiants initiaux garantit désormais leur présence et leur ordre exact. Les cinq nouvelles entrées sont ajoutées **après** les 597 anciennes. Les recettes navigateur historiques sélectionnent uniquement le périmètre initial, sans supprimer de scénario.
 - La nouvelle CI doit encore être confirmée sur le commit correctif ; aucune recette physique NVDA/TalkBack/VoiceOver revendiquée.
+
+
+### Contrôles du correctif d'extension
+
+- Commit `e9c23d2143b5501a3615a669706c6e9e726fdd38` : **2 630/2 630 tests Node réussis**, zéro échec, selon les journaux de la recette `41230857530`. Les contrôles scientifiques `41230857509` et qualité `41230857541` sont également verts. Recette navigateur `41230857535` en cours au moment du constat.
+- Ajout d'une recette Playwright ciblée pour les **cinq nouvelles pages**, chacune testée en viewport bureau et Android émulé : chargement, calcul nominal, absence d'erreur JavaScript, déblocage de l'exploration et affichage du schéma. La réussite de cette nouvelle recette doit être constatée sur le prochain SHA ; elle ne remplace pas des appareils physiques.

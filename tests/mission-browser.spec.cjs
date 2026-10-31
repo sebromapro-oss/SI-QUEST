@@ -1203,3 +1203,33 @@ for(const device of [
   });
  });
 }
+
+
+// Recette explicite des nouvelles missions : la sélection historique des 597
+// ne suffit pas à démontrer le fonctionnement des pages 598–602.
+for(const device of [
+ {name:'desktop',viewport:{width:1440,height:900},isMobile:false,hasTouch:false},
+ {name:'android-emule',viewport:{width:390,height:844},isMobile:true,hasTouch:true}
+]){
+ test.describe('missions 598–602 — '+device.name,()=>{
+  test.use({viewport:device.viewport,isMobile:device.isMobile,hasTouch:device.hasTouch});
+  test('cinq calculs nominaux, navigation et graphiques débloqués',async({page})=>{
+   test.setTimeout(120_000);
+   const meta=require('../src/batch598-602.js').meta;
+   const errors=[];page.on('pageerror',e=>errors.push(e.message));
+   for(const mission of meta){
+    errors.length=0;
+    await page.goto('http://127.0.0.1:4173/missions/'+mission.id+'.html');
+    await expect(page.locator('h1')).toContainText(mission.title);
+    await expect(page.locator('#solution')).toBeDisabled();
+    await expect(page.locator('#trialValue')).toBeDisabled();
+    await page.locator('#answer').fill(String(mission.expected));
+    await page.locator('#calc button[type="submit"]').click();
+    await expect(page.locator('#feedback')).toContainText('Calcul juste');
+    await expect(page.locator('#trialValue')).toBeEnabled();
+    await expect(page.locator('figure svg').first()).toBeVisible();
+    expect(errors,mission.id+' : erreur JavaScript').toEqual([]);
+   }
+  });
+ });
+}
