@@ -573,3 +573,10 @@
 - **Périmètre préservé :** aucun code ou configuration AppDeploy, accueil, carte des 17 univers, asset, marquage auteur, backend ou budget externe modifié.
 - **Prochaine action :** examiner le verdict Chromium 41187846793 et corriger toute régression ; confirmer 309/597 seulement si réussite, puis étendre la recette à 310–359. **Phase 1 maintenue ; phase 2 (598–996) suspendue.**
 - **HEAD avant le présent commit de suivi :** `3bdc83799485eff84a3ba0d8ab72b420e7ed90cf`. Le SHA final est celui retourné par GitHub à la publication.
+
+
+### Ajustement CI du lot 260–309 — délai de recette cumulative
+
+- [Commit `81fd3128`](https://github.com/sebromapro-oss/SI-QUEST/commit/81fd312829d95fd0c896d21b09a9ac01eb0735a2) : durée maximale du **job Chromium** portée de **20 à 35 minutes** pour permettre l'exécution des scénarios cumulés 1–309. Aucun test supprimé, aucune assertion affaiblie, aucune équation de production modifiée.
+- [Nouveau run Chromium 41187987602](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41187987602) déclenché par ce commit ; [premier run 41187846793](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41187846793) également à vérifier. **Ne pas déclarer 309/597 avant réussite du navigateur**.
+- Aucun service payant ajouté. Cette modification n'est pas une validation scientifique ou d'accessibilité.
