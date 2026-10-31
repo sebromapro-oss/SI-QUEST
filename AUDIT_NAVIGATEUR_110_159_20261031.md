@@ -33,3 +33,13 @@ Date : 31 octobre 2026. Dépôt `sebromapro-oss/SI-QUEST`, branche `main`.
 - Dépôt public, réponses attendues dans les HTML, progression locale non authentifiée ; audit complet de l'historique et des secrets restant à réaliser.
 - Inventaire **597 missions**, aucune nouvelle mission. Accueil, carte des 17 univers, styles, marquage d'auteur, projets AppDeploy et budgets inchangés.
 - **Phase 1 maintenue**, phase 2 suspendue. Prochaine action : récupérer le verdict Chromium et corriger tout échec ; ensuite étendre la recette à 25–50 missions supplémentaires non couvertes, puis tests réels d'accessibilité.
+
+
+## Contre-réception Chromium confirmée — 31 octobre 2026, 08 h 51 locale
+
+- Le [run Chromium 41177603382](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41177603382) s'est terminé avec le statut **success** sur le commit de tests `0e1fc0121c04279ff0a4894712704014609ecaf0`.
+- **38/38 scénarios Playwright réussis en 9,5 minutes**, sans échec. Les six nouveaux scénarios couvrent 50 missions supplémentaires (deux lots de 25 sur deux viewports) et cinq missions contrôlées au clavier sur chacun des deux viewports.
+- **Couverture navigateur cumulée confirmée : 159/597 missions distinctes**, soit 26,6 %. Il reste **438 missions** à couvrir par ces parcours. La couverture des 159 missions signifie recette fonctionnelle échantillonnée par mission, **pas** validation scientifique, graphique ou RGAA individuelle complète.
+- Les modifications postérieures au commit navigateur portent exclusivement sur les tests scientifiques et la documentation ; aucun contrôleur, HTML, CSS ou script navigateur n'a été modifié entre le run Chromium et ce bilan.
+- Les trois workflows Node/science ont également réussi sur le HEAD de suivi `1a392e61a8500427462cf169a90a257ee9ba4122` : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41177894375), [science](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41177894408), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41177894486), **2 204/2 204 tests**.
+- **Décision : phase 1 maintenue** ; prochain lot de 25 à 50 missions encore non couvertes, avec contrôles clavier, puis recette réelle sur appareils et lecteurs d'écran.
