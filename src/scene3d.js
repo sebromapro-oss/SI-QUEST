@@ -90,11 +90,21 @@ function render(id,yaw,pitch,x,options={}){
   notes.push('N = 8 000 N ; Fᵣ = '+d.resistance.toFixed(1)+' N','Résistance opposée au déplacement ; longueur des vecteurs indicative');break;
  }
  }
- line([-130,-115,0],[-90,-115,0],'#ffca7d');line([-130,-115,0],[-130,-75,0],'#7ce8ae');line([-130,-115,0],[-130,-115,40],'#cdaaff');
+ // Repère orthographique ancré dans le cadre : ses axes restent visibles au zoom maximal.
+ const origin=[95,120],center=P([0,0,0]);
+ const axisPart=([v,label,color])=>{
+  const p=P(v),x=origin[0]+p[0]-center[0],y=origin[1]+p[1]-center[1];
+  const visible=Math.hypot(x-origin[0],y-origin[1])>=2;
+  return (visible?'<path d="M95 120 L'+x.toFixed(2)+' '+y.toFixed(2)+'" stroke="'+color+'" stroke-width="2" fill="none"/>':'<circle cx="95" cy="120" r="3" fill="'+color+'"/>')+
+   '<text x="'+(visible?x+4:origin[0]+8).toFixed(2)+'" y="'+(visible?y-4:origin[1]+16).toFixed(2)+'" fill="'+color+'" font-size="12">'+label+'</text>';
+ };
+ const axes='<g aria-hidden="true" class="scene3-axes">'+[
+  [[24,0,0],'x','#ffca7d'],[[0,24,0],'y','#7ce8ae'],[[0,0,24],'z','#cdaaff']
+ ].map(axisPart).join('')+'</g>';
  const visibleNotes=options.conceptOnly?['Exploration qualitative : valeur calculée masquée.','Le mouvement ne valide pas la réponse.']:notes;
  const description=visibleNotes.join(' ; ');
  const escape=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
- return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="scene3-title scene3-desc" style="width:100%;max-width:100%;background:#092236;border-radius:12px"><title id="scene3-title">Scène géométrique spatiale interactive</title><desc id="scene3-desc">'+escape(description)+'. Projection orthographique d’une géométrie 3D schématique ; ce n’est pas une CAO.</desc><defs>'+['#ffca7d','#7ce8ae','#ff9999','#8ddcff'].map(c=>'<marker id="sq-arrow-'+c.slice(1)+'" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="'+c+'" stroke-width="1.5"/></marker>').join('')+'</defs>'+segments.join('')+'<text x="14" y="278" fill="#fff" font-size="14">'+escape(visibleNotes[0]||'')+'</text><text x="14" y="294" fill="#fff" font-size="12">'+escape(visibleNotes[1]||'')+'</text></svg>';
+ return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="scene3-title scene3-desc" style="width:100%;max-width:100%;background:#092236;border-radius:12px"><title id="scene3-title">Scène géométrique spatiale interactive</title><desc id="scene3-desc">'+escape(description)+'. Projection orthographique d’une géométrie 3D schématique ; ce n’est pas une CAO.</desc><defs>'+['#ffca7d','#7ce8ae','#ff9999','#8ddcff'].map(c=>'<marker id="sq-arrow-'+c.slice(1)+'" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="'+c+'" stroke-width="1.5"/></marker>').join('')+'</defs>'+segments.join('')+axes+'<text x="14" y="278" fill="#fff" font-size="14">'+escape(visibleNotes[0]||'')+'</text><text x="14" y="294" fill="#fff" font-size="12">'+escape(visibleNotes[1]||'')+'</text></svg>';
 }
 const api=Object.freeze({allowed,animated,describe,render,beltMarkerPosition});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
