@@ -20,10 +20,7 @@ for(const device of [
    for(let attempt=1;attempt<=3;attempt++){
     await answer.fill('0');
     await submit.click();
-    await expect(page.locator('#feedback')).toContainText('essai '+attempt+'/3').catch(async()=>{
-     // Le feedback pédagogique est distinct du carnet des essais.
-     await expect(page.locator('#log li').last()).toContainText('essai '+attempt+'/3');
-    });
+    await expect(page.locator('#log li').last()).toContainText('essai '+attempt+'/3');
     await expect(page.locator('#trialValue')).toBeEnabled();
     await expect(page.locator('#trial')).toBeDisabled();
     await expect(page.locator('#solution')).toBeDisabled();
