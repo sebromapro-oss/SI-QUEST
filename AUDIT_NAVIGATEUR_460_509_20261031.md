@@ -86,3 +86,10 @@ Les **42 lois non contre-calculées** dans ce lot, la fidélité des animations,
 
 - [Run 41204779823](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41204779823) : **33 échecs restants sur 2 378 tests**, tous issus du nouveau banc structurel : les 33 missions historiques du lot utilisent directement `src/investigations.js`, sans fichier `batch*.js`. Le test détecte désormais les deux architectures, sans supprimer les vérifications de calcul, bornes, unités et objectifs.
 - La recette Node du nouveau commit reste à contrôler ; ne pas déclarer de réception avant résultat.
+
+
+### Contre-audit de la répartition Chromium
+
+- La première matrice de deux shards s'est avérée **déséquilibrée** : le shard 2 du [run 41204779854](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41204779854) a terminé en 37 s, alors que le shard 1 exécutait encore presque tous les tests de missions. Par défaut, Playwright peut répartir des fichiers entiers, et le catalogue de tests navigateur est concentré dans un seul fichier.
+- **Correction ciblée du workflow** : `--fully-parallel --workers=2 --shard=N/2` pour répartir les cas de test, pas seulement les fichiers. Les deux shards doivent réussir. Aucune suppression de scénario ni modification des seuils de validation. La nouvelle exécution doit encore prouver sa réussite.
+- [Contrôles scientifiques 41204845404](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41204845404) : **2 387/2 387 tests réussis** sur `3e83ed7e`, [qualité 41204845426](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41204845426) et [recette Node 41204845374](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41204845374) **success**. La recette Chromium du lot 460–509 n'est pas encore confirmée.
