@@ -370,3 +370,96 @@ for(const device of [
   });
  });
 }
+
+
+/*
+ * Recette 160–209 : cinquante nouvelles missions uniques, sans modifier
+ * les pages ni les modèles. Échantillonnage déterministe réparti sur le
+ * catalogue ; couverture fonctionnelle Chromium, non validation physique.
+ */
+function nextBrowserBatch160to209(){
+ const original=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ for(let i=0;original.length<25;i++){
+  const candidate=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  if(!original.some(m=>m.id===candidate.id))original.push(candidate);
+ }
+ const used=new Set(original.map(m=>m.id));
+ for(let i=0;used.size<50&&i<catalog.levels.length;i++){
+  used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ }
+ for(const mission of browserBatch051to100)used.add(mission.id);
+ for(const id of historicIds)used.add(id);
+ for(const mission of browserBatch110to159)used.add(mission.id);
+ if(used.size!==159)throw new Error('Couverture précédente incohérente : '+used.size+'/159');
+ const fresh=[];
+ for(let i=0;fresh.length<50&&i<catalog.levels.length;i++){
+  const candidate=catalog.levels[(89+41*i)%catalog.levels.length];
+  if(!used.has(candidate.id)){used.add(candidate.id);fresh.push(candidate);}
+ }
+ if(fresh.length!==50||used.size!==209)throw new Error('Lot 160–209 non distinct');
+ return fresh;
+}
+const browserBatch160to209=nextBrowserBatch160to209();
+for(const device of [
+ {name:'desktop',viewport:{width:1440,height:900},isMobile:false,hasTouch:false},
+ {name:'android-emule',viewport:{width:390,height:844},isMobile:true,hasTouch:true}
+]){
+ test.describe('lot navigateur 160–209 — '+device.name,()=>{
+  test.use({viewport:device.viewport,isMobile:device.isMobile,hasTouch:device.hasTouch});
+  for(let group=0;group<2;group++){
+   test('25 missions : 3 essais/3 aides, exploration qualitative et largeur — lot '+(group+1),async({page})=>{
+    test.setTimeout(180_000);
+    const errors=[];
+    page.on('pageerror',e=>errors.push(e.message));
+    for(const mission of browserBatch160to209.slice(group*25,(group+1)*25)){
+     errors.length=0;
+     await page.goto('http://127.0.0.1:4173/'+mission.url);
+     await expect(page.locator('#answer'),mission.id+' : saisie absente').toBeVisible();
+     await expect(page.locator('#trialValue'),mission.id+' : exploration ouverte avant calcul').toBeDisabled();
+     await expect(page.locator('#solution'),mission.id+' : corrigé initial accessible').toBeDisabled();
+     const wrong=await page.evaluate(()=>Math.abs(window.SI_MISSION.expected)*1e6+1e6);
+     await page.locator('#answer').fill(String(wrong));
+     await page.locator('#calc button[type="submit"]').click();
+     await expect(page.locator('#trialValue'),mission.id+' : exploration bloquée après erreur').toBeEnabled();
+     await expect(page.locator('#trial'),mission.id+' : verdict prématuré').toBeDisabled();
+     await expect(page.locator('#solution'),mission.id+' : corrigé prématuré').toBeDisabled();
+     await expect(page.locator('#solutionText'),mission.id+' : corrigé visible').toBeHidden();
+     await page.locator('#trialValue').evaluate(el=>{
+      el.value=el.min;el.dispatchEvent(new Event('input',{bubbles:true}));
+     });
+     const svg=page.locator('figure svg').first();
+     await expect(svg,mission.id+' : schéma absent').toBeVisible();
+     await expect(svg.locator('[data-result]'),mission.id+' : fuite de résultat').toHaveCount(0);
+     const dimensions=await page.evaluate(()=>({document:document.documentElement.scrollWidth,viewport:innerWidth}));
+     expect(dimensions.document,mission.id+' : débordement horizontal').toBeLessThanOrEqual(dimensions.viewport+2);
+     expect(errors,mission.id+' : erreur JavaScript').toEqual([]);
+     for(let i=0;i<3;i++)await page.locator('#hint').click();
+     await expect(page.locator('#solution'),mission.id+' : corrigé après une seule tentative').toBeDisabled();
+     for(let i=0;i<2;i++){
+      await page.locator('#answer').fill(String(wrong));
+      await page.locator('#calc button[type="submit"]').click();
+     }
+     await expect(page.locator('#solution'),mission.id+' : corrigé bloqué après 3+3').toBeEnabled();
+     await page.locator('#solution').click();
+     await expect(page.locator('#solutionText'),mission.id+' : corrigé absent après autorisation').toBeVisible();
+     expect(errors,mission.id+' : exception après validation').toEqual([]);
+    }
+   });
+  }
+  test('clavier : lien d’évitement, entrée et corrigé protégé sur cinq missions',async({page})=>{
+   test.setTimeout(90_000);
+   for(const mission of browserBatch160to209.slice(0,5)){
+    await page.goto('http://127.0.0.1:4173/'+mission.url);
+    await page.keyboard.press('Tab');
+    await expect(page.locator('a.skip'),mission.id+' : lien d’évitement').toBeFocused();
+    const answer=page.locator('#answer');
+    await answer.focus();
+    const wrong=await page.evaluate(()=>Math.abs(window.SI_MISSION.expected)*1e6+1e6);
+    await answer.fill(String(wrong));
+    await answer.press('Enter');
+    await expect(page.locator('#trialValue'),mission.id+' : Entrée non fonctionnelle').toBeEnabled();
+    await expect(page.locator('#solution'),mission.id+' : fuite du corrigé').toBeDisabled();
+   }
+  });
+ });
+}
