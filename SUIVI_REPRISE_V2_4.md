@@ -858,3 +858,14 @@
 - Conserver **l'unique automatisation SI QUEST existante**, cadence horaire ; ne pas créer de doublon. Chaque cycle doit avancer autant que le permettent les outils et la durée, sans s'arrêter artificiellement après un commit.
 - Périmètre **GitHub SI-QUEST uniquement**. Préserver intégralement accueil personnalisé, carte des 17 univers, assets, styles, scripts, navigation, attribution et historique. **Aucune modification AppDeploy** : SI-MISSION, SI MÉCA LAB, SI MAP, SI RESSOURCES, AXIOME et ORMAV relèvent exclusivement du programme SI FRANCE.
 - À chaque cycle, mettre à jour ce registre avec : HEAD avant/après, commits réels, identifiants et nombre de missions effectivement auditées, tests et liens de runs, pass/fail, preuves manquantes, anomalies non résolues et prochaine action concrète. Ne jamais confondre planification et réalisation.
+
+
+## Cycle V2.5 du 31 octobre 2026 — neuf missions, sept scènes 3D et audit croisé 443–467
+
+- **HEAD initial :** `280a2446cb2af3e8181c132208162885e59966dc` ; **HEAD de code observé avant documentation :** `f2395fde6c7a4634233247751fabeeb5d6c76265`.
+- **Corrections publiées :** trois nouvelles gardes de soumission (`8ba57d9a`, `f52eb8c6`, `f6243032`), verrouillage transversal des neuf missions (`1cf4358c`), corrections des tests (`6bad4d86`, `26ad3c55`), protection des sept scènes 3D (`b6579b74`), correction du repli DOM et des tests (`f2395fde`).
+- **Preuves V8 ciblées :** 9/9 tests de garde des essais, 3/3 tests de robustesse 3D. **Contre-audit 25 pages de production 443–467 : 25/25 concordances métadonnées et résultats attendus ; 25/25 trois flash et contrôles HTML ciblés.** Rapport : `AUDIT_FONCTIONNEL_3D_443_467_20261031.md`.
+- **CI :** les trois workflows ont réussi sur `f6243032`. Les versions intermédiaires `1cf4358c`, `6bad4d86`, `26ad3c55` ont échoué (18 simulations DOM + 1 assertion obsolète dans la recette Node) ; correctif `f2395fde` publié. **CI du HEAD de code `f2395fde6c` à confirmer** ; ne pas attribuer un succès non vérifié au présent commit documentaire.
+- **Sécurité :** huit recherches de motifs sensibles dans le code indexé sans résultat ; audit de l'historique et des artefacts non réalisé. Dépôt public et progression locale non authentifiée.
+- **Réserves :** aucun essai NVDA/TalkBack/VoiceOver ni appareil physique ; pas de réception graphique individuelle 597/597 ; aucune mission créée ; aucune modification AppDeploy, accueil ou carte.
+- **Suite :** vérifier et corriger CI sur HEAD, examiner la recette navigateur, renforcer les audits scientifiques/graphique/accessibilité ; phase 1 maintenue.
