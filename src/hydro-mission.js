@@ -25,7 +25,7 @@
     const saved=JSON.parse(localStorage.getItem('siquest-hydro02')||'null');
     if(saved&&typeof saved==='object'){
       state={
-        attempts:Number.isInteger(saved.attempts)&&saved.attempts>=0?Math.min(saved.attempts,999):0,
+        attempts:Number.isInteger(saved.attempts)&&saved.attempts>=0?Math.min(saved.attempts,3):0,
         hints:Number.isInteger(saved.hints)?Math.max(0,Math.min(3,saved.hints)):0,
         calculationPassed:saved.calculationPassed===true,
         solutionShown:saved.solutionShown===true,
@@ -72,6 +72,7 @@
   }
   $('calculations').addEventListener('submit',event=>{
     event.preventDefault();
+    if(state.attempts>=3||state.calculationPassed){$('calculation-feedback').textContent='Trois essais terminés ou calculs déjà validés : consulte les aides ou poursuis l’essai.';return;}
     const wrong=[],values={};
     for(const key of Object.keys(expected)){
       const element=$(key),value=N.parseDecimal(element.value);
