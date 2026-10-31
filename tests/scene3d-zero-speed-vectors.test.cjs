@@ -21,12 +21,13 @@ test('3D arrowhead colors match the vector strokes',()=>{
 test('3D coordinate axes remain visible and rotate with the camera',()=>{
  const a=scene.render('circular-02',0,0,2,{zoom:2});
  const b=scene.render('circular-02',.7,.4,2,{zoom:2});
+ const extract=svg=>svg.split('<g aria-hidden="true" class="scene3-axes">')[1]?.split('</g>')[0];
  for(const svg of [a,b]){
-  const axes=svg.match(/<g aria-hidden="true" class="scene3-axes">([\\s\\S]*?)<\\/g>/);
+  const axes=extract(svg);
   assert.ok(axes,'coordinate triad missing');
-  for(const label of ['x','y','z'])assert.ok(axes[1].includes('>'+label+'</text>'),'missing axis '+label);
-  for(const m of axes[1].matchAll(/(?:cx|cy|x|y)="(-?\\d+(?:\\.\\d+)?)"/g))
+  for(const label of ['x','y','z'])assert.ok(axes.includes('>'+label+'</text>'),'missing axis '+label);
+  for(const m of axes.matchAll(/(?:cx|cy|x|y)="(-?[0-9]+(?:[.][0-9]+)?)"/g))
    assert.ok(Number(m[1])>=0&&Number(m[1])<=300,'axis outside the viewport');
  }
- assert.notEqual(a.match(/<g aria-hidden="true" class="scene3-axes">([\\s\\S]*?)<\\/g>/)[1],b.match(/<g aria-hidden="true" class="scene3-axes">([\\s\\S]*?)<\\/g>/)[1]);
+ assert.notEqual(extract(a),extract(b));
 });
