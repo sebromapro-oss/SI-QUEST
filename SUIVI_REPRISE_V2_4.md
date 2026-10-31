@@ -404,3 +404,14 @@
 - **Bilan du cycle :** 33 missions (10–42), 33 références indépendantes, **132 points numériques** dans les nouveaux tests ; **75 questions flash** pour 25 missions (10–34). 597 missions conservées, 0 créée. Couverture documentaire 10–597 : **588/597 (98,5 %)**, sans prétendre à la réception complète.
 - **Reste à faire :** missions 1–9, politiques scientifiques/tolérances et corrigés détaillés des premières missions, tests navigateur et smartphone réels, géométrie/animations temporelles, NVDA/TalkBack/VoiceOver, sécurité/confidentialité et audit du dépôt public. Phase 1 maintenue, aucun AppDeploy modifié.
 - **Le présent commit documentaire est postérieur au SHA CI ci-dessus :** vérifier ses trois propres workflows avant de déclarer le HEAD final validé.
+
+
+### Cycle V2.5 — missions 001–009 et réactivation mémoire (31 octobre 2026)
+
+- **HEAD initial distant :** `8abce66d3a6fc03b1721269aed265814da6f35e6` ; trois workflows GitHub Actions `success` au démarrage (recette `41159544521`, science `41159544631`, qualité `41159544531`). Dernier décompte vérifié : **2 169/2 169 tests réussis** sur ce SHA.
+- **Audit :** neuf missions historiques autonomes, contre-calculs indépendants à trois valeurs par moteur au minimum, conversions SI, invariants et cas invalides ; fichier `tests/audit-001-009-independent.test.cjs`. Rapport : [AUDIT_SCIENTIFIQUE_001_009_20261031.md](AUDIT_SCIENTIFIQUE_001_009_20261031.md).
+- **Anomalie pédagogique :** cinq missions sans trois questions flash identifiables (001, 006–009), deux missions avec rappels présentés directement comme réponses (003–004). Correction HTML ciblée sur sept pages : trois questions explicites, sans modification des modèles, de l'accueil, des 17 univers ou de la navigation. Les missions 002 et 005 avaient déjà trois questions.
+- **Inventaire :** 597 missions conservées, 0 nouvelle mission. Couverture documentaire 001–597 = **597/597**, ce qui **ne constitue pas une réception scientifique exhaustive**.
+- **Statut CI du présent commit :** à vérifier après publication ; aucun résultat présumé. Vérifier les trois workflows sur le nouveau SHA, corriger tout échec avant la phase suivante.
+- **Blocages de réception :** contrôle complet 3 essais/3 aides des contrôleurs autonomes, animations 2D/3D après erreur, fidélité temporelle, rendu smartphone, NVDA/TalkBack/VoiceOver, audit sécurité du dépôt public et données historiques. Phase 1 maintenue.
+- **Prochaine action :** vérifier les trois CI du nouveau HEAD, corriger toute régression ; effectuer un audit transversal des missions 001–597 et prioriser la recette navigateur/mobile réelle. Aucun projet AppDeploy modifié.
