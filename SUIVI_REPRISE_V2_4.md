@@ -658,3 +658,10 @@
 - [Run scientifique initial 41204664171](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41204664171) : **échec réel, 39 assertions sur 2 378 tests**, dû à un défaut du nouveau banc de test : les 39 pages de génération historique affichent objectifs/prérequis dans le HTML visible mais ne les dupliquent pas dans `window.SI_MISSION`. Le test vérifie désormais le texte pédagogique effectivement visible et les champs JS lorsqu'ils existent. **Aucun contrôle pédagogique supprimé.**
 - **Défaut graphique de production identifié :** plusieurs pages historiques avaient des axes SVG libellés « % », « sans unité » ou « x/y » alors que les grandeurs sont, par exemple, m et km/h (freinage), K et K (échangeur), dB et m (acoustique), Hz et Hz (aliasing). Le contrôleur commun synchronise maintenant les deux axes du graphe paramétrique avec les unités de la mission ; quatre cas ciblés sont testés sur bureau et Android émulé. Cette correction ne modifie ni les formules ni les données numériques.
 - **À vérifier :** nouveaux runs Node/science et Chromium après correctif. Les premiers échecs sont conservés dans l'historique ; aucune validation anticipée.
+
+
+### Complément scientifique du lot 460–509
+
+- Huit modèles supplémentaires contre-calculés : décharge RC, réactance inductive, puissance du liquide de refroidissement, accélération centripète, mélange d'eau, rendement volumétrique, distance de freinage et perte de charge singulière.
+- **16 modèles distincts et 64 comparaisons numériques indépendantes prévus au total** pour le lot, plus vérification des unités, bornes et invariants. Les huit nouvelles valeurs nominales ont été vérifiées mathématiquement avant publication ; les **tests Node complets sont à confirmer en CI**.
+- Aucune mission ni équation de production modifiée par ce complément ; le nouveau test ne couvre pas les 34 autres lois, les graphismes physiques ni l'accessibilité réelle.
