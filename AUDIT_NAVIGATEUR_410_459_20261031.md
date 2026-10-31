@@ -79,3 +79,12 @@
 - **Appareils physiques, Firefox, Safari, NVDA, TalkBack, VoiceOver, audit RGAA et revue historique des secrets non réalisés.** Dépôt **public**, réponses attendues dans le HTML, progression locale non authentifiée.
 - **597 missions conservées, 0 mission créée.** Aucun code de production, accueil, carte des 17 univers, marquage auteur, asset, application AppDeploy, backend ou budget externe modifié.
 - **Phase 1 maintenue**. Prochaine étape : examiner les verdicts Node et Chromium, corriger les régressions, puis étendre la recette aux missions 460–509.
+
+## Complément de contre-réception du 31 octobre
+
+- **Inspection directe des 50 fichiers HTML du lot : 50/50 conformes aux contrôles structurels effectués.** Identifiants, nombres finis, bornes, unités d'entrée et de sortie, formules, objectifs, prérequis, langue française et lien d'évitement vérifiés. Cela ne constitue pas une validation de toutes les équations.
+- [Tests structurels permanents](tests/audit-browser-batch-410-459-structure.test.cjs) ajoutés au commit [`ce015de9`](https://github.com/sebromapro-oss/SI-QUEST/commit/ce015de9641e622779625e014e73b0c2c755da7f) : **50 cas individuels + un test d'inventaire**, soumis à CI.
+- **Résultat scientifique précédent confirmé :** [recette Node 41200389380](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41200389380) : **2 267/2 267 réussis** sur `b98d9f1a`, dont les huit références indépendantes ; [contrôles 41200389390](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41200389390) et [qualité 41200389438](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41200389438) : **success**.
+- Les trois workflows du commit documentaire `5864ef54` sont également **success** : [recette 41200423852](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41200423852), [science 41200423889](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41200423889), [qualité 41200423879](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41200423879).
+- **Échecs intermédiaires conservés** sur `a135c38a` : expressions régulières SVG échappées deux fois dans le nouveau banc de test ; corrigées au commit `b98d9f1a` sans supprimer de test ni modifier le moteur scientifique.
+- La [recette Chromium 410–459](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41200350785) est **en cours** ; le total confirmé demeure **409/597**, et non 459/597.
