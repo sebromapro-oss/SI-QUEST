@@ -471,3 +471,12 @@
 - **Contrôle final en attente à cette écriture :** vérifier les trois workflows sur le HEAD documentaire ainsi que le nouveau run Chromium de `c9fb94c4` ; ne pas déclarer ces résultats avant leur achèvement.
 - **Blocages de réception :** 488 autres missions sans parcours navigateur, animations à vérifier physiquement, accessibilité NVDA/TalkBack/VoiceOver, appareils Android/iPhone réels, Firefox/Safari, sécurité historique et preuves scientifiques/graphiques individuelles. **Phase 1 maintenue ; 598–996 suspendues.** Aucun projet AppDeploy modifié.
 - **Prochaine action :** contrôler les runs finaux, corriger toute régression, puis poursuivre la recette navigateur sur 25–50 missions distinctes non couvertes et les tests d'accessibilité au clavier.
+
+
+#### Contre-réception des workflows et sécurité CI — même cycle
+
+- **Tests de sécurité ajoutés :** [`1c2037b1`](https://github.com/sebromapro-oss/SI-QUEST/commit/1c2037b1a362550808bdea7e7caa231079f77261), quatre tests Node pour garantir les jetons GitHub Actions en lecture seule dans les quatre workflows.
+- **Tests automatisés sur `1c2037b1` : 2 196/2 196 réussis**, trois workflows verts ([recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41176927496), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41176927480), [science](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41176927436)).
+- **Recette Chromium relancée après durcissement : 32/32 scénarios réussis sur `c9fb94c4`**, [run 41176735709](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41176735709), 109 missions distinctes couvertes dans les parcours cumulés. Le code navigateur n'a pas changé depuis ce commit ; les modifications ultérieures concernent workflow scientifique, tests Node et documentation.
+- **Rapport consolidé :** [AUDIT_NAVIGATEUR_051_109_20261031.md](AUDIT_NAVIGATEUR_051_109_20261031.md), addendum documentaire [`59c0b823`](https://github.com/sebromapro-oss/SI-QUEST/commit/59c0b82332ecb1042b3e85db8f47e8cd2337cfbf).
+- **HEAD documentaire de cette mise à jour :** successeur de `59c0b823` ; vérifier les trois workflows sur son SHA avant toute affirmation de réception CI finale. Phase 1 maintenue ; 488 missions restent à parcourir en navigateur, essais physiques/lecteurs d'écran non réalisés.
