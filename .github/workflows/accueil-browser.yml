@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['index.html','src/home.js','src/style.css','src/catalog.js','assets/**','missions/**','src/investigation-mission.js','src/scene3d.js','src/mission.css','tests/accueil-browser.spec.cjs','tests/mission-browser.spec.cjs','.github/workflows/accueil-browser.yml']
+    paths: ['index.html','src/**','assets/**','missions/**','tests/accueil-browser.spec.cjs','tests/mission-browser.spec.cjs','.github/workflows/accueil-browser.yml']
 permissions:
   contents: read
 jobs:
