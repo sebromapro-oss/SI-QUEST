@@ -66,3 +66,10 @@
 
 ## Réserves et suite
 Les **42 lois non contre-calculées** dans ce lot, la fidélité des animations, les essais physiques Android/iPhone, Firefox/Safari, NVDA/TalkBack/VoiceOver, le RGAA et la sécurité historique restent à réceptionner. Dépôt public ; progression locale non authentifiée. Si Chromium réussit, il restera **88 missions** sans recette navigateur (510–597), puis les audits scientifiques et matériels. Le registre de reprise doit être actualisé après le verdict réel.
+
+
+### Contre-audit du lot 460–509 — anomalies et correctifs
+
+- [Run scientifique initial 41204664171](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41204664171) : **échec réel, 39 assertions sur 2 378 tests**, dû à un défaut du nouveau banc de test : les 39 pages de génération historique affichent objectifs/prérequis dans le HTML visible mais ne les dupliquent pas dans `window.SI_MISSION`. Le test vérifie désormais le texte pédagogique effectivement visible et les champs JS lorsqu'ils existent. **Aucun contrôle pédagogique supprimé.**
+- **Défaut graphique de production identifié :** plusieurs pages historiques avaient des axes SVG libellés « % », « sans unité » ou « x/y » alors que les grandeurs sont, par exemple, m et km/h (freinage), K et K (échangeur), dB et m (acoustique), Hz et Hz (aliasing). Le contrôleur commun synchronise maintenant les deux axes du graphe paramétrique avec les unités de la mission ; quatre cas ciblés sont testés sur bureau et Android émulé. Cette correction ne modifie ni les formules ni les données numériques.
+- **À vérifier :** nouveaux runs Node/science et Chromium après correctif. Les premiers échecs sont conservés dans l'historique ; aucune validation anticipée.

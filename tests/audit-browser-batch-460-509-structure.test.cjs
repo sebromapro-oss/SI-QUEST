@@ -227,8 +227,15 @@ for(const [id,world] of inventory){
   for(const key of ['expected','min','max','initial'])
    assert.ok(Number.isFinite(cfg[key]),id+' : '+key);
   assert.ok(cfg.min<cfg.max&&cfg.initial>=cfg.min&&cfg.initial<=cfg.max,id+' : domaine');
-  for(const key of ['unit','inputUnit','formula','context','objective','prerequisites'])
+  for(const key of ['unit','inputUnit','formula','context'])
    assert.ok(typeof cfg[key]==='string'&&cfg[key].trim(),id+' : '+key);
+  // Deux générations de pages : les objectifs sont toujours visibles,
+  // mais seules les pages récentes les dupliquent dans la configuration JS.
+  assert.match(html,/<strong>Objectif[^<]*:/i,id+' : objectif visible absent');
+  assert.match(html,/<strong>Prérequis[^<]*:/i,id+' : prérequis visibles absents');
+  for(const key of ['objective','prerequisites'])
+   if(cfg[key]!==undefined)
+    assert.ok(typeof cfg[key]==='string'&&cfg[key].trim(),id+' : '+key+' vide');
   const scripts=[...html.matchAll(/<script[^>]+src=["']\.\.\/src\/(batch[0-9-]+\.js)["']/g)];
   assert.ok(scripts.length,id+' : moteur de lot introuvable');
   const engine=require(path.join(__dirname,'..','src',scripts.at(-1)[1])).physics;

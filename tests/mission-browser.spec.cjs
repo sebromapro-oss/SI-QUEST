@@ -998,3 +998,25 @@ for(const device of [
   });
  });
 }
+
+/* Non-régression : les axes de l'investigation correspondent aux unités
+ * du modèle, y compris sur les pages historiques aux libellés HTML génériques. */
+for(const device of [
+ {name:'desktop',viewport:{width:1440,height:900},isMobile:false,hasTouch:false},
+ {name:'android-emule',viewport:{width:390,height:844},isMobile:true,hasTouch:true}
+]){
+ test.describe('unités des axes SVG — '+device.name,()=>{
+  test.use({viewport:device.viewport,isMobile:device.isMobile,hasTouch:device.hasTouch});
+  test('les axes du graphe suivent les unités physiques de la mission',async({page})=>{
+   for(const id of ['braking-distance-friction-01','heat-exchanger-lmtd-01',
+    'acoustic-distance-loss-01','sampling-alias-frequency-01']){
+    await page.goto('http://127.0.0.1:4173/missions/'+id+'.html');
+    const axes=await page.locator('#curve').evaluate(el=>
+     Array.from(el.ownerSVGElement.children).filter(n=>n.tagName.toLowerCase()==='text')
+      .map(n=>n.textContent.trim()));
+    const expected=await page.evaluate(()=>[window.SI_MISSION.unit,window.SI_MISSION.inputUnit]);
+    expect(axes,id+' : axes SVG non conformes aux unités').toEqual(expected);
+   }
+  });
+ });
+}
