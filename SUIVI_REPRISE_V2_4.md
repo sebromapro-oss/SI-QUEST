@@ -890,3 +890,10 @@
 - 597 missions initiales préservées ; cinq nouvelles pages, un moteur scientifique et graphique, un test Node de références indépendantes et cinq entrées catalogue ; total attendu : **602 missions** et 17 univers.
 - Précontrôle : trois points par modèle (minimum, nominal, maximum), formulation algébrique indépendante, SVG paramétrique fini, domaines et garde contre les valeurs invalides, trois questions flash et contenu professionnel. La CI du commit doit encore être confirmée.
 - Réserves : pas de recette manuelle ni tests physiques NVDA/TalkBack/VoiceOver, pas de réception 597/597 ; poursuivre l'audit et corriger immédiatement toute CI rouge. Aucun changement AppDeploy ou accueil.
+
+
+### Correction CI de l'extension 598–602
+
+- La CI du commit `aba8e2b127c7e01fd0fb38dc9278f15748db89c4` a montré **21 échecs Node sur 2 629 tests** : assertions d'inventaire figées à 597, tandis que le catalogue contient désormais 602 missions. Les deux recettes navigateur ont échoué car leurs échantillons déterministes utilisaient la taille totale du catalogue.
+- Correctif : 21 tests historiques vérifient la conservation du seuil minimal de 597 ; une liste de référence des 597 identifiants initiaux garantit désormais leur présence et leur ordre exact. Les cinq nouvelles entrées sont ajoutées **après** les 597 anciennes. Les recettes navigateur historiques sélectionnent uniquement le périmètre initial, sans supprimer de scénario.
+- La nouvelle CI doit encore être confirmée sur le commit correctif ; aucune recette physique NVDA/TalkBack/VoiceOver revendiquée.

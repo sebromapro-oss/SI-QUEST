@@ -46,7 +46,7 @@ for(const [id,reference,unit,inputUnit] of cases){
 }
 test('invariants des huit modèles complémentaires',()=>{
  assert.equal(cases.length,8);assert.equal(new Set(cases.map(x=>x[0])).size,8);
- assert.equal(catalog.levels.length,597);
+ assert.ok(catalog.levels.length>=597);
  assert.equal(physics.calculate('inductor-reactance-frequency-01',0),0);
  assert.equal(physics.calculate('rotor-centripetal-acceleration-01',0),0);
  assert.equal(physics.calculate('braking-distance-friction-01',0),0);

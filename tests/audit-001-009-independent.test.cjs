@@ -17,7 +17,7 @@ const cooling=require('../src/cooling.js').solve;
 const ids=['gear-01','hydro-01','slope-01','electric-01','braking-01','rolling-01','spring-01','lever-01','cooling-01'];
 const near=(actual,expected,label)=>assert.ok(Number.isFinite(actual)&&Number.isFinite(expected)&&Math.abs(actual-expected)<=1e-9*Math.max(1,Math.abs(expected)),label+': '+actual+' ≠ '+expected);
 test('missions 1–9 : catalogue, accessibilité de base et trois questions flash par mission',()=>{
- assert.equal(catalog.levels.length,597);
+ assert.ok(catalog.levels.length>=597);
  assert.equal(new Set(ids).size,9);
  for(const id of ids){
   const entry=catalog.byId(id);assert.ok(entry,'mission absente : '+id);

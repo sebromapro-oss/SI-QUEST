@@ -11,3 +11,5 @@ assert.match(P.answerPolicy[a.id].solution,/Substitution et calcul/);
 });
 test('invariants physiques',()=>{assert.ok(P.calculate(meta[0].id,10)>P.calculate(meta[0].id,35));assert.ok(P.calculate(meta[1].id,35)>P.calculate(meta[1].id,10));assert.equal(P.calculate(meta[2].id,2),2*P.calculate(meta[2].id,1));assert.equal(P.calculate(meta[3].id,0),1400);assert.ok(P.calculate(meta[3].id,1)<100);assert.equal(P.calculate(meta[4].id,0),0);});
 test('contrat trois essais et trois aides',()=>{const s=fs.readFileSync('src/investigation-mission.js','utf8');assert.match(s,/tries>=3\|\|mastered/);assert.match(s,/tries<3\|\|hints<3\|\|mastered/);});
+
+test('les 597 missions historiques sont conservées dans leur ordre',()=>{const ids=require('./legacy-597-ids.json');assert.equal(ids.length,597);assert.deepEqual(C.levels.slice(0,597).map(a=>a.id),ids);});

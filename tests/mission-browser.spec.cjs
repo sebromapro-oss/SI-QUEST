@@ -3,6 +3,8 @@
 // Ces scénarios ne remplacent ni les appareils physiques ni NVDA/TalkBack/VoiceOver.
 const {test,expect}=require('@playwright/test');
 const catalog=require('../src/catalog.js');
+// Les échantillons historiques couvrent les 597 missions d'origine.
+const legacyLevels=catalog.levels.slice(0,597);
 
 for(const device of [
  {name:'desktop',viewport:{width:1440,height:900},isMobile:false,hasTouch:false},
@@ -49,9 +51,9 @@ for(const device of [
    // Un parcours par univers (17), puis 8 missions supplémentaires réparties
    // dans le catalogue : 25 identifiants distincts et 17 univers couverts.
    // Ce test de parcours ne démontre pas la justesse des équations.
-   const missions=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+   const missions=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
    for(let i=0;missions.length<25;i++){
-    const candidate=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+    const candidate=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
     if(!missions.some(m=>m.id===candidate.id))missions.push(candidate);
    }
    const errors=[];
@@ -81,14 +83,14 @@ for(const device of [
    // Échantillon distinct des 25 missions précédentes ; distribution sur tout le catalogue.
    // Il s'agit de contrôles de navigation/interaction, pas de 25 validations scientifiques.
    test.setTimeout(150_000);
-   const original=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+   const original=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
    for(let i=0;original.length<25;i++){
-    const candidate=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+    const candidate=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
     if(!original.some(m=>m.id===candidate.id))original.push(candidate);
    }
    const used=new Set(original.map(m=>m.id)),additional=[];
-   for(let i=0;additional.length<25&&i<catalog.levels.length;i++){
-    const candidate=catalog.levels[(12+23*i)%catalog.levels.length];
+   for(let i=0;additional.length<25&&i<legacyLevels.length;i++){
+    const candidate=legacyLevels[(12+23*i)%legacyLevels.length];
     if(!used.has(candidate.id)){used.add(candidate.id);additional.push(candidate);}
    }
    expect(additional, '25 missions complémentaires distinctes').toHaveLength(25);
@@ -150,20 +152,20 @@ for(const device of [
  */
 const historicIds=new Set(['gear-01','hydro-01','slope-01','electric-01','braking-01','rolling-01','spring-01','lever-01','cooling-01']);
 function nextBrowserBatch(){
- const original=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const original=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;original.length<25;i++){
-  const candidate=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const candidate=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!original.some(m=>m.id===candidate.id))original.push(candidate);
  }
  const used=new Set(original.map(m=>m.id));
  const additional=[];
- for(let i=0;additional.length<25&&i<catalog.levels.length;i++){
-  const candidate=catalog.levels[(12+23*i)%catalog.levels.length];
+ for(let i=0;additional.length<25&&i<legacyLevels.length;i++){
+  const candidate=legacyLevels[(12+23*i)%legacyLevels.length];
   if(!used.has(candidate.id)){used.add(candidate.id);additional.push(candidate);}
  }
  const fresh=[];
- for(let i=0;fresh.length<50&&i<catalog.levels.length;i++){
-  const candidate=catalog.levels[(17+31*i)%catalog.levels.length];
+ for(let i=0;fresh.length<50&&i<legacyLevels.length;i++){
+  const candidate=legacyLevels[(17+31*i)%legacyLevels.length];
   if(!used.has(candidate.id)&&!historicIds.has(candidate.id)){
    used.add(candidate.id);fresh.push(candidate);
   }
@@ -283,23 +285,23 @@ for(const device of [
  * neuf missions historiques déjà contrôlées. Pas de réception physique.
  */
 function nextBrowserBatch110to159(){
- const original=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const original=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;original.length<25;i++){
-  const candidate=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const candidate=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!original.some(m=>m.id===candidate.id))original.push(candidate);
  }
  const used=new Set(original.map(m=>m.id));
  const second=[];
- for(let i=0;second.length<25&&i<catalog.levels.length;i++){
-  const candidate=catalog.levels[(12+23*i)%catalog.levels.length];
+ for(let i=0;second.length<25&&i<legacyLevels.length;i++){
+  const candidate=legacyLevels[(12+23*i)%legacyLevels.length];
   if(!used.has(candidate.id)){used.add(candidate.id);second.push(candidate);}
  }
  for(const mission of browserBatch051to100)used.add(mission.id);
  for(const id of historicIds)used.add(id);
  if(used.size!==109)throw new Error('La couverture précédente doit comprendre 109 missions uniques');
  const fresh=[];
- for(let i=0;fresh.length<50&&i<catalog.levels.length;i++){
-  const candidate=catalog.levels[(53+37*i)%catalog.levels.length];
+ for(let i=0;fresh.length<50&&i<legacyLevels.length;i++){
+  const candidate=legacyLevels[(53+37*i)%legacyLevels.length];
   if(!used.has(candidate.id)){used.add(candidate.id);fresh.push(candidate);}
  }
  if(fresh.length!==50||used.size!==159)throw new Error('Sélection du lot 110–159 invalide');
@@ -378,22 +380,22 @@ for(const device of [
  * catalogue ; couverture fonctionnelle Chromium, non validation physique.
  */
 function nextBrowserBatch160to209(){
- const original=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const original=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;original.length<25;i++){
-  const candidate=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const candidate=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!original.some(m=>m.id===candidate.id))original.push(candidate);
  }
  const used=new Set(original.map(m=>m.id));
- for(let i=0;used.size<50&&i<catalog.levels.length;i++){
-  used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ for(let i=0;used.size<50&&i<legacyLevels.length;i++){
+  used.add(legacyLevels[(12+23*i)%legacyLevels.length].id);
  }
  for(const mission of browserBatch051to100)used.add(mission.id);
  for(const id of historicIds)used.add(id);
  for(const mission of browserBatch110to159)used.add(mission.id);
  if(used.size!==159)throw new Error('Couverture précédente incohérente : '+used.size+'/159');
  const fresh=[];
- for(let i=0;fresh.length<50&&i<catalog.levels.length;i++){
-  const candidate=catalog.levels[(89+41*i)%catalog.levels.length];
+ for(let i=0;fresh.length<50&&i<legacyLevels.length;i++){
+  const candidate=legacyLevels[(89+41*i)%legacyLevels.length];
   if(!used.has(candidate.id)){used.add(candidate.id);fresh.push(candidate);}
  }
  if(fresh.length!==50||used.size!==209)throw new Error('Lot 160–209 non distinct');
@@ -471,22 +473,22 @@ for(const device of [
  * Ce parcours ne constitue ni une mesure physique ni une recette RGAA.
  */
 function nextBrowserBatch210to259(){
- const original=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const original=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;original.length<25;i++){
-  const candidate=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const candidate=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!original.some(m=>m.id===candidate.id))original.push(candidate);
  }
  const used=new Set(original.map(m=>m.id));
- for(let i=0;used.size<50&&i<catalog.levels.length;i++)
-  used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ for(let i=0;used.size<50&&i<legacyLevels.length;i++)
+  used.add(legacyLevels[(12+23*i)%legacyLevels.length].id);
  for(const m of browserBatch051to100)used.add(m.id);
  for(const id of historicIds)used.add(id);
  for(const m of browserBatch110to159)used.add(m.id);
  for(const m of browserBatch160to209)used.add(m.id);
  if(used.size!==209)throw new Error('Couverture initiale 210–259 incorrecte : '+used.size);
  const fresh=[];
- for(let i=0;fresh.length<50&&i<catalog.levels.length;i++){
-  const candidate=catalog.levels[(137+43*i)%catalog.levels.length];
+ for(let i=0;fresh.length<50&&i<legacyLevels.length;i++){
+  const candidate=legacyLevels[(137+43*i)%legacyLevels.length];
   if(!used.has(candidate.id)){used.add(candidate.id);fresh.push(candidate);}
  }
  if(fresh.length!==50||used.size!==259)
@@ -564,21 +566,21 @@ for(const device of [
  * Les 259 missions précédentes sont exclues de manière déterministe.
  */
 function nextBrowserBatch260to309(){
- const first=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const first=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;first.length<25;i++){
-  const m=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const m=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!first.some(x=>x.id===m.id))first.push(m);
  }
  const used=new Set(first.map(m=>m.id));
- for(let i=0;used.size<50&&i<catalog.levels.length;i++)
-  used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ for(let i=0;used.size<50&&i<legacyLevels.length;i++)
+  used.add(legacyLevels[(12+23*i)%legacyLevels.length].id);
  for(const id of historicIds)used.add(id);
  for(const group of [browserBatch051to100,browserBatch110to159,browserBatch160to209,browserBatch210to259])
   for(const m of group)used.add(m.id);
  if(used.size!==259)throw new Error('Couverture précédente non unique : '+used.size+'/259');
  const fresh=[];
- for(let i=0;fresh.length<50&&i<catalog.levels.length;i++){
-  const m=catalog.levels[(173+47*i)%catalog.levels.length];
+ for(let i=0;fresh.length<50&&i<legacyLevels.length;i++){
+  const m=legacyLevels[(173+47*i)%legacyLevels.length];
   if(!used.has(m.id)){used.add(m.id);fresh.push(m);}
  }
  if(fresh.length!==50||used.size!==309)throw new Error('Lot 260–309 invalide : '+fresh.length+'/'+used.size);
@@ -652,21 +654,21 @@ for(const device of [
  * et Android émulé ; ne vaut pas validation matérielle ni RGAA.
  */
 function nextBrowserBatch310to359(){
- const first=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const first=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;first.length<25;i++){
-  const m=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const m=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!first.some(x=>x.id===m.id))first.push(m);
  }
  const used=new Set(first.map(m=>m.id));
- for(let i=0;used.size<50&&i<catalog.levels.length;i++)
-  used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ for(let i=0;used.size<50&&i<legacyLevels.length;i++)
+  used.add(legacyLevels[(12+23*i)%legacyLevels.length].id);
  for(const id of historicIds)used.add(id);
  for(const group of [browserBatch051to100,browserBatch110to159,browserBatch160to209,browserBatch210to259,browserBatch260to309])
   for(const m of group)used.add(m.id);
  if(used.size!==309)throw new Error('Couverture précédente non unique : '+used.size+'/309');
  const fresh=[];
- for(let i=0;fresh.length<50&&i<catalog.levels.length;i++){
-  const m=catalog.levels[(211+53*i)%catalog.levels.length];
+ for(let i=0;fresh.length<50&&i<legacyLevels.length;i++){
+  const m=legacyLevels[(211+53*i)%legacyLevels.length];
   if(!used.has(m.id)){used.add(m.id);fresh.push(m);}
  }
  if(fresh.length!==50||used.size!==359)
@@ -741,20 +743,20 @@ for(const device of [
  * et Android émulé ; ne vaut pas validation matérielle ni RGAA.
  */
 function nextBrowserBatch360to409(){
- const first=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const first=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;first.length<25;i++){
-  const m=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const m=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!first.some(x=>x.id===m.id))first.push(m);
  }
  const used=new Set(first.map(m=>m.id));
- for(let i=0;used.size<50&&i<catalog.levels.length;i++)
-  used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ for(let i=0;used.size<50&&i<legacyLevels.length;i++)
+  used.add(legacyLevels[(12+23*i)%legacyLevels.length].id);
  for(const id of historicIds)used.add(id);
  for(const group of [browserBatch051to100,browserBatch110to159,browserBatch160to209,browserBatch210to259,browserBatch260to309,browserBatch310to359])
   for(const m of group)used.add(m.id);
  if(used.size!==359)throw new Error('Couverture précédente non unique : '+used.size+'/359');
  const fresh=[];
- for(const m of catalog.levels){
+ for(const m of legacyLevels){
   if(fresh.length===50)break;
   if(!used.has(m.id)){used.add(m.id);fresh.push(m);}
  }
@@ -830,21 +832,21 @@ for(const device of [
  * Ce protocole ne valide ni la physique de chaque animation, ni le RGAA.
  */
 function nextBrowserBatch410to459(){
- const first=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const first=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;first.length<25;i++){
-  const m=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const m=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!first.some(x=>x.id===m.id))first.push(m);
  }
  const used=new Set(first.map(m=>m.id));
- for(let i=0;used.size<50&&i<catalog.levels.length;i++)
-  used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ for(let i=0;used.size<50&&i<legacyLevels.length;i++)
+  used.add(legacyLevels[(12+23*i)%legacyLevels.length].id);
  for(const id of historicIds)used.add(id);
  for(const group of [browserBatch051to100,browserBatch110to159,browserBatch160to209,
   browserBatch210to259,browserBatch260to309,browserBatch310to359,browserBatch360to409])
   for(const m of group)used.add(m.id);
  if(used.size!==409)throw new Error('Couverture initiale 410–459 incohérente : '+used.size);
  const fresh=[];
- for(const m of catalog.levels){
+ for(const m of legacyLevels){
   if(fresh.length===50)break;
   if(!used.has(m.id)){used.add(m.id);fresh.push(m);}
  }
@@ -920,19 +922,19 @@ for(const device of [
  * matérielle, scientifique exhaustive ou RGAA.
  */
 function nextBrowserBatch460to509(){
- const first=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const first=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;first.length<25;i++){
-  const m=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const m=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!first.some(x=>x.id===m.id))first.push(m);
  }
  const used=new Set(first.map(m=>m.id));
- for(let i=0;used.size<50;i++)used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ for(let i=0;used.size<50;i++)used.add(legacyLevels[(12+23*i)%legacyLevels.length].id);
  for(const id of historicIds)used.add(id);
  for(const group of [browserBatch051to100,browserBatch110to159,browserBatch160to209,
   browserBatch210to259,browserBatch260to309,browserBatch310to359,browserBatch360to409,browserBatch410to459])
   for(const m of group)used.add(m.id);
  if(used.size!==459)throw Error('Couverture antérieure incohérente : '+used.size);
- const fresh=catalog.levels.filter(m=>!used.has(m.id)).slice(0,50);
+ const fresh=legacyLevels.filter(m=>!used.has(m.id)).slice(0,50);
  if(fresh.length!==50||new Set(fresh.map(m=>m.id)).size!==50)
   throw Error('Lot 460–509 invalide');
  return fresh;
@@ -1033,20 +1035,20 @@ for(const device of [
  * ou validation scientifique individuelle n'en découle.
  */
 function nextBrowserBatch510to559(){
- const first=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const first=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;first.length<25;i++){
-  const m=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const m=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!first.some(x=>x.id===m.id))first.push(m);
  }
  const used=new Set(first.map(m=>m.id));
- for(let i=0;used.size<50;i++)used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ for(let i=0;used.size<50;i++)used.add(legacyLevels[(12+23*i)%legacyLevels.length].id);
  for(const id of historicIds)used.add(id);
  for(const group of [browserBatch051to100,browserBatch110to159,browserBatch160to209,
   browserBatch210to259,browserBatch260to309,browserBatch310to359,
   browserBatch360to409,browserBatch410to459,browserBatch460to509])
   for(const m of group)used.add(m.id);
  if(used.size!==509)throw Error('Couverture antérieure incohérente : '+used.size+'/509');
- const fresh=catalog.levels.filter(m=>!used.has(m.id)).slice(0,50);
+ const fresh=legacyLevels.filter(m=>!used.has(m.id)).slice(0,50);
  if(fresh.length!==50||new Set(fresh.map(m=>m.id)).size!==50)
   throw Error('Lot 510–559 invalide');
  return fresh;
@@ -1119,24 +1121,24 @@ for(const device of [
  * et Android émulé : aucune certification d'accessibilité physique/RGAA.
  */
 function nextBrowserBatch560to597(){
- const first=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ const first=catalog.worlds.map(w=>legacyLevels.find(m=>m.world===w.id));
  for(let i=0;first.length<25;i++){
-  const m=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  const m=legacyLevels[Math.round(i*(legacyLevels.length-1)/24)];
   if(!first.some(x=>x.id===m.id))first.push(m);
  }
  const used=new Set(first.map(m=>m.id));
- for(let i=0;used.size<50;i++)used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ for(let i=0;used.size<50;i++)used.add(legacyLevels[(12+23*i)%legacyLevels.length].id);
  for(const id of historicIds)used.add(id);
  for(const group of [browserBatch051to100,browserBatch110to159,browserBatch160to209,
   browserBatch210to259,browserBatch260to309,browserBatch310to359,
   browserBatch360to409,browserBatch410to459,browserBatch460to509,browserBatch510to559])
   for(const m of group)used.add(m.id);
  if(used.size!==559)throw Error('Couverture antérieure incohérente : '+used.size+'/559');
- const fresh=catalog.levels.filter(m=>!used.has(m.id));
+ const fresh=legacyLevels.filter(m=>!used.has(m.id));
  if(fresh.length!==38||new Set(fresh.map(m=>m.id)).size!==38)
   throw Error('Dernier lot non distinct : '+fresh.length+'/38');
  for(const m of fresh)used.add(m.id);
- if(catalog.levels.length!==597||used.size!==597)
+ if(legacyLevels.length!==597||used.size!==597)
   throw Error('Recette complète incohérente : '+used.size+'/597');
  return fresh;
 }
