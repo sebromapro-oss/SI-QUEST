@@ -115,3 +115,14 @@ test('torsion 3D : contrainte calculée en MPa et domaine du couple',()=>{
  assert.match(scene.render('torsion-01',0,0,120),/τmax = /);
  assert.throws(()=>scene.describe('torsion-01',-1),RangeError);
 });
+
+test('couple nul : aucun vecteur de couple fictif dans les scènes de freinage et torsion',()=>{
+ for(const id of ['brake-torque-01','torsion-01']){
+  const zero=scene.render(id,0,0,0);
+  const nonzero=scene.render(id,0,0,120);
+  // Les rayons des arbres restent visibles ; seul le vecteur spécifique de couple est conditionnel.
+  assert.doesNotMatch(zero,/marker-end="url\(#sq-arrow\)"/,id+' : couple nul');
+  assert.match(nonzero,/marker-end="url\(#sq-arrow\)"/,id+' : couple non nul');
+  assert.equal(scene.describe(id,0).torque,0);
+ }
+});
