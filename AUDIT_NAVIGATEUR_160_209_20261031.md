@@ -91,3 +91,15 @@ Les cinq modèles sont testés aux bornes, au milieu et au nominal, soit **20 co
 - Aucune mission ajoutée ; accueil, carte des 17 univers, marquage d'auteur et applications AppDeploy inchangés. **Phase 1 maintenue**.
 
 **Suite :** examiner les runs, corriger toute régression, étendre le navigateur à un autre lot distinct et organiser les essais réels d'accessibilité.
+
+
+## Complément scientifique : cinq modèles supplémentaires
+
+- [Commit `cba5aa1f`](https://github.com/sebromapro-oss/SI-QUEST/commit/cba5aa1f3a828c9fc4af3471e2f59e8a92c4ea04) : six tests Node ajoutés, soit cinq modèles et **20 nouveaux contre-calculs** aux bornes, milieu et nominal, avec vérification des unités, de la valeur HTML et du rejet des valeurs non finies.
+- `hydrostatic-wheel-traction-01` : couple moteur ΔpDηm/(2π), puis effort à la roue par réduction, rendement et rayon ; nominal **3 896,113 N**.
+- `tank-gravity-drain-01` : intégration de la loi de Torricelli avec coefficient de débit et niveau final ; nominal **2 087,068 s**.
+- `resistance-02` : deux résistances en série, **20 Ω** au nominal.
+- `thermal-resistance-01` : paroi plane e/(λS), **0,075 K/W** au nominal.
+- `beam-curvature-01` : courbure M/(EI), **0,000595238 m⁻¹** au nominal.
+- **Total du cycle : dix modèles physiques distincts, 40 points de contre-calcul indépendants, douze nouveaux tests Node**, en plus des six scénarios Playwright. Cela ne démontre pas l'exhaustivité scientifique du lot de 50.
+- Le total de tests Node **attendu** passe de 2 204 à **2 216** ; confirmer uniquement après résultat du run [recette `cba5aa1f`](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179773461).
