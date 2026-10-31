@@ -66,8 +66,8 @@ test('résistance au roulement 3D : force nulle sans vecteur fictif',()=>{
  const positive=scene.render('rolling-load-01',0,0,.025);
  assert.equal(scene.describe('rolling-load-01',0).resistance,0);
  assert.equal(scene.describe('rolling-load-01',.025).resistance,200);
- assert.doesNotMatch(zero,/stroke="#ff9999"/,'Aucune flèche de résistance pour Fᵣ = 0 N');
- assert.match(positive,/stroke="#ff9999"/,'La flèche de résistance doit apparaître pour Fᵣ > 0 N');
+ assert.doesNotMatch(zero,/<path[^>]*stroke="#ff9999"[^>]*marker-end=/,'Aucune flèche de résistance pour Fᵣ = 0 N');
+ assert.match(positive,/<path[^>]*stroke="#ff9999"[^>]*marker-end="url\(#sq-arrow-ff9999\)"/,'La flèche de résistance doit apparaître pour Fᵣ > 0 N');
 });
 
 test('roulement 3D : résistance opposée au déplacement et appui orienté vers le haut',()=>{
@@ -121,8 +121,8 @@ test('couple nul : aucun vecteur de couple fictif dans les scènes de freinage e
   const zero=scene.render(id,0,0,0);
   const nonzero=scene.render(id,0,0,120);
   // Les rayons des arbres restent visibles ; seul le vecteur spécifique de couple est conditionnel.
-  assert.doesNotMatch(zero,/marker-end="url\(#sq-arrow\)"/,id+' : couple nul');
-  assert.match(nonzero,/marker-end="url\(#sq-arrow\)"/,id+' : couple non nul');
+  assert.doesNotMatch(zero,/marker-end="url\(#sq-arrow-ffca7d\)"/,id+' : couple nul');
+  assert.match(nonzero,/marker-end="url\(#sq-arrow-ffca7d\)"/,id+' : couple non nul');
   assert.equal(scene.describe(id,0).torque,0);
  }
 });
