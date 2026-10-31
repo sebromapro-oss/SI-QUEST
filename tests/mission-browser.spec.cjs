@@ -77,6 +77,45 @@ for(const device of [
    }
   });
 
+  test('contre-échantillon complémentaire : 25 missions, 2D sans divulgation, mobile et erreurs JS',async({page})=>{
+   // Échantillon distinct des 25 missions précédentes ; distribution sur tout le catalogue.
+   // Il s'agit de contrôles de navigation/interaction, pas de 25 validations scientifiques.
+   test.setTimeout(150_000);
+   const original=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+   for(let i=0;original.length<25;i++){
+    const candidate=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+    if(!original.some(m=>m.id===candidate.id))original.push(candidate);
+   }
+   const used=new Set(original.map(m=>m.id)),additional=[];
+   for(let i=0;additional.length<25&&i<catalog.levels.length;i++){
+    const candidate=catalog.levels[(12+23*i)%catalog.levels.length];
+    if(!used.has(candidate.id)){used.add(candidate.id);additional.push(candidate);}
+   }
+   expect(additional, '25 missions complémentaires distinctes').toHaveLength(25);
+   const errors=[];
+   page.on('pageerror',e=>errors.push(e.message));
+   for(const mission of additional){
+    errors.length=0;
+    await page.goto('http://127.0.0.1:4173/'+mission.url);
+    await expect(page.locator('#answer'),mission.id+' : saisie absente').toBeVisible();
+    await expect(page.locator('#solution'),mission.id+' : corrigé prématuré').toBeDisabled();
+    await expect(page.locator('#trialValue'),mission.id+' : exploration initialement verrouillée').toBeDisabled();
+    const wrong=await page.evaluate(()=>Math.abs(window.SI_MISSION.expected)*1e6+1e6);
+    await page.locator('#answer').fill(String(wrong));
+    await page.locator('#calc button[type="submit"]').click();
+    await expect(page.locator('#trialValue'),mission.id+' : exploration bloquée après erreur').toBeEnabled();
+    await expect(page.locator('#trial'),mission.id+' : verdict prématuré').toBeDisabled();
+    await expect(page.locator('#solution'),mission.id+' : accès au corrigé prématuré').toBeDisabled();
+    await expect(page.locator('#solutionText'),mission.id+' : texte du corrigé prématuré').toBeHidden();
+    const svg=page.locator('figure svg').first();
+    await expect(svg,mission.id+' : schéma absent').toBeVisible();
+    await expect(svg.locator('[data-result]'),mission.id+' : fuite numérique dans le SVG').toHaveCount(0);
+    const width=await page.evaluate(()=>({doc:document.documentElement.scrollWidth,viewport:innerWidth}));
+    expect(width.doc,mission.id+' : débordement horizontal').toBeLessThanOrEqual(width.viewport+2);
+    expect(errors,mission.id+' : erreur JavaScript').toEqual([]);
+   }
+  });
+
   test('3D après erreur : caméra et pas de temps accessibles sans validation',async({page})=>{
    await page.goto('http://127.0.0.1:4173/missions/circular-02.html');
    await expect(page.locator('#scene3-step')).toBeDisabled();
