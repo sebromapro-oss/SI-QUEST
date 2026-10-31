@@ -510,3 +510,12 @@
 - **Prochaine action :** vérifier et corriger les runs, compléter le rapport avec les résultats réels, puis lancer un lot navigateur distinct de 25–50 missions ; rester en **phase 1**.
 
 **HEAD de suivi avant le commit de cette section :** `eac4b75cda93a6b24936a62bf250f8381c512e97`. Le SHA final de suivi sera celui retourné par GitHub lors de la publication.
+
+
+### Complément scientifique du lot navigateur 160–209 — résultats CI
+
+- **Cinq contre-calculs supplémentaires** publiés au commit [`cba5aa1f`](https://github.com/sebromapro-oss/SI-QUEST/commit/cba5aa1f3a828c9fc4af3471e2f59e8a92c4ea04) : traction hydrostatique à la roue, vidange gravitaire, résistances en série, résistance thermique plane, courbure de poutre. Total : **10 modèles distincts, 40 points de contre-calcul indépendants, 12 tests Node nouveaux**.
+- **Échec intermédiaire documenté :** 2 215/2 216 réussis ; test de traction hydrostatique importé depuis une chaîne de modèles qui ne contient pas le modèle. **Cause racine : deux chaînes de lots indépendantes (233–237 et 238+)**.
+- **Correctif réel :** [`7e0974f46193`](https://github.com/sebromapro-oss/SI-QUEST/commit/7e0974f46193c75ecf60b73724c775b0215332af), import de la bonne chaîne, aucune formule ni seuil affaibli.
+- **Résultat vérifié : 2 216/2 216 tests Node réussis, trois workflows verts sur `7e0974f`** : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838300), [science](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838260), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838314).
+- Rapport détaillé mis à jour au commit `48872c545f0eaad3e0ad8ee2d4f490f4fe68b930`. La recette Chromium `41179676226` doit toujours être contre-vérifiée avant de confirmer 209/597.
