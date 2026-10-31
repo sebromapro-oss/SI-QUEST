@@ -111,3 +111,12 @@ Les cinq modèles sont testés aux bornes, au milieu et au nominal, soit **20 co
 - [Correctif du banc `7e0974f`](https://github.com/sebromapro-oss/SI-QUEST/commit/7e0974f46193c75ecf60b73724c775b0215332af) : import explicite de la chaîne `batch233-237` pour ce modèle ; aucune équation de production ni assertion de référence affaiblie.
 - Sur `7e0974f` : **2 216/2 216 tests Node réussis**, zéro échec ; trois workflows réussis : [recette 41179838300](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838300), [science 41179838260](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838260), [qualité 41179838314](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179838314).
 - Le run Chromium du commit navigateur demeure une preuve distincte à attendre ; les commits scientifiques/documentaires postérieurs n'ont pas modifié les pages ni les scripts exécutés par ce run.
+
+
+## Réception Chromium confirmée — 31 octobre 2026
+
+- Le [run Chromium 41179676226](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41179676226) est **terminé avec succès** sur le commit navigateur `b26eac4c12a3d023dbf0f9753e60dc0067f7420d` : **44/44 scénarios Playwright réussis en 12,8 minutes**, zéro échec. Artefact de recette : `siquest-accueil-recette` (ID 13035130255).
+- **Couverture navigateur confirmée : 209/597 missions distinctes**, soit **35,0 %**. Il reste **388 missions** sans ce parcours Chromium individuel.
+- La comparaison des commits entre `b26eac4c` et le HEAD de suivi `2033fd0587` ne montre que deux fichiers de tests scientifiques et deux fichiers documentaires modifiés : **aucune page de mission, aucun contrôleur navigateur ni aucun style modifié après le run Chromium**.
+- Sur le HEAD de suivi `2033fd0587c0d54858a9d1839023393cb2a4cc0a`, les **trois workflows Node/science sont réussis**, avec **2 216/2 216 tests**.
+- **Réception partielle uniquement** : le navigateur est Chromium, Android est émulé ; les 209 missions ne sont pas toutes contre-expertisées scientifiquement et les tests matériels, Safari/Firefox, NVDA/TalkBack/VoiceOver restent à réaliser. Phase 1 maintenue.
