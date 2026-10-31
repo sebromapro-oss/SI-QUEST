@@ -96,3 +96,12 @@ Ces lois sont formulées dans le test sans appeler le moteur de production pour 
 - Progression locale non authentifiée ; les réponses sont accessibles dans le HTML public : **ne pas utiliser comme preuve certifiée de compétence**.
 - Aucun code AppDeploy, accueil, carte des 17 univers, asset, marquage d'auteur ou historique modifié.
 - **Prochaine action :** examiner les runs, corriger les échecs, confirmer la couverture réellement prouvée, puis poursuivre la recette 260–309. **Phase 2 vers 996 suspendue.**
+
+
+## Complément scientifique et contre-réception CI
+
+- [Commit `d9db5517`](https://github.com/sebromapro-oss/SI-QUEST/commit/d9db5517fd30a55d792994b46b844c57522c4145) : cinq références supplémentaires (NPSH disponible, poussée d'Archimède, fréquence d'engrènement, ressorts en série, rapport de transmission). **Onze modèles distincts, 44 points numériques indépendants, douze tests Node ajoutés au total** ; objectif **2 228 tests**.
+- **Échec intermédiaire réel** sur `d9db5517` : **2 227/2 228 tests réussis**, un échec dans le contrôle d'inventaire du banc d'essai : onze identifiants distincts trouvés, assertion encore fixée à six. Aucune formule physique n'a échoué. Trois workflows ont logiquement échoué sur ce commit ; ne pas masquer cet historique.
+- [Correctif `b7347b31`](https://github.com/sebromapro-oss/SI-QUEST/commit/b7347b31698987942b89fd7cd3f50555ef88937c) : l'assertion d'unicité attend désormais les onze identifiants effectivement contrôlés. **Aucune équation de production modifiée, aucun test supprimé.**
+- Runs de validation du correctif : [recette Node 41183847762](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847762), [science 41183847738](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847738), [qualité 41183847742](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183847742) — **en attente** à la rédaction.
+- Le [run Chromium 41183678314](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41183678314) du commit `f3f3f0be` est indépendant des tests Node ajoutés ensuite ; **en cours** à la rédaction. La couverture confirmée reste **209/597** jusqu'au verdict.
