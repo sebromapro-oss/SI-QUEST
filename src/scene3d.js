@@ -81,7 +81,7 @@ function render(id,yaw,pitch,x,options={}){
  case 'rolling-load-01':{
   const r=60;cylinder(0,0,r,0);line([-140,-r,0],[140,-r,0],'#9bc9e5',4);
   arrow([0,0,0],[0,-70,0],'#ffca7d');arrow([0,-r,0],[0,12,0],'#7ce8ae');
-  arrow([0,-r,0],[-Math.min(100,20+d.resistance/4),-r,0],'#ff9999');
+  if(d.resistance>0)arrow([0,-r,0],[-Math.min(100,20+d.resistance/4),-r,0],'#ff9999');
   arrow([0,0,0],[95,0,0],'#8ddcff');
   notes.push('N = 8 000 N ; Fᵣ = '+d.resistance.toFixed(1)+' N','Résistance opposée au déplacement ; longueur des vecteurs indicative');break;
  }
