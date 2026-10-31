@@ -716,3 +716,12 @@
 - **Rectification du point précédent :** il ne reste plus 26 lois sans contre-calcul dans le dernier lot ; **38/38 ont désormais un test scientifique indépendant**. Cela ne signifie pas que les 597 missions ont été toutes réceptionnées scientifiquement ni que leurs animations sont validées.
 - **Recette navigateur :** le [run Chromium 41213763068](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41213763068) doit encore terminer **ses deux shards**. Couverture confirmée maintenue à **559/597**, et **597/597 seulement après réussite**. Essais physiques et lecteurs d'écran toujours non réalisés.
 - **HEAD avant ce complément de suivi :** `4e1d86502a43c9d12b907468f03e7a03b52c79a5`. Zéro mission nouvelle, aucune modification AppDeploy ni de l'accueil.
+
+
+### Contrôle SVG et protocole physique — complément du 31 octobre
+
+- **Commit [`d8f19c12`](https://github.com/sebromapro-oss/SI-QUEST/commit/d8f19c12465e74d46674bd2b1d9ea4e8817f6f49) :** 38 tests SVG structurels aux deux bornes et au nominal, soit **114 rendus** ; présence de titre/description/rôle image et absence de NaN/Infinity/undefined. [Recette Node 41214093123](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41214093123) : **2 575/2 575 réussis, 0 échec** ; [science 41214093154](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41214093154) et [qualité 41214093235](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41214093235) **success**.
+- **[Protocole MAT-01 à MAT-09](RECETTE_PHYSIQUE_ACCESSIBILITE_V2_5.md)** publié au [commit `8e3e7d4b`](https://github.com/sebromapro-oss/SI-QUEST/commit/8e3e7d4b11053e093de893c4616a4456e7ff5cb1). **Toutes les vérifications physiques et lecteurs d'écran restent non réalisées** ; ce document ne vaut pas recette.
+- **Bilan du lot final :** 38/38 contre-calculs indépendants (152 points), 38/38 SVG contrôlés structurellement (114 rendus), 38/38 HTML inspectés ; **597 missions conservées, zéro créée**. Recette Chromium du dernier lot toujours à confirmer sur les deux shards du [run 41213763068](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41213763068) ; ne pas annoncer 597/597 avant succès.
+- **Réserves :** géométrie et animation physiquement exactes, accessibilité RGAA réelle, sécurité et authentification non réceptionnées ; dépôt public, progression locale non authentifiée. **Phase 1 maintenue, phase 2 suspendue**. Aucune modification AppDeploy, accueil, carte 17 univers, auteur, secrets ou budget.
+- **HEAD avant le présent commit documentaire :** `d8f19c12465e74d46674bd2b1d9ea4e8817f6f49`.

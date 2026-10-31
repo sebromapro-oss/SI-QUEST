@@ -79,6 +79,13 @@ Les **38 lois du dernier lot** disposent désormais d'une référence physique o
 - [Seize références indépendantes finales](tests/audit-browser-batch-560-597-sixteen-final-models.test.cjs), commit [`5c4b5ba0`](https://github.com/sebromapro-oss/SI-QUEST/commit/5c4b5ba05ec92748835c250d14d7ed4e9ceeef2d) : résultante de charges, synchronisation d'embrayage, induction mutuelle, THD, fréquence de cage, rapport critique de buse, tirant conique, Pt100, vis à billes, célérité hydraulique, transformateur, inertie de plaque, traction-flexion, rapport de conduite, force magnétique et charge de boucle 4–20 mA. [CI Node 41213910552](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41213910552) **success**, **2 536/2 536 tests**.
 - **Total du lot : 38/38 lois avec quatre références numériques indépendantes chacune (152 comparaisons), 38/38 HTML inspectés.** Les tests sur appareil réel, la fidélité géométrique/physique des SVG et les lecteurs d'écran restent hors de cette validation.
 
+
+### Contre-réception structurelle SVG — 38/38
+
+Le test permanent [`audit-browser-batch-560-597-svg.test.cjs`](tests/audit-browser-batch-560-597-svg.test.cjs), publié au [commit `d8f19c12`](https://github.com/sebromapro-oss/SI-QUEST/commit/d8f19c12465e74d46674bd2b1d9ea4e8817f6f49), vérifie les **38 schémas SVG** aux bornes et au nominal : **114 rendus**, présence du titre, de la description et du rôle d'image, absence de `NaN`, `Infinity` ou `undefined`. Les trois workflows ont réussi : [recette Node 41214093123](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41214093123), [science 41214093154](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41214093154), [qualité 41214093235](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41214093235). **2 575/2 575 tests Node réussis, zéro échec.** Ce test structurel ne prouve ni les dimensions physiques exactes ni la lisibilité réelle du rendu.
+
+Le [protocole de réception matérielle et d'accessibilité](RECETTE_PHYSIQUE_ACCESSIBILITE_V2_5.md) est disponible : **MAT-01 à MAT-09 tous non réalisés**. Aucune réception NVDA, TalkBack, VoiceOver, Safari, Firefox ou smartphone physique n'est revendiquée.
+
 ## Critères Chromium soumis aux deux shards
 
 - 38 missions distinctes, sans doublon avec les 559 précédentes ; total 597 verrouillé dans le code de sélection.
