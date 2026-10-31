@@ -31,7 +31,7 @@
     $('log').replaceChildren(...state.log.map(message=>{
       const li=document.createElement('li');li.textContent=message;return li;
     }));
-    $('trial').disabled=running||!(state.calculationPassed||state.solutionShown);
+    $('trial').disabled=running||!(state.calculationAttempts>0||state.calculationPassed||state.solutionShown);
     $('solution').disabled=state.calculationPassed||state.calculationAttempts<3||state.hints<3;
     $('readout').textContent=state.calculationPassed||state.solutionShown?
       'Modèle : '+model.outputSpeedRpm.toFixed(1)+' tr/min ; '+model.outputTorqueNm.toFixed(1)+' N·m.':
@@ -82,8 +82,11 @@
     $('feedback').textContent='Corrigé accessible. Tu peux lancer la démonstration, mais la mission n’est pas validée de façon autonome.';
   });
   $('trial').addEventListener('click',()=>{
-    if(running||!(state.calculationPassed||state.solutionShown))return;
-    const message='Essai : roue menée à '+model.outputSpeedRpm.toFixed(1)+
+    if(running||!(state.calculationAttempts>0||state.calculationPassed||state.solutionShown))return;
+    const qualitative=!(state.calculationPassed||state.solutionShown);
+    const message=qualitative?
+      'Exploration qualitative : les roues extérieures tournent en sens opposés ; la roue menée tourne moins vite. Les valeurs restent masquées avant validation ou corrigé.':
+      'Essai : roue menée à '+model.outputSpeedRpm.toFixed(1)+
       ' tr/min, couple disponible '+model.outputTorqueNm.toFixed(1)+
       ' N·m. Démonstration ralentie : 2 tours moteur pour 2/3 tour menée en sens inverse.';
     $('feedback').textContent=message;

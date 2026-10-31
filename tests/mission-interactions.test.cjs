@@ -163,3 +163,24 @@ test('Hydro: interruption après un ancien succès invalide la décision courant
   assert.match(h.element('decision').textContent,/interrompu/);
   assert.equal(JSON.parse(h.storage.get('siquest-hydro02')).lastTrialSafe,null);
 });
+
+test('Gear: exploration qualitative après calcul faux, sans divulgation de la réponse',()=>{
+ const h=harness('gear-mission.js',{reducedMotion:false});
+ assert.equal(h.element('trial').disabled,true,'aucun essai avant saisie valide');
+ h.element('speed').value='100';h.element('torque').value='5';
+ h.element('task').dispatch('submit');
+ assert.equal(h.element('trial').disabled,false);
+ assert.equal(h.element('solution').disabled,true);
+ h.element('trial').dispatch('click');
+ const animation=h.flush();
+ assert.ok(animation.elapsedMs>=3000&&animation.elapsedMs<3300);
+ assert.ok(h.element('rotor1').attrs.transform.startsWith('rotate(720'));
+ assert.ok(h.element('rotor2').attrs.transform.startsWith('rotate(-240'));
+ assert.match(h.element('feedback').textContent,/Exploration qualitative/);
+ assert.doesNotMatch(h.element('feedback').textContent,/400|81/);
+ assert.doesNotMatch(h.element('readout').textContent,/400|81/);
+ const state=JSON.parse(h.storage.get('siquest-gear01-v2'));
+ assert.equal(state.calculationPassed,false);
+ assert.equal(state.solutionShown,false);
+ assert.equal(state.trialPassed,false);
+});
