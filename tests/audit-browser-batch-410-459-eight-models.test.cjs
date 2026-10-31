@@ -43,9 +43,9 @@ for(const [id,reference,unit,inputUnit] of cases){
    const actual=physics.calculate(id,x);
    near(actual,reference(x),id+' : '+x+' '+inputUnit);
    const svg=diagrams.render(id,x,actual);
-   assert.match(svg,/<svg\\b/,id+' : SVG absent');
-   assert.match(svg,/<title\\b/,id+' : titre SVG absent');
-   assert.match(svg,/<desc\\b/,id+' : description SVG absente');
+   assert.match(svg,/<svg\b/,id+' : SVG absent');
+   assert.match(svg,/<title\b/,id+' : titre SVG absent');
+   assert.match(svg,/<desc\b/,id+' : description SVG absente');
    assert.doesNotMatch(svg,/NaN|Infinity|undefined/,id+' : SVG non fini');
   }
   for(const bad of [NaN,Infinity,-Infinity,null,'1',cfg.min-1,cfg.max+1])
