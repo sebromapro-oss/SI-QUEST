@@ -94,3 +94,24 @@ test('mouvement circulaire 3D : accélération centripète et vitesse tangentiel
  assert.equal(d.angularSpeed,12);
  assert.equal(d.acceleration,72);
 });
+
+test('engrenages 3D : contact des cercles primitifs et sens de rotation inverse',()=>{
+ const id='gear-mesh-01',z2=40,d=scene.describe(id,z2);
+ assert.equal(d.r1,30);assert.equal(d.r2,60);assert.equal(d.centerDistance,90);
+ assert.equal(d.angularRatio,-.5);
+ // Centre gauche x=-45, centre droit x=+45 : le contact est à x=-15.
+ const svg=scene.render(id,0,0,z2,{time:0});
+ assert.match(svg,/<circle cx="276\.00" cy="150\.00" r="5" fill="#ff9999"/,
+  'Point de contact sur les cercles primitifs');
+ for(const t of [0,.25,1,2]){
+  const a=scene.render(id,0,0,z2,{time:t});
+  assert.doesNotMatch(a,/NaN|Infinity|undefined/);
+ }
+});
+test('torsion 3D : contrainte calculée en MPa et domaine du couple',()=>{
+ const d=scene.describe('torsion-01',120);
+ const expected=16*120*1000/(Math.PI*30**3);
+ assert.ok(Math.abs(d.stress-expected)<1e-10);
+ assert.match(scene.render('torsion-01',0,0,120),/τmax = /);
+ assert.throws(()=>scene.describe('torsion-01',-1),RangeError);
+});
