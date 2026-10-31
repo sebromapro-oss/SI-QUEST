@@ -224,3 +224,54 @@ for(const device of [
   }
  });
 }
+
+/*
+ * Neuf missions historiques autonomes : leurs formulaires et leurs moteurs
+ * sont différents du contrôleur commun. Elles ne doivent pas disparaître de
+ * la recette navigateur au seul motif qu'elles n'ont pas #trialValue.
+ */
+for(const device of [
+ {name:'desktop',viewport:{width:1440,height:900},isMobile:false,hasTouch:false},
+ {name:'android-emule',viewport:{width:390,height:844},isMobile:true,hasTouch:true}
+]){
+ test.describe('neuf missions historiques — '+device.name,()=>{
+  test.use({viewport:device.viewport,isMobile:device.isMobile,hasTouch:device.hasTouch});
+  test('3 essais/3 aides, exploration qualitative, corrigé verrouillé',async({page})=>{
+   test.setTimeout(150_000);
+   await page.emulateMedia({reducedMotion:'reduce'});
+   const errors=[];
+   page.on('pageerror',e=>errors.push(e.message));
+   for(const id of ['gear-01','hydro-01','slope-01','electric-01','braking-01','rolling-01','spring-01','lever-01','cooling-01']){
+    errors.length=0;
+    await page.goto('http://127.0.0.1:4173/missions/'+id+'.html');
+    const form=page.locator('form#task, form#calculations, form#calc');
+    const inputs=form.locator('input[required]');
+    expect(await inputs.count(),id+' : entrées de calcul absentes').toBeGreaterThanOrEqual(2);
+    await expect(page.locator('#trial'),id+' : essai initial accessible').toBeDisabled();
+    await expect(page.locator('#solution'),id+' : corrigé initial accessible').toBeDisabled();
+    for(let i=0;i<3;i++){
+     for(const input of await inputs.all())await input.fill('999999999');
+     await form.locator('button[type="submit"]').click();
+     await expect(page.locator('#trial'),id+' : essai bloqué après erreur').toBeEnabled();
+     await expect(page.locator('#solution'),id+' : corrigé prématuré').toBeDisabled();
+    }
+    // Avant les trois aides, le corrigé reste inaccessible même après trois essais.
+    for(let i=0;i<2;i++){
+     await page.locator('#hint').click();
+     await expect(page.locator('#solution'),id+' : corrigé avant la troisième aide').toBeDisabled();
+    }
+    const solutionText=page.locator(id==='gear-01'||id==='hydro-01'?'#solution-text':'#solutionText');
+    await expect(solutionText,id+' : corrigé dévoilé').toBeHidden();
+    await page.locator('#hint').click();
+    await expect(page.locator('#solution'),id+' : corrigé bloqué après 3+3').toBeEnabled();
+    // L'exploration est possible après erreur ; mouvement réduit pour ne pas
+    // confondre test DOM et validation de fidélité temporelle.
+    await page.locator('#trial').click();
+    await expect(solutionText,id+' : essai ayant dévoilé le corrigé').toBeHidden();
+    await page.locator('#solution').click();
+    await expect(solutionText,id+' : corrigé non affiché après autorisation').toBeVisible();
+    expect(errors,id+' : erreur JavaScript').toEqual([]);
+   }
+  });
+ });
+}
