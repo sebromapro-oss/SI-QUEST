@@ -595,3 +595,11 @@
 - **Préservation :** aucune application AppDeploy, aucun accueil, carte des 17 univers, asset, marquage d'auteur ou historique Git modifié. Pas de nouvelle mission ni de dépense ajoutée.
 - **Suite :** confirmer les trois workflows du dernier HEAD et le verdict Chromium 310–359, corriger toute régression puis poursuivre 360–409 ; **phase 1 maintenue**, phase 2 598–996 suspendue.
 - **HEAD avant le présent commit de suivi :** `0314552bbab9ce4f2cc76af8b344568fcdfdd6bb`. Le SHA du commit de suivi est celui retourné par GitHub.
+
+
+### Contre-réception Node du lot 310–359 — résultat confirmé
+
+- **Commit de tests scientifiques :** `fd4b2fe8bc68f4b687d70609f8d7dc3fa6890371`.
+- **2 249/2 249 tests Node réussis, 0 échec**, d'après les journaux du [run 41192105355](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192105355). Les deux autres workflows sont également **success** : [contrôles 41192105480](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192105480) et [qualité 41192105501](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192105501).
+- Le [run Chromium 41192037459](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41192037459) est **encore en cours** lors de cette contre-réception. **Couverture confirmée : 309/597** ; 359/597 reste conditionnel.
+- Les 11 lois vérifiées et les 44 comparaisons ne démontrent ni la justesse des 39 autres lois du lot ni la conformité des animations ou des appareils physiques. **Phase 1 maintenue.**
