@@ -621,3 +621,11 @@
 - Nouveau test `tests/audit-browser-batch-360-409-eight-models.test.cjs` : **8 modèles SI, 32 comparaisons numériques de référence**, unités, domaines, invariants, contrôle structurel SVG et HTML ; syntaxe vérifiée avant publication.
 - **Résultats des workflows à vérifier après publication** ; ne pas assimiler l'ajout de tests à leur réussite. La recette Chromium du lot 360–409 déclenchée par le commit précédent doit également être contrôlée.
 - Aucun code scientifique de production, aucune mission, aucun accueil ni aucune application AppDeploy modifiés. Phase 1 maintenue.
+
+
+### Contre-réception automatisée du lot 360–409 — résultats confirmés
+
+- **SHA réellement testé :** `ff90fc9b0141ef83fe2014575899e53583d65c0c` (commit des huit contre-calculs indépendants).
+- **2 258/2 258 tests Node réussis, 0 échec**, logs du [run 41196234550](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41196234550). Les deux autres workflows sont également **success** : [contrôles scientifiques 41196234379](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41196234379) et [qualité scientifique 41196234410](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41196234410).
+- Les huit modèles du nouveau test ont passé leurs références, unités, domaines et contrôles structurels SVG. **La recette Chromium 360–409 reste en cours** : [run 41196093041](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41196093041), sur le commit de tests navigateur `4f73ef44`. **Couverture navigateur confirmée : 359/597** tant que ce run n'a pas réussi.
+- Ne pas assimiler ces réussites automatisées à une validation scientifique, graphique ou RGAA exhaustive. Phase 1 maintenue ; zéro mission créée.

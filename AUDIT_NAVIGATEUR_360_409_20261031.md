@@ -81,3 +81,8 @@
 - **32 points de comparaison prévus** (minimum, milieu, nominal, maximum), sous réserve de l'intégralité du codeur ; son milieu est entier, donc 32 points. Unités d'entrée/sortie, domaine, valeurs non finies, schémas SVG présents et invariants monotones également contrôlés.
 - Fichier de tests : `tests/audit-browser-batch-360-409-eight-models.test.cjs`. **Statut : publié, résultats Node/science du nouveau commit à vérifier** ; aucune réussite annoncée par anticipation.
 - Ces tests ne prouvent ni la justesse des 42 autres modèles du lot ni la fidélité physique des animations ou l'accessibilité sur appareil réel.
+
+
+## Verdict des tests Node et scientifiques
+
+**SHA testé :** `ff90fc9b0141ef83fe2014575899e53583d65c0c`. **2 258/2 258 tests Node réussis** ([run 41196234550](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41196234550)), contrôles scientifiques ([41196234379](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41196234379)) et qualité ([41196234410](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41196234410)) **réussis**. La [recette Chromium 360–409](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41196093041) demeure en cours à ce contrôle. Les 50 missions ne sont pas encore déclarées réceptionnées.
