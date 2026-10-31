@@ -415,3 +415,11 @@
 - **Statut CI du présent commit :** à vérifier après publication ; aucun résultat présumé. Vérifier les trois workflows sur le nouveau SHA, corriger tout échec avant la phase suivante.
 - **Blocages de réception :** contrôle complet 3 essais/3 aides des contrôleurs autonomes, animations 2D/3D après erreur, fidélité temporelle, rendu smartphone, NVDA/TalkBack/VoiceOver, audit sécurité du dépôt public et données historiques. Phase 1 maintenue.
 - **Prochaine action :** vérifier les trois CI du nouveau HEAD, corriger toute régression ; effectuer un audit transversal des missions 001–597 et prioriser la recette navigateur/mobile réelle. Aucun projet AppDeploy modifié.
+
+
+### Vérification CI du commit `0fda3d87` et réserve fonctionnelle (31 octobre 2026)
+
+- **Commit réel publié :** [`0fda3d87036ed35ec2176abe344bd9e13aeae8c3`](https://github.com/sebromapro-oss/SI-QUEST/commit/0fda3d87036ed35ec2176abe344bd9e13aeae8c3), dix fichiers modifiés/créés (sept pages, un test, un rapport et le registre).
+- **Résultat indépendant des workflows sur ce SHA : 2 179 tests exécutés, 2 179 réussis, 0 échec ; trois workflows `success`.** [Recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41163825336), [Contrôles scientifiques](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41163825453), [Qualité scientifique](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41163825294). Dix nouveaux tests, neuf moteurs historiques couverts.
+- **Anomalie fonctionnelle encore ouverte :** les neuf contrôleurs autonomes 001–009 désactivent `trial` tant que le calcul n'est pas réussi (ou corrigé ouvert pour 001/002). Cela contredit la demande d'exploration qualitative après réponse incorrecte. **Ne pas débloquer naïvement** : plusieurs essais affichent la valeur calculée et divulgueraient la solution. Il faut un mode qualitatif distinct, une non-divulgation testée, puis une recette DOM/navigateur. La réussite CI ne vaut pas validation de ce comportement.
+- **HEAD du présent complément documentaire :** postérieur au commit de code ; contrôler ses trois workflows séparément.

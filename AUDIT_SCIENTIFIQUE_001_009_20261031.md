@@ -25,3 +25,9 @@ Le nouveau fichier `tests/audit-001-009-independent.test.cjs` vérifie les neuf 
 ## Statut et limites
 Précontrôle : présence de 597 missions et trois workflows verts sur le HEAD de départ. Les nouveaux tests et les modifications HTML doivent être confirmés par les trois CI **sur le commit publié** : aucune réussite n'est présumée à ce stade.
 Ce contre-audit numérique n'établit ni une réception visuelle de chaque scène, ni une fidélité temporelle des animations, ni l'accessibilité réelle sur Android/iPhone, NVDA, TalkBack et VoiceOver. Les contrôleurs autonomes 001–009 restent à tester en navigateur pour le parcours complet 3 essais/3 aides et l'accès aux animations après erreur. Audit des secrets et historique Git du dépôt public non achevé. Phase 1 maintenue ; 0 mission créée.
+
+
+## Contrôle complémentaire du 31 octobre — CI et animation après erreur
+Le commit de code `0fda3d87036ed35ec2176abe344bd9e13aeae8c3` a été validé par trois workflows GitHub Actions : **2 179/2 179 tests réussis, zéro échec** (runs `41163825336`, `41163825453`, `41163825294`). Les tests ajoutés contrôlent des références numériques indépendantes, mais pas le parcours navigateur.
+
+**Régression pédagogique encore présente, non corrigée :** les neuf contrôleurs autonomes de cette série verrouillent le bouton d'essai avant réussite du calcul ; le moteur commun des missions plus récentes ne couvre pas ces neuf pages. L'ouverture sans séparation des modes dévoilerait les résultats dans les messages d'essai. Priorité : mode d'exploration **qualitatif** après une tentative valide même incorrecte, corrigé chiffré masqué, puis tests DOM et recette réelle. Les essais physiques et lecteurs d'écran restent non réalisés.
