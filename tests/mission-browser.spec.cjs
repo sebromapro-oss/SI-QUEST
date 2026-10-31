@@ -557,3 +557,91 @@ for(const device of [
   });
  });
 }
+
+
+/* Recette 260–309 : cinquante missions distinctes, sur Chromium bureau et
+ * Android émulé. Ne vaut ni validation physique, ni RGAA, ni calcul indépendant.
+ * Les 259 missions précédentes sont exclues de manière déterministe.
+ */
+function nextBrowserBatch260to309(){
+ const first=catalog.worlds.map(w=>catalog.levels.find(m=>m.world===w.id));
+ for(let i=0;first.length<25;i++){
+  const m=catalog.levels[Math.round(i*(catalog.levels.length-1)/24)];
+  if(!first.some(x=>x.id===m.id))first.push(m);
+ }
+ const used=new Set(first.map(m=>m.id));
+ for(let i=0;used.size<50&&i<catalog.levels.length;i++)
+  used.add(catalog.levels[(12+23*i)%catalog.levels.length].id);
+ for(const id of historicIds)used.add(id);
+ for(const group of [browserBatch051to100,browserBatch110to159,browserBatch160to209,browserBatch210to259])
+  for(const m of group)used.add(m.id);
+ if(used.size!==259)throw new Error('Couverture précédente non unique : '+used.size+'/259');
+ const fresh=[];
+ for(let i=0;fresh.length<50&&i<catalog.levels.length;i++){
+  const m=catalog.levels[(173+47*i)%catalog.levels.length];
+  if(!used.has(m.id)){used.add(m.id);fresh.push(m);}
+ }
+ if(fresh.length!==50||used.size!==309)throw new Error('Lot 260–309 invalide : '+fresh.length+'/'+used.size);
+ return fresh;
+}
+const browserBatch260to309=nextBrowserBatch260to309();
+for(const device of [
+ {name:'desktop',viewport:{width:1440,height:900},isMobile:false,hasTouch:false},
+ {name:'android-emule',viewport:{width:390,height:844},isMobile:true,hasTouch:true}
+]){
+ test.describe('lot navigateur 260–309 — '+device.name,()=>{
+  test.use({viewport:device.viewport,isMobile:device.isMobile,hasTouch:device.hasTouch});
+  for(let group=0;group<2;group++){
+   test('25 missions : erreur, exploration, 3 aides/3 essais, SVG et absence de fuite — lot '+(group+1),async({page})=>{
+    test.setTimeout(180_000);
+    const errors=[];page.on('pageerror',e=>errors.push(e.message));
+    for(const mission of browserBatch260to309.slice(group*25,(group+1)*25)){
+     errors.length=0;
+     await page.goto('http://127.0.0.1:4173/'+mission.url);
+     await expect(page.locator('#answer'),mission.id+' : saisie').toBeVisible();
+     await expect(page.locator('#trialValue'),mission.id+' : exploration prématurée').toBeDisabled();
+     await expect(page.locator('#solution'),mission.id+' : corrigé prématuré').toBeDisabled();
+     const wrong=await page.evaluate(()=>Math.abs(window.SI_MISSION.expected)*1e6+1e6);
+     await page.locator('#answer').fill(String(wrong));
+     await page.locator('#calc button[type="submit"]').click();
+     await expect(page.locator('#trialValue'),mission.id+' : exploration bloquée après erreur').toBeEnabled();
+     await expect(page.locator('#trial'),mission.id+' : verdict prématuré').toBeDisabled();
+     await expect(page.locator('#solution'),mission.id+' : corrigé après un essai').toBeDisabled();
+     await expect(page.locator('#solutionText'),mission.id+' : corrigé révélé').toBeHidden();
+     await page.locator('#trialValue').evaluate(el=>{
+      el.value=el.min;el.dispatchEvent(new Event('input',{bubbles:true}));
+     });
+     const svg=page.locator('figure svg').first();
+     await expect(svg,mission.id+' : schéma absent').toBeVisible();
+     await expect(svg.locator('[data-result]'),mission.id+' : fuite numérique').toHaveCount(0);
+     const width=await page.evaluate(()=>({doc:document.documentElement.scrollWidth,view:innerWidth}));
+     expect(width.doc,mission.id+' : débordement horizontal').toBeLessThanOrEqual(width.view+2);
+     expect(errors,mission.id+' : erreur JavaScript').toEqual([]);
+     for(let i=0;i<3;i++)await page.locator('#hint').click();
+     await expect(page.locator('#solution'),mission.id+' : corrigé après une tentative').toBeDisabled();
+     for(let i=0;i<2;i++){
+      await page.locator('#answer').fill(String(wrong));
+      await page.locator('#calc button[type="submit"]').click();
+     }
+     await expect(page.locator('#solution'),mission.id+' : corrigé bloqué après 3+3').toBeEnabled();
+     await page.locator('#solution').click();
+     await expect(page.locator('#solutionText'),mission.id+' : corrigé absent après 3+3').toBeVisible();
+     expect(errors,mission.id+' : exception après validation').toEqual([]);
+    }
+   });
+  }
+  test('clavier : lien d’évitement et validation Entrée sur cinq missions',async({page})=>{
+   test.setTimeout(90_000);
+   for(const mission of browserBatch260to309.slice(0,5)){
+    await page.goto('http://127.0.0.1:4173/'+mission.url);
+    await page.keyboard.press('Tab');
+    await expect(page.locator('a.skip'),mission.id+' : lien d’évitement').toBeFocused();
+    const answer=page.locator('#answer');await answer.focus();
+    const wrong=await page.evaluate(()=>Math.abs(window.SI_MISSION.expected)*1e6+1e6);
+    await answer.fill(String(wrong));await answer.press('Enter');
+    await expect(page.locator('#trialValue'),mission.id+' : validation clavier').toBeEnabled();
+    await expect(page.locator('#solution'),mission.id+' : fuite du corrigé').toBeDisabled();
+   }
+  });
+ });
+}
