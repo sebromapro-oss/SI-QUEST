@@ -911,3 +911,13 @@
 - Cinq missions nouvelles : `bolted-joint-differential-thermal-preload-01`, `pneumatic-cylinder-retraction-force-01`, `accumulator-gas-precharge-temperature-01`, `natural-convection-grashof-01`, `electrical-earth-loop-fault-current-01`. Oracles indépendants à trois valeurs, domaines, unités, schémas et corrigés ; tests Node et Playwright desktop/Android émulé ajoutés. CI du commit à confirmer après publication.
 - 597 missions historiques conservées dans leur ordre, 602 précédentes intactes ; total visé **607/996**. Aucun changement accueil, 17 univers, AppDeploy ou données privées.
 - Réserves : pas de réception scientifique et graphique exhaustive, pas de tests physiques NVDA/TalkBack/VoiceOver, ni audit complet de l'historique Git. Prochaine action : vérifier CI, corriger régressions, poursuivre audit 25–50 missions et nouveaux lots sûrs.
+
+
+### CI et reprise du lot 603–607 (31 octobre 2026, 20 h 20, Paris)
+
+- Commit de publication atomique : [`3d0b542490`](https://github.com/sebromapro-oss/SI-QUEST/commit/3d0b542490bdd634c9fed569c046673568b34f5e) ; 11 fichiers ajoutés ou modifiés, **607 pages de missions** au catalogue. Les 597 missions initiales et les cinq missions 598–602 restent présentes.
+- Premier contrôle Node : **2 637/2 638 réussis, 1 échec** sur `3d0b542490` ; erreur d'assertion strictement exacte sur la pression isochore `60.00000000000001` contre `60` (arrondi IEEE-754, moteur physique correct). Échec conservé dans l'historique, non masqué.
+- Correctif de test de tolérance machine : [`0e902268bf`](https://github.com/sebromapro-oss/SI-QUEST/commit/0e902268bf2aeed9009501c557aeaa822ea2cb87). **2 638/2 638 tests Node réussis, 0 échec** : [recette](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41233525136), [science](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41233525089), [qualité](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41233525069).
+- Vérification supplémentaire du moteur dans un environnement JS isolé : cinq lois, chacune aux trois points minimum/nominal/maximum ; 15 résultats finis, 15 SVG finis avec points de graphe. Les cinq modèles ont un oracle indépendant dans `tests/batch603-607.test.cjs`.
+- **Recette navigateur** [`41233447076`](https://github.com/sebromapro-oss/SI-QUEST/actions/runs/41233447076) encore en cours lors de la rédaction ; aucune réussite navigateur annoncée sans son résultat. Tests physiques et lecteurs d'écran non réalisés.
+- Prochain cycle : contrôler l'issue des deux shards navigateur ; corriger immédiatement toute régression ; continuer l'audit indépendant par lots et l'extension seulement avec preuves.
